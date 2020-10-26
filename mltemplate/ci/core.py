@@ -2,7 +2,7 @@ import copy
 from typing import List, Set, Tuple, Union
 
 from mltemplate.ci.writers import yaml_as_string
-from mltemplate.ci.yaml_order import PHASE_ORDER, STAGE_ORDER, sort_stages
+from mltemplate.ci.yaml_order import PHASE_ORDER, sort_stages, STAGE_ORDER
 
 
 def is_ci_object(x):
@@ -126,7 +126,7 @@ class Job:
         return key in self._phases
 
     def set_stage(self, stage: str):
-        setattr(self, "stage", stage)
+        self.stage = stage
 
     def get(self, *args, **kwargs):
         return self._phases.get(*args, **kwargs)

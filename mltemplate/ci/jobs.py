@@ -1,10 +1,10 @@
 from mltemplate.ci.core import PythonJob
 from mltemplate.ci.scripts import (
+    InstallProject,
     NoBumpVersionCommit,
+    RunPytest,
     StyleCheckInstall,
     StyleCheckRun,
-    InstallProject,
-    RunPytest,
 )
 
 

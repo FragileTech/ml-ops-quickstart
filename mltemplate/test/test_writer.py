@@ -1,7 +1,8 @@
 from pathlib import Path
+
 import pytest
 
-from mltemplate.ci.writers import Travis, GitLab
+from mltemplate.ci.writers import GitLab, Travis
 from mltemplate.test.test_pipelines import pipeline
 
 

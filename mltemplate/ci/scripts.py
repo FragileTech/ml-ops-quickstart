@@ -1,19 +1,14 @@
 from mltemplate.ci.commands import (
-    install_python_project,
-    coverage_script,
-    style_script,
-    style_install,
-    docker_test_script,
-    dockerhub_install,
-    dockerhub_script,
-    dockerhub_deploy_script,
-    bump_version_script,
     bump_version_install,
-    pypi_install,
+    bump_version_script,
+    coverage_script,
+    install_python_project,
     pypi_deploy_script,
+    pypi_install,
     pypi_script,
+    style_install,
+    style_script,
 )
-
 from mltemplate.ci.core import Script
 
 

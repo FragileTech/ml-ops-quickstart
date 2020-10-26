@@ -1,9 +1,6 @@
 import os
 from pathlib import Path
 from shutil import copyfile
-import sys
-
-from mltemplate.ci.travis import export_travis_config
 
 ASSETS_PATH = Path(__file__).parent / "assets"
 COMMON_ASSETS_PATH = ASSETS_PATH / "common"
@@ -12,7 +9,9 @@ STYLE_ASSETS_PATH = ASSETS_PATH / "style"
 
 
 def _create_empty_file(filepath: Path):
-    with open(filepath, "w") as file:
+    if filepath.exists():
+        return
+    with open(filepath, "w") as _:
         pass
 
 
@@ -55,11 +54,10 @@ def create_common_files(params, root_path: Path):
 
 def setup_project(params, root_path):
     template = params["template"]
-    ci_stages = params["ci"]["ci_stages"]
-    python_versions = params["ci"]["python_versions"]
+    _ = params["ci"]["ci_stages"]
+    _ = params["ci"]["python_versions"]
     create_project_directories(template["project_name"], root_path)
     create_common_files(template, root_path)
     add_style_check(template, root_path, False)
-    export_travis_config(root_path, template, ci_stages, python_versions)
     copy_and_fill_in_file(SETUP_ASSETS_PATH / "setup.py", root_path / "setup.py", template)
     copy_and_fill_in_file(COMMON_ASSETS_PATH / "Makefile", root_path / "Makefile", template)

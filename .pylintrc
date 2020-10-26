@@ -1,0 +1,11 @@
+[MASTER]
+jobs=0
+ignore=test
+load-plugins=pylint.extensions.docparams
+
+[MESSAGES CONTROL]
+disable=all
+enable=missing-param-doc,
+       differing-param-doc,
+       differing-type-doc,
+       missing-return-doc

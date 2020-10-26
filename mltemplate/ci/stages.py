@@ -1,5 +1,5 @@
 from mltemplate.ci.core import Stage
-from mltemplate.ci.jobs import StyleCheck, RunTests
+from mltemplate.ci.jobs import RunTests, StyleCheck
 
 
 class StyleCheckStage(Stage):

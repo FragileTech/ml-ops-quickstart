@@ -1,7 +1,7 @@
 
 [run]
 branch = True
-source = fragile
+source = mltemplate
 
 [report]
 exclude_lines =
@@ -10,4 +10,4 @@ exclude_lines =
     if __name__ == "__main__":
 ignore_errors = True
 omit =
-    fragile/tests/*
+    mltemplate/test/*

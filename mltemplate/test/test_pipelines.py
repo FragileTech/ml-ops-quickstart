@@ -1,6 +1,7 @@
 import pytest
+
 from mltemplate.ci.core import Pipeline
-from mltemplate.ci.stages import StyleCheckStage, Pytest
+from mltemplate.ci.stages import Pytest, StyleCheckStage
 from mltemplate.ci.writers import swap_dictionary_key, yaml_as_string
 
 

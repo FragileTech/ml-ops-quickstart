@@ -1,8 +1,9 @@
 import copy
+
 from ruamel.yaml import YAML as RuamelYAML
 from ruamel.yaml.compat import StringIO
 
-from mltemplate.ci.yaml_order import sort_dict, sort_stages, ALL_ORDERS
+from mltemplate.ci.yaml_order import ALL_ORDERS, sort_dict, sort_stages
 
 
 class StringYAML(RuamelYAML):

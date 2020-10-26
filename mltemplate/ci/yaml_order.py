@@ -1,5 +1,3 @@
-import copy
-
 STAGE_ORDER = {"style": 0, "style_check": 0, "build": 1, "test": 2, "deploy": 4}
 PHASE_ORDER = {
     "stage": 0,
