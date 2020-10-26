@@ -1,0 +1,111 @@
+language: python
+sudo: true
+dist: bionic
+services:
+  - docker
+cache: pip
+before_cache:
+  - chown -R travis:travis $HOME/.cache/pip
+stages:
+  - style
+  - test
+  - bump-version
+  - deploy
+before_install:
+  - env
+_install: &_install
+  - pip install --upgrade pip cython codecov pytest ipython pipenv
+  - pipenv install -r requirements.txt --no-use-pep517
+  - pipenv install . --no-use-pep517
+  - find . -wholename "./tests/*" -type d -exec chmod 555 {} \;
+
+_coverage: &_coverage
+  - coverage run --concurrency=multiprocessing -m pytest tests
+  - travis_retry coverage combine
+matrix:
+  fast_finish: true
+  include:
+    - stage: style
+      if: commit_message !~ /^Bump version/
+      name: "Check code style"
+      python: 3.6
+      script:
+        - make check
+      install:
+        - pip install -r requirements-lint.txt
+    - stage: test
+      if: commit_message !~ /^Bump version/
+      name: "Test python 3.6"
+      python: 3.6
+      script: *_coverage
+      install: *_install
+    - stage: test
+      if: commit_message !~ /^Bump version/
+      name: "Test python 3.7"
+      python: 3.7
+      script: *_coverage
+      install: *_install
+    - stage: test
+      if: commit_message !~ /^Bump version/
+      name: "Test python 3.8"
+      python: 3.8
+      script: *_coverage
+      install: *_install
+      after_success:
+        - codecov
+
+    - stage: test
+      if: commit_message !~ /^Bump version/
+      name: "Tests inside docker"
+      script:
+        - make docker-build
+        - make docker-test
+    - stage: bump-version
+      if: branch == master AND type != pull_request AND commit_message !~ /^Bump version/
+      name: Bump the version
+      install:
+        - git config --global user.name "#BOT_NAME"
+        - git config --global user.email "#BOT_EMAIL"
+        - pip install bump2version
+      script:
+        - set -e
+        - git pull --no-edit origin master
+        - version_file=fragile/version.py
+        - current_version=$(grep __version__ $version_file | cut -d\" -f2)
+        - bumpversion --tag --current-version $current_version --commit patch $version_file
+        - git remote add fragile-bot-remote https://fragile-bot:${GITHUB_TOKEN}@github.com/$TRAVIS_REPO_SLUG
+        - git push --tags fragile-bot-remote HEAD:master
+        - set +e
+    - stage: deploy
+      if: tag =~ .*
+      name: Push package to PyPI
+      install:
+        - pip install --upgrade pip
+        - pip install twine pyopenssl
+      script:
+        - set -e
+        - test "v$(python3 setup.py --version)" == "$TRAVIS_TAG"
+        - python3 setup.py bdist_wheel
+        - set +e
+      deploy:
+        provider: script
+        script: twine upload dist/*.whl -u $PYPI_LOGIN -p $PYPI_PASS
+        skip_cleanup: true
+        on:
+          tags: true
+    - stage: deploy
+      if: tag =~ .*
+      name: Push docker image to DockerHub
+      install:
+        - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
+      script:
+        - make docker-build VERSION=$TRAVIS_TAG
+      deploy:
+        provider: script
+        script: make docker-push VERSION=$TRAVIS_TAG
+        skip_cleanup: true
+        on:
+          tags: true
+
+notifications:
+  email: false

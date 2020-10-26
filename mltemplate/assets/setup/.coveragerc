@@ -1,0 +1,14 @@
+
+[run]
+branch = True
+source = %PROJECT_NAME
+
+[report]
+exclude_lines =
+    no cover
+    raise NotImplementedError
+    if __name__ == "__main__":
+ignore_errors = True
+omit =
+    %PROJECT_NAME/tests/*
+    tests/*
