@@ -11,29 +11,6 @@ version = SourceFileLoader(
 with open(Path(__file__).with_name("README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
-# Module-specific dependencies.
-extras = {
-    "atari": ["atari-py==0.1.1", "opencv-python", "gym", "pillow-simd", "plangym>=0.0.7"],
-    "dataviz": [
-        "matplotlib",
-        "bokeh<2.0.0",
-        "pandas",
-        "panel",
-        "holoviews",
-        "hvplot",
-        "plotly",
-        "streamz",
-        "param",
-        "selenium",
-        "pyarrow",
-    ],
-    "test": ["pytest>=5.3.5", "hypothesis==5.6.0"],
-    "ray": ["ray", "setproctitle"],
-}
-
-# Meta dependency groups.
-extras["all"] = [item for group in extras.values() for item in group]
-
 setup(
     name="%PROJECT_NAME",
     description="%DESCRIPTION",
@@ -48,7 +25,7 @@ setup(
     download_url="%URL",
     keywords=["Machine learning", "artificial intelligence"],
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
-    extras_require=extras,
+    extras_require=[],
     install_requires=[],
     package_data={"": ["README.md"]},
     classifiers=[

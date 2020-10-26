@@ -31,7 +31,7 @@ class InstallProject(Script):
 
 
 class RunPytest(Script):
-    def __init__(self, name="run_pytest", as_string: bool = False, aliased: bool = True):
+    def __init__(self, name="coverage", as_string: bool = False, aliased: bool = True):
         super(RunPytest, self).__init__(
             name=name, cmd=coverage_script, as_string=as_string, aliased=aliased
         )
@@ -90,7 +90,7 @@ class StyleCheckRun(Script):
 
 class NoBumpVersionCommit(Script):
     def __init__(
-        self, name="no_version_bump_commit", as_string: bool = True, aliased: bool = True
+        self, name="no_version_bump_commit", as_string: bool = False, aliased: bool = True
     ):
         super(NoBumpVersionCommit, self).__init__(
             name=name,

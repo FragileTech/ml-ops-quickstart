@@ -3,7 +3,7 @@ from mltemplate.ci.jobs import StyleCheck, RunTests
 
 
 class StyleCheckStage(Stage):
-    def __init__(self, name="style_check", **kwargs):
+    def __init__(self, name="style", **kwargs):
         super(StyleCheckStage, self).__init__(name=name, jobs=[StyleCheck(stage=name, **kwargs)])
         self.set_job_stages(name)
 
