@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 from mltemplate.ci.writers import GitLab, Travis
-from mltemplate.test.test_pipelines import pipeline
+from mltemplate.tests.test_pipelines import pipeline
 
 
 def test_travis(pipeline):

@@ -13,7 +13,7 @@ class StyleCheck(PythonJob):
         self,
         name="check_code_style",
         stage=None,
-        python_version=3.6,
+        python_version=3.8,
         install=StyleCheckInstall(),
         script=StyleCheckRun(),
         condition=NoBumpVersionCommit(),

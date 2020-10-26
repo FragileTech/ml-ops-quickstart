@@ -24,9 +24,9 @@ matrix:
   fast_finish: true
   include:
     - stage: style
-      name: Check code style on python 3.6
+      name: Check code style on python 3.8
       if: *_no_version_bump_commit
-      python: 3.6
+      python: 3.8
       install:
         - pip install -r requirements-lint.txt
       script:
