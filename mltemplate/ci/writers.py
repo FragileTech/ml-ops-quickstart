@@ -50,6 +50,14 @@ def fill_in_template(text, params=None):
     return text
 
 
+def _clean_alias_def(text, name_aliases=None):
+    if name_aliases is None:
+        return text
+    for alias in name_aliases:
+        text = text.replace(f"_{alias}: &_{alias}:", f"_{alias}: &_{alias}")
+    return text
+
+
 def export_travis_config(path, params, aliases_names=None, template_params=None, **kwargs):
     yaml = RuamelYAML()
     yaml.indent(sequence=4, offset=2)
@@ -57,6 +65,11 @@ def export_travis_config(path, params, aliases_names=None, template_params=None,
         yaml.dump(
             params, f, transform=format_output_yaml(aliases_names, template_params), **kwargs
         )
+    with open(path, "r") as f:
+        string_file = f.read()
+    string_file = _clean_alias_def(string_file, aliases_names)
+    with open(path, "w") as f:
+        f.write(string_file)
 
 
 def yaml_as_string(params, aliases_names=None, script_params=None):
