@@ -5,8 +5,7 @@ from setuptools import find_packages, setup
 
 
 version = SourceFileLoader(
-    "mltemplate.version",
-    str(Path(__file__).parent / "mltemplate" / "version.py"),
+    "mltemplate.version", str(Path(__file__).parent / "mltemplate" / "version.py"),
 ).load_module()
 
 with open(Path(__file__).with_name("README.md"), encoding="utf-8") as f:

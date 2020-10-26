@@ -21,10 +21,9 @@ exclude = '''
   | buck-out
   | build
   | dist
-  | assets
 )/
 '''
-
+# Code coverate config
 [tool.coverage.run]
 branch = true
 source = ["mltemplate"]
@@ -36,6 +35,7 @@ exclude_lines =["no cover",
 ignore_errors = true
 omit = ["mltemplate/test/*"]
 
+# Flakehell config
 [tool.flakehell]
 # optionally inherit from remote config (or local if you want)
 base = "https://raw.githubusercontent.com/life4/flakehell/master/pyproject.toml"
@@ -43,7 +43,6 @@ base = "https://raw.githubusercontent.com/life4/flakehell/master/pyproject.toml"
 exclude = [".git", "docs", ".ipynb*", "*.ipynb", ".pytest_cache"]
 # make output nice
 format = "grouped"
-# don't limit yourself
 max_line_length = 99
 # show line of source code in output
 show_source = true
@@ -51,26 +50,19 @@ inline_quotes='"'
 
 [tool.flakehell.plugins]
 flake8-quotes = ["-Q000"]
-pycodestyle = ["+*"]
+pycodestyle = ["+*" ,"-B008","-B301","-C815","-C816","-C812","-D100",
+    "-D105","-D200","-D202","-D301","-D402","-E121","-E123","-E126","-E203","-E226",
+    "-E24","-E704","-F821","-W503","-W504"]
 pyflakes = ["+*"]
-pylint = ["+*", "-D*"]
+pylint = ["+*", "-D*"] # disable docs by default
 
 # match by prefix
-[tool.flakehell.exceptions."tests/"]
-pycodestyle = ["-F401", "-F811" ,"-B008","-B301","-C815","-C816","-C812","-D100",
-    "-D105","-D200","-D202","-D301","-D402","-E121","-E123","-E126","-E203","-E226",
-    "-E24","-E704","-F821","-W503","-W504"] # disable a check
+[tool.flakehell.exceptions."**/tests/*"]
+pycodestyle = ["-F401", "-F811"] # disable a check
 pyflakes = ["-*"]           # disable a plugin
 
-[tool.flakehell.exceptions."tests/test_example.py"]
-pyflakes = ["+*"]           # enable a plugin
-
-# match by glob
-[tool.flakehell.exceptions."**/test_*.py"]
-pyflakes = ["-*"]
-
 [tool.pylint.master]
-ignore = 'test'
+ignore = 'tests'
 load-plugins =' pylint.extensions.docparams'
 
 [tool.pylint.messages_control]

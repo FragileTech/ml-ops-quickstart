@@ -1,9 +1,8 @@
 # Pytest and code coverage
 install_python_project = [
-    "pip install --upgrade pip cython codecov pytest ipython pipenv",
-    # "pipenv install -r requirements.txt --no-use-pep517",
+    "pip install --upgrade pip cython coverage[toml] codecov pytest ipython pipenv",
     "pipenv install .",
-    'find . -wholename "./tests/*" -type d -exec chmod 555 {} \\;',
+    'find . -wholename "*/tests/*" -type d -exec chmod 555 {} \\;',
 ]
 
 coverage_script = [

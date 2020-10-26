@@ -1,15 +1,15 @@
 current_dir = $(shell pwd)
 
-PROJECT = %PROJECT_NAME
-DOCKER_ORG = %DOCKER_ORG
+PROJECT = mltemplate
+DOCKER_ORG = fragile
 VERSION ?= latest
 
 .POSIX:
 check:
-	!(grep -R /tmp mltemplate/test)
-	flakehell lint mltemplate
-	pylint mltemplate
-	black --check mltemplate
+	!(grep -R /tmp ${PROJECT}/tests)
+	flakehell lint ${PROJECT}
+	pylint ${PROJECT}
+	black --check ${PROJECT}
 
 .PHONY: test
 test:
@@ -19,13 +19,13 @@ test:
 .PHONY: docker-test
 docker-test:
 	find -name "*.pyc" -delete
-	docker run --rm -it --network host -w /%PROJECT_NAME --entrypoint python3 %DOCKER_ORG/%PROJECT_NAME:${VERSION} -m pytest
+	docker run --rm -it --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest
 
 
 .PHONY: docker-build
 docker-build:
-	docker build --pull -t %DOCKER_ORG/%PROJECT_NAME:${VERSION} .
+	docker build --pull -t ${DOCKER_ORG}/${PROJECT}:${VERSION} .
 
 .PHONY: docker-push
 docker-push:
-	docker push %DOCKER_ORG/%PROJECT_NAME:${VERSION}
+	docker push ${DOCKER_ORG}/${PROJECT}:${VERSION}
