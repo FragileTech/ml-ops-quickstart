@@ -7,13 +7,13 @@ cache: pip
 before_cache:
   - chown -R travis:travis $HOME/.cache/pip
 stages:
-  - style_check
+  - style
 before_install:
   - env
 matrix:
   fast_finish: true
   include:
-    - stage: style_check
+    - stage: style
       name: Check code style on python 3.6
       if: commit_message !~ /^Bump version/
       python: 3.6

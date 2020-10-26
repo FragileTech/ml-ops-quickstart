@@ -90,7 +90,7 @@ class StyleCheckRun(Script):
 
 class NoBumpVersionCommit(Script):
     def __init__(
-        self, name="no_version_bump_commit", as_string: bool = True, aliased: bool = True
+        self, name="no_version_bump_commit", as_string: bool = True, aliased: bool = False
     ):
         super(NoBumpVersionCommit, self).__init__(
             name=name,
