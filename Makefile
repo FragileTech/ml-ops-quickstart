@@ -6,7 +6,7 @@ VERSION ?= latest
 
 .POSIX:
 check:
-	!(grep -R /tmp ./tests)
+	!(grep -R /tmp mltemplate/test)
 	black --check mltemplate
 
 .PHONY: test

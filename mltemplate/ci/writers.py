@@ -54,7 +54,9 @@ def export_travis_config(path, params, aliases_names=None, template_params=None,
     yaml = RuamelYAML()
     yaml.indent(sequence=4, offset=2)
     with open(path, "w") as f:
-        yaml.dump(params, f, transform=format_output_yaml(aliases_names, template_params), **kwargs)
+        yaml.dump(
+            params, f, transform=format_output_yaml(aliases_names, template_params), **kwargs
+        )
 
 
 def yaml_as_string(params, aliases_names=None, script_params=None):
