@@ -238,7 +238,7 @@ class GitLab(PipelineToYAML):
         default_root_key: int = 15,
     ):
         default = {"image": "python:3.6", "services": ["docker", "pip"]}
-        yaml_config = {"default": default, "stages": [],} if yaml_config is None else yaml_config
+        yaml_config = {"default": default, "stages": []} if yaml_config is None else yaml_config
         super(GitLab, self).__init__(
             pipeline,
             order=order,
