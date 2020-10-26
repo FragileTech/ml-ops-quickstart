@@ -42,7 +42,7 @@ def copy_and_fill_in_file(src: Path, dst: Path, params: dict):
 
 def add_style_check(params, root_path: Path, doc_linter: bool = True):
     for filename in os.listdir(STYLE_ASSETS_PATH):
-        if filename == ".pylintrc" and not doc_linter:
+        if filename == "._pylintrc" and not doc_linter:
             continue
         copy_and_fill_in_file(STYLE_ASSETS_PATH / filename, root_path / filename, params)
 

@@ -21,6 +21,51 @@ exclude = '''
   | buck-out
   | build
   | dist
-  | assets
 )/
 '''
+
+[tool.flakehell]
+# optionally inherit from remote config (or local if you want)
+base = "https://raw.githubusercontent.com/life4/flakehell/master/pyproject.toml"
+# specify any flake8 options. For example, exclude "example.py":
+exclude = [".git", "docs", ".ipynb*", "*.ipynb", ".pytest_cache"]
+# make output nice
+format = "grouped"
+# don't limit yourself
+max_line_length = 99
+# show line of source code in output
+show_source = true
+inline_quotes='"'
+
+[tool.flakehell.plugins]
+flake8-quotes = ["-Q000"]
+pycodestyle = ["+*"]
+pyflakes = ["+*"]
+pylint = ["+*", "-D*"]
+
+# match by prefix
+[tool.flakehell.exceptions."tests/"]
+pycodestyle = ["-F401", "-F811" ,"-B008","-B301","-C815","-C816","-C812","-D100",
+    "-D105","-D200","-D202","-D301","-D402","-E121","-E123","-E126","-E203","-E226",
+    "-E24","-E704","-F821","-W503","-W504"] # disable a check
+pyflakes = ["-*"]           # disable a plugin
+
+[tool.flakehell.exceptions."tests/test_example.py"]
+pyflakes = ["+*"]           # enable a plugin
+
+# match by glob
+[tool.flakehell.exceptions."**/test_*.py"]
+pyflakes = ["-*"]
+
+[tool.pylint.master]
+ignore = 'test'
+load-plugins =' pylint.extensions.docparams'
+
+[tool.pylint.messages_control]
+disable = 'all,'
+enable = """,
+         missing-param-doc,
+         differing-param-doc,
+         differing-type-doc,
+         missing-return-doc,
+         """

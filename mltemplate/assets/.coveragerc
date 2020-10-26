@@ -1,7 +1,7 @@
 
 [run]
 branch = True
-source = %PROJECT_NAME
+source = {project_name}
 
 [report]
 exclude_lines =
@@ -10,5 +10,5 @@ exclude_lines =
     if __name__ == "__main__":
 ignore_errors = True
 omit =
-    %PROJECT_NAME/tests/*
+    {project_name}/tests/*
     tests/*

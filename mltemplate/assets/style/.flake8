@@ -7,8 +7,7 @@ exclude=
 
 inline-quotes="
 import-order-style=appnexus
-application-package-names=%PROJECT_NAME
+application-package-names={project_name}
 per-file-ignores=
     **/__init__.py: F401
-    **/tests/**:D
-    **/tests/**:F811
+    **/tests/**:D, F401, F811

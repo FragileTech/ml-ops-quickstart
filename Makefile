@@ -7,7 +7,7 @@ VERSION ?= latest
 .POSIX:
 check:
 	!(grep -R /tmp mltemplate/test)
-	flake8 --count mltemplate
+	flakehell lint mltemplate
 	pylint mltemplate
 	black --check mltemplate
 

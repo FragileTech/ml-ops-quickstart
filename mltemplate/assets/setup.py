@@ -5,24 +5,25 @@ from setuptools import find_packages, setup
 
 
 version = SourceFileLoader(
-    "%PROJECT_NAME.version", str(Path(__file__).parent / "%PROJECT_NAME" / "version.py"),
+    "{project_name}.version",
+    str(Path(__file__).parent / "{project_name}" / "version.py"),
 ).load_module()
 
 with open(Path(__file__).with_name("README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name="%PROJECT_NAME",
-    description="%DESCRIPTION",
+    name="{project_name}",
+    description="{description}",
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_packages(),
     version=version.__version__,
-    license="%LICENSE",
-    author="%AUTHOR",
-    author_email="%EMAIL",
-    url="%URL",
-    download_url="%URL",
+    license="{license}",
+    author="{author}",
+    author_email="{author_email}",
+    url="{url}",
+    download_url="{url}",
     keywords=["Machine learning", "artificial intelligence"],
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
     extras_require=[],
