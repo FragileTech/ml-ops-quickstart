@@ -1,0 +1,46 @@
+language: python
+sudo: true
+dist: bionic
+services:
+  - docker
+cache: pip
+before_cache:
+  - chown -R travis:travis $HOME/.cache/pip
+stages:
+  - test
+before_install:
+  - env
+_install: &_install:
+  - pip install --upgrade pip cython codecov pytest ipython pipenv
+  - pipenv install -r requirements.txt --no-use-pep517
+  - pipenv install . --no-use-pep517
+  - find . -wholename "./tests/*" -type d -exec chmod 555 {} \;
+_run_pytest: &_run_pytest:
+  - coverage run --concurrency=multiprocessing -m pytest tests
+  - travis_retry coverage combine
+_no_version_bump_commit: &_no_version_bump_commit: commit_message !~ /^Bump version/
+matrix:
+  fast_finish: true
+  include:
+    - stage: test
+      name: Run tests on python 3.6
+      if: *_no_version_bump_commit
+      python: 3.6
+      install: *_install
+      script: *_run_pytest
+    - stage: test
+      name: Run tests on python 3.7
+      if: *_no_version_bump_commit
+      python: 3.7
+      install: *_install
+      script: *_run_pytest
+    - stage: test
+      name: Run tests on python 3.8
+      if: *_no_version_bump_commit
+      python: 3.8
+      install: *_install
+      script: *_run_pytest
+      after_success:
+        - codecov
+notifications:
+  email: false

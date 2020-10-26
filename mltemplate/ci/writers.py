@@ -50,11 +50,11 @@ def fill_in_template(text, params=None):
     return text
 
 
-def export_travis_config(path, params, aliases_names=None, script_params=None, **kwargs):
+def export_travis_config(path, params, aliases_names=None, template_params=None, **kwargs):
     yaml = RuamelYAML()
     yaml.indent(sequence=4, offset=2)
     with open(path, "w") as f:
-        yaml.dump(params, f, transform=format_output_yaml(aliases_names, script_params), **kwargs)
+        yaml.dump(params, f, transform=format_output_yaml(aliases_names, template_params), **kwargs)
 
 
 def yaml_as_string(params, aliases_names=None, script_params=None):
@@ -135,23 +135,23 @@ class PipelineToYAML:
         return f"{self.__class__.__name__}:\n{text}"
 
     @staticmethod
-    def write_yaml(path, yaml: dict, aliases_names=None, script_params=None, **kwargs):
+    def write_yaml(path, yaml: dict, aliases_names=None, template_params=None, **kwargs):
         return export_travis_config(
             path=path,
             params=yaml,
             aliases_names=aliases_names,
-            script_params=script_params,
+            template_params=template_params,
             **kwargs
         )
 
     def dump(self, path, template_params=None, **kwargs):
-        script_params = self.template_params if template_params is None else template_params
+        template_params = self.template_params if template_params is None else template_params
         yaml = self.compile()
-        return export_travis_config(
+        return self.write_yaml(
             path=path,
             yaml=yaml,
             aliases_names=self.pipeline.aliased_names(),
-            script_params=script_params,
+            template_params=template_params,
             **kwargs
         )
 
