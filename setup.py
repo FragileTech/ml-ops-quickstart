@@ -12,23 +12,48 @@ version = SourceFileLoader(
 with open(Path(__file__).with_name("README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
+data_files = (
+    [
+        (
+            "mltemplate.requirements",
+            [
+                "mltemplate/assets/requirements/data-science.txt",
+                "mltemplate/assets/requirements/data-visualization.txt",
+                "mltemplate/assets/requirements/requirments-lint.txt",
+            ],
+        ),
+        (
+            "mltemplate.config_files",
+            [
+                "mltemplate/assets/files/.gitignore",
+                "mltemplate/assets/files/DCO.md",
+                "mltemplate/assets/files/LICENSE",
+                "mltemplate/assets/files/Makefile",
+                "mltemplate/assets/files/pyproject.toml",
+                "mltemplate/assets/files/setup.py",
+                "mltemplate/assets/files/version.py",
+            ],
+        ),
+    ],
+)
 
 setup(
     name="mltemplate",
-    description="{description}",
+    description="Package for initializing ML projects",
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_packages(),
     version=version.__version__,
-    license="{license}",
-    author="{author}",
-    author_email="{email}",
-    url="{url}",
-    download_url="{url}",
+    license="MIT",
+    author="Guillem Duran Ballester",
+    author_email="guillem.db@gmail.com",
+    url="https://github.com/guillemdb/ml-repo-template",
+    download_url="https://github.com/Guillemdb/ml-repo-template.git",
     keywords=["Machine learning", "artificial intelligence"],
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
     install_requires=[],
     package_data={"": ["README.md"]},
+    data_files=data_files,
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Console",

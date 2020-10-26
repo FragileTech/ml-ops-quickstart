@@ -1,7 +1,7 @@
 # Pytest and code coverage
 install_python_project = [
     "pip install --upgrade pip cython coverage[toml] codecov pytest ipython pipenv",
-    "pipenv install .",
+    "pipenv install --skip-lock .",
     'find . -wholename "*/tests/*" -type d -exec chmod 555 {} \\;',
 ]
 
