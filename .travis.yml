@@ -14,7 +14,7 @@ before_install:
 _no_version_bump_commit: &_no_version_bump_commit
   - commit_message !~ /^Bump version/
 _install: &_install
-  - pip install --upgrade pip cython codecov pytest ipython pipenv
+  - pip install --upgrade pip cython coverage[toml] codecov pytest ipython pipenv
   - pipenv install .
   - find . -wholename "./tests/*" -type d -exec chmod 555 {} \;
 _coverage: &_coverage

@@ -14,10 +14,14 @@ flake8-per-file-ignores = {git = "https://github.com/Guillemdb/flake8-per-file-i
 pylint = "==2.6.0"
 pydocstyle = "==5.1.1"
 flakehell = "==0.7.0"
+coverage = {extras = ["toml"], version = "5.3"}
+codecov = "==2.1.10"
+pytest = "==5.4.1"
 
 [packages]
 ruamel-yaml= "==0.16.12"
 pyyaml = "==5.3.1"
+
 
 [requires]
 python_version = "3.8"

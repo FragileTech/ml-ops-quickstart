@@ -21,8 +21,20 @@ exclude = '''
   | buck-out
   | build
   | dist
+  | assets
 )/
 '''
+
+[tool.coverage.run]
+branch = true
+source = ["mltemplate"]
+
+[tool.coverage.report]
+exclude_lines =["no cover",
+    'raise NotImplementedError',
+    'if __name__ == "__main__":']
+ignore_errors = true
+omit = ["mltemplate/test/*"]
 
 [tool.flakehell]
 # optionally inherit from remote config (or local if you want)
