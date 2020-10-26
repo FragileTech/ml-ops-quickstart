@@ -4,7 +4,7 @@ from mltemplate.ci.stages import StyleCheckStage, Pytest
 from mltemplate.ci.writers import swap_dictionary_key, yaml_as_string
 
 
-@pytest.fixture(params=[[StyleCheckStage(), Pytest()], [StyleCheckStage()], [Pytest()]])
+@pytest.fixture(params=[[StyleCheckStage(), Pytest()], [Pytest()], [StyleCheckStage()]])
 def pipeline(request):
     return Pipeline(name="miau", stages=request.param)
 
