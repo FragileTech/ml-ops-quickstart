@@ -1,13 +1,13 @@
 # Pytest and code coverage
 install_python_project = [
     "pip install --upgrade pip cython codecov pytest ipython pipenv",
-    "pipenv install -r requirements.txt --no-use-pep517",
-    "pipenv install . --no-use-pep517",
+    # "pipenv install -r requirements.txt --no-use-pep517",
+    "pipenv install .",
     'find . -wholename "./tests/*" -type d -exec chmod 555 {} \\;',
 ]
 
 coverage_script = [
-    "coverage run --concurrency=multiprocessing -m pytest tests",
+    "coverage run --concurrency=multiprocessing -m pytest .",
     "travis_retry coverage combine",
 ]
 # Bump version
