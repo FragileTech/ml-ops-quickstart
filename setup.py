@@ -11,31 +11,6 @@ version = SourceFileLoader(
 with open(Path(__file__).with_name("README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
-data_files = (
-    [
-        (
-            "mltemplate.requirements",
-            [
-                "mltemplate/assets/requirements/data-science.txt",
-                "mltemplate/assets/requirements/data-visualization.txt",
-                "mltemplate/assets/requirements/requirments-lint.txt",
-            ],
-        ),
-        (
-            "mltemplate.config_files",
-            [
-                "mltemplate/assets/files/.gitignore",
-                "mltemplate/assets/files/DCO.md",
-                "mltemplate/assets/files/LICENSE",
-                "mltemplate/assets/files/Makefile",
-                "mltemplate/assets/files/pyproject.toml",
-                "mltemplate/assets/files/setup.py",
-                "mltemplate/assets/files/version.py",
-            ],
-        ),
-    ],
-)
-
 setup(
     name="mltemplate",
     description="Package for initializing ML projects",
@@ -51,7 +26,18 @@ setup(
     keywords=["Machine learning", "artificial intelligence"],
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
     install_requires=["ruamel.yaml>=0.16.12", "pyyaml>=5"],
-    package_data={"": ["README.md"]},
+    package_data={
+        "": ["README.md"],
+        "mltemplate": [
+            "mltemplate/assets/requirements/*.txt",
+            "mltemplate/assets/templates/.gitignore",
+            "mltemplate/assets/templates/*.py",
+            "mltemplate/assets/templates/*.md",
+            "mltemplate/assets/templates/*.toml",
+            "mltemplate/assets/templates/Makefile",
+            "mltemplate/assets/templates/LICENSE",
+        ],
+    },
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Console",

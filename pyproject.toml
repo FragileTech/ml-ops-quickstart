@@ -75,5 +75,4 @@ enable = """,
          """
 
 [build-system]
-requires = ["setuptools >= 50.3.2", "wheel", "ruamel.yaml"]
-build-backend = "setuptools.build_meta"
+requires = ["setuptools >= 50.3.2", "wheel", "importlib"]
