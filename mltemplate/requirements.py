@@ -1,14 +1,20 @@
 import os
-from pathlib import Path
 
 from mltemplate.directories import REQUIREMENTS_PATH, _copy_file
 
 
 def get_requirements_filename(option):
-    aliases = {"data-science.txt": ["data-science", "datascience", "ds"],
-               "pytorch.txt": ["pytorch", "torch"],
-               "data-visualization.txt": ["data-visualization", "data-viz", "data-vis", "dataviz", "datavis"],
-               }
+    aliases = {
+        "data-science.txt": ["data-science", "datascience", "ds"],
+        "pytorch.txt": ["pytorch", "torch"],
+        "data-visualization.txt": [
+            "data-visualization",
+            "data-viz",
+            "data-vis",
+            "dataviz",
+            "datavis",
+        ],
+    }
     for filename, valid_alias in aliases.items():
         if option in valid_alias:
             return filename
@@ -39,7 +45,7 @@ def write_requirements(options, out_path=None, out_name="requirements.txt"):
 def write_dev_requirements(out_path):
     out_path = os.getcwd() if out_path is None else out_path
     _copy_file(REQUIREMENTS_PATH / "requirements-lint.txt", out_path / "requirements-lint.txt")
-    _copy_file(REQUIREMENTS_PATH / "requirements-dev.txt", out_path / "requirements-dev.txt")
+    _copy_file(REQUIREMENTS_PATH / "requirements-test.txt", out_path / "requirements-test.txt")
 
 
 def setup_requirements(options, out_path=None, out_name="requirements.txt"):

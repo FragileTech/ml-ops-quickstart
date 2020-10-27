@@ -48,6 +48,8 @@ def copy_and_fill_in_file(src: Path, dst: Path, params: dict):
 
 def write_templates(params, root_path: Path, templates_path=TEMPLATES_PATH):
     for filename in os.listdir(templates_path):
+        if filename in ["__init__.py", "version.py"]:
+            continue
         copy_and_fill_in_file(templates_path / filename, root_path / filename, params)
 
 

@@ -2,7 +2,7 @@
 install_python_project = [
     "pip install --upgrade pip cython coverage[toml] codecov pytest ipython",
     "pip install -r requirements.txt",
-    "if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi"
+    "if [ -f requirements-test.txt ]; then pip install -r requirements-test.txt; fi"
     'find . -wholename "*/tests/*" -type d -exec chmod 555 {} \\;',
 ]
 coverage_script = [

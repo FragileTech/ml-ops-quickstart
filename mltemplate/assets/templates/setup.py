@@ -25,7 +25,7 @@ setup(
     download_url="{url}",
     keywords=["Machine learning", "artificial intelligence"],
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
-    extras_require=[],
+    extras_require={},
     install_requires=[],
     package_data={"": ["README.md"]},
     classifiers=[

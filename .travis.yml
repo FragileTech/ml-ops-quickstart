@@ -16,7 +16,7 @@ _no_version_bump_commit: &_no_version_bump_commit
 _install: &_install
   - pip install --upgrade pip cython codecov pytest ipython
   - pip install -r requirements.txt --no-use-pep517
-  - if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
+  - if [ -f requirements-test.txt ]; then pip install -r requirements-test.txt; fi
   - pip install .
   - find . -wholename "./tests/*" -type d -exec chmod 555 {} \;
 _coverage: &_coverage
