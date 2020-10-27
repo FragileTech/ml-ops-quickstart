@@ -5,12 +5,12 @@
 #PyCharm IDE
 .idea/
 
-# Documentation build files
+# Documentation build templates
 doc/_build/
 doc/ast2vec.rst
 doc/modules.rst
 
-# Byte-compiled / optimized / DLL files
+# Byte-compiled / optimized / DLL templates
 __pycache__/
 *.py[cod]
 *$py.class
@@ -39,7 +39,7 @@ pip-wheel-metadata
 *.egg
 
 # PyInstaller
-#  Usually these files are written by a python script from a template
+#  Usually these templates are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
@@ -89,7 +89,7 @@ target/
 # celery beat schedule file
 celerybeat-schedule
 
-# SageMath parsed files
+# SageMath parsed templates
 *.sage.py
 
 # dotenv
@@ -125,3 +125,4 @@ docs/
 examples/
 *.pck
 *.npy
+test_grounds/

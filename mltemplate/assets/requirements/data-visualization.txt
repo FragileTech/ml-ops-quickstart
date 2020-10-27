@@ -1,8 +1,8 @@
-bokeh==1.4.0
-holoviews==1.13.3
+bokeh==2.2.3
+holoviews==1.13.5
 hvplot==0.6.0
-matplotlib==3.2.0
-panel==0.8.1
-param==1.9.3
-plotly==4.5.4
-streamz==0.5.4
+matplotlib==3.3.2
+panel==0.10.0
+param==1.10.0
+plotly==4.12.0
+streamz==0.6.0

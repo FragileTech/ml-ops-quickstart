@@ -51,9 +51,6 @@ def write_templates(params, root_path: Path, templates_path=TEMPLATES_PATH):
         copy_and_fill_in_file(templates_path / filename, root_path / filename, params)
 
 
-def setup_project(params, root_path):
-    template = params["template"]
-    _ = params["ci"]["ci_stages"]
-    _ = params["ci"]["python_versions"]
+def setup_project_project_files(template, root_path):
     create_project_directories(template["project_name"], root_path)
     write_templates(template, root_path)
