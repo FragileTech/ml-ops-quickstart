@@ -5,8 +5,7 @@ from setuptools import find_packages, setup
 
 
 version = SourceFileLoader(
-    "mltemplate.version",
-    str(Path(__file__).parent / "mltemplate" / "version.py"),
+    "mltemplate.version", str(Path(__file__).parent / "mltemplate" / "version.py"),
 ).load_module()
 
 with open(Path(__file__).with_name("README.md"), encoding="utf-8") as f:
@@ -51,9 +50,8 @@ setup(
     download_url="https://github.com/Guillemdb/ml-repo-template.git",
     keywords=["Machine learning", "artificial intelligence"],
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
-    install_requires=[],
+    install_requires=["ruamel.yaml>=0.16.12", "pyyaml>=5"],
     package_data={"": ["README.md"]},
-    data_files=data_files,
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Console",

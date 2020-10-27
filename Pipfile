@@ -4,23 +4,25 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-black = "==20.8b1"
+pytest = "==6.1.1"
+hypothesis = "==5.38.1"
 flake8 = "==3.8.4"
 flake8-bugbear = "==20.1.4"
 flake8-docstrings = "==1.5.0"
 flake8-import-order = "==0.18.1"
 flake8-quotes = "==3.2.0"
-flake8-per-file-ignores = {git = "https://github.com/Guillemdb/flake8-per-file-ignores.git"}
 pylint = "==2.6.0"
 pydocstyle = "==5.1.1"
 flakehell = "==0.7.0"
-coverage = {extras = ["toml"], version = "5.3"}
-codecov = "==2.1.10"
-pytest = "==5.4.1"
+black = "==19.10b0"
 
 [packages]
-ruamel-yaml= "==0.16.12"
-pyyaml = "==5.3.1"
+"ruamel.yaml" = "==0.16.12"
+PyYAML = "==5.3.1"
+mltemplate = {path = "."}
 
 [requires]
 python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true

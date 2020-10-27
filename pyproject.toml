@@ -73,3 +73,7 @@ enable = """,
          differing-type-doc,
          missing-return-doc,
          """
+
+[build-system]
+requires = ["setuptools >= 50.3.2", "wheel", "ruamel.yaml"]
+build-backend = "setuptools.build_meta"

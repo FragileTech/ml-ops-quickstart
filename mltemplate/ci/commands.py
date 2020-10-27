@@ -1,14 +1,17 @@
 # Pytest and code coverage
 install_python_project = [
-    "pip install --upgrade pip cython coverage[toml] codecov pytest ipython pipenv",
-    "pipenv install --skip-lock .",
+    "pip install --upgrade pip cython coverage[toml] codecov pytest ipython",
+    "pip install -r requirements.txt --no-use-pep517",
+    "if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt --no-use-pep517; fi"
     'find . -wholename "*/tests/*" -type d -exec chmod 555 {} \\;',
 ]
-
 coverage_script = [
     "coverage run --concurrency=multiprocessing -m pytest .",
     "travis_retry coverage combine",
 ]
+# Pipenv
+pipenv_install = ["make pipenv-build"]
+pipenv_run_tests = ["make pipenv-test"]
 # Bump version
 bump_version_install = [
     'git config --global user.name "{bot_name}"',
