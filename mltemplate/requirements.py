@@ -7,6 +7,7 @@ def get_requirements_filename(option):
     aliases = {
         "data-science.txt": ["data-science", "datascience", "ds"],
         "pytorch.txt": ["pytorch", "torch"],
+        "tensorflow.txt": ["tensorflow"],
         "data-visualization.txt": [
             "data-visualization",
             "data-viz",

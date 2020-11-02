@@ -2,6 +2,13 @@ import os
 from pathlib import Path
 from shutil import copyfile
 
+from jinja2 import Environment, PackageLoader, select_autoescape
+
+env = Environment(
+    loader=PackageLoader('mltemplate', 'assets/templates'),
+    autoescape=select_autoescape(['html', 'xml'])
+)
+
 ASSETS_PATH = Path(__file__).parent / "assets"
 TEMPLATES_PATH = ASSETS_PATH / "templates"
 REQUIREMENTS_PATH = ASSETS_PATH / "requirements"
@@ -32,27 +39,20 @@ def create_project_directories(project_name: str, root_path: Path):
     _create_empty_file(test_path / "__init__.py")
 
 
-def fill_in_template(params, text):
-    for k, v in params.items():
-        text = text.replace("{%s}" % k, v)
-    return text
-
-
-def copy_and_fill_in_file(src: Path, dst: Path, params: dict):
-    with open(src, "r") as f:
-        text = f.read()
-        filled_in_file = fill_in_template(params, text)
-    with open(dst, "w") as f:
-        f.write(filled_in_file)
+def render_template(name: str, params: dict):
+    template = env.get_template(name)
+    return template.render(**params)
 
 
 def write_templates(params, root_path: Path, templates_path=TEMPLATES_PATH):
     for filename in os.listdir(templates_path):
         if filename in ["__init__.py", "version.py"]:
             continue
-        copy_and_fill_in_file(templates_path / filename, root_path / filename, params)
+        rendered = render_template(filename, params)
+        with open(root_path / filename, "w") as f:
+            f.write(rendered)
 
 
-def setup_project_project_files(template, root_path):
-    create_project_directories(template["project_name"], root_path)
-    write_templates(template, root_path)
+def setup_project_project_files(template_params, root_path):
+    create_project_directories(template_params["project_name"], root_path)
+    write_templates(template_params, root_path)

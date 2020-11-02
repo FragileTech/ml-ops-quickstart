@@ -1,10 +1,9 @@
-# Example configuration for Black.
-
 # NOTE: you have to use single-quoted strings in TOML for regular expressions.
 # It's the equivalent of r-strings in Python.  Multiline strings are treated as
 # verbose regular expressions by Black.  Use [ ] to denote a significant space
 # character.
 
+# Example configuration for Black.
 [tool.black]
 line-length = 99
 target-version = ['py34','py35','py36', 'py37', 'py38']
@@ -26,14 +25,14 @@ exclude = '''
 # Code coverate config
 [tool.coverage.run]
 branch = true
-source = ["{project_name}"]
+source = ["{{project_name}}"]
 
 [tool.coverage.report]
 exclude_lines =["no cover",
     'raise NotImplementedError',
     'if __name__ == "__main__":']
 ignore_errors = true
-omit = ["{project_name}/test/*"]
+omit = ["{{project_name}}/test/*"]
 
 # Flakehell config
 [tool.flakehell]

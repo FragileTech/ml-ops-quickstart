@@ -1,13 +1,13 @@
-FROM nvidia/cuda:11.0-runtime-ubuntu20.04
-ARG JUPYTER_PASSWORD=""
+FROM {{base_docker_image}}
+ARG JUPYTER_PASSWORD="{{jupyter_password}}"
 ENV BROWSER=/browser \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8
 
-COPY ../../../Makefile Makefile
-COPY ../../../requirements.txt requirements.txt
+COPY Makefile Makefile
+COPY requirements.txt requirements.txt
 
-COPY ../../.. mltemplate/
+COPY . {{project_name}}/
 
 RUN cd mltemplate && make pipenv-build && pipenv sync && pipenv install ipython jupyter
 RUN make remove-dev-packages
