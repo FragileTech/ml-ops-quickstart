@@ -18,11 +18,11 @@ class StyleCheckStage(Stage):
         self.set_job_stages(name)
 
 
-class Pytest(Stage):
+class PytestStage(Stage):
     def __init__(self, name="test", python_versions=None, **kwargs):
         self.python_versions = [3.6, 3.7, 3.8] if python_versions is None else python_versions
         jobs = self._init_jobs(stage=name, **kwargs)
-        super(Pytest, self).__init__(name=name, jobs=jobs)
+        super(PytestStage, self).__init__(name=name, jobs=jobs)
 
     def _init_jobs(self, stage, **kwargs):
         def init_test(v, codecov):

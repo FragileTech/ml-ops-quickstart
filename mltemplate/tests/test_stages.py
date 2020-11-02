@@ -1,9 +1,9 @@
 import pytest
 
-from mltemplate.ci.stages import Pytest, StyleCheckStage
+from mltemplate.ci.stages import PytestStage, StyleCheckStage
 
 
-@pytest.fixture(params=[StyleCheckStage, Pytest])
+@pytest.fixture(params=[StyleCheckStage, PytestStage])
 def stage(request):
     return request.param()
 

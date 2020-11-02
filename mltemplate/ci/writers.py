@@ -4,6 +4,8 @@ from jinja2 import Template
 from ruamel.yaml import YAML as RuamelYAML
 from ruamel.yaml.compat import StringIO
 
+from mltemplate.ci.core import Pipeline
+from mltemplate.ci.stages import BumpVersionStage, PytestStage, StyleCheckStage
 from mltemplate.ci.yaml_order import ALL_ORDERS, sort_dict, sort_stages
 
 
@@ -296,3 +298,37 @@ class GitLab(PipelineToYAML):
         job = swap_dictionary_value(job, "condition", self._delete_value)
         job = swap_dictionary_value(job, "name", self._delete_value)
         return sort_dict(job, default_key=self.default_phase_key)
+
+
+STAGES_DICT = {
+    "style": StyleCheckStage,
+    "pytest": PytestStage,
+    "bump_version": BumpVersionStage,
+}
+
+
+def init_stages(ci_params):
+    stages = ci_params["stages"]
+    python_versions = ci_params.get("python_versions", [3.8])
+    ci_stages = []
+    for stage_name in stages:
+        if stage_name in STAGES_DICT:
+            stage = (
+                STAGES_DICT[stage_name](python_versions=python_versions)
+                if stage_name == "pytest"
+                else STAGES_DICT[stage_name]()
+            )
+            ci_stages.append(stage)
+    return ci_stages
+
+
+def write_ci_config(path, params):
+    template = params["template"]
+    ci_params = params["ci"]
+    vendor = params["ci"].get("vendor", "travis")
+    stages = init_stages(ci_params)
+    pipeline = Pipeline(name="ci", stages=stages)
+    ci_builder = Travis(pipeline=pipeline) if vendor == "travis" else GitLab(pipeline=pipeline)
+    file_path = path / ".travis.yml" if vendor == "travis" else path / ".gitlab-ci.yml"
+    ci_builder.dump(file_path, template_params=template)
+

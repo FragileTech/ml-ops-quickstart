@@ -1,7 +1,6 @@
 import copy
 from typing import List, Set, Tuple, Union
 
-from mltemplate.ci.writers import yaml_as_string
 from mltemplate.ci.yaml_order import PHASE_ORDER, sort_stages, STAGE_ORDER
 
 
@@ -25,7 +24,7 @@ class Script:
         self.as_string = as_string
         self.aliased = aliased
         self.no_format = no_format
-        self._cmd = self._build_command(cmd, **kwargs)
+        self._cmd = self._build_command(cmd)
 
     def __repr__(self):
         text = self.to_string()
@@ -52,6 +51,7 @@ class Script:
         return f"*`_{self.name}`*"
 
     def to_string(self, keyword=None):
+        from mltemplate.ci.writers import yaml_as_string
         cmd = self.compile_aliases() if self.aliased else self.compile()
         compiled = {keyword if keyword is not None else self.name: cmd}
         alias_names = [self.name] if self.aliased else []
@@ -66,21 +66,10 @@ class Script:
     def compile_aliases(self):
         return {self.alias_definition: self.cmd}
 
-    def _build_command(self, cmd, **kwargs):
+    def _build_command(self, cmd):
         if self.as_string and isinstance(cmd, (list, tuple)):
             cmd = " && ".join(cmd)
-        if self.no_format:
-            return cmd
-        if isinstance(cmd, str):
-            cmd = cmd if kwargs is None else cmd.format(**kwargs)
-            return cmd
-        if isinstance(cmd, (list, tuple)):
-            print(kwargs, cmd)
-            return cmd if kwargs is None else [c.format(**kwargs) for c in cmd]
-        raise TypeError(
-            f"cmd must be an instance of str, tuple or list, got: {type(cmd)} {str(cmd)}"
-        )
-
+        return cmd
 
 class Job:
     def __init__(self, name: str, phase_order=PHASE_ORDER, **kwargs):
@@ -118,6 +107,7 @@ class Job:
         self._phases[key] = value
 
     def __repr__(self):
+        from mltemplate.ci.writers import yaml_as_string
         alias_names = tuple(self.aliased_names())
         text = yaml_as_string([self.compile()], aliases_names=alias_names)
         return f"{self.__class__.__name__}:\n{text}"
@@ -190,6 +180,7 @@ class Stage:
         self._jobs = jobs
 
     def __repr__(self):
+        from mltemplate.ci.writers import yaml_as_string
         text = yaml_as_string(self.compile(), aliases_names=self.aliased_names())
         return f"{self.__class__.__name__}:\n{text}"
 
@@ -232,6 +223,7 @@ class Pipeline:
         self.pipeline_params = dict() if pipeline_params is None else pipeline_params
 
     def __repr__(self):
+        from mltemplate.ci.writers import yaml_as_string
         stages = {s.name: s.compile() for s in self.stages}
         text = yaml_as_string(stages, aliases_names=self.aliased_names())
         return f"{self.__class__.__name__}:\n{text}"
