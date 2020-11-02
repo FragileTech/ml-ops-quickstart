@@ -3,6 +3,7 @@ from mltemplate.ci.commands import (
     bump_version_script,
     coverage_script,
     install_python_project,
+    is_bump_version_commit,
     pypi_deploy_script,
     pypi_install,
     pypi_script,
@@ -92,4 +93,13 @@ class NoBumpVersionCommit(Script):
             cmd=["commit_message !~ /^Bump version/"],
             as_string=as_string,
             aliased=aliased,
+        )
+
+
+class IsBumpVersionCommit(Script):
+    def __init__(
+        self, name="is_version_bump_commit", as_string: bool = False, aliased: bool = True
+    ):
+        super(IsBumpVersionCommit, self).__init__(
+            name=name, cmd=is_bump_version_commit, as_string=as_string, aliased=aliased,
         )

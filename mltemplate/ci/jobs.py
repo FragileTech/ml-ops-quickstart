@@ -1,14 +1,17 @@
-from mltemplate.ci.core import PythonJob
+from mltemplate.ci.core import Job, PythonJob
 from mltemplate.ci.scripts import (
+    BumpVersionInstall,
     InstallProject,
+    IsBumpVersionCommit,
     NoBumpVersionCommit,
+    RunBumpVersion,
     RunPytest,
     StyleCheckInstall,
     StyleCheckRun,
 )
 
 
-class StyleCheck(PythonJob):
+class StyleCheckJob(PythonJob):
     def __init__(
         self,
         name="check_code_style",
@@ -18,7 +21,7 @@ class StyleCheck(PythonJob):
         script=StyleCheckRun(),
         condition=NoBumpVersionCommit(),
     ):
-        super(StyleCheck, self).__init__(
+        super(StyleCheckJob, self).__init__(
             name=name,
             python_version=python_version,
             stage=stage,
@@ -28,7 +31,7 @@ class StyleCheck(PythonJob):
         )
 
 
-class RunTests(PythonJob):
+class RunTestsJob(PythonJob):
     def __init__(
         self,
         name="run_tests",
@@ -39,7 +42,27 @@ class RunTests(PythonJob):
         condition=NoBumpVersionCommit(),
     ):
         name = f"{name}_py{str(python_version).replace('.', '')}"
-        super(RunTests, self).__init__(
+        super(RunTestsJob, self).__init__(
+            name=name,
+            python_version=python_version,
+            stage=stage,
+            install=install,
+            script=script,
+            condition=condition,
+        )
+
+
+class BumpVersionJob(Job):
+    def __init__(
+        self,
+        name="bump_version",
+        stage="bump-version",
+        python_version=3.6,
+        install=BumpVersionInstall(),
+        script=RunBumpVersion(),
+        condition=IsBumpVersionCommit(),
+    ):
+        super(BumpVersionJob, self).__init__(
             name=name,
             python_version=python_version,
             stage=stage,

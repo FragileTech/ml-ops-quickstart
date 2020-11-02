@@ -1,5 +1,6 @@
 import copy
 
+from jinja2 import Template
 from ruamel.yaml import YAML as RuamelYAML
 from ruamel.yaml.compat import StringIO
 
@@ -32,23 +33,22 @@ def format_aliases(s, aliases_names):
     return s
 
 
+def render_template(text: str, params: dict):
+    if params is None:
+        return text
+    template = Template(text)
+    return template.render(**params)
+
+
 def format_output_yaml(aliases_names=None, params=None):
     aliases_names = [] if aliases_names is None else aliases_names
 
     def clean_yaml(s):
         s = format_aliases(s, aliases_names)
-        s = fill_in_template(s, params)
+        s = render_template(s, params)
         return s
 
     return clean_yaml
-
-
-def fill_in_template(text, params=None):
-    if params is not None:
-        for k, v in params.items():
-            key = "{%s}" % k
-            text = text.replace(key, v)
-    return text
 
 
 def _clean_alias_def(text, name_aliases=None):
@@ -59,7 +59,7 @@ def _clean_alias_def(text, name_aliases=None):
     return text
 
 
-def export_travis_config(path, params, aliases_names=None, template_params=None, **kwargs):
+def export_ci_config(path, params, aliases_names=None, template_params=None, **kwargs):
     yaml = RuamelYAML()
     yaml.indent(sequence=4, offset=2)
     with open(path, "w") as f:
@@ -152,7 +152,7 @@ class PipelineToYAML:
 
     @staticmethod
     def write_yaml(path, yaml: dict, aliases_names=None, template_params=None, **kwargs):
-        return export_travis_config(
+        return export_ci_config(
             path=path,
             params=yaml,
             aliases_names=aliases_names,

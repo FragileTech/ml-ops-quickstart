@@ -21,13 +21,16 @@ bump_version_install = [
 bump_version_script = [
     "set -e",
     "git pull --no-edit origin master",
-    "version_file={project_name}/version.py",
+    "version_file={{project_name}}/version.py",
     'current_version=$(grep __version__ $version_file | cut -d\\" -f2)',
     "bumpversion --tag --current-version $current_version --commit patch $version_file",
-    "git remote add {bot_name}-remote "
-    "https://{bot_name}:${GITHUB_TOKEN}@github.com/$TRAVIS_REPO_SLUG",
-    "git push --tags {bot_name}-remote HEAD:master",
+    "git remote add {{bot_name}}-remote "
+    "https://{{bot_name}}:${GITHUB_TOKEN}@github.com/$TRAVIS_REPO_SLUG",
+    "git push --tags {{bot_name}}-remote HEAD:master",
     "set +e",
+]
+is_bump_version_commit = [
+    "branch == master AND type != pull_request AND " "commit_message !~ /^Bump version/"
 ]
 # Deploy to Pypi
 pypi_install = ["pip install --upgrade pip", "pip install twine pyopenssl"]

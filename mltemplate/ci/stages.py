@@ -1,10 +1,20 @@
 from mltemplate.ci.core import Stage
-from mltemplate.ci.jobs import RunTests, StyleCheck
+from mltemplate.ci.jobs import BumpVersionJob, RunTestsJob, StyleCheckJob
+
+
+class BumpVersionStage(Stage):
+    def __init__(self, name="bump-version", **kwargs):
+        super(BumpVersionStage, self).__init__(
+            name=name, jobs=[BumpVersionJob(stage=name, **kwargs)]
+        )
+        self.set_job_stages(name)
 
 
 class StyleCheckStage(Stage):
     def __init__(self, name="style", **kwargs):
-        super(StyleCheckStage, self).__init__(name=name, jobs=[StyleCheck(stage=name, **kwargs)])
+        super(StyleCheckStage, self).__init__(
+            name=name, jobs=[StyleCheckJob(stage=name, **kwargs)]
+        )
         self.set_job_stages(name)
 
 
@@ -16,7 +26,7 @@ class Pytest(Stage):
 
     def _init_jobs(self, stage, **kwargs):
         def init_test(v, codecov):
-            job = RunTests(python_version=v, stage=stage, **kwargs)
+            job = RunTestsJob(python_version=v, stage=stage, **kwargs)
             if codecov:
                 job["after_success"] = ["codecov"]
             return job

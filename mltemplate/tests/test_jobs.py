@@ -1,11 +1,11 @@
 import pytest
 
-from mltemplate.ci.jobs import RunTests, StyleCheck
+from mltemplate.ci.jobs import RunTestsJob, StyleCheckJob
 
 
 @pytest.fixture()
 def job():
-    return RunTests()
+    return RunTestsJob()
 
 
 def test_job(job):

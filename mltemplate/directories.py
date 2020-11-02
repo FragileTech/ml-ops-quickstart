@@ -5,8 +5,8 @@ from shutil import copyfile
 from jinja2 import Environment, PackageLoader, select_autoescape
 
 env = Environment(
-    loader=PackageLoader('mltemplate', 'assets/templates'),
-    autoescape=select_autoescape(['html', 'xml'])
+    loader=PackageLoader("mltemplate", "assets/templates"),
+    autoescape=select_autoescape(["html", "xml"]),
 )
 
 ASSETS_PATH = Path(__file__).parent / "assets"
