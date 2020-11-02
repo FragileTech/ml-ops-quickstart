@@ -285,7 +285,7 @@ class GitLab(PipelineToYAML):
         return yaml
 
     @staticmethod
-    def _format_condition(yaml, key):
+    def _delete_value(yaml, key):
         del yaml[key]
         return yaml
 
@@ -293,5 +293,6 @@ class GitLab(PipelineToYAML):
         job = swap_dictionary_key(job, "install", "before_script")
         job = swap_dictionary_key(job, "after_success", "after_script")
         job = swap_dictionary_value(job, "python_version", self._format_python_version)
-        job = swap_dictionary_value(job, "condition", self._format_condition)
+        job = swap_dictionary_value(job, "condition", self._delete_value)
+        job = swap_dictionary_value(job, "name", self._delete_value)
         return sort_dict(job, default_key=self.default_phase_key)
