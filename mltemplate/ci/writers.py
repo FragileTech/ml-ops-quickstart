@@ -266,7 +266,7 @@ class GitLab(PipelineToYAML):
         self.pipeline.stages = sort_stages(
             self.pipeline.stages, default_key=self.default_stage_key
         )
-        compiled_jobs = self.pipeline.compile_jobs_dict()
+        compiled_jobs = self.pipeline.compile_jobs_dict(aliased=False)
         compiled_jobs = {k: self.format_job(job) for k, job in compiled_jobs.items()}
         return compiled_jobs
 
@@ -291,6 +291,7 @@ class GitLab(PipelineToYAML):
 
     def format_job(self, job: dict):
         job = swap_dictionary_key(job, "install", "before_script")
+        job = swap_dictionary_key(job, "after_success", "after_script")
         job = swap_dictionary_value(job, "python_version", self._format_python_version)
         job = swap_dictionary_value(job, "condition", self._format_condition)
         return sort_dict(job, default_key=self.default_phase_key)

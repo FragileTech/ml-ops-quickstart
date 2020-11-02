@@ -27,7 +27,7 @@ def create_project_directories(project_name: str, root_path: Path):
     os.makedirs(project_path, exist_ok=True)
     _create_empty_file(project_path / "__init__.py")
     _copy_file(TEMPLATES_PATH / "version.py", project_path / "version.py")
-    test_path = project_path / "test"
+    test_path = project_path / "tests"
     os.makedirs(test_path, exist_ok=True)
     _create_empty_file(test_path / "__init__.py")
 

@@ -13,6 +13,3 @@ def pipeline(request):
 def test_travis(pipeline):
     pipeline.compile_aliases()
     pipeline.compile_stages()
-    # print(pipeline.compile_stages(True))
-    # for job in pipeline.stages:
-    #    print("STAGES", type(job), type(pipeline.stages))

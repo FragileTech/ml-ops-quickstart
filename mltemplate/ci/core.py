@@ -58,7 +58,9 @@ class Script:
         text = yaml_as_string(compiled, aliases_names=alias_names)
         return text
 
-    def compile(self):
+    def compile(self, alias=None):
+        if alias is not None:
+            self.aliased = alias
         return self.alias if self.aliased else self.cmd
 
     def compile_aliases(self):
@@ -159,9 +161,9 @@ class Job:
                 aliases.update(script.compile_aliases())
         return aliases
 
-    def compile(self) -> dict:
+    def compile(self, alias=None) -> dict:
         jobs_dict = {
-            kw: (job.compile() if isinstance(job, (Job, Script)) else job)
+            kw: (job.compile(alias) if isinstance(job, (Job, Script)) else job)
             for kw, job in self.items()
         }
         jobs_dict["name"] = self.job_desc
@@ -255,8 +257,8 @@ class Pipeline:
                 aliases.update(stage.compile_aliases())
         return aliases
 
-    def compile_jobs_dict(self):
-        return {job.name: job.compile() for stage in self.stages for job in stage.jobs}
+    def compile_jobs_dict(self, aliased=None):
+        return {job.name: job.compile(aliased) for stage in self.stages for job in stage.jobs}
 
     def compile_stages(self, as_jobs: bool = False):
         compiled = [stage.compile() for stage in self.stages]

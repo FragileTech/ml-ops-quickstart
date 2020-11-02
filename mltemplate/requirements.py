@@ -38,6 +38,7 @@ def compose_requirements(options):
 def write_requirements(options, out_path=None, out_name="requirements.txt"):
     out_path = os.getcwd() if out_path is None else out_path
     requirements = compose_requirements(options) if options is not None else ""
+    requirements = "\n".join(sorted(requirements.split("\n"))).lstrip("\n")
     with open(out_path / out_name, "w") as f:
         f.write(requirements)
 
