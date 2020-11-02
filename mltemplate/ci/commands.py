@@ -14,8 +14,8 @@ pipenv_install = ["make pipenv-build"]
 pipenv_run_tests = ["make pipenv-test"]
 # Bump version
 bump_version_install = [
-    'git config --global user.name "{bot_name}"',
-    'git config --global user.email "{bot_email}"',
+    'git config --global user.name "{{bot_name}}"',
+    'git config --global user.email "{{bot_email}}"',
     "pip install bump2version",
 ]
 bump_version_script = [
