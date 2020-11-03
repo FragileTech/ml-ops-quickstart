@@ -5,10 +5,12 @@ from mltemplate.ci.yaml_order import PHASE_ORDER, sort_stages, STAGE_ORDER
 
 
 def is_ci_object(x):
-    return isinstance(x, (Script, Job, Stage, Pipeline))
+    return isinstance(x, (Command, Phase, Job, Stage, Pipeline))
 
 
-class Script:
+class Command:
+    """Represents a shell command or group of commands to be executed on a console."""
+
     def __init__(
         self,
         name: str,
@@ -16,11 +18,9 @@ class Script:
         as_string: bool = False,
         aliased: bool = False,
         no_format: bool = False,
-        **kwargs
     ):
         self._name = name
         self._raw = cmd
-        self._kwargs = kwargs
         self.as_string = as_string
         self.aliased = aliased
         self.no_format = no_format
@@ -52,6 +52,7 @@ class Script:
 
     def to_string(self, keyword=None):
         from mltemplate.ci.writers import yaml_as_string
+
         cmd = self.compile_aliases() if self.aliased else self.compile()
         compiled = {keyword if keyword is not None else self.name: cmd}
         alias_names = [self.name] if self.aliased else []
@@ -70,6 +71,30 @@ class Script:
         if self.as_string and isinstance(cmd, (list, tuple)):
             cmd = " && ".join(cmd)
         return cmd
+
+
+class Phase:
+    def __init__(self, name, **kwargs):
+        self._kwargs = kwargs
+        self.name = name
+        self.aliased = False
+
+    def __repr__(self):
+        from mltemplate.ci.writers import yaml_as_string
+
+        text = yaml_as_string([self.compile()])
+        return f"{self.__class__.__name__}:\n{text}"
+
+    def compile(self, alias=None):
+        return {k: c.compile(alias) if is_ci_object(c) else c for k, c in self._kwargs.items()}
+
+    def compile_aliases(self):
+        values = {}
+        for k, command in self._kwargs.items():
+            if is_ci_object(command) and command.aliased:
+                values.update(command.compile_aliases())
+        return values
+
 
 class Job:
     def __init__(self, name: str, phase_order=PHASE_ORDER, **kwargs):
@@ -108,6 +133,7 @@ class Job:
 
     def __repr__(self):
         from mltemplate.ci.writers import yaml_as_string
+
         alias_names = tuple(self.aliased_names())
         text = yaml_as_string([self.compile()], aliases_names=alias_names)
         return f"{self.__class__.__name__}:\n{text}"
@@ -133,28 +159,30 @@ class Job:
         return self._phases.items()
 
     def aliased_phases(self):
-        return (job for job in self.phases() if is_ci_object(job) and job.aliased)
+        return (phase for phase in self.phases() if is_ci_object(phase) and phase.aliased)
 
     def aliased_keys(self):
-        return (key for key, job in self.items() if is_ci_object(job) and job.aliased)
+        return (phase for key, phase in self.items() if is_ci_object(phase) and phase.aliased)
 
     def aliased_names(self):
-        return [job.name for job in self.aliased_phases() if is_ci_object(job) and job.aliased]
+        return [
+            phase.name for phase in self.aliased_phases() if is_ci_object(phase) and phase.aliased
+        ]
 
     def to_dict(self) -> dict:
         return copy.deepcopy(self._phases)
 
     def compile_aliases(self):
         aliases = {}
-        for script in self.aliased_phases():
-            if is_ci_object(script):
-                aliases.update(script.compile_aliases())
+        for phase in self.aliased_phases():
+            if is_ci_object(phase):
+                aliases.update(phase.compile_aliases())
         return aliases
 
     def compile(self, alias=None) -> dict:
         jobs_dict = {
-            kw: (job.compile(alias) if isinstance(job, (Job, Script)) else job)
-            for kw, job in self.items()
+            kw: (phase.compile(alias) if is_ci_object(phase) else phase)
+            for kw, phase in self.items()
         }
         jobs_dict["name"] = self.job_desc
         return jobs_dict
@@ -181,6 +209,7 @@ class Stage:
 
     def __repr__(self):
         from mltemplate.ci.writers import yaml_as_string
+
         text = yaml_as_string(self.compile(), aliases_names=self.aliased_names())
         return f"{self.__class__.__name__}:\n{text}"
 
@@ -224,6 +253,7 @@ class Pipeline:
 
     def __repr__(self):
         from mltemplate.ci.writers import yaml_as_string
+
         stages = {s.name: s.compile() for s in self.stages}
         text = yaml_as_string(stages, aliases_names=self.aliased_names())
         return f"{self.__class__.__name__}:\n{text}"

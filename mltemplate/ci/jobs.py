@@ -4,6 +4,10 @@ from mltemplate.ci.scripts import (
     InstallProject,
     IsBumpVersionCommit,
     NoBumpVersionCommit,
+    IsTagCommit,
+    PypiInstall,
+    PypiBuild,
+    PypiDeploy,
     RunBumpVersion,
     RunPytest,
     StyleCheckInstall,
@@ -69,4 +73,24 @@ class BumpVersionJob(Job):
             install=install,
             script=script,
             condition=condition,
+        )
+
+
+class PypiDeployJob(Job):
+    def __init__(
+        self,
+        name="pypi_deploy",
+        stage="deploy",
+        install=PypiInstall(),
+        script=PypiBuild(),
+        deploy=PypiDeploy(),
+        condition=IsTagCommit(),
+    ):
+        super(PypiDeployJob, self).__init__(
+            name=name,
+            stage=stage,
+            install=install,
+            script=script,
+            condition=condition,
+            deploy=deploy,
         )

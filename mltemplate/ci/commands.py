@@ -41,6 +41,7 @@ pypi_script = [
     "set +e",
 ]
 pypi_deploy_script = "twine upload dist/*.whl -u $PYPI_LOGIN -p $PYPI_PASS"
+is_tag_commit = ["tag =~ .*"]
 # Deploy to dockerhub
 dockerhub_install = ['docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io']
 dockerhub_script = ["make docker-build VERSION=$TRAVIS_TAG"]

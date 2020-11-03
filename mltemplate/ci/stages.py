@@ -1,5 +1,5 @@
 from mltemplate.ci.core import Stage
-from mltemplate.ci.jobs import BumpVersionJob, RunTestsJob, StyleCheckJob
+from mltemplate.ci.jobs import BumpVersionJob, PypiDeployJob, RunTestsJob, StyleCheckJob
 
 
 class BumpVersionStage(Stage):
@@ -33,3 +33,11 @@ class PytestStage(Stage):
 
         last_item = len(self.python_versions) - 1
         return [init_test(v, i == last_item) for i, v in enumerate(self.python_versions)]
+
+
+class PypiDeployStage(Stage):
+    def __init__(self, name="deploy", **kwargs):
+        super(PypiDeployStage, self).__init__(
+            name=name, jobs=[PypiDeployJob(stage=name, **kwargs)]
+        )
+        self.set_job_stages(name)

@@ -5,7 +5,7 @@ from ruamel.yaml import YAML as RuamelYAML
 from ruamel.yaml.compat import StringIO
 
 from mltemplate.ci.core import Pipeline
-from mltemplate.ci.stages import BumpVersionStage, PytestStage, StyleCheckStage
+from mltemplate.ci.stages import BumpVersionStage, PypiDeployStage, PytestStage, StyleCheckStage
 from mltemplate.ci.yaml_order import ALL_ORDERS, sort_dict, sort_stages
 
 
@@ -304,6 +304,7 @@ STAGES_DICT = {
     "style": StyleCheckStage,
     "pytest": PytestStage,
     "bump_version": BumpVersionStage,
+    "pypi_deploy": PypiDeployStage,
 }
 
 
@@ -331,4 +332,3 @@ def write_ci_config(path, params):
     ci_builder = Travis(pipeline=pipeline) if vendor == "travis" else GitLab(pipeline=pipeline)
     file_path = path / ".travis.yml" if vendor == "travis" else path / ".gitlab-ci.yml"
     ci_builder.dump(file_path, template_params=template)
-
