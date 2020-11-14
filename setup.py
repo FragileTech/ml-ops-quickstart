@@ -25,7 +25,7 @@ setup(
     download_url="https://github.com/Guillemdb/ml-repo-template.git",
     keywords=["Machine learning", "artificial intelligence"],
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
-    install_requires=["ruamel.yaml>=0.16.12", "pyyaml>=5"],
+    install_requires=["ruyaml>=0.19.0"],
     package_data={
         "": ["README.md"],
         "mltemplate": [

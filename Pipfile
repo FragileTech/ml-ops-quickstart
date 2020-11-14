@@ -17,8 +17,7 @@ flakehell = "==0.7.0"
 black = "==19.10b0"
 
 [packages]
-"ruamel.yaml" = "==0.16.12"
-PyYAML = "==5.3.1"
+ruyaml = "==0.19.2"
 jinja2 = "2.11.2"
 
 [requires]
