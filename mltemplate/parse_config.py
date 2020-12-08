@@ -1,5 +1,4 @@
-import yaml
-from yaml import Loader
+from ruamel.yaml import load as yaml_load, Loader
 
 
 def get_docker_image(params):
@@ -13,6 +12,6 @@ def get_docker_image(params):
 
 def parse_config(path):
     with open(path, "r") as config:
-        params = yaml.load(config.read(), Loader)
+        params = yaml_load(config.read(), Loader)
     params = get_docker_image(params)
     return params

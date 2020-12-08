@@ -1,2 +1,3 @@
-# hvml
-Visualization library build on top of holoviews focused on speeding up machine learning research
+# Repo template
+
+Generate all the boilerplate files to follow best practices on Python repositories.
