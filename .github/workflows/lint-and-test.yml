@@ -2,7 +2,8 @@ name: Lint and test
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches-ignore:
+      - master
   pull_request:
     branches: [ master ]
 
