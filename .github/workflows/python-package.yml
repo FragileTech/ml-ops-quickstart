@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.5', '3.6', '3.7', '3.8']
+        python-version: ['3.6', '3.7', '3.8']
 
     steps:
     - uses: actions/checkout@v2
@@ -20,14 +20,17 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+    - name: Install lint dependencies
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements-lint.txt ]; then pip install -r requirements-lint.txt; fi
-        if [ -f requirements-test.txt ]; then pip install -r requirements-test.txt; fi
     - name: Run style check and linter
       run: |
         make check
+    - name: Install test and package dependencies
+      run: |
+        if [ -f requirements-test.txt ]; then pip install -r requirements-test.txt; fi
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
       run: |
         make test
