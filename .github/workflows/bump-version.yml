@@ -3,7 +3,7 @@ name: Bump version
 on:
   pull_request:
     branches:
-      - $default-branch
+      - master
     types: [closed]
 
 jobs:
