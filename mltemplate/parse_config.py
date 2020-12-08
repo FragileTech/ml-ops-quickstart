@@ -1,4 +1,4 @@
-from ruamel.yaml import load as yaml_load, Loader
+from ruamel.yaml import Loader, load as yaml_load
 
 
 def get_docker_image(params):

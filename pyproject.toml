@@ -49,7 +49,7 @@ show_source = true
 inline_quotes='"'
 
 [tool.flakehell.plugins]
-'flake8*' = ["-Q000", "+*"]
+'flake8*' = ["-Q000", "+*", "-D*"]
 pycodestyle = ["+*" ,"-B008","-B301","-C815","-C816","-C812","-D100",
     "-D105","-D200","-D202","-D301","-D402","-E121","-E123","-E126","-E203","-E226",
     "-E24","-E704","-F821","-W503","-W504"]
@@ -60,6 +60,18 @@ pylint = ["+*", "-D*"] # disable docs by default
 [tool.flakehell.exceptions."**/tests/*"]
 pycodestyle = ["-F401", "-F811"] # disable a check
 pyflakes = ["-*"]           # disable a plugin
+"flake8*" = ["-D*", "-I*"]
+
+[tool.flakehell.exceptions."**/ci/*"]
+pycodestyle = ["-*"] # disable a check
+pyflakes = ["-*"]           # disable a plugin
+"flake8*" = ["-*"]
+
+[tool.flakehell.exceptions."**/templates/*"]
+pycodestyle = ["-*"] # disable a check
+pyflakes = ["-*"]           # disable a plugin
+"flake8*" = ["-*"]
+
 
 [tool.pylint.master]
 ignore = 'tests'
