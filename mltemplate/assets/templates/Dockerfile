@@ -6,10 +6,13 @@ ENV BROWSER=/browser \
 
 COPY Makefile Makefile
 COPY requirements.txt requirements.txt
+COPY pyproject.toml pyproject.toml
 
 COPY . {{project_name}}/
 
-RUN cd mltemplate && make pipenv-build && pipenv sync && pipenv install ipython jupyter
+RUN cd {{project_name}} && pip3 install -r requirements.txt  \
+    && pip install ipython jupyter \
+    && pip3 install -e . --no-use-pep517
 RUN make remove-dev-packages
 RUN mkdir /root/.jupyter && \
     echo 'c.NotebookApp.token = "'${JUPYTER_PASSWORD}'"' > /root/.jupyter/jupyter_notebook_config.py

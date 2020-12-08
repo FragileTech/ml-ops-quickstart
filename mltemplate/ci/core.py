@@ -1,6 +1,5 @@
 import copy
 from typing import List, Set, Tuple, Union
-
 from mltemplate.ci.yaml_order import PHASE_ORDER, sort_stages, STAGE_ORDER
 
 

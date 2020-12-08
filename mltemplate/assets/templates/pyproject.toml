@@ -46,6 +46,9 @@ max_line_length = 99
 # show line of source code in output
 show_source = true
 inline_quotes='"'
+import_order_style = "appnexus"
+application_package_names = ["{{project_name}}"]
+application_import_names = ["{{project_name}}"]
 
 [tool.flakehell.plugins]
 flake8-quotes = ["-Q000"]
