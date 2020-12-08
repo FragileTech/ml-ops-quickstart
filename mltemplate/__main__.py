@@ -1,6 +1,6 @@
 import os
-from pathlib import Path
 import sys
+from pathlib import Path
 
 from mltemplate.ci.writers import write_ci_config
 from mltemplate.directories import setup_project_project_files
