@@ -1,0 +1,33 @@
+name: Bump version
+
+on:
+  pull_request:
+    branches:
+      - $default-branch
+    types: [closed]
+
+jobs:
+  Bump-version:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+    - uses: actions/checkout@v2
+    - name: Bump version
+    uses: actions/setup-python@v2
+    with:
+      python-version: "3.8"
+    - name: Install dependencies
+      run: |
+        git config --global user.name "Fragile Bot"
+        git config --global user.email "bot@fragile.tech"
+        pip install bump2version
+    - name: Run bump version
+      run: |
+        set -e
+        git pull --no-edit origin master
+        version_file=mltemplate/version.py
+        current_version=$(grep __version__ $version_file | cut -d\" -f2)
+        bumpversion --tag --current-version $current_version --commit patch $version_file
+        git remote add fragile-bot-remote https://fragile-bot:${FRAGILE_GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY
+        git push --tags fragile-bot-remote HEAD:master
+        set +e
