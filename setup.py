@@ -8,6 +8,10 @@ version = SourceFileLoader(
     "mloq.version", str(Path(__file__).parent / "mloq" / "version.py"),
 ).load_module()
 
+files = SourceFileLoader(
+    "mloq.files", str(Path(__file__).parent / "mloq" / "files.py"),
+).load_module()
+
 with open(Path(__file__).with_name("README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
@@ -23,20 +27,12 @@ setup(
     author_email="guillem@fragile.tech",
     url="https://github.com/FragileTech/ml-ops-quickstart",
     download_url="https://github.com/FragileTech/ml-ops-quickstart.git",
-    keywords=["Machine learning", "artificial intelligence"],
+    keywords=["Machine learning", "ML ops"],
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
     install_requires=["ruyaml>=0.19.0"],
     package_data={
         "": ["README.md"],
-        "mloq": [
-            "mloq/assets/requirements/*.txt",
-            "mloq/assets/templates/.gitignore",
-            "mloq/assets/templates/*.py",
-            "mloq/assets/templates/*.md",
-            "mloq/assets/templates/*.toml",
-            "mloq/assets/templates/Makefile",
-            "mloq/assets/templates/LICENSE",
-        ],
+        "mloq": files.ALL_FILE_PATHS
     },
     classifiers=[
         "Development Status :: 3 - Alpha",
