@@ -1,5 +1,4 @@
 # {{project_name}}
-[![Travis build status](https://travis-ci.com/{{project_org}}/{{project_name}}.svg)](https://travis-ci.com/{{project_org}}/{{project_name}})
 [![Documentation Status](https://readthedocs.org/projects/fragile/badge/?version=latest)](https://{{project_name}}.readthedocs.io/en/latest/?badge=latest)
 [![Code coverage](https://codecov.io/github/{{project_org}}/{{project_name}}/coverage.svg)](https://codecov.io/github/{{project_org}}/{{project_name}})
 [![PyPI package](https://badgen.net/pypi/v/{{project_name}})](https://pypi.org/project/{{project_name}}/)

@@ -1,20 +1,21 @@
 import os
 from pathlib import Path
 from shutil import copyfile
+from typing import Union
 
-from jinja2 import Environment, PackageLoader, select_autoescape
-
-env = Environment(
-    loader=PackageLoader("mltemplate", "assets/templates"),
-    autoescape=select_autoescape(["html", "xml"]),
-)
-
-ASSETS_PATH = Path(__file__).parent / "assets"
-TEMPLATES_PATH = ASSETS_PATH / "templates"
-REQUIREMENTS_PATH = ASSETS_PATH / "requirements"
+from mltemplate.files import File, init, main, version
 
 
-def _create_empty_file(filepath: Path):
+def create_empty_file(filepath: Path) -> None:
+    """
+    Create an empty file in the target path.
+
+    Args:
+        filepath: Absolute path to the file that will be created.
+
+    Returns:
+        None
+    """
     if filepath.exists():
         print(f"file {filepath.name} already exists")
         return
@@ -22,37 +23,75 @@ def _create_empty_file(filepath: Path):
         pass
 
 
-def _copy_file(src, dst):
-    if not os.path.isfile(str(dst)):
-        copyfile(src, dst)
+def read_file(file: File) -> str:
+    with open(file.src, "r") as f:
+        return f.read()
+
+
+def copy_file(file: File, path: Union[Path, str], override: bool = False) -> None:
+    """
+    Copies the file from src into dst.
+
+    Args:
+        file: File object representing the file that will be copied.
+        path: Path to the destination of the copied file.
+        override: If False, copy the file if it does not already exists in the \
+                  target path. If True, override the target file if it is already present.
+    Returns:
+        None.
+    """
+    target = path / file.name
+    if not os.path.isfile(str(target)) or override:
+        copyfile(file.src, target)
     else:
-        print(f"file {dst.name} already exists")
+        print(f"file {file.name} already exists in {target}")
 
 
-def create_project_directories(project_name: str, root_path: Path):
+def create_project_directories(project_name: str, root_path: Path, override: False) -> None:
+    """
+    Initialize the folder structure of a new Python project.
+
+    It creates a directory for the project containing an empty __init__.py file, and a \
+    tests folder inside it with its corresponding __init__.py file. This function will only \
+    create new files and folders in case they don't already exist, but it won't override any \
+    existing file.
+
+    Args:
+        project_name: Name of the project. This is the name of the directory that will be created.
+        root_path: Absolute path where the new project folder will be created.
+        override: If False, copy the file if it does not already exists in the \
+                  target path. If True, override the target file if it is already present.
+
+    Returns:
+        None.
+    """
+    # Project dir
     project_path = root_path / project_name
     os.makedirs(project_path, exist_ok=True)
-    _create_empty_file(project_path / "__init__.py")
-    _copy_file(TEMPLATES_PATH / "version.py", project_path / "version.py")
+    copy_file(init, project_path, override)
+    copy_file(version, project_path, override)
+    copy_file(main, project_path, override)
+    # Test dir inside project
     test_path = project_path / "tests"
     os.makedirs(test_path, exist_ok=True)
-    _create_empty_file(test_path / "__init__.py")
+    copy_file(init, test_path, override)
 
 
-def render_template(name: str, params: dict):
-    template = env.get_template(name)
-    return template.render(**params)
+def create_github_actions_directories(root_path: Path) -> None:
+    """
+    Initialize the folder structure for using GitHub actions workflows.
 
+    It creates a .github directory on the target path, with an empty workflows \
+    directory inside it, so the .github/workflows directory is ready to add GitHub \
+    actions workflows. This function will only create new folders in case they don't already exist.
 
-def write_templates(params, root_path: Path, templates_path=TEMPLATES_PATH):
-    for filename in os.listdir(templates_path):
-        if filename in ["__init__.py", "version.py"]:
-            continue
-        rendered = render_template(filename, params)
-        with open(root_path / filename, "w") as f:
-            f.write(rendered)
+    Args:
+        root_path: Absolute path where the .github folder will be crated.
 
-
-def setup_project_project_files(template_params, root_path):
-    create_project_directories(template_params["project_name"], root_path)
-    write_templates(template_params, root_path)
+    Returns:
+        None.
+    """
+    gha_path = root_path / ".github"
+    os.makedirs(gha_path, exist_ok=True)
+    workflows_path = gha_path / "workflows"
+    os.makedirs(workflows_path, exist_ok=True)
