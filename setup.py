@@ -5,37 +5,37 @@ from setuptools import find_packages, setup
 
 
 version = SourceFileLoader(
-    "mltemplate.version", str(Path(__file__).parent / "mltemplate" / "version.py"),
+    "mloq.version", str(Path(__file__).parent / "mloq" / "version.py"),
 ).load_module()
 
 with open(Path(__file__).with_name("README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name="mltemplate",
-    description="Package for initializing ML projects",
+    name="mloq",
+    description="Package for initializing ML projects following ML Ops best practices.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_packages(),
     version=version.__version__,
     license="MIT",
     author="Guillem Duran Ballester",
-    author_email="guillem.db@gmail.com",
-    url="https://github.com/guillemdb/ml-repo-template",
-    download_url="https://github.com/Guillemdb/ml-repo-template.git",
+    author_email="guillem@fragile.tech",
+    url="https://github.com/FragileTech/ml-ops-quickstart",
+    download_url="https://github.com/FragileTech/ml-ops-quickstart.git",
     keywords=["Machine learning", "artificial intelligence"],
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
     install_requires=["ruyaml>=0.19.0"],
     package_data={
         "": ["README.md"],
-        "mltemplate": [
-            "mltemplate/assets/requirements/*.txt",
-            "mltemplate/assets/templates/.gitignore",
-            "mltemplate/assets/templates/*.py",
-            "mltemplate/assets/templates/*.md",
-            "mltemplate/assets/templates/*.toml",
-            "mltemplate/assets/templates/Makefile",
-            "mltemplate/assets/templates/LICENSE",
+        "mloq": [
+            "mloq/assets/requirements/*.txt",
+            "mloq/assets/templates/.gitignore",
+            "mloq/assets/templates/*.py",
+            "mloq/assets/templates/*.md",
+            "mloq/assets/templates/*.toml",
+            "mloq/assets/templates/Makefile",
+            "mloq/assets/templates/LICENSE",
         ],
     },
     classifiers=[

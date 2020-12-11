@@ -10,9 +10,9 @@ COPY requirements-lint.txt requirements-lint.txt
 COPY requirements-test.txt requirements-test.txt
 COPY pyproject.toml pyproject.toml
 
-COPY . mltemplate/
+COPY . mloq/
 
-RUN cd mltemplate \
+RUN cd mloq \
     && python3 -m pip install -U pip \
     && pip3 install -r requirements-lint.txt  \
     && pip3 install -r requirements-test.txt  \

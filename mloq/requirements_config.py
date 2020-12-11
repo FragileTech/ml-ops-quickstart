@@ -2,8 +2,8 @@ import os
 from pathlib import Path
 from typing import Iterable
 
-from mltemplate.directories import copy_file
-from mltemplate.files import (
+from mloq.directories import copy_file
+from mloq.files import (
     data_science_req,
     data_viz_req,
     File,

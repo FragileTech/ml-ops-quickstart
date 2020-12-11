@@ -3,7 +3,7 @@ from pathlib import Path
 from shutil import copyfile
 from typing import Union
 
-from mltemplate.files import File, init, main, version
+from mloq.files import File, init, main, version
 
 
 def create_empty_file(filepath: Path) -> None:

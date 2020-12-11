@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 import sys
 
-from mltemplate.api import init_repository
+from mloq.api import init_repository
 
 
 def main():

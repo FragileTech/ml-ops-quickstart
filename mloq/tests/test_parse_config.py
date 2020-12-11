@@ -1,6 +1,6 @@
 import pytest
 
-from mltemplate.parse_config import set_docker_image
+from mloq.parse_config import set_docker_image
 
 
 supported_versions = ["3.6", "3.7", "3.8"]
