@@ -6,7 +6,7 @@ from mltemplate.directories import (
     create_github_actions_directories,
     create_project_directories,
 )
-from mltemplate.files import ROOT_PATH_FILES, repository
+from mltemplate.files import repository, ROOT_PATH_FILES
 from mltemplate.parse_config import read_config
 from mltemplate.templating import write_template
 from mltemplate.workflows import setup_workflows
