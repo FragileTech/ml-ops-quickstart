@@ -81,9 +81,16 @@ WORKFLOW_FILES = [bump_version_wkf, lint_test_wkf, docker_test_wkf]
 
 PYTHON_FILES = [init, main, version]
 
-REQUIREMENTS_FILES = [lint_req, pytorch_req,
-             tensorflow_req, data_viz_req, data_science_req, lint_req, test_req]
+REQUIREMENTS_FILES = [
+    lint_req,
+    pytorch_req,
+    tensorflow_req,
+    data_viz_req,
+    data_science_req,
+    lint_req,
+    test_req,
+]
 
-ALL_FILES = ROOT_PATH_FILES+ WORKFLOW_FILES + PYTHON_FILES + [repository]
+ALL_FILES = ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [repository]
 
 ALL_FILE_PATHS = [str(f.src) for f in ALL_FILES]
