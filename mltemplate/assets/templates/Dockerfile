@@ -6,11 +6,17 @@ ENV BROWSER=/browser \
 
 COPY Makefile Makefile
 COPY requirements.txt requirements.txt
+COPY requirements-lint.txt requirements-lint.txt
+COPY requirements-test.txt requirements-test.txt
 COPY pyproject.toml pyproject.toml
 
 COPY . {{project_name}}/
 
-RUN cd {{project_name}} && pip3 install -r requirements.txt  \
+RUN cd {{project_name}} \
+    && python3 -m pip install -U pip \
+    && pip3 install -r requirements-lint.txt  \
+    && pip3 install -r requirements-test.txt  \
+    && pip3 install -r requirements.txt  \
     && pip install ipython jupyter \
     && pip3 install -e . --no-use-pep517
 RUN make remove-dev-packages
