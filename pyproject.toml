@@ -7,7 +7,7 @@
 
 [tool.black]
 line-length = 99
-target-version = ['py34','py35','py36', 'py37', 'py38']
+target-version = ['py36', 'py37', 'py38']
 include = '\.pyi?$'
 exclude = '''
 /(
@@ -33,7 +33,7 @@ exclude_lines =["no cover",
     'raise NotImplementedError',
     'if __name__ == "__main__":']
 ignore_errors = true
-omit = ["mltemplate/test/*"]
+omit = ["mltemplate/tests/*"]
 
 # Flakehell config
 [tool.flakehell]
@@ -41,31 +41,27 @@ omit = ["mltemplate/test/*"]
 base = "https://raw.githubusercontent.com/life4/flakehell/master/pyproject.toml"
 # specify any flake8 options. For example, exclude "example.py":
 exclude = [".git", "docs", ".ipynb*", "*.ipynb", ".pytest_cache"]
-# make output nice
-format = "grouped"
+format = "grouped" # make output nice
 max_line_length = 99
-# show line of source code in output
-show_source = true
+show_source = true # show line of source code in output
 inline_quotes='"'
+import_order_style = "appnexus"
+application_package_names = ["mltemplate"]
+application_import_names = ["mltemplate"]
 
 [tool.flakehell.plugins]
-'flake8*' = ["-Q000", "+*", "-D*"]
+'flake8*' = ["+*", "-D*"]
+pylint = ["+*", "-D*"]
 pycodestyle = ["+*" ,"-B008","-B301","-C815","-C816","-C812","-D100",
     "-D105","-D200","-D202","-D301","-D402","-E121","-E123","-E126","-E203","-E226",
     "-E24","-E704","-F821","-W503","-W504"]
 pyflakes = ["+*"]
-pylint = ["+*", "-D*"] # disable docs by default
 
 # match by prefix
 [tool.flakehell.exceptions."**/tests/*"]
-pycodestyle = ["-F401", "-F811"] # disable a check
-pyflakes = ["-*"]           # disable a plugin
+pycodestyle = ["-F401", "-F811"]
+pyflakes = ["-*"]
 "flake8*" = ["-D*", "-I*"]
-
-[tool.flakehell.exceptions."**/ci/*"]
-pycodestyle = ["-*"] # disable a check
-pyflakes = ["-*"]           # disable a plugin
-"flake8*" = ["-*"]
 
 [tool.flakehell.exceptions."**/templates/*"]
 pycodestyle = ["-*"] # disable a check

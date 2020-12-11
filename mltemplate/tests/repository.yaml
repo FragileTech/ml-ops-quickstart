@@ -1,0 +1,16 @@
+template:
+  project_name: "pytest_proj"
+  project_org: ""
+  description: "Short description of the repo"
+  author: ""
+  email: ""
+  license: "MIT"
+  copyright_holder: ""
+  url: ""
+  bot_name: ""
+  bot_email: ""
+  python_versions: ['3.6', '3.7', '3.8']
+
+requirements: ["datascience", "pytorch", "dataviz"]
+
+workflows: ["lint-and-test", "bump-version", "docker-test"]
