@@ -3,8 +3,8 @@ import tempfile
 
 import pytest
 
-from mltemplate.files import File
-from mltemplate.requirements_config import (
+from mloq.files import File
+from mloq.requirements_config import (
     compose_requirements,
     get_aliased_requirements_file,
     read_requirements_file,

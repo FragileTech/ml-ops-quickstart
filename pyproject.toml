@@ -26,14 +26,14 @@ exclude = '''
 # Code coverate config
 [tool.coverage.run]
 branch = true
-source = ["mltemplate"]
+source = ["mloq"]
 
 [tool.coverage.report]
 exclude_lines =["no cover",
     'raise NotImplementedError',
     'if __name__ == "__main__":']
 ignore_errors = true
-omit = ["mltemplate/tests/*"]
+omit = ["mloq/tests/*"]
 
 # Flakehell config
 [tool.flakehell]
@@ -46,8 +46,8 @@ max_line_length = 99
 show_source = true # show line of source code in output
 inline_quotes='"'
 import_order_style = "appnexus"
-application_package_names = ["mltemplate"]
-application_import_names = ["mltemplate"]
+application_package_names = ["mloq"]
+application_import_names = ["mloq"]
 
 [tool.flakehell.plugins]
 'flake8*' = ["+*", "-D*"]

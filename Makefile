@@ -1,6 +1,6 @@
 current_dir = $(shell pwd)
 
-PROJECT = mltemplate
+PROJECT = mloq
 DOCKER_ORG = fragile
 VERSION ?= latest
 UBUNTU_NAME = $(lsb_release -s -c)

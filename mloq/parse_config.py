@@ -2,7 +2,7 @@ from pathlib import Path
 
 from ruamel.yaml import load as yaml_load, Loader
 
-from mltemplate.requirements_config import require_cuda
+from mloq.requirements_config import require_cuda
 
 
 def get_docker_python_version(params) -> str:
