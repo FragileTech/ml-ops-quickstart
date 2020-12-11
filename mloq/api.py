@@ -1,15 +1,15 @@
 from pathlib import Path
 from typing import Optional, Union
 
-from mltemplate.directories import (
+from mloq.directories import (
     copy_file,
     create_github_actions_directories,
     create_project_directories,
 )
-from mltemplate.files import repository, ROOT_PATH_FILES
-from mltemplate.parse_config import read_config
-from mltemplate.templating import write_template
-from mltemplate.workflows import setup_workflows
+from mloq.files import repository, ROOT_PATH_FILES
+from mloq.parse_config import read_config
+from mloq.templating import write_template
+from mloq.workflows import setup_workflows
 
 
 def init_config(path: Path, override: bool = False):

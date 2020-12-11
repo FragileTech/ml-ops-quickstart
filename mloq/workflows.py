@@ -1,8 +1,8 @@
 from pathlib import Path
 
-from mltemplate.directories import create_github_actions_directories
-from mltemplate.files import bump_version_wkf, docker_test_wkf, lint_test_wkf
-from mltemplate.templating import write_template
+from mloq.directories import create_github_actions_directories
+from mloq.files import bump_version_wkf, docker_test_wkf, lint_test_wkf
+from mloq.templating import write_template
 
 
 def setup_workflows(workflows, root_path: Path, params, override: bool = False):

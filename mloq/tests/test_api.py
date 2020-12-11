@@ -3,7 +3,7 @@ import tempfile
 
 import pytest
 
-from mltemplate.api import init_repository
+from mloq.api import init_repository
 
 
 @pytest.fixture()
