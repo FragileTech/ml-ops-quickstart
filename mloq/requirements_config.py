@@ -13,6 +13,7 @@ from mloq.files import (
     test_req,
 )
 
+
 REQUIREMENTS_ALIASES = {
     data_science_req: ["data-science", "datascience", "ds"],
     pytorch_req: ["pytorch", "torch"],

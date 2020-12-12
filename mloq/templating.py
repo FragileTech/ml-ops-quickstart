@@ -5,6 +5,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from mloq.directories import read_file
 from mloq.files import File, TEMPLATES_PATH, WORKFLOWS_PATH
 
+
 jinja_env = Environment(
     loader=FileSystemLoader([str(TEMPLATES_PATH), str(WORKFLOWS_PATH)]),
     autoescape=select_autoescape(["html", "xml"]),
