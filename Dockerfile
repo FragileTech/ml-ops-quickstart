@@ -18,7 +18,7 @@ RUN cd mloq \
     && pip3 install -r requirements-test.txt  \
     && pip3 install -r requirements.txt  \
     && pip install ipython jupyter \
-    && pip3 install -e . --no-use-pep517
+    && pip3 install -e .
 RUN make remove-dev-packages
 RUN mkdir /root/.jupyter && \
     echo 'c.NotebookApp.token = "'${JUPYTER_PASSWORD}'"' > /root/.jupyter/jupyter_notebook_config.py

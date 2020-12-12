@@ -1,7 +1,22 @@
 from importlib.machinery import SourceFileLoader
 from pathlib import Path
 
-from setuptools import find_packages, setup
+from setuptools import Distribution, find_packages, setup
+
+
+class BinaryDistribution(Distribution):
+    """
+    Distribution which always forces a binary package with platform name
+    Distribution which always forces a binary package with platform name
+    See http://lucumr.pocoo.org/2014/1/27/python-on-wheels/
+    and https://stackoverflow.com/questions/24071491/how-can-i-make-a-python-wheel-from-an-existing-native-library
+    """
+
+    def has_ext_modules(self):
+        return True
+
+    def is_pure(self):
+        return False
 
 
 version = SourceFileLoader(
@@ -25,7 +40,7 @@ setup(
     download_url="https://github.com/FragileTech/ml-ops-quickstart.git",
     keywords=["Machine learning", "artificial intelligence"],
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
-    install_requires=["ruyaml>=0.19.0"],
+    install_requires=["ruyaml>=0.19.0", "jinja2>=2.0.0"],
     package_data={
         "": ["README.md"],
         "mloq": [
@@ -59,4 +74,5 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Topic :: Software Development :: Libraries",
     ],
+    distclass=BinaryDistribution,
 )
