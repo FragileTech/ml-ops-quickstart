@@ -7,10 +7,11 @@ on:
   push:
     branches:
       - master
+    tags:
+      - "v*"
 
 jobs:
   build:
-
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -79,7 +80,7 @@ jobs:
         path: dist/*.whl
 
     - name: Publish package to TestPyPI
-      if: "contains(github.event.head_commit.message, 'Bump version')"
+      if: "contains(github.event.commit.message, 'Bump version') && github.repository_owner == 'fragiletech'"
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASS }}
@@ -87,7 +88,7 @@ jobs:
         twine upload --repository-url https://test.pypi.org/legacy/ --skip-existing dist/*.whl
 
     - name: Publish package to PyPI
-      if: "contains(github.event.head_commit.message, 'Bump version')"
+      if: "contains(github.event.commit.message, 'Bump version') && github.repository_owner == 'fragiletech'"
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_PASS }}
