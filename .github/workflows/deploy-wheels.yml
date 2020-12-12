@@ -5,8 +5,8 @@ name: Deploy wheels
 
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - master
 
 jobs:
   build:
@@ -79,7 +79,7 @@ jobs:
         path: dist/*.whl
 
     - name: Publish package to TestPyPI
-      if: github.repository == 'fragiletech/ml-ops-quickstart'
+      if: "contains(github.event.head_commit.message, 'Bump version')"
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASS }}
@@ -87,7 +87,7 @@ jobs:
         twine upload --repository-url https://test.pypi.org/legacy/ --skip-existing dist/*.whl
 
     - name: Publish package to PyPI
-      if: github.repository == 'fragiletech/ml-ops-quickstart'
+      if: "contains(github.event.head_commit.message, 'Bump version')"
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_PASS }}
