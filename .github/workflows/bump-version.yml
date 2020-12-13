@@ -26,19 +26,17 @@ jobs:
       run: echo "$JOB_CONTEXT"
     - name: Install dependencies
       run: |
-        git config --global user.name "Fragile Bot"
-        git config --global user.email "bot@fragile.tech"
-        git config --global pull.ff only
+        git config user.name "fragile-bot"
+        git config user.email "bot@fragile.tech"
+        git config pull.ff only
         pip install bump2version
     - name: Run bump version
-      env:
-        BOT_AUTH_TOKEN: ${{ secrets.BOT_AUTH_TOKEN }}
       run: |
         set -e
         git pull --no-edit origin master
         version_file=mloq/version.py
         current_version=$(grep __version__ $version_file | cut -d\" -f2)
         bumpversion --tag --current-version $current_version --commit patch $version_file
-        git remote add fragile-bot-remote https://fragile-bot:${BOT_AUTH_TOKEN}@github.com/$GITHUB_REPOSITORY
+        git remote add fragile-bot-remote https://fragile-bot:$${{ secrets.BOT_AUTH_TOKEN }}@github.com/$GITHUB_REPOSITORY
         git push --tags fragile-bot-remote HEAD:master
         set +e
