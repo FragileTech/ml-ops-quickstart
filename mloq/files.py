@@ -57,7 +57,7 @@ bump_version_wkf = File(
     name="bump-version.yml", src=WORKFLOWS_PATH / "bump-version.yml", is_static=False
 )
 lint_test_wkf = File(
-    name="lint-and-test.yml", src=WORKFLOWS_PATH / "lint-and-test.yml", is_static=False
+    name="lint-and-pytest.yml", src=WORKFLOWS_PATH / "lint-and-pytest.yml", is_static=False
 )
 docker_test_wkf = File(
     name="test-docker.yml", src=WORKFLOWS_PATH / "test-docker.yml", is_static=False
