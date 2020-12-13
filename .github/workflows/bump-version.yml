@@ -1,15 +1,14 @@
 name: Bump version
 
 on:
-  pull_request:
+  push:
     branches:
       - master
-    types: [closed]
 
 jobs:
   Bump-version:
     runs-on: ubuntu-latest
-    # if: github.event.pull_request.merged == true
+    if: "!contains(github.event.commit.message, 'Bump version') && github.repository_owner == 'fragiletech'"
     steps:
     - uses: actions/checkout@v2
     - name: Setup Python
