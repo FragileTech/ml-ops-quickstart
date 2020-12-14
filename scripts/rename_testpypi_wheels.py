@@ -26,10 +26,11 @@ def rename_wheels(new_version=None):
         os.rename(str(dist_dir / file), str(dist_dir / new_file))
         print(f"Renamed {file} to {new_file}")
 
+
 def main():
     last_version = get_versions("mloq")[-1]
     rename_wheels(last_version)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

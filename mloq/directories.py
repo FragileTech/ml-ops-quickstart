@@ -40,7 +40,7 @@ def copy_file(file: File, path: Union[Path, str], override: bool = False) -> Non
     Returns:
         None.
     """
-    target = path / file.name
+    target = path / file.dst
     if not os.path.isfile(str(target)) or override:
         copyfile(file.src, target)
     else:

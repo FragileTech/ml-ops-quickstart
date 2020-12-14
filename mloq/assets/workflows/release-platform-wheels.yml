@@ -63,7 +63,7 @@ jobs:
           password: ${{'{{'}} secrets.PYPI_PASS {{'}}'}}
 
   Release-wheels:
-    needs: Bump-version
+    needs: Release-source
     runs-on: ${{'{{'}} matrix.os {{'}}'}}
     strategy:
       fail-fast: false
