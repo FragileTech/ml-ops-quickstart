@@ -3,12 +3,12 @@ name: Release package
 on:
   pull_request:
     branches:
-      - master
+      - {{defult_branch}}
     types: [closed]
 
 jobs:
   Bump-version:
-    if: github.repository_owner == 'fragiletech'
+    if: github.repository_owner == '{{project_org}}'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -16,29 +16,21 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.8'
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
-    - name: Dump job context
-      env:
-        JOB_CONTEXT: ${{ toJson(job) }}
-      run: echo "$JOB_CONTEXT"
     - name: Install dependencies
       run: |
-        git config user.name "fragile-bot"
-        git config user.email "bot@fragile.tech"
+        git config user.name "{{bot_name}}"
+        git config user.email "{{bot_email}}"
         git config pull.ff only
         pip install bump2version
     - name: Run bump version
       run: |
         set -e
-        git pull --no-edit origin master
-        version_file=mloq/version.py
+        git pull --no-edit origin {{default_branch}}
+        version_file={{project_name}}/version.py
         current_version=$(grep __version__ $version_file | cut -d\" -f2)
         bumpversion --tag --current-version $current_version --commit patch $version_file
-        git remote add fragile-bot-remote https://fragile-bot:$${{ secrets.BOT_AUTH_TOKEN }}@github.com/$GITHUB_REPOSITORY
-        git push --tags fragile-bot-remote HEAD:master
+        git remote add {{bot_name}}-remote https://{{bot_name}}:$${{'{{'}} secrets.BOT_AUTH_TOKEN {{'}}'}}@github.com/$GITHUB_REPOSITORY
+        git push --tags {{bot_name}}-remote HEAD:{{default_branch}}
         set +e
 
   Release-package:
@@ -66,7 +58,7 @@ jobs:
           twine check dist/*
 
       - name: Publish package to PyPI
-        uses: pypa/gh-action-pypi-publish@master
+        uses: pypa/gh-action-pypi-publish@{{default_branch}}
         with:
           user: __token__
-          password: ${{ secrets.PYPI_PASS }}
+          password: ${{'{{'}} secrets.PYPI_PASS {{'}}'}}
