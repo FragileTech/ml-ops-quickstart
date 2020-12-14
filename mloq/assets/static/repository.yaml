@@ -13,4 +13,4 @@ template:
 
 requirements: ["datascience", "pytorch", "dataviz"]
 
-workflows: ["lint-and-test", "bump-version", "docker-test"]
+workflows: ["lint-and-test", "release-package", "build-source", "docker-test"]
