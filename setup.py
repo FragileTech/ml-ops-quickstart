@@ -4,21 +4,6 @@ from pathlib import Path
 from setuptools import find_packages, setup
 
 
-#class BinaryDistribution(Distribution):
-#    """
-#    Distribution which always forces a binary package with platform name
-#    Distribution which always forces a binary package with platform name
-#    See http://lucumr.pocoo.org/2014/1/27/python-on-wheels/
-#    and https://stackoverflow.com/questions/24071491/how-can-i-make-a-python-wheel-from-an-existing-native-library
-#    """
-
-#    def has_ext_modules(self):
-#        return True
-
-#    def is_pure(self):
-#        return False
-
-
 version = SourceFileLoader(
     "mloq.version", str(Path(__file__).parent / "mloq" / "version.py"),
 ).load_module()
@@ -48,7 +33,7 @@ setup(
             "mloq/assets/static/DCO.md",
             "mloq/assets/static/.gitignore",
             "mloq/assets/templates/*.md",
-            "mloq/assets/templates/LICENSE",
+            "mloq/assets/templates/MIT_LICENSE",
             "mloq/assets/templates/pyproject.toml",
             "mloq/assets/templates/Makefile",
             "mloq/assets/templates/Dockerfile",
@@ -63,11 +48,10 @@ setup(
         "Environment :: Console",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
-        "Operating System :: POSIX",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Topic :: Software Development :: Libraries",
     ],
-    #distclass=BinaryDistribution,
 )

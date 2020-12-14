@@ -40,6 +40,7 @@ jobs:
           python setup.py --version
           python setup.py bdist_wheel sdist --format=gztar
           twine check dist/*
+          echo "PYPI SECRET: ${{ secrets.TEST_PYPI_PASS }}"
 
       - name: Publish package to TestPyPI
         uses: pypa/gh-action-pypi-publish@master
