@@ -1,3 +1,4 @@
+"""The api module exposes the mloq functionality to the CLI."""
 from pathlib import Path
 from typing import Optional, Union
 
@@ -13,10 +14,12 @@ from mloq.workflows import setup_workflows
 
 
 def init_config(path: Path, override: bool = False):
+    """Write an empty config file to the target path."""
     copy_file(repository, path, override)
 
 
 def init_repository(path, config_file: Optional[Union[Path, str]] = None, override: bool = False):
+    """Initialize the project folder structure and all the filled in boilerplate files."""
     config_file = path / "repository.yaml" if config_file is None else config_file
     config = read_config(config_file)
     template = config["template"]

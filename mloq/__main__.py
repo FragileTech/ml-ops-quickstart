@@ -1,3 +1,4 @@
+"""Command line interface for mloq."""
 import os
 from pathlib import Path
 import sys

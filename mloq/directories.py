@@ -1,3 +1,4 @@
+"""This module defines common functionality for dealing with directories and files."""
 import os
 from pathlib import Path
 from shutil import copyfile
@@ -24,13 +25,14 @@ def create_empty_file(filepath: Path) -> None:
 
 
 def read_file(file: File) -> str:
+    """Return and string with the content of the provided file."""
     with open(file.src, "r") as f:
         return f.read()
 
 
 def copy_file(file: File, path: Union[Path, str], override: bool = False) -> None:
     """
-    Copies the file from src into dst.
+    Copy the file from src into dst.
 
     Args:
         file: File object representing the file that will be copied.

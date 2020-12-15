@@ -1,3 +1,4 @@
+"""This module defines common functionality for dealing with project requirements."""
 import os
 from pathlib import Path
 from typing import Iterable
@@ -23,6 +24,7 @@ REQUIREMENTS_ALIASES = {
 
 
 def require_cuda(template: dict) -> bool:
+    """Return True if any of the project dependencies require CUDA."""
     if "requirements" not in template:
         return False
     options = template["requirements"]
@@ -51,7 +53,9 @@ def read_requirements_file(option: str) -> str:
 
 def compose_requirements(options: Iterable[str]) -> str:
     """
-    Return the content of a requirements.txt file with the combined dependencies\
+    Return the content requirements.txt file with pinned dependencies.
+
+    The returned string contains the combined dependencies\
      for the different options sorted alphabetically.
 
     Args:
@@ -69,10 +73,18 @@ def compose_requirements(options: Iterable[str]) -> str:
     return requirements_text
 
 
-def write_requirements(options, out_path=None, out_name="requirements.txt", overide: bool = False):
+def write_requirements(
+    options, out_path=None, out_name="requirements.txt", override: bool = False
+):
+    """
+    Write the composed requirements.txt file.
+
+    The writen file contains pinned dependencies for the libraries \
+    required by the provided options.
+    """
     out_path = os.getcwd() if out_path is None else out_path
     file_path = out_path / out_name
-    if not overide and file_path.exists():
+    if not override and file_path.exists():
         return
     requirements = compose_requirements(options) if options is not None else ""
     with open(file_path, "w") as f:
@@ -80,6 +92,7 @@ def write_requirements(options, out_path=None, out_name="requirements.txt", over
 
 
 def write_dev_requirements(out_path=None, override: bool = False):
+    """Write requirements-lint.txt and requirements-test.txt in the target directory."""
     out_path = Path(os.getcwd() if out_path is None else out_path)
     copy_file(lint_req, out_path, override)
     copy_file(test_req, out_path, override)
@@ -88,6 +101,7 @@ def write_dev_requirements(out_path=None, override: bool = False):
 def setup_requirements(
     options=None, out_path=None, out_name="requirements.txt", override: bool = False
 ):
+    """Write the different requirements.txt files for the project."""
     out_path = Path(os.getcwd() if out_path is None else out_path)
     if options is not None:
         write_requirements(

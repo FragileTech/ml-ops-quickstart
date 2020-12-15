@@ -1,3 +1,4 @@
+"""This module defines common functionality for rendering and writing File templates."""
 from typing import Any, Dict
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape

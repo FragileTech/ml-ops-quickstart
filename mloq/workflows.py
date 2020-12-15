@@ -1,3 +1,4 @@
+"""This module defines the functionality to set up Github Actions workflows programmatically."""
 from pathlib import Path
 
 from mloq.directories import create_github_actions_directories
@@ -27,6 +28,7 @@ WORKFLOW_NAMES = {
 
 
 def setup_workflows(workflows, root_path: Path, params, override: bool = False):
+    """Add the target workflows to the corresponding .github/workflows repository."""
     create_github_actions_directories(root_path)
     workflows_path = root_path / ".github" / "workflows"
     # TODO: Check for incompatible workflows
