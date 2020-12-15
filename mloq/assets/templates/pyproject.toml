@@ -34,6 +34,7 @@ combine_as_imports = true
 include_trailing_comma = true
 color_output = true
 lines_after_imports = 2
+honor_noqa = true
 
 # Code coverate config
 [tool.coverage.run]

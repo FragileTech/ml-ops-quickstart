@@ -1,3 +1,4 @@
+"""This module defines all the different assets accessible from mloq."""
 from collections import namedtuple
 from pathlib import Path
 
@@ -6,6 +7,7 @@ File = namedtuple("File", "name src dst is_static")
 
 
 def file(name, path, dst=None, is_static: bool = False):
+    """Define a new asset as a File namedtuple."""
     dst = dst if dst is not None else name
     return File(name=name, src=path / name, dst=dst, is_static=is_static)
 

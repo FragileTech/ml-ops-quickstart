@@ -4,7 +4,7 @@ ENV BROWSER=/browser \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8
 
-COPY Makefile Makefile
+COPY scripts/makefile.docker Makefile
 COPY requirements.txt requirements.txt
 COPY requirements-lint.txt requirements-lint.txt
 COPY requirements-test.txt requirements-test.txt
