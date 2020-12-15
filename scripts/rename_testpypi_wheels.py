@@ -1,6 +1,6 @@
+from distutils.version import StrictVersion
 import os
 from pathlib import Path
-from distutils.version import StrictVersion
 import sys
 
 import requests

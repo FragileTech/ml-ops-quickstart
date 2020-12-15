@@ -35,7 +35,7 @@ include_trailing_comma = true
 color_output = true
 lines_after_imports = 2
 
-# Code coverate config
+# Code coverage config
 [tool.coverage.run]
 branch = true
 source = ["mloq"]
@@ -62,12 +62,12 @@ application_package_names = ["mloq"]
 application_import_names = ["mloq"]
 
 [tool.flakehell.plugins]
-'flake8*' = ["+*", "-D*"]
-pylint = ["+*", "-D*"]
+'flake8*' = ["+*"]
+pylint = ["+*"]
+pyflakes = ["+*"]
 pycodestyle = ["+*" ,"-B008","-B301","-C815","-C816","-C812","-D100",
     "-D105","-D200","-D202","-D301","-D402","-E121","-E123","-E126","-E203","-E226",
     "-E24","-E704","-F821","-W503","-W504"]
-pyflakes = ["+*"]
 
 # match by prefix
 [tool.flakehell.exceptions."**/tests/*"]
@@ -75,7 +75,7 @@ pycodestyle = ["-F401", "-F811"]
 pyflakes = ["-*"]
 "flake8*" = ["-D*", "-I*"]
 
-[tool.flakehell.exceptions."**/templates/*"]
+[tool.flakehell.exceptions."**/assets/*"]
 pycodestyle = ["-*"] # disable a check
 pyflakes = ["-*"]           # disable a plugin
 "flake8*" = ["-*"]
@@ -98,18 +98,3 @@ enable = """,
 requires = ["setuptools >= 50.3.2", "wheel >= 0.29.0"]
 build-backend = "setuptools.build_meta"
 
-[tool.tox]
-legacy_tox_ini = """
-[tox]
-envlist = py38
-isolated_build = true
-
-[testenv]
-allowlist_externals = make
-                      /bin/bash
-deps =
-    -rrequirements-test.txt
-    -rrequirements.txt
-recreate = true
-commands = make test
-"""
