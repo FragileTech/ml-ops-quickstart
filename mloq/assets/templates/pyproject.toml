@@ -36,7 +36,7 @@ color_output = true
 lines_after_imports = 2
 honor_noqa = true
 
-# Code coverate config
+# Code coverage config
 [tool.coverage.run]
 branch = true
 source = ["{{project_name}}"]
@@ -65,10 +65,10 @@ application_import_names = ["{{project_name}}"]
 [tool.flakehell.plugins]
 'flake8*' = ["+*", "-D*"] # disable docs by default
 pylint = ["+*", "-D*"]
+pyflakes = ["+*"]
 pycodestyle = ["+*" ,"-B008","-B301","-C815","-C816","-C812","-D100",
     "-D105","-D200","-D202","-D301","-D402","-E121","-E123","-E126","-E203","-E226",
     "-E24","-E704","-F821","-W503","-W504"]
-pyflakes = ["+*"]
 
 [tool.flakehell.exceptions."**/__init__.py"]
 "flake8*" = ["-D*"]
@@ -94,3 +94,4 @@ enable = """,
 
 [build-system]
 requires = ["setuptools >= 50.3.2", "wheel", "importlib"]
+build-backend = "setuptools.build_meta"
