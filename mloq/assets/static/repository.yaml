@@ -13,4 +13,9 @@ template:
 
 requirements: ["datascience", "pytorch", "dataviz"]
 
-workflows: ["lint-and-test", "release-package", "build-source", "docker-test"]
+# workflows: ["test-dist", "deploy-dist"]
+workflows: ["test-python", "deploy-python"]
+
+tools: ["black", "flakehell", "isort", "docker",
+        "makefile", "mlflow", "directories"]
+
