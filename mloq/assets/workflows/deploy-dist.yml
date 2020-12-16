@@ -4,10 +4,12 @@ on:
   push:
     branches:
       - {{default_branch}}
+  pull_request:
+    branches:
+      - {{default_branch}}
 
 jobs:
   Style-check:
-    if: "!contains(github.event.commit.message, 'Bump version') && github.repository_owner == '{{project_org}}' && github.ref == 'refs/heads/master'"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -230,6 +232,7 @@ jobs:
           pytest
 
   Bump-version:
+    if: "!contains(github.event.commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
     needs:
       - Pytest
       - Test-wheels
