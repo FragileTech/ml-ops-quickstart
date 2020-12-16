@@ -5,6 +5,8 @@ on:
     branches-ignore:
       - {{default_branch}}
   pull_request:
+    branches-ignore:
+      - {{default_branch}}
 
 jobs:
   Style-check:

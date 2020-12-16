@@ -4,10 +4,12 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   Style-check:
-    if: "!contains(github.event.commit.message, 'Bump version') && github.repository_owner == 'fragiletech' && github.ref == 'refs/heads/master'"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -126,6 +128,7 @@ jobs:
           pytest
 
   Bump-version:
+    if: "!contains(github.event.commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
     needs:
       - Test-source
       - Pytest
@@ -163,7 +166,7 @@ jobs:
         set +e
 
   Release-package:
-    if: "contains(github.event.commit.message, 'Bump version') && github.repository_owner == 'fragiletech' && github.ref == 'refs/heads/master'"
+    if: "contains(github.event.commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
