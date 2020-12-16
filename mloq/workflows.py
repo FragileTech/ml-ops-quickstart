@@ -2,28 +2,15 @@
 from pathlib import Path
 
 from mloq.directories import create_github_actions_directories
-from mloq.files import (
-    build_pypitest_python_wkf,
-    build_pypitest_source_wkf,
-    build_pypitest_wheels_wkf,
-    bump_version_wkf,
-    docker_test_wkf,
-    lint_test_wkf,
-    release_package_wkf,
-    release_wheels_wkf,
-)
+from mloq.files import deploy_dist_wkf, deploy_python_wkf, test_dist_wkf, test_python_wkf
 from mloq.templating import write_template
 
 
 WORKFLOW_NAMES = {
-    "build-python": build_pypitest_python_wkf,
-    "build-source": build_pypitest_source_wkf,
-    "build-wheels": build_pypitest_wheels_wkf,
-    "bump-version": bump_version_wkf,
-    "docker-test": docker_test_wkf,
-    "lint-and-test": lint_test_wkf,
-    "release-package": release_package_wkf,
-    "release_wheels": release_wheels_wkf,
+    "deploy-dist": deploy_dist_wkf,
+    "deploy-python": deploy_python_wkf,
+    "test-dist": test_dist_wkf,
+    "test-python": test_python_wkf,
 }
 
 

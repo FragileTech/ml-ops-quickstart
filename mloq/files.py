@@ -46,14 +46,10 @@ readme = file("README.md", TEMPLATES_PATH)
 pyproject_toml = file("pyproject.toml", TEMPLATES_PATH)
 
 # Workflows
-bump_version_wkf = file("bump-version.yml", WORKFLOWS_PATH)
-lint_test_wkf = file("lint-and-pytest.yml", WORKFLOWS_PATH)
-docker_test_wkf = file("test-docker.yml", WORKFLOWS_PATH)
-build_pypitest_python_wkf = file("build-pure-python.yml", WORKFLOWS_PATH, "build-testpypi.yml")
-build_pypitest_source_wkf = file("build-source.yml", WORKFLOWS_PATH, "build-source-testpypi.yml")
-build_pypitest_wheels_wkf = file("build-wheels.yml", WORKFLOWS_PATH, "build-wheels-testpypi.yml")
-release_package_wkf = file("release-package.yml", WORKFLOWS_PATH, "release-package.yml")
-release_wheels_wkf = file("release-platform-wheels.yml", WORKFLOWS_PATH, "release-package.yml")
+deploy_python_wkf = file("deploy-python.yml", WORKFLOWS_PATH, "deploy.yml")
+deploy_dist_wkf = file("deploy-dist.yml", WORKFLOWS_PATH, "deploy.yml")
+test_python_wkf = file("test-python.yml", WORKFLOWS_PATH, "test.yml")
+test_dist_wkf = file("test-dist.yml", WORKFLOWS_PATH, "test.yml")
 
 ROOT_PATH_FILES = [
     dco,
@@ -68,7 +64,7 @@ ROOT_PATH_FILES = [
     readme,
 ]
 
-WORKFLOW_FILES = [bump_version_wkf, lint_test_wkf, docker_test_wkf]
+WORKFLOW_FILES = [deploy_dist_wkf, deploy_python_wkf, test_dist_wkf, test_python_wkf]
 
 PYTHON_FILES = [init, main, version]
 
