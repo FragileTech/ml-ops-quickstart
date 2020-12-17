@@ -165,7 +165,7 @@ jobs:
         version_file=mloq/version.py
         current_version=$(grep __version__ $version_file | cut -d\" -f2)
         bumpversion --tag --current-version $current_version --commit patch $version_file
-        git remote add fragile-bot-remote https://fragile-bot:$${{ secrets.BOT_AUTH_TOKEN }}@github.com/$GITHUB_REPOSITORY
+        git remote add fragile-bot-remote https://fragile-bot:${{ secrets.BOT_AUTH_TOKEN }}@github.com/$GITHUB_REPOSITORY
         git push --tags fragile-bot-remote HEAD:master
         set +e
 
