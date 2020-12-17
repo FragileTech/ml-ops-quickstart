@@ -1,15 +1,15 @@
-name: Lint and test
+name: Push
 
 on:
   push:
-    branches-ignore:
+    branches:
       - {{default_branch}}
   pull_request:
-    branches-ignore:
+    branches:
       - {{default_branch}}
-
 jobs:
   Style-check:
+    if: "!contains(github.event.head_commit.message, 'Bump version')"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -83,6 +83,7 @@ jobs:
       - name: Create unique version for test.pypi
         run: |
           set -e
+          git pull --no-edit origin {{default_branch}}
           version_file={{package_name}}/version.py
           current_version=$(grep __version__ $version_file | cut -d\" -f2)
           ts=$(date +%s)
@@ -124,3 +125,66 @@ jobs:
           mv {{package_name}}/tests ./tests
           rm -rf {{package_name}}
           pytest
+
+  Bump-version:
+    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
+    needs:
+      - Test-pypi
+      - Pytest
+      - Test-docker
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 100
+        persist-credentials: false
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - name: Install dependencies
+      run: |
+        git config --global user.name "{{bot_name}}"
+        git config --global user.email "{{bot_email}}"
+        git config --global pull.rebase false
+        pip install bump2version
+    - name: Run bump version
+      run: |
+        set -x
+        git pull --no-edit origin {{default_branch}}
+        version_file={{project_name}}/version.py
+        current_version=$(grep __version__ $version_file | cut -d\" -f2)
+        bumpversion --tag --current-version $current_version --commit patch $version_file
+        git remote add {{bot_name}}-remote https://{{bot_name}}:${{'{{'}} secrets.BOT_AUTH_TOKEN {{'}}'}}@github.com/$GITHUB_REPOSITORY
+        git push --tags {{bot_name}}-remote HEAD:{{default_branch}}
+        set +e
+
+  Release-package:
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          git fetch --prune --unshallow
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install -U pip
+          python -m pip install -U setuptools twine wheel
+
+      - name: Build package
+        run: |
+          python setup.py --version
+          python setup.py bdist_wheel sdist --format=gztar
+          twine check dist/*
+
+      - name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@{{default_branch}}
+        with:
+          user: __token__
+          password: ${{'{{'}} secrets.PYPI_PASS {{'}}'}}

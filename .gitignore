@@ -119,6 +119,9 @@ ENV/
 # Notebooks by default are ignored
 *.ipynb
 
+#locked Pipfile
+Pipfile.lock
+
 data/
 
 docs/

@@ -15,10 +15,8 @@ include mloq/assets/templates/Makefile
 include mloq/assets/templates/Dockerfile
 include mloq/assets/templates/MLproject
 include mloq/assets/templates/README.md
-include mloq/assets/workflows/deploy-dist.yml
-include mloq/assets/workflows/deploy-python.yml
-include mloq/assets/workflows/test-dist.yml
-include mloq/assets/workflows/test-python.yml
+include mloq/assets/workflows/push-dist.yml
+include mloq/assets/workflows/push-python.yml
 include mloq/assets/static/__init__.py
 include mloq/assets/static/__main__.py
 include mloq/assets/static/version.py

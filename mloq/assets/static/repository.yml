@@ -13,8 +13,10 @@ template:
 
 requirements: ["datascience", "pytorch", "dataviz"]
 
-# workflows: ["test-dist", "deploy-dist"]
-workflows: ["test-python", "deploy-python"]
+# workflows:
+# "push-dist" for python packages with compiled extensions
+# "push-python" for pure python packages.
+workflows: ["push-python"]
 
 tools: ["black", "flakehell", "isort", "docker",
         "makefile", "mlflow", "directories"]

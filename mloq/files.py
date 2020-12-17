@@ -46,10 +46,8 @@ readme = file("README.md", TEMPLATES_PATH)
 pyproject_toml = file("pyproject.toml", TEMPLATES_PATH)
 
 # Workflows
-deploy_python_wkf = file("deploy-python.yml", WORKFLOWS_PATH, "deploy.yml")
-deploy_dist_wkf = file("deploy-dist.yml", WORKFLOWS_PATH, "deploy.yml")
-test_python_wkf = file("test-python.yml", WORKFLOWS_PATH, "test.yml")
-test_dist_wkf = file("test-dist.yml", WORKFLOWS_PATH, "test.yml")
+push_python_wkf = file("push-python.yml", WORKFLOWS_PATH, "push.yml")
+push_dist_wkf = file("push-dist.yml", WORKFLOWS_PATH, "push.yml")
 
 ROOT_PATH_FILES = [
     dco,
@@ -64,7 +62,7 @@ ROOT_PATH_FILES = [
     readme,
 ]
 
-WORKFLOW_FILES = [deploy_dist_wkf, deploy_python_wkf, test_dist_wkf, test_python_wkf]
+WORKFLOW_FILES = [push_dist_wkf, push_python_wkf]
 
 PYTHON_FILES = [init, main, version]
 
