@@ -10,6 +10,7 @@ on:
 
 jobs:
   Style-check:
+    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -82,7 +83,7 @@ jobs:
 
       - name: Create unique version for test.pypi
         run: |
-          set -e
+          set -x
           git pull --no-edit origin {{default_branch}}
           version_file={{project_name}}/version.py
           current_version=$(grep __version__ $version_file | cut -d\" -f2)
@@ -232,7 +233,7 @@ jobs:
           pytest
 
   Bump-version:
-    if: "!contains(github.event.commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
+    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
     needs:
       - Pytest
       - Test-wheels
@@ -240,19 +241,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 100
+        persist-credentials: false
     - name: Setup Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.8'
     - name: Install dependencies
       run: |
-        git config user.name "{{bot_name}}"
-        git config user.email "{{bot_email}}"
-        git config pull.ff only
+        git config --global user.name "{{bot_name}}"
+        git config --global user.email "{{bot_email}}"
+        git config --global pull.rebase false
         pip install bump2version
     - name: Run bump version
       run: |
-        set -e
+        set -x
         git pull --no-edit origin {{default_branch}}
         version_file={{project_name}}/version.py
         current_version=$(grep __version__ $version_file | cut -d\" -f2)
@@ -262,7 +266,7 @@ jobs:
         set +e
 
   Release-source:
-    if: "contains(github.event.commit.message, 'Bump version') && github.repository_owner == '{{project_org}}' && github.ref == 'refs/heads/master'"
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -292,7 +296,7 @@ jobs:
           password: ${{'{{'}} secrets.PYPI_PASS {{'}}'}}
 
   Release-wheels:
-    if: "contains(github.event.commit.message, 'Bump version') && github.repository_owner == '{{project_org}}' && github.ref == 'refs/heads/master'"
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
     runs-on: ${{'{{'}} matrix.os {{'}}'}}
     strategy:
       fail-fast: false

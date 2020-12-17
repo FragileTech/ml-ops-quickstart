@@ -10,6 +10,7 @@ on:
 
 jobs:
   Style-check:
+    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -128,7 +129,7 @@ jobs:
           pytest
 
   Bump-version:
-    if: "!contains(github.event.commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
+    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
     needs:
       - Test-source
       - Pytest
@@ -136,6 +137,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 100
+        persist-credentials: false
     - name: Setup Python
       uses: actions/setup-python@v2
       with:
@@ -150,13 +154,13 @@ jobs:
       run: echo "$JOB_CONTEXT"
     - name: Install dependencies
       run: |
-        git config user.name "fragile-bot"
-        git config user.email "bot@fragile.tech"
-        git config pull.ff only
+        git config --global user.name "fragile-bot"
+        git config --global user.email "bot@fragile.tech"
+        git config --global pull.rebase false
         pip install bump2version
     - name: Run bump version
       run: |
-        set -e
+        set -x
         git pull --no-edit origin master
         version_file=mloq/version.py
         current_version=$(grep __version__ $version_file | cut -d\" -f2)
@@ -166,7 +170,7 @@ jobs:
         set +e
 
   Release-package:
-    if: "contains(github.event.commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
