@@ -2,15 +2,13 @@
 from pathlib import Path
 
 from mloq.directories import create_github_actions_directories
-from mloq.files import deploy_dist_wkf, deploy_python_wkf, test_dist_wkf, test_python_wkf
+from mloq.files import push_dist_wkf, push_python_wkf
 from mloq.templating import write_template
 
 
 WORKFLOW_NAMES = {
-    "deploy-dist": deploy_dist_wkf,
-    "deploy-python": deploy_python_wkf,
-    "test-dist": test_dist_wkf,
-    "test-python": test_python_wkf,
+    "push-dist": push_dist_wkf,
+    "push-python": push_python_wkf,
 }
 
 
