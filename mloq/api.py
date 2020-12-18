@@ -7,27 +7,85 @@ from mloq.directories import (
     create_github_actions_directories,
     create_project_directories,
 )
-from mloq.files import repository, ROOT_PATH_FILES
+from mloq.files import file as new_file, repository, ROOT_PATH_FILES
 from mloq.parse_config import read_config
+from mloq.requirements import setup_requirements
 from mloq.templating import write_template
 from mloq.workflows import setup_workflows
 
 
-def init_config(path: Path, override: bool = False):
+def init_config(path: Union[str, Path], override: bool = False, filename=None):
     """Write an empty config file to the target path."""
-    copy_file(repository, path, override)
+    repo_file = (
+        repository
+        if filename is None
+        else new_file(repository.src, repository.src.parent, filename)
+    )
+    copy_file(repo_file, Path(path), override)
 
 
-def init_repository(path, config_file: Optional[Union[Path, str]] = None, override: bool = False):
+def requirements(
+    options: Union[str, Path, list, tuple],
+    path,
+    lint: bool = True,
+    test: bool = True,
+    install=None,
+    override: bool = False,
+):
+    """Write requirements files and install them if requested."""
+    if not isinstance(options, (list, tuple)):
+        options = read_config(Path(options))["requirements"]
+    if isinstance(install, (tuple, list)) and "all" in install or install == "all":
+        install_reqs = True
+        install_lint = True
+        install_test = True
+    elif isinstance(install, (tuple, list)):
+        install_reqs = "reqs" in install or "requirements" in install
+        install_lint = "lint" in install
+        install_test = "test" in install
+    else:
+        install_reqs = False
+        install_lint = False
+        install_test = False
+    setup_requirements(
+        options=options,
+        path=Path(path),
+        test=test,
+        lint=lint,
+        install_test=install_test,
+        install_reqs=install_reqs,
+        install_lint=install_lint,
+        override=override,
+    )
+
+
+def setup_workflow(
+    workflow, config_file: Union[str, Path, dict], path: Union[str, Path], override: bool = False
+):
+    """Initialize the target workflow."""
+    config = config_file if isinstance(config_file, dict) else read_config(Path(config_file))
+    path = Path(path)
+    create_github_actions_directories(path)
+    setup_workflows(
+        workflows=[workflow], template=config["template"], root_path=path, override=override
+    )
+
+
+def setup_repository(
+    path: Union[str, Path], config_file: Optional[Union[Path, str]] = None, override: bool = False
+):
     """Initialize the project folder structure and all the filled in boilerplate files."""
-    config_file = path / "repository.yaml" if config_file is None else config_file
+    path = Path(path)
+    config_file = path / "repository.yml" if config_file is None else config_file
     config = read_config(config_file)
     template = config["template"]
-    create_github_actions_directories(path)
     create_project_directories(
         project_name=template["project_name"], root_path=path, override=override
     )
     for file in ROOT_PATH_FILES:
         write_template(file, params=template, target_path=path, override=override)
-    if "workflows" in config:
-        setup_workflows(config["workflows"], root_path=path, params=template, override=override)
+    for workflow in config.get("workflows", []):
+        setup_workflow(workflow, path=path, config_file=config, override=override)
+    requirements(
+        options=config["requirements"], path=path, test=True, lint=True, override=override
+    )

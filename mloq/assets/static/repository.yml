@@ -10,6 +10,7 @@ template:
   bot_name: ""
   bot_email: ""
   python_versions: ['3.6', '3.7', '3.8', '3.9']
+  default_branch: "master"
 
 requirements: ["datascience", "pytorch", "dataviz"]
 

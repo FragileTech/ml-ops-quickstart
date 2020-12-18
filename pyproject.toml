@@ -47,6 +47,19 @@ exclude_lines =["no cover",
 ignore_errors = true
 omit = ["mloq/tests/*"]
 
+[tool.pylint.master]
+ignore = ['tests', "cli.py"]
+load-plugins =' pylint.extensions.docparams'
+
+[tool.pylint.messages_control]
+disable = 'all,'
+enable = """,
+         missing-param-doc,
+         differing-param-doc,
+         differing-type-doc,
+         missing-return-doc,
+         """
+
 # Flakehell config
 [tool.flakehell]
 # optionally inherit from remote config (or local if you want)
@@ -80,19 +93,11 @@ pycodestyle = ["-*"] # disable a check
 pyflakes = ["-*"]           # disable a plugin
 "flake8*" = ["-*"]
 
+[tool.flakehell.exceptions."mloq/cli.py"]
+pycodestyle = ["-D*"]
+pylint = ["-W9015", "-W9017"]
+"flake8*" = ["-D*", "-W9015", "-W9017"]
 
-[tool.pylint.master]
-ignore = 'tests'
-load-plugins =' pylint.extensions.docparams'
-
-[tool.pylint.messages_control]
-disable = 'all,'
-enable = """,
-         missing-param-doc,
-         differing-param-doc,
-         differing-type-doc,
-         missing-return-doc,
-         """
 
 [build-system]
 requires = ["setuptools >= 50.3.2", "wheel >= 0.29.0"]

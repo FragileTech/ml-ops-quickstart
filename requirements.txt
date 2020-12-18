@@ -1,2 +1,4 @@
+click==7.1.2
+invoke==1.4.1
 jinja2==2.11.2
 ruyaml==0.19.2

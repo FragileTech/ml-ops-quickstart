@@ -12,7 +12,7 @@ WORKFLOW_NAMES = {
 }
 
 
-def setup_workflows(workflows, root_path: Path, params, override: bool = False):
+def setup_workflows(workflows, root_path: Path, template, override: bool = False):
     """Add the target workflows to the corresponding .github/workflows repository."""
     create_github_actions_directories(root_path)
     workflows_path = root_path / ".github" / "workflows"
@@ -22,4 +22,4 @@ def setup_workflows(workflows, root_path: Path, params, override: bool = False):
         if workflow is None:
             print(f"Workflow {wkflow_name} not defined. Skipping")
         else:
-            write_template(workflow, params, workflows_path, override)
+            write_template(workflow, template, workflows_path, override)

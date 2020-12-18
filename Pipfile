@@ -18,7 +18,9 @@ black = "==19.10b0"
 
 [packages]
 ruyaml = "==0.19.2"
-jinja2 = "2.11.2"
+jinja2 = "==2.11.2"
+click = "==7.1.2"
+invoke = "==1.4.1"
 
 [requires]
 python_version = "3.8"

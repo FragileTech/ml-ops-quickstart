@@ -25,7 +25,12 @@ setup(
     download_url="https://github.com/FragileTech/ml-ops-quickstart.git",
     keywords=["Machine learning", "artificial intelligence"],
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
-    install_requires=["ruyaml>=0.19.0,<0.20.0", "jinja2>=2.0.0"],
+    install_requires=[
+        "ruyaml>=0.19.0,<0.20.0",
+        "jinja2>=2.0.0",
+        "click>=7.1.2,<8.0.0",
+        "invoke>=1.4.1",
+    ],
     package_data={
         "": ["README.md"],
         "mloq": [
@@ -55,4 +60,8 @@ setup(
         "Programming Language :: Python :: 3 :: Only",
         "Topic :: Software Development :: Libraries",
     ],
+    entry_points="""
+            [console_scripts]
+            mloq=mloq.cli:cli
+        """,
 )
