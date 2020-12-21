@@ -71,19 +71,29 @@ def setup_workflow(
     )
 
 
-def setup_repository(
-    path: Union[str, Path], config_file: Optional[Union[Path, str]] = None, override: bool = False
-):
-    """Initialize the project folder structure and all the filled in boilerplate files."""
+def setup_project_files(path, template: Union[Path, str, dict], override: bool = False):
+    """Write the template for common repository config files."""
+    if not isinstance(template, dict):
+        template = read_config(Path(template))["template"]
     path = Path(path)
-    config_file = path / "repository.yml" if config_file is None else config_file
-    config = read_config(config_file)
-    template = config["template"]
     create_project_directories(
         project_name=template["project_name"], root_path=path, override=override
     )
     for file in ROOT_PATH_FILES:
         write_template(file, params=template, target_path=path, override=override)
+
+
+def setup_repository(
+    path: Union[str, Path],
+    config_file: Optional[Union[Path, str, dict]] = None,
+    override: bool = False,
+):
+    """Initialize the project folder structure and all the filled in boilerplate files."""
+    path = Path(path)
+    config_file = path / "mloq.yml" if config_file is None else config_file
+    config = config_file if isinstance(config_file, dict) else read_config(config_file)
+    template = config["template"]
+    setup_project_files(path=path, template=template, override=override)
     for workflow in config.get("workflows", []):
         setup_workflow(workflow, path=path, config_file=config, override=override)
     requirements(

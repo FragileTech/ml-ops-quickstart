@@ -13,6 +13,4 @@ def repo_path():
 
 def test_init_repository(repo_path):
     with tempfile.TemporaryDirectory() as tmp:
-        setup_repository(
-            Path(tmp), config_file=Path(__file__).parent / "repository.yml", override=False
-        )
+        setup_repository(Path(tmp), config_file=Path(__file__).parent / "mloq.yml", override=False)

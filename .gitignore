@@ -120,7 +120,7 @@ ENV/
 *.ipynb
 
 #locked Pipfile
-Pipfile.lock
+*.lock
 
 data/
 

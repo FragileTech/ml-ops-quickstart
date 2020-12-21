@@ -1,7 +1,7 @@
 current_dir = $(shell pwd)
 
 PROJECT = {{project_name}}
-DOCKER_ORG = {{project_org}}
+DOCKER_ORG = {{owner}}
 VERSION ?= latest
 
 .POSIX:

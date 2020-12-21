@@ -4,7 +4,7 @@ include mloq/assets/requirements/pytorch.txt
 include mloq/assets/requirements/requirements-lint.txt
 include mloq/assets/requirements/requirements-test.txt
 include mloq/assets/requirements/tensorflow.txt
-include mloq/assets/static/repository.yml
+include mloq/assets/static/mloq.yml
 include mloq/assets/static/DCO.md
 include mloq/assets/static/.gitignore
 include mloq/assets/templates/code_of_conduct.md

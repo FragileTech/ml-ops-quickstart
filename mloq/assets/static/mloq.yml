@@ -1,14 +1,15 @@
 template:
-  project_name: ""
-  project_org: ""
-  description: "Short description of the repo"
-  author: ""
-  email: ""
+  project_name: null
+  owner: null
+  author: null
+  email: null
+  copyright_holder: null
+  project_url: null
+  download_url: null
+  bot_name: null
+  bot_email: null
   license: "MIT"
-  copyright_holder: ""
-  url: ""
-  bot_name: ""
-  bot_email: ""
+  description: "short_description_of_the_project"
   python_versions: ['3.6', '3.7', '3.8', '3.9']
   default_branch: "master"
 
@@ -19,6 +20,4 @@ requirements: ["datascience", "pytorch", "dataviz"]
 # "push-python" for pure python packages.
 workflows: ["push-python"]
 
-tools: ["black", "flakehell", "isort", "docker",
-        "makefile", "mlflow", "directories"]
 

@@ -20,7 +20,7 @@ REQUIREMENTS_PATH = ASSETS_PATH / "requirements"
 WORKFLOWS_PATH = ASSETS_PATH / "workflows"
 
 # Common files
-repository = file("repository.yml", STATIC_FILES_PATH, is_static=True)
+repository = file("mloq.yml", STATIC_FILES_PATH, is_static=True)
 gitignore = file(".gitignore", STATIC_FILES_PATH, is_static=True)
 dco = file("DCO.md", STATIC_FILES_PATH, is_static=True)
 init = file("__init__.py", STATIC_FILES_PATH, is_static=True)

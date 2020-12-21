@@ -34,7 +34,7 @@ setup(
     package_data={
         "": ["README.md"],
         "mloq": [
-            "mloq/assets/static/repository.yml",
+            "mloq/assets/static/mloq.yml",
             "mloq/assets/static/DCO.md",
             "mloq/assets/static/.gitignore",
             "mloq/assets/templates/*.md",
