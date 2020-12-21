@@ -77,6 +77,9 @@ def create_project_directories(project_name: str, root_path: Path, override: Fal
     test_path = project_path / "tests"
     os.makedirs(test_path, exist_ok=True)
     copy_file(init, test_path, override)
+    # Scripts dir
+    test_path = project_path / "scripts"
+    os.makedirs(test_path, exist_ok=True)
 
 
 def create_github_actions_directories(root_path: Path) -> None:

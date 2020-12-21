@@ -26,6 +26,8 @@ dco = file("DCO.md", STATIC_FILES_PATH, is_static=True)
 init = file("__init__.py", STATIC_FILES_PATH, is_static=True)
 main = file("__main__.py", STATIC_FILES_PATH, is_static=True)
 version = file("version.py", STATIC_FILES_PATH, is_static=True)
+dockerfile_aarch64 = file("Dockerfile_aarch64", STATIC_FILES_PATH, is_static=True)
+build_manylinux_sh = file("build-manylinux-wheels.sh", STATIC_FILES_PATH, is_static=True)
 code_of_conduct = file("code_of_conduct.md", TEMPLATES_PATH)
 
 # Requirements files
@@ -39,8 +41,10 @@ test_req = file("requirements-test.txt", REQUIREMENTS_PATH, is_static=True)
 # Templates
 mit_license = file("MIT_LICENSE", TEMPLATES_PATH, "LICENSE")
 setup_py = file("setup.py", TEMPLATES_PATH)
+rename_wheels = file("rename_testpypi_wheels.py", TEMPLATES_PATH)
 dockerfile = file("Dockerfile", TEMPLATES_PATH)
 makefile = file("Makefile", TEMPLATES_PATH)
+makefile_docker = file("makefile.docker", TEMPLATES_PATH)
 mlproject = file("MLproject", TEMPLATES_PATH)
 readme = file("README.md", TEMPLATES_PATH)
 pyproject_toml = file("pyproject.toml", TEMPLATES_PATH)
@@ -75,6 +79,8 @@ REQUIREMENTS_FILES = [
     lint_req,
     test_req,
 ]
+
+SCRIPTS = [build_manylinux_sh, dockerfile_aarch64, makefile_docker, rename_wheels]
 
 ALL_FILES = ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [repository]
 

@@ -27,7 +27,7 @@ def rename_wheels(new_version=None):
 
 
 def main():
-    project = os.environ.get("PROJECT_NAME", "mloq")
+    project = os.environ.get("PROJECT_NAME", "{{project_name}}")
     last_version = get_versions(project)[-1]
     rename_wheels(last_version)
 

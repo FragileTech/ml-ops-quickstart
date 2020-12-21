@@ -7,7 +7,7 @@ from mloq.directories import (
     create_github_actions_directories,
     create_project_directories,
 )
-from mloq.files import file as new_file, repository, ROOT_PATH_FILES
+from mloq.files import file as new_file, repository, ROOT_PATH_FILES, SCRIPTS
 from mloq.parse_config import read_config
 from mloq.requirements import setup_requirements
 from mloq.templating import write_template
@@ -79,6 +79,17 @@ def setup_project_files(path, template: Union[Path, str, dict], override: bool =
     create_project_directories(
         project_name=template["project_name"], root_path=path, override=override
     )
+    setup_root_files(template=template, path=path, override=override)
+
+
+def setup_scripts(path, template: Union[Path, str, dict], override: bool = False):
+    """Initialize CI scripts folder files."""
+    for file in SCRIPTS:
+        write_template(file, params=template, target_path=path, override=override)
+
+
+def setup_root_files(path, template: Union[Path, str, dict], override: bool = False):
+    """Initialize root folder files."""
     for file in ROOT_PATH_FILES:
         write_template(file, params=template, target_path=path, override=override)
 
@@ -99,3 +110,4 @@ def setup_repository(
     requirements(
         options=config["requirements"], path=path, test=True, lint=True, override=override
     )
+    setup_scripts(template=template, path=path, override=override)

@@ -185,6 +185,7 @@ jobs:
 
     - name: Rename wheels with test.pypi version
       run: |
+        pip install requests
         python scripts/rename_testpypi_wheels.py
 
     - name: Upload as build artifacts
