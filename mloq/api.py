@@ -4,14 +4,13 @@ from typing import Optional, Union
 
 from mloq.directories import (
     copy_file,
-    create_github_actions_directories,
     create_project_directories,
 )
-from mloq.files import file as new_file, repository, ROOT_PATH_FILES, SCRIPTS
+from mloq.files import file as new_file, repository, ROOT_PATH_FILES, SCRIPTS, test_main
 from mloq.parse_config import read_config
 from mloq.requirements import setup_requirements
 from mloq.templating import write_template
-from mloq.workflows import setup_workflows
+from mloq.workflows import setup_push_workflow
 
 
 def init_config(path: Union[str, Path], override: bool = False, filename=None):
@@ -59,39 +58,28 @@ def requirements(
     )
 
 
-def setup_workflow(
-    workflow, config_file: Union[str, Path, dict], path: Union[str, Path], override: bool = False
-):
-    """Initialize the target workflow."""
-    config = config_file if isinstance(config_file, dict) else read_config(Path(config_file))
-    path = Path(path)
-    create_github_actions_directories(path)
-    setup_workflows(
-        workflows=[workflow], template=config["template"], root_path=path, override=override
-    )
-
-
 def setup_project_files(path, template: Union[Path, str, dict], override: bool = False):
     """Write the template for common repository config files."""
     if not isinstance(template, dict):
         template = read_config(Path(template))["template"]
     path = Path(path)
-    create_project_directories(
-        project_name=template["project_name"], root_path=path, override=override
-    )
+    project_name = template["project_name"]
+    create_project_directories(project_name=project_name, root_path=path, override=override)
     setup_root_files(template=template, path=path, override=override)
+    tests_path = path / project_name / "tests"
+    write_template(test_main, params=template, path=tests_path, override=override)
 
 
 def setup_scripts(path, template: Union[Path, str, dict], override: bool = False):
     """Initialize CI scripts folder files."""
     for file in SCRIPTS:
-        write_template(file, params=template, target_path=path, override=override)
+        write_template(file, params=template, path=path, override=override)
 
 
 def setup_root_files(path, template: Union[Path, str, dict], override: bool = False):
     """Initialize root folder files."""
     for file in ROOT_PATH_FILES:
-        write_template(file, params=template, target_path=path, override=override)
+        write_template(file, params=template, path=path, override=override)
 
 
 def setup_repository(
@@ -105,8 +93,7 @@ def setup_repository(
     config = config_file if isinstance(config_file, dict) else read_config(config_file)
     template = config["template"]
     setup_project_files(path=path, template=template, override=override)
-    for workflow in config.get("workflows", []):
-        setup_workflow(workflow, path=path, config_file=config, override=override)
+    setup_push_workflow(config.get("workflow"), path=path, config_file=config, override=override)
     requirements(
         options=config["requirements"], path=path, test=True, lint=True, override=override
     )

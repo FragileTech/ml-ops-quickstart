@@ -82,7 +82,7 @@ def create_project_directories(project_name: str, root_path: Path, override: Fal
     os.makedirs(test_path, exist_ok=True)
 
 
-def create_github_actions_directories(root_path: Path) -> None:
+def create_github_actions_directories(root_path: Union[str, Path]) -> None:
     """
     Initialize the folder structure for using GitHub actions workflows.
 
@@ -96,7 +96,7 @@ def create_github_actions_directories(root_path: Path) -> None:
     Returns:
         None.
     """
-    gha_path = root_path / ".github"
+    gha_path = Path(root_path) / ".github"
     os.makedirs(gha_path, exist_ok=True)
     workflows_path = gha_path / "workflows"
     os.makedirs(workflows_path, exist_ok=True)

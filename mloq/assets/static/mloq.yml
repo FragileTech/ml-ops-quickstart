@@ -16,8 +16,8 @@ template:
 requirements: ["datascience", "pytorch", "dataviz"]
 
 # workflows:
-# "push-dist" for python packages with compiled extensions
-# "push-python" for pure python packages.
-workflows: ["push-python"]
+# "dist" for python packages with compiled extensions
+# "python" for pure python packages.
+workflow: "python"
 
 

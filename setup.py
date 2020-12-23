@@ -46,6 +46,7 @@ setup(
             "mloq/assets/templates/makefile.docker",
             "mloq/assets/templates/Dockerfile",
             "mloq/assets/templates/MLproject",
+            "mloq/assets/templates/test_main.txt",
             "mloq/assets/workflows/*.yml",
             "mloq/assets/requirements/*.txt",
         ],

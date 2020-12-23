@@ -132,27 +132,32 @@ class ConfigEntry(BaseEntry):
         force_prompt=False,
         **kwargs,
     ):
-        prompt_text, help = self._share_text(prompt_text, help, name)
-        self.force_prompt = force_prompt
         super(ConfigEntry, self).__init__(name=name, value=value, default=default_prompt)
+        self._prompt_text, self._help = self._share_text(prompt_text, help, name)
+        self._hide_input = hide_input
+        self.force_prompt = force_prompt
+        self._prompt_suffix = prompt_suffix
+        self._type = type
+        self._show_default = show_default
+        self._show_choices = show_choices
         self._option = self._init_option(
             name_args,
-            hide_input=hide_input,
+            hide_input=self._hide_input,
             show_default=show_default,
             show_choices=show_choices,
-            type=type,
-            help=help,
+            type=self._type,
+            help=self._help,
             hidden=hidden,
             show_envvar=show_envvar,
             **kwargs,
         )
         self._prompt = self._init_prompt(
-            text=prompt_text,
-            hide_input=hide_input,
-            type=type,
-            prompt_suffix=prompt_suffix,
-            show_default=show_default,
-            show_choices=show_choices,
+            text=self._prompt_text,
+            hide_input=self._hide_input,
+            type=self._type,
+            prompt_suffix=self._prompt_suffix,
+            show_default=self._show_default,
+            show_choices=self._show_choices,
         )
 
     @property
@@ -163,6 +168,17 @@ class ConfigEntry(BaseEntry):
         return self._prompt()
 
     def define_value(self, value: None):
+        if value is not None:
+            self._default = value
+            self._value = value
+            self._prompt = self._init_prompt(
+                text=self._prompt_text,
+                hide_input=self._hide_input,
+                type=self._type,
+                prompt_suffix=self._prompt_suffix,
+                show_default=self._show_default,
+                show_choices=self._show_choices,
+            )
         if value is None or self.force_prompt:
             value = self.prompt()
         self.update(value)
@@ -382,9 +398,11 @@ class Config:
         return kwargs
 
     def define_value(self, **kwargs):
+        """Kwargs is a loaded configuration dict."""
         for name, entry in self._entries.items():
+            print("defining", name, entry)
             if isinstance(entry, ConfigGroup):
-                entry.define_value(**kwargs)
+                entry.define_value(**kwargs.get(entry.name))
             elif isinstance(entry, ConfigEntry):
                 entry.define_value(kwargs.get(name))
 
@@ -458,9 +476,11 @@ class ConfigFile(BaseWrapper):
         yaml.indent(sequence=4, offset=2)
         return yaml.dump(params)
 
-    @staticmethod
-    def read_config(path: Union[Path, str], fail_ok: bool = False) -> dict:
+    @classmethod
+    def read_config(cls, path: Union[Path, str], fail_ok: bool = False) -> dict:
         """Load the project configuration from the target path."""
+        if isinstance(path, Path):
+            path = path / cls.DEFAULT_FILE_NAME if path.is_dir() else path
         try:
             with open(path, "r") as config:
                 params = yaml_load(config.read(), Loader)
@@ -485,9 +505,13 @@ class ConfigFile(BaseWrapper):
         if self._target is None:
             return
         elif isinstance(self._target, Path):
-            return (
-                self._target if self._target.is_file() else self._target / self.DEFAULT_FILE_NAME
-            )
+            if self._target.is_file():
+                return self._target
+            elif self._target.is_dir() and self.source.is_file():
+                return self._target / self.source.name
+            else:
+                return self._target / self.DEFAULT_FILE_NAME
+
         raise ValueError(f"source is not a Path: {self._target}")
 
     @property
@@ -572,19 +596,31 @@ class ConfigFile(BaseWrapper):
         config = parse_python_versions(config)
         return set_docker_image(config)
 
+    @staticmethod
+    def flatten_dict(d):
+        new_d = {}
+        for k, v in d.items():
+            if isinstance(v, dict):
+                new_d.update(v)
+            else:
+                new_d[k] = v
+        return new_d
+
     def click_command(self, group, *options):
         def wrapped(func):
             @group.command(name=func.__name__)
             @self.file_option
             @self.option
             def inner(file, *args, **kwargs):
+                print("INIT")
                 our_kwargs_keys = self.to_kwargs()
                 our_kwargs = {k: v for k, v in kwargs.items() if k in our_kwargs_keys}
                 other_kwargs = {k: v for k, v in kwargs.items() if k not in our_kwargs_keys}
                 if self.validate_path(file):
                     self.set_file(file)
-                config = self.read_config(self.source, fail_ok=True)
+                config = self.read_config(self.source, fail_ok=False)
                 config = self._update_config_from_kwargs(config, our_kwargs)
+                print("CONFIG", config)
                 self.define_value(**config)
                 func(*args, **{**other_kwargs, **self.to_kwargs()})
 

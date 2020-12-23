@@ -18,6 +18,8 @@ include mloq/assets/templates/Dockerfile
 include mloq/assets/templates/MLproject
 include mloq/assets/templates/README.md
 include mloq/assets/templates/makefile.docker
+include mloq/assets/templates/test_main.txt
+include mloq/assets/templates/rename_testpypi_wheels.py
 include mloq/assets/workflows/push-dist.yml
 include mloq/assets/workflows/push-python.yml
 include mloq/assets/static/__init__.py

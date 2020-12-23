@@ -1,12 +1,6 @@
 import click
 
-from mloq.configuration.configuration import (
-    Config,
-    ConfigEntry,
-    ConfigFile,
-    ConfigGroup,
-    MultiChoiceConfig,
-)
+from mloq.configuration.core import Config, ConfigEntry, ConfigFile, ConfigGroup, MultiChoiceConfig
 
 
 project_name = ConfigEntry(
@@ -84,19 +78,11 @@ requirements = MultiChoiceConfig(
 )
 
 
-class PushWorkflow(ConfigEntry):
-    @property
-    def value(self):
-        val = super(PushWorkflow, self).value
-        value = None if val == "none" else [val]
-        return value
-
-
 workflow = ConfigEntry(
     "workflow",
     help="Push workflow for Github Actions CI",
-    default_prompt="push-python",
-    type=click.Choice(["push-python", "push-dist", "none"], case_sensitive=False),
+    default_prompt="python",
+    type=click.Choice(["python", "dist", "none"], case_sensitive=False),
     force_prompt=True,
 )
 

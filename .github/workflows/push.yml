@@ -2,9 +2,24 @@ name: Push
 
 on:
   push:
+    branches:
+      - master
   pull_request:
     branches:
       - master
+
+env:
+  PROJECT_NAME: mloq
+  VERSION_FILE: mloq/version.py
+  DEFAULT_BRANCH: master
+  BOT_NAME: fragile-bot
+  BOT_EMAIL: bot@fragile.tech
+  BOT_AUTH_TOKEN: ${{ secrets.BOT_AUTH_TOKEN }}
+  PYPI_PASS: ${{ secrets.PYPI_PASS }}
+  TEST_PYPI_PASS: ${{ secrets.TEST_PYPI_PASS }}
+  DOCKER_ORG: FragileTech
+  DOCKER_USERNAME: ${{ secrets.DOCKERHUB_LOGIN }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASS }}
 
 jobs:
   Style-check:
@@ -30,7 +45,6 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.6', '3.7', '3.8', '3.9']
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
@@ -62,7 +76,7 @@ jobs:
       run: |
         make docker-test
 
-  Build-source:
+  Build-pypi:
     needs: Style-check
     runs-on: ubuntu-18.04
     steps:
@@ -83,12 +97,11 @@ jobs:
       - name: Create unique version for test.pypi
         run: |
           set -e
-          git pull --no-edit origin master
-          version_file=mloq/version.py
-          current_version=$(grep __version__ $version_file | cut -d\" -f2)
+          git pull --no-edit origin $DEFAULT_BRANCH
+          current_version=$(grep __version__ $VERSION_FILE | cut -d\" -f2)
           ts=$(date +%s)
           new_version="$current_version$ts"
-          bumpversion --current-version $current_version --new-version $new_version patch $version_file
+          bumpversion --current-version $current_version --new-version $new_version patch $VERSION_FILE
 
       - name: Build package
         run: |
@@ -97,6 +110,7 @@ jobs:
           twine check dist/*
 
       - name: Publish package to TestPyPI
+        if: "'$TEST_PYPI_PASS' != ''"
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__
@@ -104,8 +118,9 @@ jobs:
           repository_url: https://test.pypi.org/legacy/
           skip_existing: true
 
-  Test-source:
-    needs: Build-source
+  Test-pypi:
+    if: "'$TEST_PYPI_PASS' != ''"
+    needs: Build-pypi
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -117,19 +132,19 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install -U pip
-          python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple mloq
+          python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple $PROJECT_NAME
           python -m pip install -r requirements-test.txt
 
       - name: Test package
         run: |
-          mv mloq/tests ./tests
-          rm -rf mloq
+          mv $PROJECT_NAME/tests ./tests
+          rm -rf $PROJECT_NAME
           pytest
 
   Bump-version:
-    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
+    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$BOT_AUTH_TOKEN' != ''"
     needs:
-      - Test-source
+      - Test-pypi
       - Pytest
       - Test-docker
     runs-on: ubuntu-latest
@@ -138,43 +153,55 @@ jobs:
       with:
         fetch-depth: 100
         persist-credentials: false
+
     - name: Setup Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.8'
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
-    - name: Dump job context
-      env:
-        JOB_CONTEXT: ${{ toJson(job) }}
-      run: echo "$JOB_CONTEXT"
+
     - name: Install dependencies
       run: |
-        git config --global user.name "fragile-bot"
-        git config --global user.email "bot@fragile.tech"
+        git config --global user.name "${BOT_NAME}"
+        git config --global user.email "${BOT_EMAIL}"
         git config --global pull.rebase false
         pip install bump2version
+
     - name: Run bump version
       run: |
         set -x
-        git pull --no-edit origin master
-        version_file=mloq/version.py
-        current_version=$(grep __version__ $version_file | cut -d\" -f2)
-        bumpversion --tag --current-version $current_version --commit patch $version_file
-        git remote add fragile-bot-remote https://fragile-bot:${{ secrets.BOT_AUTH_TOKEN }}@github.com/$GITHUB_REPOSITORY
-        git push --tags fragile-bot-remote HEAD:master
+        git pull --no-edit origin $DEFAULT_BRANCH
+        current_version=$(grep __version__ $VERSION_FILE | cut -d\" -f2)
+        bumpversion --tag --current-version $current_version --commit patch $VERSION_FILE
+        git remote add ${BOT_NAME}-remote https://${BOT_NAME}:${BOT_AUTH_TOKEN}@github.com/$GITHUB_REPOSITORY
+        git push --tags ${BOT_NAME}-remote HEAD:$DEFAULT_BRANCH
         set +e
 
+  Push-Docker-container:
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$DOCKER_PASSWORD' != ''"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to DockerHub
+        run: |
+          docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
+
+      - name: Build container
+        run: |
+          CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
+          make docker-build VERSION=$CONTAINER_VERSION PROJECT=$PROJECT_NAME DOCKER_ORG=$DOCKER_ORG
+      - name: Push images
+
+        run: |
+          CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
+          make -f scripts/makefile.docker docker-push VERSION=$CONTAINER_VERSION PROJECT=$PROJECT_NAME DOCKER_ORG=$DOCKER_ORG
+
   Release-package:
-    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'  && '$PYPI_PASS' != ''"
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
       - run: |
           git fetch --prune --unshallow
-
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:

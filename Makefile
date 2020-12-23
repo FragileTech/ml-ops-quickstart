@@ -48,6 +48,3 @@ docker-test:
 docker-build:
 	docker build --pull -t ${DOCKER_ORG}/${PROJECT}:${VERSION} .
 
-.PHONY: docker-push
-docker-push:
-	docker push ${DOCKER_ORG}/${PROJECT}:${VERSION}

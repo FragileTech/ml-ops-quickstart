@@ -25,24 +25,6 @@ install-common-dependencies:
 	echo '#!/bin/bash\n\\n\echo\n\echo "  $@"\n\echo\n\' > /browser && \
 	chmod +x /browser
 
-# Install Python 3.7
-.PHONY: install-python3.8
-install-python3.8:
-	apt-get install -y --no-install-suggests --no-install-recommends \
-		python3.8 python3.8-dev python3-distutils python3-setuptools libhdf5-103
-
-
-# Install phantomjs for holoviews image save
-.PHONY: install-phantomjs
-install-phantomjs:
-	curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-	echo "deb https://deb.nodesource.com/node_10.x ${UBUNTU_NAME} main" | tee /etc/apt/sources.list.d/nodesource.list && \
-	echo "deb-src https://deb.nodesource.com/node_10.x ${UBUNTU_NAME} main" | tee -a /etc/apt/sources.list.d/nodesource.list && \
-	apt-get update && apt-get install -y nodejs && \
-	cat /etc/apt/sources.list.d/nodesource.list && \
-	npm install phantomjs --unsafe-perm && \
-	npm install -g phantomjs-prebuilt --unsafe-perm
-
 .PHONY: remove-dev-packages
 remove-dev-packages:
 	pip3 uninstall -y cython && \
@@ -52,3 +34,9 @@ remove-dev-packages:
 	apt-get autoremove -y && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
+
+.PHONY: docker-push
+docker-push:
+	docker push ${DOCKER_ORG}/${PROJECT}:${VERSION}
+	docker tag ${DOCKER_ORG}/${PROJECT}:${VERSION} ${DOCKER_ORG}/${PROJECT}:latest
+	docker push ${DOCKER_ORG}/${PROJECT}:latest

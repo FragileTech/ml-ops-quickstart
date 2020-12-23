@@ -7,11 +7,11 @@ from mloq.api import (
     init_config as _init_config,
     requirements as _requirements,
     setup_project_files,
+    setup_push_workflow,
     setup_repository,
-    setup_workflow,
 )
 from mloq.configuration.config_values import MLOQFile
-from mloq.configuration.configuration import set_docker_image
+from mloq.configuration.core import set_docker_image
 
 
 override_opt = click.option(
@@ -103,9 +103,7 @@ def workflows(override, config_file, output, push):  # noqa
 
         OUTPUT: Path where the new mloq.yml template will be written.
     """
-    setup_workflow(
-        workflow=f"push-{push}", override=override, path=output, config_file=config_file
-    )
+    setup_push_workflow(workflow=push, override=override, path=output, config_file=config_file)
 
 
 @cli.command()
