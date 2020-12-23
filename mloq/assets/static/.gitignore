@@ -125,3 +125,5 @@ docs/
 examples/
 *.pck
 *.npy
+
+Pipfile.lock

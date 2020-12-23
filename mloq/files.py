@@ -20,12 +20,14 @@ REQUIREMENTS_PATH = ASSETS_PATH / "requirements"
 WORKFLOWS_PATH = ASSETS_PATH / "workflows"
 
 # Common files
-repository = file("repository.yml", STATIC_FILES_PATH, is_static=True)
+repository = file("mloq.yml", STATIC_FILES_PATH, is_static=True)
 gitignore = file(".gitignore", STATIC_FILES_PATH, is_static=True)
 dco = file("DCO.md", STATIC_FILES_PATH, is_static=True)
 init = file("__init__.py", STATIC_FILES_PATH, is_static=True)
 main = file("__main__.py", STATIC_FILES_PATH, is_static=True)
 version = file("version.py", STATIC_FILES_PATH, is_static=True)
+dockerfile_aarch64 = file("Dockerfile_aarch64", STATIC_FILES_PATH, is_static=True)
+build_manylinux_sh = file("build-manylinux-wheels.sh", STATIC_FILES_PATH, is_static=True)
 code_of_conduct = file("code_of_conduct.md", TEMPLATES_PATH)
 
 # Requirements files
@@ -39,17 +41,18 @@ test_req = file("requirements-test.txt", REQUIREMENTS_PATH, is_static=True)
 # Templates
 mit_license = file("MIT_LICENSE", TEMPLATES_PATH, "LICENSE")
 setup_py = file("setup.py", TEMPLATES_PATH)
+test_main = file("test_main.txt", TEMPLATES_PATH, "test_main.py")
+rename_wheels = file("rename_testpypi_wheels.py", TEMPLATES_PATH)
 dockerfile = file("Dockerfile", TEMPLATES_PATH)
 makefile = file("Makefile", TEMPLATES_PATH)
+makefile_docker = file("makefile.docker", TEMPLATES_PATH)
 mlproject = file("MLproject", TEMPLATES_PATH)
 readme = file("README.md", TEMPLATES_PATH)
 pyproject_toml = file("pyproject.toml", TEMPLATES_PATH)
 
 # Workflows
-deploy_python_wkf = file("deploy-python.yml", WORKFLOWS_PATH, "deploy.yml")
-deploy_dist_wkf = file("deploy-dist.yml", WORKFLOWS_PATH, "deploy.yml")
-test_python_wkf = file("test-python.yml", WORKFLOWS_PATH, "test.yml")
-test_dist_wkf = file("test-dist.yml", WORKFLOWS_PATH, "test.yml")
+push_python_wkf = file("push-python.yml", WORKFLOWS_PATH, "push.yml")
+push_dist_wkf = file("push-dist.yml", WORKFLOWS_PATH, "push.yml")
 
 ROOT_PATH_FILES = [
     dco,
@@ -64,7 +67,7 @@ ROOT_PATH_FILES = [
     readme,
 ]
 
-WORKFLOW_FILES = [deploy_dist_wkf, deploy_python_wkf, test_dist_wkf, test_python_wkf]
+WORKFLOW_FILES = [push_dist_wkf, push_python_wkf]
 
 PYTHON_FILES = [init, main, version]
 
@@ -77,6 +80,8 @@ REQUIREMENTS_FILES = [
     lint_req,
     test_req,
 ]
+
+SCRIPTS = [build_manylinux_sh, dockerfile_aarch64, makefile_docker, rename_wheels]
 
 ALL_FILES = ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [repository]
 

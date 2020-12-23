@@ -31,7 +31,7 @@ def render_template(file: File, params: Dict[str, Any]) -> str:
     return template.render(**params)
 
 
-def write_template(file: File, params, target_path, override: False):
+def write_template(file: File, params, path, override: False):
     """
     Create new file containing the rendered template found in source_path.
 
@@ -39,16 +39,16 @@ def write_template(file: File, params, target_path, override: False):
         file: File object representing the jinja template that will be rendered.
         params: Dictionary containing the parameters key and corresponding values \
                 that will be used to render the templates.
-        target_path: Absolute path to the folder containing the target templates.
+        path: Absolute path to the folder containing the target templates.
         override: If False, copy the file if it does not already exists in the \
                   target path. If True, override the target file if it is already present.
 
     Returns:
         None.
     """
-    if not override and (target_path / file.dst).exists():
+    if not override and (path / file.dst).exists():
         print(f"file {file.name} not written: override {override} |cond: {file.src.exists()}")
         return
     rendered = render_template(file, params)
-    with open(target_path / file.dst, "w") as f:
+    with open(path / file.dst, "w") as f:
         f.write(rendered)

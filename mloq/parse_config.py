@@ -1,9 +1,9 @@
 """This module contains the functionality for parsing ad modifying the project configuration."""
 from pathlib import Path
 
-from ruamel.yaml import load as yaml_load, Loader
+from ruamel.yaml import load as yaml_load, Loader, YAML as RuamelYAML
 
-from mloq.requirements_config import require_cuda
+from mloq.requirements import require_cuda
 
 
 def get_docker_python_version(params: dict) -> str:
@@ -44,6 +44,13 @@ def read_config(path: Path) -> dict:
     """Load the project configuration from the target path."""
     with open(path, "r") as config:
         params = yaml_load(config.read(), Loader)
-    params = parse_python_versions(params)
-    params = set_docker_image(params)
+
     return params
+
+
+def write_config(config, path):
+    """Write config in a yaml file."""
+    yaml = RuamelYAML()
+    yaml.indent(sequence=4, offset=2)
+    with open(path, "w") as f:
+        yaml.dump(config, f)

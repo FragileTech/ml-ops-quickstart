@@ -1,4 +1,4 @@
-name: Deploy
+name: Push
 
 on:
   push:
@@ -8,9 +8,22 @@ on:
     branches:
       - {{default_branch}}
 
+env:
+  PROJECT_NAME: {{project_name}}
+  VERSION_FILE: {{project_name}}/version.py
+  DEFAULT_BRANCH: {{default_branch}}
+  BOT_NAME: {{bot_name}}
+  BOT_EMAIL: {{bot_email}}
+  BOT_AUTH_TOKEN: ${{'{{'}} secrets.BOT_AUTH_TOKEN {{'}}'}}
+  TEST_PYPI_PASS: ${{'{{'}} secrets.TEST_PYPI_PASS {{'}}'}}
+  PYPI_PASS: ${{'{{'}} secrets.PYPI_PASS {{'}}'}}
+  DOCKER_ORG: {{owner}}
+  DOCKER_USERNAME: ${{'{{'}} secrets.DOCKERHUB_LOGIN {{'}}'}}
+  DOCKER_PASSWORD: ${{'{{'}} secrets.DOCKERHUB_PASS {{'}}'}}
+
 jobs:
   Style-check:
-    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
+    if: "!contains(github.event.head_commit.message, 'Bump version')"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -43,7 +56,7 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements-test.txt ]; then pip install -r requirements-test.txt; fi
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        pip install . --no-use-pep517
+        pip install .
     - name: Test with pytest
       run: |
         pytest --cov=./ --cov-report=xml
@@ -84,12 +97,11 @@ jobs:
       - name: Create unique version for test.pypi
         run: |
           set -x
-          git pull --no-edit origin {{default_branch}}
-          version_file={{project_name}}/version.py
-          current_version=$(grep __version__ $version_file | cut -d\" -f2)
+          git pull --no-edit origin $DEFAULT_BRANCH
+          current_version=$(grep __version__ $VERSION_FILE | cut -d\" -f2)
           ts=$(date +%s)
           new_version="$current_version$ts"
-          bumpversion --current-version $current_version --new-version $new_version patch $version_file
+          bumpversion --current-version $current_version --new-version $new_version patch $VERSION_FILE
 
       - name: Build package
         run: |
@@ -101,7 +113,7 @@ jobs:
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__
-          password: ${{ secrets.TEST_PYPI_PASS }}
+          password: ${{"{{"}} secrets.TEST_PYPI_PASS {{"}}"}}
           repository_url: https://test.pypi.org/legacy/
           skip_existing: true
 
@@ -118,13 +130,13 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install -U pip
-          python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple {{project_name}}
+          python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple $PROJECT_NAME
           python -m pip install -r requirements-test.txt
 
       - name: Test package
         run: |
-          mv {{project_name}}/tests ./tests
-          rm -rf {{project_name}}
+          mv $PROJECT_NAME/tests ./tests
+          rm -rf $PROJECT_NAME
           pytest
 
   Build-wheels:
@@ -185,6 +197,7 @@ jobs:
 
     - name: Rename wheels with test.pypi version
       run: |
+        pip install requests
         python scripts/rename_testpypi_wheels.py
 
     - name: Upload as build artifacts
@@ -194,6 +207,7 @@ jobs:
         path: dist/*.whl
 
     - name: Publish package to TestPyPI
+      if: "'$TEST_PYPI_PASS' != ''"
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{'{{'}} secrets.TEST_PYPI_PASS {{'}}'}}
@@ -201,6 +215,7 @@ jobs:
         twine upload --repository-url https://test.pypi.org/legacy/ --skip-existing dist/*.whl
 
   Test-wheels:
+    if: "'$TEST_PYPI_PASS' != ''"
     needs: Build-wheels
     runs-on: ${{'{{'}} matrix.os {{'}}'}}
     strategy:
@@ -225,7 +240,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install -U pip
-          python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple {{project_name}}
+          python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple $PROJECT_NAME
           python -m pip install -r requirements-test.txt
 
       - name: Test package
@@ -233,7 +248,7 @@ jobs:
           pytest
 
   Bump-version:
-    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
+    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$BOT_AUTH_TOKEN' != ''"
     needs:
       - Pytest
       - Test-wheels
@@ -250,23 +265,40 @@ jobs:
         python-version: '3.8'
     - name: Install dependencies
       run: |
-        git config --global user.name "{{bot_name}}"
-        git config --global user.email "{{bot_email}}"
+        git config --global user.name "${BOT_NAME}}"
+        git config --global user.email "${BOT_EMAIL}}"
         git config --global pull.rebase false
         pip install bump2version
     - name: Run bump version
       run: |
         set -x
-        git pull --no-edit origin {{default_branch}}
-        version_file={{project_name}}/version.py
-        current_version=$(grep __version__ $version_file | cut -d\" -f2)
-        bumpversion --tag --current-version $current_version --commit patch $version_file
-        git remote add {{bot_name}}-remote https://{{bot_name}}:${{'{{'}} secrets.BOT_AUTH_TOKEN {{'}}'}}@github.com/$GITHUB_REPOSITORY
-        git push --tags {{bot_name}}-remote HEAD:{{default_branch}}
+        git pull --no-edit origin $DEFAULT_BRANCH
+        current_version=$(grep __version__ $VERSION_FILE | cut -d\" -f2)
+        bumpversion --tag --current-version $current_version --commit patch $VERSION_FILE
+        git remote add ${BOT_NAME}-remote https://${BOT_NAME}:${BOT_AUTH_TOKEN}@github.com/$GITHUB_REPOSITORY
+        git push --tags ${BOT_NAME}-remote HEAD:$DEFAULT_BRANCH
         set +e
 
+  Push-Docker-container:
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$DOCKER_PASSWORD' != ''"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to DockerHub
+        run: |
+          docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
+      - name: Build container
+        run: |
+          CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
+          make docker-build VERSION=${CONTAINER_VERSION} PROJECT=${PROJECT_NAME} DOCKER_ORG=${DOCKER_ORG}
+      - name: Push images
+        run: |
+          CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
+          make -f scripts/makefile.docker docker-push VERSION=${CONTAINER_VERSION} PROJECT=${PROJECT_NAME} DOCKER_ORG=${DOCKER_ORG}
+
+
   Release-source:
-    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'  && '$PYPI_PASS' != ''"
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -290,13 +322,13 @@ jobs:
           twine check dist/*
 
       - name: Publish package to PyPI
-        uses: pypa/gh-action-pypi-publish@{{default_branch}}
+        uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__
           password: ${{'{{'}} secrets.PYPI_PASS {{'}}'}}
 
   Release-wheels:
-    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'"
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'  && '$PYPI_PASS' != ''"
     runs-on: ${{'{{'}} matrix.os {{'}}'}}
     strategy:
       fail-fast: false

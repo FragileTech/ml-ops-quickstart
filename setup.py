@@ -25,19 +25,28 @@ setup(
     download_url="https://github.com/FragileTech/ml-ops-quickstart.git",
     keywords=["Machine learning", "artificial intelligence"],
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
-    install_requires=["ruyaml>=0.19.0,<0.20.0", "jinja2>=2.0.0"],
+    install_requires=[
+        "ruyaml>=0.19.0,<0.20.0",
+        "jinja2>=2.0.0",
+        "click>=7.1.2,<8.0.0",
+        "invoke>=1.4.1",
+    ],
     package_data={
         "": ["README.md"],
         "mloq": [
-            "mloq/assets/static/repository.yml",
+            "mloq/assets/static/mloq.yml",
             "mloq/assets/static/DCO.md",
             "mloq/assets/static/.gitignore",
+            "mloq/assets/static/Dockerfile_aarch64",
+            "mloq/assets/static/build-manylinux-wheels.sh",
             "mloq/assets/templates/*.md",
             "mloq/assets/templates/MIT_LICENSE",
             "mloq/assets/templates/pyproject.toml",
             "mloq/assets/templates/Makefile",
+            "mloq/assets/templates/makefile.docker",
             "mloq/assets/templates/Dockerfile",
             "mloq/assets/templates/MLproject",
+            "mloq/assets/templates/test_main.txt",
             "mloq/assets/workflows/*.yml",
             "mloq/assets/requirements/*.txt",
         ],
@@ -55,4 +64,8 @@ setup(
         "Programming Language :: Python :: 3 :: Only",
         "Topic :: Software Development :: Libraries",
     ],
+    entry_points="""
+            [console_scripts]
+            mloq=mloq.cli:cli
+        """,
 )

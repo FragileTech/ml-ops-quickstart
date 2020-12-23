@@ -1,16 +1,8 @@
 """Command line interface for mloq."""
-import os
-from pathlib import Path
 import sys
 
-from mloq.api import init_repository
-
-
-def main():
-    """Initialize the target repo."""
-    root_path = Path(os.getcwd())
-    init_repository(root_path, override=False)
+from mloq.cli import cli
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(cli(auto_envvar_prefix="MLOQ"))

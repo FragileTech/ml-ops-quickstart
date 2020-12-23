@@ -1,7 +1,9 @@
 """This module defines common functionality for dealing with project requirements."""
 import os
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, Optional, Union
+
+from invoke import run
 
 from mloq.directories import copy_file
 from mloq.files import (
@@ -73,7 +75,7 @@ def compose_requirements(options: Iterable[str]) -> str:
     return requirements_text
 
 
-def write_requirements(
+def write_project_requirements(
     options, out_path=None, out_name="requirements.txt", override: bool = False
 ):
     """
@@ -91,20 +93,75 @@ def write_requirements(
         f.write(requirements)
 
 
-def write_dev_requirements(out_path=None, override: bool = False):
+def write_dev_requirements(
+    out_path=None, override: bool = False, test: bool = True, lint: bool = True
+):
     """Write requirements-lint.txt and requirements-test.txt in the target directory."""
     out_path = Path(os.getcwd() if out_path is None else out_path)
-    copy_file(lint_req, out_path, override)
-    copy_file(test_req, out_path, override)
+    if lint:
+        copy_file(lint_req, out_path, override)
+    if test:
+        copy_file(test_req, out_path, override)
+
+
+def write_requirements(
+    out_path: Union[str, Path],
+    options=None,
+    out_name="requirements.txt",
+    override: bool = False,
+    lint: bool = True,
+    test: bool = True,
+):
+    """Write the different requirements.txt files for the project."""
+    out_path = Path(out_path)
+    if options is not None:
+        write_project_requirements(
+            options=options, out_path=out_path, out_name=out_name, override=override
+        )
+    write_dev_requirements(out_path, override=override, test=test, lint=lint)
+
+
+def install_requirement_file(path, py3: bool = True):
+    """Install the dependencies listed in the target requirements file."""
+    python = "python3" if py3 else "python"
+    run(f"{python} -m pip install -r {str(path)}")
+
+
+def install_requirements(
+    path: Path,
+    requirements: Optional[Union[str, bool, Path]],
+    test: Optional[Union[str, bool, Path]],
+    lint: Optional[Union[str, bool, Path]],
+    py3: bool = True,
+):
+    """Install the dependencies listed in the target requirements files."""
+    if requirements is not None and requirements:
+        requirements = "requirements.txt" if isinstance(requirements, bool) else requirements
+        requirements = requirements if isinstance(requirements, Path) else path / requirements
+        install_requirement_file(requirements, py3=py3)
+    if test is not None and test:
+        test = "requirements-test.txt" if isinstance(test, bool) else test
+        test = test if isinstance(test, Path) else path / test
+        install_requirement_file(test, py3=py3)
+    if lint is not None and lint:
+        lint = "requirements-lint.txt" if isinstance(lint, bool) else lint
+        lint = lint if isinstance(lint, Path) else path / lint
+        install_requirement_file(lint, py3=py3)
 
 
 def setup_requirements(
-    options=None, out_path=None, out_name="requirements.txt", override: bool = False
+    options,
+    path: Path,
+    test: bool = True,
+    lint: bool = True,
+    install_reqs: bool = False,
+    install_test: bool = False,
+    install_lint: bool = False,
+    override: bool = False,
+    py3: bool = True,
 ):
-    """Write the different requirements.txt files for the project."""
-    out_path = Path(os.getcwd() if out_path is None else out_path)
-    if options is not None:
-        write_requirements(
-            options=options, out_path=out_path, out_name=out_name, override=override
-        )
-    write_dev_requirements(out_path, override=override)
+    """Write the requirements file and install them if necessary."""
+    write_requirements(out_path=path, options=options, test=test, lint=lint, override=override)
+    install_requirements(
+        path=path, requirements=install_reqs, test=install_test, lint=install_lint, py3=py3
+    )

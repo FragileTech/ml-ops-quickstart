@@ -1,0 +1,23 @@
+template:
+  project_name: null
+  owner: null
+  author: null
+  email: null
+  copyright_holder: null
+  project_url: null
+  download_url: null
+  bot_name: null
+  bot_email: null
+  license: "MIT"
+  description: "short_description_of_the_project"
+  python_versions: ['3.6', '3.7', '3.8', '3.9']
+  default_branch: "master"
+
+requirements: ["datascience", "pytorch", "dataviz"]
+
+# workflows:
+# "dist" for python packages with compiled extensions
+# "python" for pure python packages.
+workflow: "python"
+
+

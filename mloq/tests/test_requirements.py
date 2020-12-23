@@ -4,7 +4,7 @@ import tempfile
 import pytest
 
 from mloq.files import File
-from mloq.requirements_config import (
+from mloq.requirements import (
     compose_requirements,
     get_aliased_requirements_file,
     read_requirements_file,

@@ -3,7 +3,7 @@ import tempfile
 
 import pytest
 
-from mloq.api import init_repository
+from mloq.api import setup_repository
 
 
 @pytest.fixture()
@@ -13,6 +13,4 @@ def repo_path():
 
 def test_init_repository(repo_path):
     with tempfile.TemporaryDirectory() as tmp:
-        init_repository(
-            Path(tmp), config_file=Path(__file__).parent / "repository.yaml", override=False
-        )
+        setup_repository(Path(tmp), config_file=Path(__file__).parent / "mloq.yml", override=False)
