@@ -77,7 +77,6 @@ jobs:
         make docker-test
 
   Build-pypi:
-    if: $"TEST_PYPI_PASS{{'}}'}}
     needs: Style-check
     runs-on: ubuntu-18.04
     steps:
@@ -111,6 +110,7 @@ jobs:
           twine check dist/*
 
       - name: Publish package to TestPyPI
+        if: "'$TEST_PYPI_PASS' != ''"
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__
@@ -119,6 +119,7 @@ jobs:
           skip_existing: true
 
   Test-pypi:
+    if: "'$TEST_PYPI_PASS' != ''"
     needs: Build-pypi
     runs-on: ubuntu-18.04
     steps:

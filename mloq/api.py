@@ -2,10 +2,7 @@
 from pathlib import Path
 from typing import Optional, Union
 
-from mloq.directories import (
-    copy_file,
-    create_project_directories,
-)
+from mloq.directories import copy_file, create_project_directories
 from mloq.files import file as new_file, repository, ROOT_PATH_FILES, SCRIPTS, test_main
 from mloq.parse_config import read_config
 from mloq.requirements import setup_requirements
@@ -70,13 +67,19 @@ def setup_project_files(path, template: Union[Path, str, dict], override: bool =
     write_template(test_main, params=template, path=tests_path, override=override)
 
 
-def setup_scripts(path, template: Union[Path, str, dict], override: bool = False):
+def setup_scripts(
+    path: Union[str, Path], template: Union[Path, str, dict], override: bool = False
+):
     """Initialize CI scripts folder files."""
+    path = Path(path)
+    path = path if path.name == "scripts" else path / "scripts"
     for file in SCRIPTS:
         write_template(file, params=template, path=path, override=override)
 
 
-def setup_root_files(path, template: Union[Path, str, dict], override: bool = False):
+def setup_root_files(
+    path: Union[str, Path], template: Union[Path, str, dict], override: bool = False
+):
     """Initialize root folder files."""
     for file in ROOT_PATH_FILES:
         write_template(file, params=template, path=path, override=override)
