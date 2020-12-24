@@ -2,7 +2,7 @@ import sys
 
 
 def main():
-    pass
+    return 1
 
 
 if __name__ == "__main__":
