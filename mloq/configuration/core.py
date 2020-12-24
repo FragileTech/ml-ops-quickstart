@@ -35,7 +35,7 @@ def set_docker_image(params) -> dict:
     if "base_docker_image" in params["template"]:
         return params
     v = get_docker_python_version(params)
-    ubuntu_v = "ubuntu20.04" if v == "py38" else "ubuntu18.04"
+    ubuntu_v = "ubuntu20.04" if v in ["py38", "py39"] else "ubuntu18.04"
     image = (
         f"fragiletech/{ubuntu_v}-cuda-11.0-{v}"
         if require_cuda(params)
