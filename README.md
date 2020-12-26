@@ -15,26 +15,28 @@ The goal of `mloq` is to simplify that process, so you can start writing code as
 the generated templates can be found in [mloq-template](https://github.com/FragileTech/mloq-template).
 
 ## Index
-1. **[1. Installation](#1.-Installation)**
+1. **[Installation](#1-installation)**
    
-2. **[2. Usage](#2.-Usage)**
-    * **[2.1 Command line interface](#2.2-Command-line-interface)**
-    * **[2.2 mloq.yml config file](#2.2-mloq.yml-config-file)**
+2. **[Usage](#2-usage)**
+    * **[2.1 Command line interface](#21-command-line-interface)**
+    * **[2.2 mloq.yml config file](#22-mloqyml-config-file)**
 
-3. **[Features](#2.-Regresión-logística-con-scikit-learn)**
-    * **[3.1 Repository files](#3.1-Repository-files)**
-    * **[3.2 Packaging](#3.2-Packaging)** 
-    * **[3.3 Code style](#3.3-Code-style)**
-    * **[3.4 Docker](#3.4-Docker)**
-    * **[3.5 Continuous integration](#3.5-Continuous-integration-using-GitHub-Actions)**
-    * **[3.6 Requirements](#3.6-Requirements)**
+3. **[Features](#3-features)**
+    * **[3.1 Repository files](#31-repository-files)**
+    * **[3.2 Packaging](#32-packaging)** 
+    * **[3.3 Code style](#33-code-style)**
+    * **[3.4 Requirements](#34-requirements)**
+    * **[3.5 Docker](#35-docker)**
+    * **[3.6 Continuous integration](#36-continuous-integration-using-github-actions)**
+    * **[3.7 Testing](#37-testing)**
     
-4. **[Project Makefile](#3.-Project-Makefile)**    
-5. **[License](#4.-License)**
-6. **[Contributing](#4.-Contributing)**
+4. **[Project Makefile](#3-project-makefile)**    
+5. **[License](#4-license)**
+6. **[Contributing](#6-contributing)**
+7. **[Roadmap](#7.-roadmap)**
 
 
-### [1.](#Index) Installation
+## [1.](#Index) Installation
 
 `mloq` is tested on Ubuntu 18.04+, and supports Python 3.6+.
 
@@ -49,7 +51,7 @@ cd ml-ops-quickstart
 pip install -e .
 ```
 
-### [2.](#Index) Usage
+## [2.](#Index) Usage
 ### [2.1](#Index) Command line interface
 
 To set up a new repository from scratch interactively in the curren working directory:
@@ -71,11 +73,13 @@ Options:
 Arguments:
 * `OUTPUT`: Path to the target project.
 
+![ci python](docs/images/quickstart_form.png)
+
 ### [2.2](#Index) mloq.yml config file
 
 This yaml file contains all the information used by mloq to set up a new project.
 All values are strings except **python_versions** and **requirements**,
-that are lists of strings. **null** values are interpreted as missing values. 
+that are lists of strings. **null** values are interpreted as missing values.
 ```yaml
 
 # `template` contains all the values that will be written in the generated files.
@@ -103,8 +107,6 @@ requirements: ["datascience", "pytorch", "dataviz"]
 workflow: "python"
 ```
 
-# They are loaded as a dictionary and passed to jinja2 to fill in the templates.
-
 ## [3.](#Index) Features
 
 ### [3.1](#Index) Repository files
@@ -128,7 +130,7 @@ All the necessary configuration for the following tools is defined in [pyproject
 - [isort](https://pycqa.github.io/isort/): Rearrange your imports automatically.
 - [flakehell](https://flakehell.readthedocs.io/): Linter tool build on top of `flake8`, `pylint` and `pycodestyle`
 
-### [3.6](#Index) Requirements
+### [3.4](#Index) Requirements
 `mloq` creates three different requirements files in the root directory of the project. Each file contains 
 pinned dependencies.
 
@@ -143,7 +145,7 @@ Dependencies for running pytest, hypothesis and test coverage.
    * [data-visualization](mloq/assets/requirements/data-visualization.txt): Common visualization libraries.
    * Last version of [pytorch](mloq/assets/requirements/pytorch.txt) and [tensorflow](mloq/assets/requirements/tensorflow.txt)
    
-### [3.4](#Index) Docker
+### [3.5](#Index) Docker
 
 A [Dockerfile](mloq/assets/templates/Dockerfile) that builds a container on top of the FragileTech [Docker Hub]() images:
 - If *tensorflow* or *pytorch* are selected as requirements the container has CUDA 11.0 installed.
@@ -152,7 +154,7 @@ A [Dockerfile](mloq/assets/templates/Dockerfile) that builds a container on top 
 - Install a `jupyter notebook` server with a configurable password in the port 8080.
 - Installs the project with `pip install -e .`.
 
-### [3.5](#Index) Continuous integration using GitHub Actions
+### [3.6](#Index) Continuous integration using GitHub Actions
 Set up automatically a continuous integration (CI) pipeline using GitHub actions with the following jobs:
 ![GitHub Actions pipeline](docs/images/ci_python.png)
 
