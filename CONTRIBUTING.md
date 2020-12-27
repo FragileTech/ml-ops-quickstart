@@ -1,6 +1,6 @@
 # Contributing Guidelines
 
-{{project_name}} is [{{license}} licensed](LICENSE) and accepts
+ML Ops Quickstart is [MIT licensed](LICENSE) and accepts
 contributions via GitHub pull requests.  This document outlines some of the
 conventions on development workflow, commit message formatting, contact points,
 and other resources to make it easier to get your contribution accepted.
@@ -8,7 +8,7 @@ and other resources to make it easier to get your contribution accepted.
 ## Certificate of Origin
 
 By contributing to this project you agree to the [Developer Certificate of
-Origin (DCO)](DCO). This document was created by the Linux Kernel community and is a
+Origin (DCO)](DCO.md). This document was created by the Linux Kernel community and is a
 simple statement that you, as a contributor, have the legal right to make the
 contribution.
 
@@ -22,7 +22,7 @@ This can be done easily using the [`-s`](https://github.com/git/git/blob/b2c150d
 
 The official support channels, for both users and contributors, are:
 
-- GitHub [issues](https://github.com/{{owner}}/{{project_name}}/issues)*
+- GitHub [issues](https://github.com/fragiletech/ml-ops-quickstart/issues)*
 
 *Before opening a new issue or submitting a new pull request, it's helpful to
 search the project - it's likely that another user has already reported the
