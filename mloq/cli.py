@@ -148,6 +148,7 @@ def project_files(config_file, output, override):  # noqa
     - README.md
     - DCO.md
     - code_of_conduct.md
+    - CONTRIBUTING.md
     - pyproject.toml
     - setup.py
     - LICENSE
@@ -172,6 +173,7 @@ def quickstart(output, override, **kwargs):  # noqa
         OUTPUT: Path of the project where the template files will be written.
     """
     MLOQFile.set_target(output)
+    print("TARGET", MLOQFile.target)
     MLOQFile.save_config(kwargs, from_kwargs=True)
     config = MLOQFile.to_config(**kwargs)
     config = set_docker_image(config)

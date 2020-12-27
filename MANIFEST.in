@@ -17,6 +17,7 @@ include mloq/assets/templates/Makefile
 include mloq/assets/templates/Dockerfile
 include mloq/assets/templates/MLproject
 include mloq/assets/templates/README.md
+include mloq/assets/templates/CONTRIBUTING.md
 include mloq/assets/templates/makefile.docker
 include mloq/assets/templates/test_main.txt
 include mloq/assets/templates/rename_testpypi_wheels.py

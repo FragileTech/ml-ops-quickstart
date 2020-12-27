@@ -30,6 +30,7 @@ def main():
     project = os.environ.get("PROJECT_NAME", "{{project_name}}")
     last_version = get_versions(project)[-1]
     rename_wheels(last_version)
+    return 0
 
 
 if __name__ == "__main__":
