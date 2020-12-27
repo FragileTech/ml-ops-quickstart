@@ -56,7 +56,7 @@ bot_email = ConfigEntry("bot_email", prompt_text="Bot account email", default_pr
 default_branch = ConfigEntry(
     "default_branch", default_prompt="master", prompt_text="Default branch of the project"
 )
-license = ConfigEntry("license", help="Project license type", default_prompt="MIT")
+license = ConfigEntry("license", value="MIT", help="Project license type", default_prompt="MIT")
 description = ConfigEntry("description", help="Short description of the project")
 python_versions = MultiChoiceConfig(
     name="python_versions",

@@ -2,6 +2,7 @@ bokeh
 einops
 holoviews
 hvplot
+llvmlite
 matplotlib
 networkx
 numba

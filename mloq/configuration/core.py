@@ -143,7 +143,7 @@ class ConfigEntry(BaseEntry):
         self._option = self._init_option(
             name_args,
             hide_input=self._hide_input,
-            show_default=show_default,
+            show_default=show_default if default_prompt is None else default_prompt,
             show_choices=show_choices,
             type=self._type,
             help=self._help,
@@ -202,11 +202,12 @@ class ConfigEntry(BaseEntry):
         show_envvar,
         **attrs,
     ):
+        default = f"${self.env_var_name}" if self.default is None else str(show_default)
         return click.option(
             f"--{self.name.replace('_', '-')}",
             *name_args,
             default=lambda: self.value,
-            show_default=(f"${self.env_var_name}" if self.default is None else show_default),
+            show_default=default,
             hide_input=hide_input,
             type=type,
             help=help,
@@ -442,9 +443,12 @@ class BaseWrapper:
 
     def __getattr__(self, attr):
         # If a BaseWrapper is being wrapped forward the attribute to it
-        if isinstance(self.unwrapped, BaseWrapper):
-            return getattr(self.unwrapped, attr)
-        return self.unwrapped.__getattribute__(attr)
+        try:
+            if isinstance(self.unwrapped, BaseWrapper):
+                return getattr(self.unwrapped, attr)
+            return self.unwrapped.__getattribute__(attr)
+        except Exception:
+            return self.__getattribute__(attr)
 
 
 class ConfigFile(BaseWrapper):
@@ -479,6 +483,8 @@ class ConfigFile(BaseWrapper):
     @classmethod
     def read_config(cls, path: Union[Path, str], fail_ok: bool = False) -> dict:
         """Load the project configuration from the target path."""
+        from mloq.configuration.config_values import DEFAULT_CONFIG
+
         if isinstance(path, Path):
             path = path / cls.DEFAULT_FILE_NAME if path.is_dir() else path
         try:
@@ -486,7 +492,7 @@ class ConfigFile(BaseWrapper):
                 params = yaml_load(config.read(), Loader)
         except Exception as e:
             if fail_ok:
-                return dict()
+                return DEFAULT_CONFIG
             raise e
         return params
 
@@ -507,7 +513,7 @@ class ConfigFile(BaseWrapper):
         elif isinstance(self._target, Path):
             if self._target.is_file():
                 return self._target
-            elif self._target.is_dir() and self.source.is_file():
+            elif self._target.is_dir() and isinstance(self.source, Path) and self.source.is_file():
                 return self._target / self.source.name
             else:
                 return self._target / self.DEFAULT_FILE_NAME
@@ -541,8 +547,8 @@ class ConfigFile(BaseWrapper):
             "-f",
             "file",
             default=None,
-            show_default=True,
-            help="Name of the target config file. Defaults to mloq.yml if filename is a path.",
+            show_default="mloq.yml",
+            help="Name of the project config file. Defaults to mloq.yml if filename is a path.",
             type=click.Path(exists=True, file_okay=True, dir_okay=True, resolve_path=True),
         )
         return config_file_opt
@@ -583,6 +589,7 @@ class ConfigFile(BaseWrapper):
     def save_config(self, conf: dict, from_kwargs: bool = False):
         from mloq.configuration.config_values import DEFAULT_CONFIG
 
+        conf = dict() if conf is None else conf
         conf = self._update_config_from_kwargs(DEFAULT_CONFIG, conf) if from_kwargs else conf
         output = self.source if self.target is None else self.target
         self.write_yaml(data=conf, path=output)
@@ -612,15 +619,13 @@ class ConfigFile(BaseWrapper):
             @self.file_option
             @self.option
             def inner(file, *args, **kwargs):
-                print("INIT")
                 our_kwargs_keys = self.to_kwargs()
                 our_kwargs = {k: v for k, v in kwargs.items() if k in our_kwargs_keys}
                 other_kwargs = {k: v for k, v in kwargs.items() if k not in our_kwargs_keys}
                 if self.validate_path(file):
                     self.set_file(file)
-                config = self.read_config(self.source, fail_ok=False)
+                config = self.read_config(self.source, fail_ok=True)
                 config = self._update_config_from_kwargs(config, our_kwargs)
-                print("CONFIG", config)
                 self.define_value(**config)
                 func(*args, **{**other_kwargs, **self.to_kwargs()})
 

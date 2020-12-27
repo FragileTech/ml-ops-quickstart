@@ -48,6 +48,7 @@ makefile = file("Makefile", TEMPLATES_PATH)
 makefile_docker = file("makefile.docker", TEMPLATES_PATH)
 mlproject = file("MLproject", TEMPLATES_PATH)
 readme = file("README.md", TEMPLATES_PATH)
+contributing = file("CONTRIBUTING.md", TEMPLATES_PATH)
 pyproject_toml = file("pyproject.toml", TEMPLATES_PATH)
 
 # Workflows
@@ -65,6 +66,7 @@ ROOT_PATH_FILES = [
     dockerfile,
     mlproject,
     readme,
+    contributing,
 ]
 
 WORKFLOW_FILES = [push_dist_wkf, push_python_wkf]
