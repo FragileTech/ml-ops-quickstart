@@ -13,6 +13,7 @@ panel
 param
 pillow-simd
 plotly
+pytorch-lightning
 scikit-learn
 scipy
 selenium
