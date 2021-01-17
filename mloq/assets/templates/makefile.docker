@@ -35,8 +35,17 @@ remove-dev-packages:
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
+.PHONY: docker-build
+docker-build:
+	docker build --pull -t ${DOCKER_ORG}/${PROJECT}:${VERSION} .
+
 .PHONY: docker-push
 docker-push:
 	docker push ${DOCKER_ORG}/${PROJECT}:${VERSION}
 	docker tag ${DOCKER_ORG}/${PROJECT}:${VERSION} ${DOCKER_ORG}/${PROJECT}:latest
 	docker push ${DOCKER_ORG}/${PROJECT}:latest
+
+.PHONY: docker-test
+docker-test:
+	find -name "*.pyc" -delete
+	docker run --rm -it  -v $(pwd):/io --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest
