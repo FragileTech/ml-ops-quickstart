@@ -173,8 +173,10 @@ def quickstart(output, override, **kwargs):  # noqa
         OUTPUT: Path of the project where the template files will be written.
     """
     MLOQFile.set_target(output)
-    print("TARGET", MLOQFile.target)
     MLOQFile.save_config(kwargs, from_kwargs=True)
+    print("KWARGS", kwargs, "\n")
     config = MLOQFile.to_config(**kwargs)
+    print("Config pre docker", config, "\n")
     config = set_docker_image(config)
+    print("Config post docker", config, "\n")
     setup_repository(path=output, config_file=config, override=override)

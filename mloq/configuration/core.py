@@ -570,11 +570,10 @@ class ConfigFile(BaseWrapper):
     def _update_config_from_kwargs(conf, kwargs):
         def recursive_update(src, updt):
             for k, v in dict(src).items():
-                if k in updt and updt[k] is not None:
+                if k in updt and updt[k] is not None and not isinstance(v, dict):
                     src[k] = updt[k]
                 elif isinstance(v, dict):
                     src[k] = recursive_update(src[k], updt)
-                    return src
             return src
 
         return recursive_update(conf, kwargs)

@@ -72,8 +72,8 @@ requirements = MultiChoiceConfig(
     help="Requirement types of the project as a comma separated list. "
     "Available values: {data-science, data-viz, torch, tensorflow}",
     choices=["data-science", "data-viz", "torch", "tensorflow"],
-    default_prompt=["data-science", "data-viz"],
-    show_default="data-science, data-viz",
+    default_prompt=["data-science", "data-viz", "pytorch"],
+    show_default="data-science, data-viz, pytorch",
     force_prompt=True,
 )
 
