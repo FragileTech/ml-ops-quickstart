@@ -71,10 +71,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build container
       run: |
-        make docker-build
+        make -f scripts/makefile.docker docker-build
     - name: Run tests
       run: |
-        make docker-test
+        make -f scripts/makefile.docker docker-test
 
   Build-pypi:
     needs: Style-check
