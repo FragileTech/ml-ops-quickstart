@@ -142,7 +142,7 @@ jobs:
           pytest
 
   Bump-version:
-    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$BOT_AUTH_TOKEN' != ''"
+    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}' && '$BOT_AUTH_TOKEN' != ''"
     needs:
       - Test-pypi
       - Pytest

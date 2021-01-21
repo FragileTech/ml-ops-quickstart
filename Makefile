@@ -11,7 +11,6 @@ style:
 	black .
 	isort .
 
-
 .POSIX:
 check:
 	!(grep -R /tmp ${PROJECT}/tests)

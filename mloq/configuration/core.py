@@ -167,7 +167,7 @@ class ConfigEntry(BaseEntry):
     def prompt(self):
         return self._prompt()
 
-    def define_value(self, value: None):
+    def define_value(self, value: None, silent: bool = False):
         if value is not None:
             self._default = value
             self._value = value
@@ -179,7 +179,7 @@ class ConfigEntry(BaseEntry):
                 show_default=self._show_default,
                 show_choices=self._show_choices,
             )
-        if value is None or self.force_prompt:
+        if not silent and (value is None or self.force_prompt):
             value = self.prompt()
         self.update(value)
 
@@ -240,8 +240,8 @@ class MultiChoiceConfig(ConfigEntry):
     def update(self, value):
         self._value = self._parse_string(value)
 
-    def define_value(self, value: None):
-        if value is None or self.force_prompt:
+    def define_value(self, value: None, silent: bool = False):
+        if not silent and (value is None or self.force_prompt):
             value = self.prompt()
         value = self._parse_string(value)
         self.update(value)
@@ -336,9 +336,9 @@ class ConfigGroup:
                         kwargs.update(child_ent.to_kwargs(kwargs))
         return kwargs
 
-    def define_value(self, **kwargs):
+    def define_value(self, silent: bool = False, **kwargs):
         for name, entry in self._entries.items():
-            entry.define_value(kwargs.get(name))
+            entry.define_value(kwargs.get(name), silent=silent)
 
 
 class Config:
@@ -398,14 +398,14 @@ class Config:
                         kwargs.update(child_ent.to_kwargs(kwargs))
         return kwargs
 
-    def define_value(self, **kwargs):
+    def define_value(self, silent: bool = False, **kwargs):
         """Kwargs is a loaded configuration dict."""
         for name, entry in self._entries.items():
             print("defining", name, entry)
             if isinstance(entry, ConfigGroup):
-                entry.define_value(**kwargs.get(entry.name))
+                entry.define_value(silent=silent, **kwargs.get(entry.name))
             elif isinstance(entry, ConfigEntry):
-                entry.define_value(kwargs.get(name))
+                entry.define_value(kwargs.get(name), silent=silent)
 
 
 class BaseWrapper:
@@ -612,7 +612,7 @@ class ConfigFile(BaseWrapper):
                 new_d[k] = v
         return new_d
 
-    def click_command(self, group, *options):
+    def click_command(self, group, *options, silent: bool = False):
         def wrapped(func):
             @group.command(name=func.__name__)
             @self.file_option
