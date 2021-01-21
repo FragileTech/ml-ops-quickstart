@@ -19,7 +19,7 @@ check:
 .PHONY: test
 test:
 	find -name "*.pyc" -delete
-	pytest -s
+	pytest -s -o log_cli=true -o log_cli_level=info
 
 .PHONY: pipenv-install
 pipenv-install:
