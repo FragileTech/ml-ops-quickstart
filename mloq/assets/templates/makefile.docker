@@ -35,9 +35,21 @@ remove-dev-packages:
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
+.POSIX:
+check:
+	!(grep -R /tmp ${PROJECT}/tests)
+	flakehell lint ${PROJECT}
+	pylint ${PROJECT}
+	black --check ${PROJECT}
+
 .PHONY: docker-build
 docker-build:
 	docker build --pull -t ${DOCKER_ORG}/${PROJECT}:${VERSION} .
+
+.PHONY: docker-test
+docker-test:
+	find -name "*.pyc" -delete
+	docker run --rm -it --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest -s -o log_cli=true -o log_cli_level=info
 
 .PHONY: docker-push
 docker-push:

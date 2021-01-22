@@ -37,7 +37,7 @@ jobs:
         if [ -f requirements-lint.txt ]; then pip install -r requirements-lint.txt; fi
     - name: Run style check and linter
       run: |
-        make check
+        make -f scripts/makefile.docker check
 
   Pytest:
     needs: Style-check
@@ -178,7 +178,7 @@ jobs:
 
   Push-Docker-container:
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$DOCKER_PASSWORD' != ''"
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}' && '$DOCKER_PASSWORD' != ''"
     steps:
       - uses: actions/checkout@v2
       - name: Login to DockerHub
@@ -196,7 +196,7 @@ jobs:
           make -f scripts/makefile.docker docker-push VERSION=$CONTAINER_VERSION PROJECT=$PROJECT_NAME DOCKER_ORG=$DOCKER_ORG
 
   Release-package:
-    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'  && '$PYPI_PASS' != ''"
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}'  && '$PYPI_PASS' != ''"
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2

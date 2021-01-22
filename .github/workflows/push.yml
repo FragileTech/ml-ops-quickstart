@@ -37,7 +37,7 @@ jobs:
         if [ -f requirements-lint.txt ]; then pip install -r requirements-lint.txt; fi
     - name: Run style check and linter
       run: |
-        make check
+        make -f scripts/makefile.docker check
 
   Pytest:
     needs: Style-check
