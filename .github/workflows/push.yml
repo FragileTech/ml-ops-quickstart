@@ -103,7 +103,7 @@ jobs:
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__
-          password: ${{ secrets.TEST_PYPI_PASS }}
+          password: "${{ secrets.TEST_PYPI_PASS }}"
           repository_url: https://test.pypi.org/legacy/
           skip_existing: true
 
@@ -134,37 +134,27 @@ jobs:
   bump-version:
     name: Bump package version
     if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$BOT_AUTH_TOKEN' != ''"
-    needs:
-      - test-pypi
-      - pytest
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 100
-        persist-credentials: false
-
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-
-    - name: Install dependencies
-      run: |
-        git config --global user.name "${BOT_NAME}"
-        git config --global user.email "${BOT_EMAIL}"
-        git config --global pull.rebase false
-        pip install bump2version
-
-    - name: Run bump version
-      run: |
-        set -x
-        git pull --no-edit origin $DEFAULT_BRANCH
-        current_version=$(grep __version__ $VERSION_FILE | cut -d\" -f2)
-        bumpversion --tag --current-version $current_version --commit patch $VERSION_FILE
-        git remote add ${BOT_NAME}-remote https://${BOT_NAME}:${BOT_AUTH_TOKEN}@github.com/$GITHUB_REPOSITORY
-        git push --tags ${BOT_NAME}-remote HEAD:$DEFAULT_BRANCH
-        set +e
+      - name: actions/checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: current_version
+        run: |
+          echo "current_version=$(grep __version__ $VERSION_FILE | cut -d\" -f2)" >> $GITHUB_ENV
+          echo "version_file=$VERSION_FILE" >> $GITHUB_ENV
+          echo 'bot_name="${BOT_NAME}"' >> $GITHUB_ENV
+          echo 'bot_email="${BOT_EMAIL}"' >> $GITHUB_ENV
+      - name: FragileTech/bump-version
+        uses: FragileTech/bump-version@main
+        with:
+          current_version: "${{ env.current_version }}"
+          files: "${{ env.version_file }}"
+          commit_name: "${{ env.bot_name }}"
+          commit_email: "${{ env.bot_email }}"
+          login: "${{ env.bot_name }}"
+          token: "${{ secrets.BOT_AUTH_TOKEN }}"
 
   release-package:
     name: Release PyPI package
@@ -194,4 +184,4 @@ jobs:
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__
-          password: ${{ secrets.PYPI_PASS }}
+          password: "${{ secrets.PYPI_PASS }}"
