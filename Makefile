@@ -38,15 +38,6 @@ pipenv-test:
 	find -name "*.pyc" -delete
 	pipenv run pytest -s
 
-.PHONY: docker-build
-docker-build:
-	docker build --pull -t ${DOCKER_ORG}/${PROJECT}:${VERSION} .
-
-.PHONY: docker-test
-docker-test:
-	find -name "*.pyc" -delete
-	docker run --rm -v $(pwd):/io --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest
-
 .PHONY: docker-shell
 docker-shell:
 	docker run --rm -v $(pwd):/io --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION} bash

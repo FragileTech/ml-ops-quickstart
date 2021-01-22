@@ -37,7 +37,7 @@ jobs:
         if [ -f requirements-lint.txt ]; then pip install -r requirements-lint.txt; fi
     - name: Run style check and linter
       run: |
-        make check
+        make -f scripts/makefile.docker check
 
   Pytest:
     needs: Style-check
@@ -248,7 +248,7 @@ jobs:
           pytest
 
   Bump-version:
-    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$BOT_AUTH_TOKEN' != ''"
+    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}' && '$BOT_AUTH_TOKEN' != ''"
     needs:
       - Pytest
       - Test-wheels
@@ -281,7 +281,7 @@ jobs:
 
   Push-Docker-container:
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$DOCKER_PASSWORD' != ''"
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}' && '$DOCKER_PASSWORD' != ''"
     steps:
       - uses: actions/checkout@v2
       - name: Login to DockerHub
@@ -298,7 +298,7 @@ jobs:
 
 
   Release-source:
-    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'  && '$PYPI_PASS' != ''"
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}'  && '$PYPI_PASS' != ''"
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -328,7 +328,7 @@ jobs:
           password: ${{'{{'}} secrets.PYPI_PASS {{'}}'}}
 
   Release-wheels:
-    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'  && '$PYPI_PASS' != ''"
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}'  && '$PYPI_PASS' != ''"
     runs-on: ${{'{{'}} matrix.os {{'}}'}}
     strategy:
       fail-fast: false

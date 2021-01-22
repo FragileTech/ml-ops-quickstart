@@ -73,6 +73,7 @@ pycodestyle = ["+*" ,"-B008","-B301","-C815","-C816","-C812","-D100",
 [tool.flakehell.exceptions."**/__init__.py"]
 "flake8*" = ["-D*"]
 pylint = ["-D*"]
+pyflakes = ["-F401"]
 
 # match by prefix
 [tool.flakehell.exceptions."**/tests/*"]
