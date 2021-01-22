@@ -22,7 +22,8 @@ env:
   DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASS }}
 
 jobs:
-  Style-check:
+  style-check:
+    name: Style check
     if: "!contains(github.event.head_commit.message, 'Bump version')"
     runs-on: ubuntu-latest
     steps:
@@ -39,8 +40,9 @@ jobs:
       run: |
         make -f scripts/makefile.docker check
 
-  Pytest:
-    needs: Style-check
+  pytest:
+    name: Run Pytest
+    needs: style-check
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -64,8 +66,9 @@ jobs:
       if: ${{ matrix.python-version=='3.8' }}
       uses: codecov/codecov-action@v1
 
-  Build-pypi:
-    needs: Style-check
+  build-pypi:
+    name: Build wheels
+    needs: style-check
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -84,8 +87,6 @@ jobs:
 
       - name: Create unique version for test.pypi
         run: |
-          set -e
-          git pull --no-edit origin $DEFAULT_BRANCH
           current_version=$(grep __version__ $VERSION_FILE | cut -d\" -f2)
           ts=$(date +%s)
           new_version="$current_version$ts"
@@ -106,9 +107,10 @@ jobs:
           repository_url: https://test.pypi.org/legacy/
           skip_existing: true
 
-  Test-pypi:
+  test-pypi:
+    name: Test wheels
     if: "'$TEST_PYPI_PASS' != ''"
-    needs: Build-pypi
+    needs: build-pypi
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -129,11 +131,12 @@ jobs:
           rm -rf $PROJECT_NAME
           pytest
 
-  Bump-version:
+  bump-version:
+    name: Bump version
     if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$BOT_AUTH_TOKEN' != ''"
     needs:
-      - Test-pypi
-      - Pytest
+      - test-pypi
+      - pytest
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -163,7 +166,8 @@ jobs:
         git push --tags ${BOT_NAME}-remote HEAD:$DEFAULT_BRANCH
         set +e
 
-  Release-package:
+  release-package:
+    name: Release PyPI package
     if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'  && '$PYPI_PASS' != ''"
     runs-on: ubuntu-18.04
     steps:
