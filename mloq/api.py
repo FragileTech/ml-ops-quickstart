@@ -1,4 +1,5 @@
 """The api module exposes the mloq functionality to the CLI."""
+import copy
 from pathlib import Path
 from typing import Optional, Union
 
@@ -60,11 +61,13 @@ def setup_project_files(path, template: Union[Path, str, dict], override: bool =
     if isinstance(template, (Path, str)):
         template = ConfigFile.read_config(Path(template))["template"]
     path = Path(path)
-    project_name = template["project_name"]
+    _template = copy.deepcopy(template)
+    _template["project_name"] = _template["project_name"].replace("-", "_")
+    project_name = _template["project_name"]
     create_project_directories(project_name=project_name, root_path=path, override=override)
-    setup_root_files(template=template, path=path, override=override)
+    setup_root_files(template=_template, path=path, override=override)
     tests_path = path / project_name / "tests"
-    write_template(test_main, params=template, path=tests_path, override=override)
+    write_template(test_main, params=_template, path=tests_path, override=override)
 
 
 def setup_scripts(
