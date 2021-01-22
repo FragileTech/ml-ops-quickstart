@@ -64,18 +64,6 @@ jobs:
       if: ${{ matrix.python-version=='3.8' }}
       uses: codecov/codecov-action@v1
 
-  Test-docker:
-    needs: Style-check
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build container
-      run: |
-        make -f scripts/makefile.docker docker-build
-    - name: Run tests
-      run: |
-        make -f scripts/makefile.docker docker-test
-
   Build-pypi:
     needs: Style-check
     runs-on: ubuntu-18.04
@@ -175,25 +163,6 @@ jobs:
         git remote add ${BOT_NAME}-remote https://${BOT_NAME}:${BOT_AUTH_TOKEN}@github.com/$GITHUB_REPOSITORY
         git push --tags ${BOT_NAME}-remote HEAD:$DEFAULT_BRANCH
         set +e
-
-  Push-Docker-container:
-    runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$DOCKER_PASSWORD' != ''"
-    steps:
-      - uses: actions/checkout@v2
-      - name: Login to DockerHub
-        run: |
-          docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
-
-      - name: Build container
-        run: |
-          CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
-          make docker-build VERSION=$CONTAINER_VERSION PROJECT=$PROJECT_NAME DOCKER_ORG=$DOCKER_ORG
-      - name: Push images
-
-        run: |
-          CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
-          make -f scripts/makefile.docker docker-push VERSION=$CONTAINER_VERSION PROJECT=$PROJECT_NAME DOCKER_ORG=$DOCKER_ORG
 
   Release-package:
     if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'  && '$PYPI_PASS' != ''"
