@@ -22,7 +22,8 @@ env:
   DOCKER_PASSWORD: ${{'{{'}} secrets.DOCKERHUB_PASS {{'}}'}}
 
 jobs:
-  Style-check:
+  style-check:
+    name: Style check
     if: "!contains(github.event.head_commit.message, 'Bump version')"
     runs-on: ubuntu-latest
     steps:
@@ -39,8 +40,9 @@ jobs:
       run: |
         make -f scripts/makefile.docker check
 
-  Pytest:
-    needs: Style-check
+  pytest:
+    name: Run Pytest
+    needs: style-check
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -64,8 +66,9 @@ jobs:
       if: ${{"{{"}} matrix.python-version=='3.8' {{"}}"}}
       uses: codecov/codecov-action@v1
 
-  Test-docker:
-    needs: Style-check
+  test-docker:
+    name: Test Docker container
+    needs: style-check
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -76,8 +79,9 @@ jobs:
       run: |
         make -f scripts/makefile.docker docker-test
 
-  Build-pypi:
-    needs: Style-check
+  build-pypi:
+    name: Build wheels
+    needs: style-check
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -96,8 +100,6 @@ jobs:
 
       - name: Create unique version for test.pypi
         run: |
-          set -e
-          git pull --no-edit origin $DEFAULT_BRANCH
           current_version=$(grep __version__ $VERSION_FILE | cut -d\" -f2)
           ts=$(date +%s)
           new_version="$current_version$ts"
@@ -118,9 +120,10 @@ jobs:
           repository_url: https://test.pypi.org/legacy/
           skip_existing: true
 
-  Test-pypi:
+  test-pypi:
+    name: Test wheels from Test PyPI
     if: "'$TEST_PYPI_PASS' != ''"
-    needs: Build-pypi
+    needs: build-pypi
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -141,12 +144,13 @@ jobs:
           rm -rf $PROJECT_NAME
           pytest
 
-  Bump-version:
+  bump-version:
+    name: Bump package version
     if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}' && '$BOT_AUTH_TOKEN' != ''"
     needs:
-      - Test-pypi
-      - Pytest
-      - Test-docker
+      - pytest
+      - test-pypi
+      - test-docker
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -176,7 +180,8 @@ jobs:
         git push --tags ${BOT_NAME}-remote HEAD:$DEFAULT_BRANCH
         set +e
 
-  Push-Docker-container:
+  push-docker:
+    name: Push Docker container
     runs-on: ubuntu-latest
     if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}' && '$DOCKER_PASSWORD' != ''"
     steps:
@@ -188,14 +193,15 @@ jobs:
       - name: Build container
         run: |
           CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
-          make docker-build VERSION=$CONTAINER_VERSION PROJECT=$PROJECT_NAME DOCKER_ORG=$DOCKER_ORG
+          make -f scripts/makefile.docker docker-build VERSION=$CONTAINER_VERSION PROJECT=$PROJECT_NAME DOCKER_ORG=$DOCKER_ORG
       - name: Push images
 
         run: |
           CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
           make -f scripts/makefile.docker docker-push VERSION=$CONTAINER_VERSION PROJECT=$PROJECT_NAME DOCKER_ORG=$DOCKER_ORG
 
-  Release-package:
+  release-package:
+    name: Release PyPI package
     if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}'  && '$PYPI_PASS' != ''"
     runs-on: ubuntu-18.04
     steps:
