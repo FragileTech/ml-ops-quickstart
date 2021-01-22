@@ -47,8 +47,8 @@ download_url = ConfigEntry(
 )
 bot_name = ConfigEntry(
     "bot_name",
-    prompt_text="Bot account to push from ci",
-    help="Bot account to bump the project version",
+    prompt_text="Bot's GitHub login to push commits in CI",
+    help="Bot's GitHub login to push commits in CI",
     default_prompt=owner,
 )
 
