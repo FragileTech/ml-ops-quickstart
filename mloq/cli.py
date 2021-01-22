@@ -173,7 +173,10 @@ def quickstart(output, override, **kwargs):  # noqa
         OUTPUT: Path of the project where the template files will be written.
     """
     MLOQFile.set_target(output)
-    MLOQFile.save_config(kwargs, from_kwargs=True)
+    if click.confirm("Do you want to generate a mloq.yml file?"):
+        MLOQFile.save_config(kwargs, from_kwargs=True)
     config = MLOQFile.to_config(**kwargs)
     config = set_docker_image(config)
+    if not override and click.confirm("Do you want to override existing files?"):
+        override = True
     setup_repository(path=output, config_file=config, override=override)
