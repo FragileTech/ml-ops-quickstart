@@ -47,7 +47,7 @@ def write_template(file: File, params, path, override: False):
         None.
     """
     if not override and (path / file.dst).exists():
-        print(f"file {file.name} not written: override {override} |cond: {file.src.exists()}")
+        print(f"file {file.name} not written: override is {override}")
         return
     rendered = render_template(file, params)
     with open(path / file.dst, "w") as f:
