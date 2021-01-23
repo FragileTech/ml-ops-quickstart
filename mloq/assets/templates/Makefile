@@ -3,6 +3,7 @@ current_dir = $(shell pwd)
 PROJECT = {{project_name}}
 DOCKER_ORG = {{owner}}
 VERSION ?= latest
+n ?= auto
 
 .POSIX:
 style:
@@ -19,7 +20,7 @@ check:
 .PHONY: test
 test:
 	find -name "*.pyc" -delete
-	pytest -s -o log_cli=true -o log_cli_level=info
+	pytest -n $n -s -o log_cli=true -o log_cli_level=info
 
 .PHONY: pipenv-install
 pipenv-install:
@@ -43,7 +44,7 @@ docker-build:
 .PHONY: docker-test
 docker-test:
 	find -name "*.pyc" -delete
-	docker run --rm -it --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest -s -o log_cli=true -o log_cli_level=info
+	docker run --rm -it --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest -n $n -s -o log_cli=true -o log_cli_level=info
 
 .PHONY: docker-shell
 docker-shell:
