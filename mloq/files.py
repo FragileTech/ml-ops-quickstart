@@ -28,7 +28,7 @@ main = file("__main__.py", STATIC_FILES_PATH, is_static=True)
 version = file("version.py", STATIC_FILES_PATH, is_static=True)
 dockerfile_aarch64 = file("Dockerfile_aarch64", STATIC_FILES_PATH, is_static=True)
 build_manylinux_sh = file("build-manylinux-wheels.sh", STATIC_FILES_PATH, is_static=True)
-code_of_conduct = file("code_of_conduct.md", TEMPLATES_PATH)
+code_of_conduct = file("CODE_OF_CONDUCT.md", TEMPLATES_PATH)
 
 # Requirements files
 data_science_req = file("data-science.txt", REQUIREMENTS_PATH)

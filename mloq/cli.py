@@ -147,7 +147,7 @@ def project_files(config_file, output, override):  # noqa
     \b
     - README.md
     - DCO.md
-    - code_of_conduct.md
+    - CODE_OF_CONDUCT.md
     - CONTRIBUTING.md
     - pyproject.toml
     - setup.py
