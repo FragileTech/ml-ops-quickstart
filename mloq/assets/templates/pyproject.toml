@@ -1,7 +1,6 @@
-# NOTE: you have to use single-quoted strings in TOML for regular expressions.
-# It's the equivalent of r-strings in Python.  Multiline strings are treated as
-# verbose regular expressions by Black.  Use [ ] to denote a significant space
-# character.
+[build-system]
+requires = ["setuptools >= 50.3.2", "wheel", "importlib"]
+build-backend = "setuptools.build_meta"
 
 # Example configuration for Black.
 [tool.black]
@@ -92,7 +91,3 @@ enable = """,
          differing-type-doc,
          missing-return-doc,
          """
-
-[build-system]
-requires = ["setuptools >= 50.3.2", "wheel", "importlib"]
-build-backend = "setuptools.build_meta"

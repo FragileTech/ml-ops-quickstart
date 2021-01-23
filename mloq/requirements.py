@@ -25,11 +25,16 @@ REQUIREMENTS_ALIASES = {
 }
 
 
-def require_cuda(template: dict) -> bool:
+def require_cuda(project: Optional[dict] = None) -> bool:
     """Return True if any of the project dependencies require CUDA."""
-    if "requirements" not in template:
+    project = project or {}
+    if "requirements" not in project:
         return False
-    options = template["requirements"]
+    options = project["requirements"]
+    if options is None or (isinstance(options, list) and not len(options)):
+        return False
+    elif isinstance(options, str):
+        options = [options]
     tf_alias = REQUIREMENTS_ALIASES[tensorflow_req]
     torch_alias = REQUIREMENTS_ALIASES[pytorch_req]
     for option in options:
@@ -84,6 +89,8 @@ def write_project_requirements(
     The writen file contains pinned dependencies for the libraries \
     required by the provided options.
     """
+    if "None" in options or "none" in options:
+        return
     out_path = os.getcwd() if out_path is None else out_path
     file_path = out_path / out_name
     if not override and file_path.exists():
