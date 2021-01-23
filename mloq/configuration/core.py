@@ -401,7 +401,6 @@ class Config:
     def define_value(self, silent: bool = False, **kwargs):
         """Kwargs is a loaded configuration dict."""
         for name, entry in self._entries.items():
-            print("defining", name, entry)
             if isinstance(entry, ConfigGroup):
                 entry.define_value(silent=silent, **kwargs.get(entry.name))
             elif isinstance(entry, ConfigEntry):

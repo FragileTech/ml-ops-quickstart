@@ -39,16 +39,11 @@ project_url = ConfigEntry(
     prompt_text="GitHub project url",
     force_prompt=True,
 )
-download_url = ConfigEntry(
-    "download_url",
-    default_prompt=lambda: (None if (project_url.value is None) else f"{project_url.value}.git"),
-    prompt_text="Download url",
-    force_prompt=True,
-)
+
 bot_name = ConfigEntry(
     "bot_name",
-    prompt_text="Bot account to push from ci",
-    help="Bot account to bump the project version",
+    prompt_text="Bot's GitHub login to push commits in CI",
+    help="Bot's GitHub login to push commits in CI",
     default_prompt=owner,
 )
 
@@ -99,7 +94,6 @@ TEMPLATE = ConfigGroup(
         author,
         copyright_holder,
         project_url,
-        download_url,
         bot_name,
         bot_email,
         license,
