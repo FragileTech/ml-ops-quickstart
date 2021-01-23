@@ -4,6 +4,7 @@ PROJECT = mloq
 DOCKER_ORG = fragile
 VERSION ?= latest
 UBUNTU_NAME = $(lsb_release -s -c)
+n ?= auto
 # Project usage commands
 
 .POSIX:
@@ -31,7 +32,7 @@ pipenv-install:
 .PHONY: test
 test:
 	find -name "*.pyc" -delete
-	pytest -s
+	pytest -n $n -s -o log_cli=true -o log_cli_level=info
 
 .PHONY: pipenv-test
 pipenv-test:

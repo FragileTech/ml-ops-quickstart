@@ -61,7 +61,7 @@ jobs:
         pip install .
     - name: Test with pytest
       run: |
-        pytest --cov=./ --cov-report=xml
+        make -f scripts/makefile.docker test-codecov
     - name: Upload coverage report
       if: ${{ matrix.python-version=='3.8' }}
       uses: codecov/codecov-action@v1
@@ -129,7 +129,7 @@ jobs:
         run: |
           mv $PROJECT_NAME/tests ./tests
           rm -rf $PROJECT_NAME
-          pytest
+          make -f scripts/makefile.docker test
 
   bump-version:
     name: Bump package version

@@ -4,6 +4,7 @@ PROJECT = mloq
 DOCKER_ORG = fragile
 VERSION ?= latest
 UBUNTU_NAME = $(lsb_release -s -c)
+n ?= auto
 
 # Installation commands used by Dockerfiles
 # Install system packages
@@ -42,6 +43,16 @@ check:
 	pylint ${PROJECT}
 	black --check ${PROJECT}
 
+.PHONY: test
+test:
+	find -name "*.pyc" -delete
+	pytest -n $n -s -o log_cli=true -o log_cli_level=info
+
+.PHONY: test-codecov
+test-codecov:
+	find -name "*.pyc" -delete
+	pytest -n auto -s -o log_cli=true -o log_cli_level=info --cov=./ --cov-report=xml
+
 .PHONY: docker-build
 docker-build:
 	docker build --pull -t ${DOCKER_ORG}/${PROJECT}:${VERSION} .
@@ -49,7 +60,7 @@ docker-build:
 .PHONY: docker-test
 docker-test:
 	find -name "*.pyc" -delete
-	docker run --rm -it --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest -s -o log_cli=true -o log_cli_level=info
+	docker run --rm -it --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest -n $n -s -o log_cli=true -o log_cli_level=info
 
 .PHONY: docker-push
 docker-push:
