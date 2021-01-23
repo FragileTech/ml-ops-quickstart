@@ -9,7 +9,7 @@ include mloq/assets/static/DCO.md
 include mloq/assets/static/.gitignore
 include mloq/assets/static/Dockerfile_aarch64
 include mloq/assets/static/build-manylinux-wheels.sh
-include mloq/assets/templates/code_of_conduct.md
+include mloq/assets/templates/CODE_OF_CONDUCT.md
 include mloq/assets/templates/MIT_LICENSE
 include mloq/assets/templates/pyproject.toml
 include mloq/assets/templates/setup.py
