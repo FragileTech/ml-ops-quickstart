@@ -1,11 +1,10 @@
 """The api module exposes the mloq functionality to the CLI."""
 import copy
 from pathlib import Path
-from typing import Optional, Union
+from typing import Union
 
-from mloq.configuration.core import ConfigFile
 from mloq.directories import copy_file, create_project_directories
-from mloq.files import file as new_file, repository, ROOT_PATH_FILES, SCRIPTS, test_main
+from mloq.files import file as new_file, mloq_yml, ROOT_PATH_FILES, SCRIPTS, test_main
 from mloq.requirements import setup_requirements
 from mloq.templating import write_template
 from mloq.workflows import setup_push_workflow
@@ -14,9 +13,7 @@ from mloq.workflows import setup_push_workflow
 def init_config(path: Union[str, Path], override: bool = False, filename=None):
     """Write an empty config file to the target path."""
     repo_file = (
-        repository
-        if filename is None
-        else new_file(repository.src, repository.src.parent, filename)
+        mloq_yml if filename is None else new_file(mloq_yml.src, mloq_yml.src.parent, filename)
     )
     copy_file(repo_file, Path(path), override)
 
@@ -30,8 +27,6 @@ def requirements(
     override: bool = False,
 ):
     """Write requirements files and install them if requested."""
-    if isinstance(options, (Path, str)):
-        options = ConfigFile.read_config(Path(options))["requirements"]
     if isinstance(install, (tuple, list)) and "all" in install or install == "all":
         install_reqs = True
         install_lint = True
@@ -58,8 +53,6 @@ def requirements(
 
 def setup_project_files(path, template: Union[Path, str, dict], override: bool = False):
     """Write the template for common repository config files."""
-    if isinstance(template, (Path, str)):
-        template = ConfigFile.read_config(Path(template))["template"]
     path = Path(path)
     _template = copy.deepcopy(template)
     _template["project_name"] = _template["project_name"].replace("-", "_")
@@ -89,18 +82,13 @@ def setup_root_files(
 
 
 def setup_repository(
-    path: Union[str, Path],
-    config_file: Optional[Union[Path, str, dict]] = None,
-    override: bool = False,
+    path: Union[str, Path], template: dict, project: dict, override: bool = False,
 ):
     """Initialize the project folder structure and all the filled in boilerplate files."""
     path = Path(path)
-    config_file = path / "mloq.yml" if config_file is None else config_file
-    config = config_file if isinstance(config_file, dict) else ConfigFile.read_config(config_file)
-    template = config["template"]
     setup_project_files(path=path, template=template, override=override)
-    setup_push_workflow(config.get("workflow"), path=path, config_file=config, override=override)
+    setup_push_workflow(project=project, path=path, template=template, override=override)
     requirements(
-        options=config["requirements"], path=path, test=True, lint=True, override=override
+        options=project["requirements"], path=path, test=True, lint=True, override=override
     )
     setup_scripts(template=template, path=path, override=override)

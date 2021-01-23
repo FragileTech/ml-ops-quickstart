@@ -20,7 +20,7 @@ REQUIREMENTS_PATH = ASSETS_PATH / "requirements"
 WORKFLOWS_PATH = ASSETS_PATH / "workflows"
 
 # Common files
-repository = file("mloq.yml", STATIC_FILES_PATH, is_static=True)
+mloq_yml = file("mloq.yml", STATIC_FILES_PATH, is_static=True)
 gitignore = file(".gitignore", STATIC_FILES_PATH, is_static=True)
 dco = file("DCO.md", STATIC_FILES_PATH, is_static=True)
 init = file("__init__.py", STATIC_FILES_PATH, is_static=True)
@@ -85,6 +85,6 @@ REQUIREMENTS_FILES = [
 
 SCRIPTS = [build_manylinux_sh, dockerfile_aarch64, makefile_docker, rename_wheels]
 
-ALL_FILES = ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [repository]
+ALL_FILES = ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [mloq_yml]
 
 ALL_FILE_PATHS = [str(f.src) for f in ALL_FILES]

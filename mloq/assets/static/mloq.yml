@@ -6,8 +6,17 @@
 
 # `template` contains all the values that will be written in the generated files.
 # They are loaded as a dictionary and passed to jinja2 to fill in the templates.
+project:
+  open_source: null  # boolean
+  proprietary: null # boolean
+  docker: null  # boolean
+  ci: null  # string
+  mlflow: null #boolean
+  requirements: null # list
+
 template:
   project_name: null
+  default_branch: null
   owner: null
   author: null
   email: null
@@ -16,16 +25,10 @@ template:
   download_url: null
   bot_name: null
   bot_email: null
-  license: "MIT"
-  description: "short_description_of_the_project"
-  python_versions: ['3.6', '3.7', '3.8', '3.9']
-  default_branch: "master"
+  license: null
+  description: null
+  python_versions: null
+  docker_image: null
 
-requirements: ["datascience", "pytorch", "dataviz"]
-
-# workflows:
-# "dist" for python packages with compiled extensions
-# "python" for pure python packages.
-workflow: "python"
 
 
