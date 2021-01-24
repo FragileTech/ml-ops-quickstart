@@ -1,16 +1,27 @@
+project_config:
+  open_source: true
+  proprietary: false
+  docker: true
+  ci: python
+  mlflow: true
+  requirements:
+    - torch
 template:
-  project_name: "pytest_proj"
-  owner: ""
-  description: "Short description of the repo"
-  author: ""
-  email: ""
-  license: "MIT"
-  copyright_holder: ""
-  url: ""
-  bot_name: ""
-  bot_email: ""
-  python_versions: ['3.6', '3.7', '3.8']
-
-requirements: ["data-science", "pytorch", "dataviz"]
-
-workflows: ["lint-and-test", "bump-version", "docker-test"]
+  project_name: test_project
+  default_branch: master
+  owner: owner_test
+  author: owner_test
+  email: owner@mail.com
+  copyright_holder: owner_test
+  project_url: https://github.com/owner_test/test_project
+  download_url:
+  bot_name: owner_test
+  bot_email: owner@mail.com
+  license: MIT
+  description:
+  python_versions:
+    - '3.6'
+    - '3.7'
+    - '3.8'
+    - '3.9'
+  docker_image: fragiletech/ubuntu18.04-cuda-11.0-py39
