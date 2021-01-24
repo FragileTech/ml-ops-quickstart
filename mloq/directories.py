@@ -4,6 +4,7 @@ from pathlib import Path
 from shutil import copyfile
 from typing import Union
 
+from mloq import _logger
 from mloq.config import Config
 from mloq.files import File, init, main, version
 
@@ -19,7 +20,7 @@ def create_empty_file(filepath: Path) -> None:
         None
     """
     if filepath.exists():
-        print(f"file {filepath.name} already exists")
+        _logger.info(f"file {filepath.name} already exists")
         return
     with open(filepath, "w") as _:
         pass
@@ -47,7 +48,7 @@ def copy_file(file: File, path: Union[Path, str], override: bool = False) -> Non
     if not os.path.isfile(str(target)) or override:
         copyfile(file.src, target)
     else:
-        print(f"file {file.name} already exists in {target}")
+        _logger.info(f"file {file.name} already exists in {target}")
 
 
 def create_project_directories(

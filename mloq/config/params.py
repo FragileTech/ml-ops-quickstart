@@ -119,12 +119,12 @@ class MultiChoiceParam(ConfigParam):
     def _prompt(self, value, **kwargs) -> List[str]:
         """Transform the parsed string from the CLI into a list of selected values."""
         val = super(MultiChoiceParam, self)._prompt(value, **kwargs)
-        return self._parse_string(val)
+        return self._parse_string(val) if isinstance(val, str) else val
 
     def _value_from_env(self):
         """Return the config value if it is defined as an environment variable."""
         val = super(MultiChoiceParam, self)._value_from_env()
-        return self._parse_string(val) if val is not None else val
+        return self._parse_string(val) if isinstance(val, str) else val
 
     @staticmethod
     def _parse_string(value) -> List[str]:

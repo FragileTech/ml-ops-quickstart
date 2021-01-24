@@ -27,7 +27,7 @@ def setup_workflow_template(
     # TODO: Check for incompatible workflows
     workflow_file = WORKFLOW_NAMES.get(workflow)
     if workflow_file is None:
-        print(f"Workflow {workflow} not defined. Skipping")
+        _logger.warning(f"Workflow {workflow} not defined. Skipping")
     else:
         write_template(workflow_file, template=template, path=workflows_path, override=override)
 

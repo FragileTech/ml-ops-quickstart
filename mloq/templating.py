@@ -4,6 +4,7 @@ from typing import Union
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from mloq import _logger
 from mloq.config import Config
 from mloq.directories import read_file
 from mloq.files import File, TEMPLATES_PATH, WORKFLOWS_PATH
@@ -50,7 +51,7 @@ def write_template(file: File, template: Config, path: Union[Path, str], overrid
     """
     path = Path(path)
     if not override and (path / file.dst).exists():
-        print(f"file {file.name} not written: override is {override}")
+        _logger.info(f"file {file.name} already exists. Skipping")
         return
     rendered = render_template(file, template)
     with open(path / file.dst, "w") as f:
