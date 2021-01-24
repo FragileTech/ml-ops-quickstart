@@ -67,9 +67,11 @@ ROOT_PATH_FILES = [
     makefile,
     dockerfile,
     readme,
+    contributing,
+    code_of_conduct,
 ]
 
-OPEN_SOURCE_FILES = [dco, contributing, code_of_conduct]
+OPEN_SOURCE_FILES = [dco, mit_license]
 
 WORKFLOW_FILES = [push_dist_wkf, push_python_wkf]
 

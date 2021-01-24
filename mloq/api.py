@@ -5,15 +5,7 @@ from typing import Union
 
 from mloq.config import Config
 from mloq.directories import create_project_directories
-from mloq.files import (
-    mit_license,
-    mlproject,
-    OPEN_SOURCE_FILES,
-    ROOT_PATH_FILES,
-    SCRIPTS,
-    setup_py,
-    test_main,
-)
+from mloq.files import mlproject, OPEN_SOURCE_FILES, ROOT_PATH_FILES, SCRIPTS, setup_py, test_main
 from mloq.requirements import setup_requirements
 from mloq.templating import write_template
 from mloq.workflows import setup_push_workflow
@@ -86,8 +78,6 @@ def setup_root_files(
     if project_config.get("open_source"):
         for file in OPEN_SOURCE_FILES:
             write_template(file, template=template, path=path, override=override)
-    if not project_config.get("proprietary", False):
-        write_template(mit_license, template=template, path=path, override=override)
     propietary_classif = "License :: Other/Proprietary License"
     license_classifiers = {"mit": "License :: OSI Approved :: MIT License"}
     setup_template = copy.deepcopy(template)
