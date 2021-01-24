@@ -27,8 +27,8 @@ def setup_workflow_template(workflow, root_path: Path, template, override: bool 
         write_template(workflow_file, params=template, path=workflows_path, override=override)
 
 
-def setup_push_workflow(project, template, path: Union[str, Path], override: bool = False):
+def setup_push_workflow(project_config, template, path: Union[str, Path], override: bool = False):
     """Initialize the target workflow."""
     create_github_actions_directories(path)
-    wkflow = project.get("ci", "none")
+    wkflow = project_config.get("ci", "none")
     setup_workflow_template(workflow=wkflow, template=template, root_path=path, override=override)

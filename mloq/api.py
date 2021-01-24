@@ -82,13 +82,15 @@ def setup_root_files(
 
 
 def setup_repository(
-    path: Union[str, Path], template: dict, project: dict, override: bool = False,
+    path: Union[str, Path], template: dict, project_config: dict, override: bool = False,
 ):
     """Initialize the project folder structure and all the filled in boilerplate files."""
     path = Path(path)
     setup_project_files(path=path, template=template, override=override)
-    setup_push_workflow(project=project, path=path, template=template, override=override)
+    setup_push_workflow(
+        project_config=project_config, path=path, template=template, override=override
+    )
     requirements(
-        options=project["requirements"], path=path, test=True, lint=True, override=override
+        options=project_config["requirements"], path=path, test=True, lint=True, override=override
     )
     setup_scripts(template=template, path=path, override=override)

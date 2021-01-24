@@ -62,9 +62,8 @@ def setup(config_file, output, override: bool, interactive: bool):
         template=template, project_config=project, interactive=interactive
     )
     config = {"project_config": project, "template": template}
-    print(config)
     if click.confirm("Do you want to generate a mloq.yml file?"):
         write_config(config, output, safe=True)
     if not override and interactive:
         override = click.confirm("Do you want to override existing files?")
-    setup_repository(path=output, template=template, project=project, override=override)
+    setup_repository(path=output, template=template, project_config=project, override=override)
