@@ -11,6 +11,7 @@ from mloq.files import (
     OPEN_SOURCE_FILES,
     ROOT_PATH_FILES,
     SCRIPTS,
+    setup_py,
     test_main,
 )
 from mloq.requirements import setup_requirements
@@ -87,6 +88,12 @@ def setup_root_files(
             write_template(file, template=template, path=path, override=override)
     if not project_config.get("proprietary", False):
         write_template(mit_license, template=template, path=path, override=override)
+    propietary_classif = "License :: Other/Proprietary License"
+    license_classifiers = {"mit": "License :: OSI Approved :: MIT License"}
+    setup_template = copy.deepcopy(template)
+    license_classif = license_classifiers.get(template["license"], propietary_classif)
+    setup_template["license_classifier"] = license_classif
+    write_template(setup_py, template=setup_template, path=path, override=override)
 
 
 def setup_repository(
