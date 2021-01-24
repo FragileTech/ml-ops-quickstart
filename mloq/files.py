@@ -62,18 +62,15 @@ push_python_wkf = file("push-python.yml", WORKFLOWS_PATH, "push.yml")
 push_dist_wkf = file("push-dist.yml", WORKFLOWS_PATH, "push.yml")
 
 ROOT_PATH_FILES = [
-    dco,
     gitignore,
-    code_of_conduct,
-    mit_license,
     pyproject_toml,
     setup_py,
     makefile,
     dockerfile,
-    mlproject,
     readme,
-    contributing,
 ]
+
+OPEN_SOURCE_FILES = [dco, contributing, code_of_conduct]
 
 WORKFLOW_FILES = [push_dist_wkf, push_python_wkf]
 

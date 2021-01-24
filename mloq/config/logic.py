@@ -4,7 +4,7 @@ from typing import Dict, Optional, Union
 
 from ruamel.yaml import load as yaml_load, Loader, YAML as RuamelYAML
 
-from mloq.config.params import Config, is_empty
+from mloq.config import Config
 from mloq.directories import copy_file
 from mloq.files import file as new_file, mloq_yml
 from mloq.requirements import require_cuda
