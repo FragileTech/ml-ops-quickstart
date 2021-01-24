@@ -4,6 +4,7 @@ from pathlib import Path
 from shutil import copyfile
 from typing import Union
 
+from mloq.config import Config
 from mloq.files import File, init, main, version
 
 
@@ -49,7 +50,9 @@ def copy_file(file: File, path: Union[Path, str], override: bool = False) -> Non
         print(f"file {file.name} already exists in {target}")
 
 
-def create_project_directories(project_name: str, root_path: Path, override: False) -> None:
+def create_project_directories(
+    project_name: str, root_path: Path, project_config: Config = None, override: bool = False
+) -> None:
     """
     Initialize the folder structure of a new Python project.
 
@@ -61,12 +64,14 @@ def create_project_directories(project_name: str, root_path: Path, override: Fal
     Args:
         project_name: Name of the project. This is the name of the directory that will be created.
         root_path: Absolute path where the new project folder will be created.
+        project_config: Contains all the parameters that define how the project will be set up.
         override: If False, copy the file if it does not already exists in the \
                   target path. If True, override the target file if it is already present.
 
     Returns:
         None.
     """
+    project_config = project_config or {}
     # Project dir
     project_path = root_path / project_name
     os.makedirs(project_path, exist_ok=True)

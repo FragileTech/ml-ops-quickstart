@@ -4,40 +4,43 @@ from typing import Dict, Optional, Union
 
 from ruamel.yaml import load as yaml_load, Loader, YAML as RuamelYAML
 
-from mloq.config.params import Config
-from mloq.files import mloq_yml
+from mloq.config import Config
+from mloq.directories import copy_file
+from mloq.files import file as new_file, mloq_yml
 from mloq.requirements import require_cuda
 
 
-def get_docker_python_version(template: dict) -> str:
+def get_docker_python_version(template: Config) -> str:
     """Return the highest python version defined for the project."""
     max_version = list(sorted(template["python_versions"]))[-1]
     version = max_version.replace(".", "")
     return f"py{version}"
 
 
-def get_docker_image(template: dict, project: dict = None) -> Union[str, None]:
+def get_docker_image(
+    template: Config, project_config: Optional[Config] = None
+) -> Union[str, None]:
     """
     Add to params the base docker container that will be used to define the project's container.
 
     If the dependencies require cuda the base image will be gpu friendly.
     """
-    project = project or {}
+    project_config = project_config or {}
     if "docker_image" in template and template["docker_image"] is not None:
         return template["docker_image"]
-    elif project.get("docker") is not None and not project.get("docker"):
+    elif project_config.get("docker") is not None and not project_config.get("docker"):
         return
     v = get_docker_python_version(template)
     ubuntu_v = "ubuntu20.04" if v == "py38" else "ubuntu18.04"
     image = (
         f"fragiletech/{ubuntu_v}-cuda-11.0-{v}"
-        if require_cuda(project)
+        if require_cuda(project_config)
         else f"fragiletech/{ubuntu_v}-base-{v}"
     )
     return image
 
 
-def read_config(path: Path) -> dict:
+def read_config(path: Union[Path, str]) -> Config:
     """Load the project configuration from the target path."""
     with open(path, "r") as config:
         params = yaml_load(config.read(), Loader)
@@ -67,7 +70,7 @@ def read_config_safe(path: Optional[Union[Path, str]]) -> Config:
         return load_empty_config()
 
 
-def write_config(config, path, safe: bool = False):
+def write_config(config: Config, path: Union[Path, str], safe: bool = False):
     """Write config in a yaml file."""
     yaml = RuamelYAML()
     yaml.indent(sequence=4, offset=2)
@@ -83,3 +86,11 @@ def load_empty_config() -> Dict[str, Dict[str, None]]:
     with open(mloq_yml.src, "r") as config:
         empty_config = yaml_load(config.read(), Loader)
     return empty_config
+
+
+def write_empty_config(path: Union[str, Path], override: bool = False, filename: str = None):
+    """Write an empty config file to the target path."""
+    repo_file = (
+        mloq_yml if filename is None else new_file(mloq_yml.src, mloq_yml.src.parent, filename)
+    )
+    copy_file(repo_file, Path(path), override)

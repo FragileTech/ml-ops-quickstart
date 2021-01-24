@@ -1,8 +1,10 @@
 """This module defines common functionality for rendering and writing File templates."""
-from typing import Any, Dict
+from pathlib import Path
+from typing import Union
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from mloq.config import Config
 from mloq.directories import read_file
 from mloq.files import File, TEMPLATES_PATH, WORKFLOWS_PATH
 
@@ -13,13 +15,13 @@ jinja_env = Environment(
 )
 
 
-def render_template(file: File, params: Dict[str, Any]) -> str:
+def render_template(file: File, template: Config) -> str:
     """
     Render a jinja template with the provided parameter dict.
 
     Args:
         file: File object representing the jinja template that will be rendered.
-        params: Dictionary containing the parameters key and corresponding values \
+        template: Dictionary containing the parameters key and corresponding values \
                 that will be used to render the template.
 
     Returns:
@@ -27,17 +29,17 @@ def render_template(file: File, params: Dict[str, Any]) -> str:
     """
     if file.is_static:
         return read_file(file)
-    template = jinja_env.get_template(str(file.name))
-    return template.render(**params)
+    jinja_template = jinja_env.get_template(str(file.name))
+    return jinja_template.render(**template)
 
 
-def write_template(file: File, params, path, override: False):
+def write_template(file: File, template: Config, path: Union[Path, str], override: bool = False):
     """
     Create new file containing the rendered template found in source_path.
 
     Args:
         file: File object representing the jinja template that will be rendered.
-        params: Dictionary containing the parameters key and corresponding values \
+        template: Dictionary containing the parameters key and corresponding values \
                 that will be used to render the templates.
         path: Absolute path to the folder containing the target templates.
         override: If False, copy the file if it does not already exists in the \
@@ -46,9 +48,10 @@ def write_template(file: File, params, path, override: False):
     Returns:
         None.
     """
+    path = Path(path)
     if not override and (path / file.dst).exists():
         print(f"file {file.name} not written: override is {override}")
         return
-    rendered = render_template(file, params)
+    rendered = render_template(file, template)
     with open(path / file.dst, "w") as f:
         f.write(rendered)

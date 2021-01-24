@@ -103,7 +103,7 @@ def generate_template(
         template["license"] = "proprietary"
     else:
         template["license"] = TEMPLATE["license_type"](template, interactive, default="MIT")
-    base_docker = get_docker_image(template=template, project=project_config)
+    base_docker = get_docker_image(template=template, project_config=project_config)
     if base_docker is not None:
         base_docker = TEMPLATE["docker_image"](template, interactive, default=base_docker)
     template["docker_image"] = str(base_docker) if base_docker is None else base_docker
