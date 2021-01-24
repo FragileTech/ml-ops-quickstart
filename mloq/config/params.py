@@ -1,6 +1,6 @@
 """This file contains the logic defining all the parameters needed to se up a project with mloq."""
 import os
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Union
 
 import click
 
@@ -153,6 +153,26 @@ class BooleanParam(ConfigParam):
         if value is not None:
             _kwargs["default"] = value
         return click.confirm(self._prompt_text, **_kwargs)
+
+
+EMPTY_VALUES = {"none", "empty", "skip"}
+
+
+def is_empty(value: Union[str, list, tuple, set]) -> bool:
+    """
+    Return True if a the target value is defined as an empty value.
+
+    Empty values are defined in the configuration (are not None) but they are not \
+    used by mloq. For example, empty values can be used to define empty project \
+    requirements or no base Docker image.
+    """
+    if value is None:
+        return True
+    elif isinstance(value, str):
+        return value.lower() in EMPTY_VALUES
+    elif not len(value):
+        return True
+    return any([v.lower() in EMPTY_VALUES for v in value])
 
 
 # MLOQ template parameters

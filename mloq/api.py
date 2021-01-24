@@ -32,7 +32,7 @@ def requirements(
         install_reqs = False
         install_lint = False
         install_test = False
-    options = project_config.get("requirements", ["None"])
+    options = project_config.get("requirements", ["empty"])
     setup_requirements(
         options=options,
         path=Path(path),

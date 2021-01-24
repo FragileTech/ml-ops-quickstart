@@ -4,7 +4,7 @@ from typing import Dict, Optional, Union
 
 from ruamel.yaml import load as yaml_load, Loader, YAML as RuamelYAML
 
-from mloq.config import Config
+from mloq.config.params import Config, is_empty
 from mloq.directories import copy_file
 from mloq.files import file as new_file, mloq_yml
 from mloq.requirements import require_cuda
@@ -26,10 +26,13 @@ def get_docker_image(
     If the dependencies require cuda the base image will be gpu friendly.
     """
     project_config = project_config or {}
-    if "docker_image" in template and template["docker_image"] is not None:
+    docker_is_false = project_config.get("docker") is not None and not project_config.get("docker")
+    if docker_is_false:  # Project does not require Docker
+        return "empty"
+    # If docker image is defined, return current value even if it's an empty image
+    if template.get("docker_image") is not None:
         return template["docker_image"]
-    elif project_config.get("docker") is not None and not project_config.get("docker"):
-        return
+    # Define the appropriate FragileTech docker container as base image
     v = get_docker_python_version(template)
     ubuntu_v = "ubuntu20.04" if v == "py38" else "ubuntu18.04"
     image = (
