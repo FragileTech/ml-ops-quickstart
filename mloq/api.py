@@ -3,24 +3,17 @@ import copy
 from pathlib import Path
 from typing import Union
 
-from mloq.directories import copy_file, create_project_directories
-from mloq.files import file as new_file, mloq_yml, ROOT_PATH_FILES, SCRIPTS, test_main
+from mloq.config import Config
+from mloq.directories import create_project_directories
+from mloq.files import ROOT_PATH_FILES, SCRIPTS, test_main
 from mloq.requirements import setup_requirements
 from mloq.templating import write_template
 from mloq.workflows import setup_push_workflow
 
 
-def init_config(path: Union[str, Path], override: bool = False, filename=None):
-    """Write an empty config file to the target path."""
-    repo_file = (
-        mloq_yml if filename is None else new_file(mloq_yml.src, mloq_yml.src.parent, filename)
-    )
-    copy_file(repo_file, Path(path), override)
-
-
 def requirements(
-    options: Union[str, Path, list, tuple],
-    path,
+    project_config: Config,
+    path: Union[Path, str],
     lint: bool = True,
     test: bool = True,
     install=None,
@@ -39,6 +32,7 @@ def requirements(
         install_reqs = False
         install_lint = False
         install_test = False
+    options = project_config.get("requirements", ["None"])
     setup_requirements(
         options=options,
         path=Path(path),
@@ -51,7 +45,7 @@ def requirements(
     )
 
 
-def setup_project_files(path, template: Union[Path, str, dict], override: bool = False):
+def setup_project_files(path, template: Config, project_config: Config, override: bool = False):
     """Write the template for common repository config files."""
     path = Path(path)
     _template = copy.deepcopy(template)
@@ -60,37 +54,33 @@ def setup_project_files(path, template: Union[Path, str, dict], override: bool =
     create_project_directories(project_name=project_name, root_path=path, override=override)
     setup_root_files(template=_template, path=path, override=override)
     tests_path = path / project_name / "tests"
-    write_template(test_main, params=_template, path=tests_path, override=override)
+    write_template(test_main, template=_template, path=tests_path, override=override)
 
 
-def setup_scripts(
-    path: Union[str, Path], template: Union[Path, str, dict], override: bool = False
-):
+def setup_scripts(path: Union[str, Path], template: Config, override: bool = False):
     """Initialize CI scripts folder files."""
     path = Path(path)
     path = path if path.name == "scripts" else path / "scripts"
     for file in SCRIPTS:
-        write_template(file, params=template, path=path, override=override)
+        write_template(file, template=template, path=path, override=override)
 
 
-def setup_root_files(
-    path: Union[str, Path], template: Union[Path, str, dict], override: bool = False
-):
+def setup_root_files(path: Union[str, Path], template: Config, override: bool = False):
     """Initialize root folder files."""
     for file in ROOT_PATH_FILES:
-        write_template(file, params=template, path=path, override=override)
+        write_template(file, template=template, path=path, override=override)
 
 
 def setup_repository(
-    path: Union[str, Path], template: dict, project_config: dict, override: bool = False,
+    path: Union[str, Path], template: Config, project_config: Config, override: bool = False,
 ):
     """Initialize the project folder structure and all the filled in boilerplate files."""
     path = Path(path)
-    setup_project_files(path=path, template=template, override=override)
+    setup_project_files(
+        path=path, template=template, project_config=project_config, override=override
+    )
     setup_push_workflow(
         project_config=project_config, path=path, template=template, override=override
     )
-    requirements(
-        options=project_config["requirements"], path=path, test=True, lint=True, override=override
-    )
+    requirements(project_config=project_config, path=path, test=True, lint=True, override=override)
     setup_scripts(template=template, path=path, override=override)

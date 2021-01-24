@@ -5,6 +5,7 @@ from typing import Iterable, Optional, Union
 
 from invoke import run
 
+from mloq.config import Config
 from mloq.directories import copy_file
 from mloq.files import (
     data_science_req,
@@ -25,12 +26,12 @@ REQUIREMENTS_ALIASES = {
 }
 
 
-def require_cuda(project: Optional[dict] = None) -> bool:
+def require_cuda(project_config: Optional[Config] = None) -> bool:
     """Return True if any of the project dependencies require CUDA."""
-    project = project or {}
-    if "requirements" not in project:
+    project_config = project_config or {}
+    if "requirements" not in project_config:
         return False
-    options = project["requirements"]
+    options = project_config["requirements"]
     if options is None or (isinstance(options, list) and not len(options)):
         return False
     elif isinstance(options, str):
@@ -81,7 +82,10 @@ def compose_requirements(options: Iterable[str]) -> str:
 
 
 def write_project_requirements(
-    options, out_path=None, out_name="requirements.txt", override: bool = False
+    options: Iterable[str],
+    out_path: Optional[Union[Path, str]] = None,
+    out_name: str = "requirements.txt",
+    override: bool = False,
 ):
     """
     Write the composed requirements.txt file.
@@ -101,7 +105,10 @@ def write_project_requirements(
 
 
 def write_dev_requirements(
-    out_path=None, override: bool = False, test: bool = True, lint: bool = True
+    out_path: Optional[Union[Path, str]] = None,
+    override: bool = False,
+    test: bool = True,
+    lint: bool = True,
 ):
     """Write requirements-lint.txt and requirements-test.txt in the target directory."""
     out_path = Path(os.getcwd() if out_path is None else out_path)
@@ -113,7 +120,7 @@ def write_dev_requirements(
 
 def write_requirements(
     out_path: Union[str, Path],
-    options=None,
+    options: Optional[Iterable[str]] = None,
     out_name="requirements.txt",
     override: bool = False,
     lint: bool = True,
@@ -128,20 +135,21 @@ def write_requirements(
     write_dev_requirements(out_path, override=override, test=test, lint=lint)
 
 
-def install_requirement_file(path, py3: bool = True):
+def install_requirement_file(path: Union[Path, str], py3: bool = True):
     """Install the dependencies listed in the target requirements file."""
     python = "python3" if py3 else "python"
     run(f"{python} -m pip install -r {str(path)}")
 
 
 def install_requirements(
-    path: Path,
+    path: Union[Path, str],
     requirements: Optional[Union[str, bool, Path]],
     test: Optional[Union[str, bool, Path]],
     lint: Optional[Union[str, bool, Path]],
     py3: bool = True,
 ):
     """Install the dependencies listed in the target requirements files."""
+    path = Path(path)
     if requirements is not None and requirements:
         requirements = "requirements.txt" if isinstance(requirements, bool) else requirements
         requirements = requirements if isinstance(requirements, Path) else path / requirements
@@ -157,8 +165,8 @@ def install_requirements(
 
 
 def setup_requirements(
-    options,
-    path: Path,
+    options: Iterable[str],
+    path: Union[Path, str],
     test: bool = True,
     lint: bool = True,
     install_reqs: bool = False,

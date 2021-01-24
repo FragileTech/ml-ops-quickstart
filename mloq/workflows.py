@@ -24,7 +24,7 @@ def setup_workflow_template(workflow, root_path: Path, template, override: bool 
     elif workflow_file is None:
         print(f"Workflow {workflow} not defined. Skipping")
     else:
-        write_template(workflow_file, params=template, path=workflows_path, override=override)
+        write_template(workflow_file, template=template, path=workflows_path, override=override)
 
 
 def setup_push_workflow(project_config, template, path: Union[str, Path], override: bool = False):

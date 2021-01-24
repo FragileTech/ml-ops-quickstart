@@ -1,12 +1,10 @@
 """This file contains the logic defining all the parameters needed to se up a project with mloq."""
 import os
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
+from typing import Any, List, Optional
 
 import click
 
-
-Config = Dict[str, Union[None, str, Dict[str, Any], List[str]]]
-Choices = Union[List[str], Tuple[str], Set[str]]
+from mloq.config import Choices, Config
 
 
 class ConfigParam:
@@ -191,6 +189,7 @@ open_source = BooleanParam("open_source", "Is the project Open Source?")
 use_docker = BooleanParam("docker", "Do you want to set up a Docker container?")
 mlflow = BooleanParam("mlflow", "Do you want to set up ML Flow?")
 # Dictionaries grouping the different sections of mloq.yml
+"""Contains all the parameters that define how the project will be set up."""
 PROJECT_CONFIG = {
     "requirements": requirements,
     "proprietary": proprietary,
@@ -199,6 +198,7 @@ PROJECT_CONFIG = {
     "ci": ci,
     "mlflow": mlflow,
 }
+"""Contains all the parameters that are used to customize the generated template files."""
 TEMPLATE = {
     "project_name": project_name,
     "owner": owner,
