@@ -1,22 +1,61 @@
+"""This file contains the logic defining all the parameters needed to se up a project with mloq."""
 import os
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 import click
 
 
 Config = Dict[str, Union[None, str, Dict[str, Any], List[str]]]
+Choices = Union[List[str], Tuple[str], Set[str]]
 
 
 class ConfigParam:
-    def __init__(self, name, text: str, **kwargs):
+    """
+    Defines a configuration parameter.
+
+    It allows to parse a configuration value from different sources in the following order:
+        1. Environment variable named as MLOQ_PARAM_NAME
+        2. Values defined in mloq.yml
+        3. Interactive promp from CLI (Optional)
+    """
+
+    def __init__(self, name: str, text: Optional[str] = None, **kwargs):
+        """
+        Initialize a ConfigParam.
+
+        Args:
+            name: Name of the parameter (as defined in mloq.yml).
+            text: Text that will be prompted in the CLI when using interactive mode.
+            **kwargs: Passed to click.prompt when running in interactive mode.
+        """
         self.name = name
-        self._prompt_text = text
+        self._prompt_text = text if text is not None else self.name
         self._prompt_kwargs = kwargs
         self._prompt_kwargs["show_default"] = kwargs.get("show_default", True)
         self._prompt_kwargs["type"] = kwargs.get("type", str)
 
-    def __call__(self, config: Config, interactive: bool, default: Optional[Any] = None, **kwargs):
-        """Return the value of the parameter."""
+    def __call__(
+        self,
+        config: Optional[Config] = None,
+        interactive: bool = False,
+        default: Optional[Any] = None,
+        **kwargs,
+    ):
+        """
+        Return the value of the parameter parsing it from the different input sources available.
+
+        Args:
+            config: Dictionary containing the configuration values defined in mloq.yml.
+            interactive: Prompt the user to input the value from CLI if it's not defined \
+                        in config or as en environment variable.
+            default: Default value displayed in the interactive mode.
+            **kwargs: Passed to click.prompt in interactive mode. Overrides the \
+                      values defined in __init__
+
+        Returns:
+            Value of the parameter.
+        """
+        config = config or {}
         value = self._value_from_env()
         value = value if value is not None else self._value_from_config(config)
         value = value if value is not None else default
@@ -27,7 +66,7 @@ class ConfigParam:
         return value
 
     def _value_from_env(self):
-        """Return the config value if it is defined as an environment variable"""
+        """Return the config value if it is defined as an environment variable."""
         env_name = f"MLOQ_{self.name.upper()}"
         return os.environ.get(env_name)
 
@@ -53,12 +92,34 @@ class ConfigParam:
 
 
 class MultiChoiceParam(ConfigParam):
-    def __init__(self, name, text: str, choices, **kwargs):
+    """
+    Define a configuration parameter that can take multiple values \
+    from a pre-defined set of values.
+
+    It allows to parse a configuration value from different sources in the following order:
+        1. Environment variable named as MLOQ_PARAM_NAME
+        2. Values defined in mloq.yml
+        3. Interactive promp from CLI (Optional)
+    """
+
+    def __init__(
+        self, name: str, choices: Optional[Choices] = None, text: Optional[str] = None, **kwargs
+    ):
+        """
+        Initialize a ConfigParam.
+
+        Args:
+            name: Name of the parameter (as defined in mloq.yml).
+            choices: Contains all the available values for the parameter.
+            text: Text that will be prompted in the CLI when using interactive mode.
+            **kwargs: Passed to click.prompt when running in interactive mode.
+        """
         kwargs["type"] = str
         super(MultiChoiceParam, self).__init__(name=name, text=text, **kwargs)
         self.choices = choices  # TODO: use this to validate user input.
 
-    def _prompt(self, value, **kwargs) -> list:
+    def _prompt(self, value, **kwargs) -> List[str]:
+        """Transform the parsed string from the CLI into a list of selected values."""
         val = super(MultiChoiceParam, self)._prompt(value, **kwargs)
         return self._parse_string(val)
 
@@ -71,6 +132,15 @@ class MultiChoiceParam(ConfigParam):
 
 
 class BooleanParam(ConfigParam):
+    """
+    Defines a boolean configuration parameter.
+
+    It allows to parse a configuration value from different sources in the following order:
+        1. Environment variable named as MLOQ_PARAM_NAME
+        2. Values defined in mloq.yml
+        3. Interactive promp from CLI (Optional)
+    """
+
     def _prompt(self, value, **kwargs):
         """Prompt user for value."""
         _kwargs = dict(self._prompt_kwargs)
@@ -103,12 +173,12 @@ ci = ConfigParam(
     type=click.Choice(["python", "dist", "none"], case_sensitive=False),
 )
 python_versions = MultiChoiceParam(
-    "python_versions", "Supported python versions", choices=["3.6", "3.7", "3.8", "3.9"],
+    "python_versions", text="Supported python versions", choices=["3.6", "3.7", "3.8", "3.9"],
 )
 # MLOQ project parameters
 requirements = MultiChoiceParam(
     "requirements",
-    "Project requirements",
+    text="Project requirements",
     choices=["data-science", "data-viz", "torch", "tensorflow", "none"],
 )
 proprietary = BooleanParam("proprietary", "Is the project proprietary?")
@@ -116,7 +186,7 @@ open_source = BooleanParam("open_source", "Is the project Open Source?")
 use_docker = BooleanParam("docker", "Do you want to set up a Docker container?")
 mlflow = BooleanParam("mlflow", "Do you want to set up ML Flow?")
 # Dictionaries grouping the different sections of mloq.yml
-PROJECT = {
+PROJECT_CONFIG = {
     "requirements": requirements,
     "proprietary": proprietary,
     "open_source": open_source,

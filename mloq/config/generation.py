@@ -1,34 +1,67 @@
-from typing import Any, Dict, Optional
+"""Contains the functions that generate the required configuration."""
+from typing import Optional
 
 import click
 
 from mloq.config.logic import get_docker_image, load_empty_config
-from mloq.config.params import Config, PROJECT, TEMPLATE
+from mloq.config.params import Config, PROJECT_CONFIG, TEMPLATE
 
 
-def generate_project(project: Optional[Config] = None, interactive: bool = False):
+def generate_project_config(project: Optional[Config] = None, interactive: bool = False) -> Config:
+    """
+    Generate a dictionary containing the necessary values to define the project configuration.
+
+    The generated config contains all the values defined under the project_config \
+    section in mloq.yml.
+
+    Args:
+        project: dict containing the default values for the different parameters parsed.
+        interactive: If True, the non-defined values can be provided from the CLI. \
+                     If False, an error will be raised if a parameter is not defined \
+                     as an environment variable, or it's present on the provided project dict.
+
+    Returns:
+        Dictionary containing the generated project_config parameters.
+    """
     _project = project or {}
-    project = load_empty_config()["project"]
+    project = load_empty_config()["project_config"]
+    project.update(_project)
     # Fill in project values
-    project["open_source"] = PROJECT["open_source"](project, interactive, default=True)
-    project["proprietary"] = PROJECT["proprietary"](project, interactive, default=False)
-    project["docker"] = PROJECT["docker"](project, interactive, default=False)
-    project["ci"] = PROJECT["ci"](project, interactive, default="python")
-    project["mlflow"] = PROJECT["mlflow"](project, interactive, default=False)
+    project["open_source"] = PROJECT_CONFIG["open_source"](project, interactive, default=True)
+    project["proprietary"] = PROJECT_CONFIG["proprietary"](project, interactive, default=False)
+    project["docker"] = PROJECT_CONFIG["docker"](project, interactive, default=False)
+    project["ci"] = PROJECT_CONFIG["ci"](project, interactive, default="python")
+    project["mlflow"] = PROJECT_CONFIG["mlflow"](project, interactive, default=False)
     if interactive:
         click.echo("Please specify the requirements of the project as a comma separated list.")
         click.echo("Available values: {data-science, data-viz, torch, tensorflow}")
-    project["requirements"] = PROJECT["requirements"](project, interactive, default="None")
+    project["requirements"] = PROJECT_CONFIG["requirements"](project, interactive, default="None")
     return project
 
 
 def generate_template(
     template: Optional[Config] = None, project: Optional[Config] = None, interactive: bool = False
-) -> Dict[str, Any]:
+) -> Config:
+    """
+    Generate a dictionary containing the necessary values to customize the files generate by mloq.
+
+    The generated config contains all the values defined under the template \
+    section in mloq.yml.
+
+    Args:
+        template: dict containing the default values for the different template parameters parsed.
+        project: dict containing the default values for the project_config parameters.
+        interactive: If True, the non-defined values can be provided from the CLI. \
+                     If False, an error will be raised if a parameter is not defined \
+                     as an environment variable, or it's present on the provided project dict.
+
+    Returns:
+        Dictionary containing the generated template parameters.
+    """
     # Initialize configuration placeholders
     _template, _project = template or {}, project or {}
     config = load_empty_config()
-    project, template = config["project"], config["template"]
+    project, template = config["project_config"], config["template"]
     project.update(_project)
     template.update(_template)
     # Fill in template values
