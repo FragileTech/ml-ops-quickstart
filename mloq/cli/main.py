@@ -2,7 +2,7 @@
 import click
 
 from mloq.api import setup_repository
-from mloq.config.generation import generate_project, generate_template
+from mloq.config.generation import generate_project_config, generate_template
 from mloq.config.logic import read_config_safe, write_config
 
 
@@ -39,6 +39,7 @@ interactive_opt = click.option(
 
 @click.group()
 def cli():
+    """Command line interface for ML Ops Quickstart."""
     pass
 
 
@@ -48,16 +49,17 @@ def cli():
 @config_file_opt
 @output_path_arg
 def setup(config_file, output, override: bool, interactive: bool):
+    """Initialize a new project using ML Ops Quickstart."""
     config = read_config_safe(config_file)
-    project, template = config["project"], config["template"]
+    project, template = config["project_config"], config["template"]
     if interactive:
         click.echo("Welcome to MLOQ, let's set up a new project!")
         click.echo("Please define the type of project that mloq will set up")
-    project = generate_project(project=project, interactive=interactive)
+    project = generate_project_config(project=project, interactive=interactive)
     if interactive:
         click.echo("Please fill in the parameters needed to configure the project")
     template = generate_template(template=template, project=project, interactive=interactive)
-    config = {"project": project, "template": template}
+    config = {"project_config": project, "template": template}
     if click.confirm("Do you want to generate a mloq.yml file?"):
         write_config(config, output, safe=True)
     if not override and interactive:
