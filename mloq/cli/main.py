@@ -55,11 +55,14 @@ def setup(config_file, output, override: bool, interactive: bool):
     if interactive:
         click.echo("Welcome to MLOQ, let's set up a new project!")
         click.echo("Please define the type of project that mloq will set up")
-    project = generate_project_config(project=project, interactive=interactive)
+    project = generate_project_config(project_config=project, interactive=interactive)
     if interactive:
         click.echo("Please fill in the parameters needed to configure the project")
-    template = generate_template(template=template, project=project, interactive=interactive)
+    template = generate_template(
+        template=template, project_config=project, interactive=interactive
+    )
     config = {"project_config": project, "template": template}
+    print(config)
     if click.confirm("Do you want to generate a mloq.yml file?"):
         write_config(config, output, safe=True)
     if not override and interactive:

@@ -22,7 +22,6 @@ template:
   email: null
   copyright_holder: null
   project_url: null
-  download_url: null
   bot_name: null
   bot_email: null
   license: null
