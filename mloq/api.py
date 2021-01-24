@@ -5,7 +5,14 @@ from typing import Union
 
 from mloq.config import Config
 from mloq.directories import create_project_directories
-from mloq.files import ROOT_PATH_FILES, SCRIPTS, test_main
+from mloq.files import (
+    mit_license,
+    mlproject,
+    OPEN_SOURCE_FILES,
+    ROOT_PATH_FILES,
+    SCRIPTS,
+    test_main,
+)
 from mloq.requirements import setup_requirements
 from mloq.templating import write_template
 from mloq.workflows import setup_push_workflow
@@ -52,7 +59,9 @@ def setup_project_files(path, template: Config, project_config: Config, override
     _template["project_name"] = _template["project_name"].replace("-", "_")
     project_name = _template["project_name"]
     create_project_directories(project_name=project_name, root_path=path, override=override)
-    setup_root_files(template=_template, path=path, override=override)
+    setup_root_files(
+        template=_template, project_config=project_config, path=path, override=override
+    )
     tests_path = path / project_name / "tests"
     write_template(test_main, template=_template, path=tests_path, override=override)
 
@@ -65,10 +74,19 @@ def setup_scripts(path: Union[str, Path], template: Config, override: bool = Fal
         write_template(file, template=template, path=path, override=override)
 
 
-def setup_root_files(path: Union[str, Path], template: Config, override: bool = False):
+def setup_root_files(
+    path: Union[str, Path], template: Config, project_config: Config, override: bool = False
+):
     """Initialize root folder files."""
     for file in ROOT_PATH_FILES:
         write_template(file, template=template, path=path, override=override)
+    if project_config.get("mlflow"):
+        write_template(mlproject, template=template, path=path, override=override)
+    if project_config.get("open_source"):
+        for file in OPEN_SOURCE_FILES:
+            write_template(file, template=template, path=path, override=override)
+    if not project_config.get("proprietary", False):
+        write_template(mit_license, template=template, path=path, override=override)
 
 
 def setup_repository(
