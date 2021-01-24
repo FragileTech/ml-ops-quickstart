@@ -123,6 +123,11 @@ class MultiChoiceParam(ConfigParam):
         val = super(MultiChoiceParam, self)._prompt(value, **kwargs)
         return self._parse_string(val)
 
+    def _value_from_env(self):
+        """Return the config value if it is defined as an environment variable."""
+        val = super(MultiChoiceParam, self)._value_from_env()
+        return self._parse_string(val) if val is not None else val
+
     @staticmethod
     def _parse_string(value) -> List[str]:
         def filter_str(s):
