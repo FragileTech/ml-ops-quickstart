@@ -64,7 +64,6 @@ push_dist_wkf = file("push-dist.yml", WORKFLOWS_PATH, "push.yml")
 ROOT_PATH_FILES = [
     gitignore,
     pyproject_toml,
-    setup_py,
     makefile,
     dockerfile,
     readme,

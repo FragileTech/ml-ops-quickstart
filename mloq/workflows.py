@@ -2,6 +2,7 @@
 from pathlib import Path
 from typing import Union
 
+from mloq import _logger
 from mloq.config.params import Config, is_empty
 from mloq.directories import create_github_actions_directories
 from mloq.files import push_dist_wkf, push_python_wkf
