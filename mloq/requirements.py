@@ -5,7 +5,7 @@ from typing import Iterable, Optional, Union
 
 from invoke import run
 
-from mloq.config import Config
+from mloq.config.params import Config, is_empty
 from mloq.directories import copy_file
 from mloq.files import (
     data_science_req,
@@ -32,7 +32,7 @@ def require_cuda(project_config: Optional[Config] = None) -> bool:
     if "requirements" not in project_config:
         return False
     options = project_config["requirements"]
-    if options is None or (isinstance(options, list) and not len(options)):
+    if is_empty(options):
         return False
     elif isinstance(options, str):
         options = [options]
@@ -93,7 +93,7 @@ def write_project_requirements(
     The writen file contains pinned dependencies for the libraries \
     required by the provided options.
     """
-    if "None" in options or "none" in options:
+    if is_empty(set(options)):
         return
     out_path = os.getcwd() if out_path is None else out_path
     file_path = out_path / out_name
@@ -128,7 +128,7 @@ def write_requirements(
 ):
     """Write the different requirements.txt files for the project."""
     out_path = Path(out_path)
-    if options is not None:
+    if options is not None and not is_empty(options):
         write_project_requirements(
             options=options, out_path=out_path, out_name=out_name, override=override
         )
