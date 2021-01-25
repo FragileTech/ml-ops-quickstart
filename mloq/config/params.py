@@ -4,6 +4,7 @@ from typing import Any, List, Optional, Union
 
 import click
 
+from mloq.cli.custom_prompt import confirm, prompt
 from mloq.config import Choices, Config
 
 
@@ -27,7 +28,8 @@ class ConfigParam:
             **kwargs: Passed to click.prompt when running in interactive mode.
         """
         self.name = name
-        self._prompt_text = text if text is not None else self.name
+        prompt_text = text if text is not None else self.name
+        self._prompt_text = click.style(prompt_text, fg="bright_magenta", reset=False)
         self._prompt_kwargs = kwargs
         self._prompt_kwargs["show_default"] = kwargs.get("show_default", True)
         self._prompt_kwargs["type"] = kwargs.get("type", str)
@@ -74,7 +76,7 @@ class ConfigParam:
         _kwargs.update(kwargs)
         if value is not None:
             _kwargs["default"] = value
-        return click.prompt(self._prompt_text, **_kwargs)
+        return prompt(self._prompt_text, **_kwargs)
 
     def _value_from_config(self, config: Config):
         """Return the config value if it is present on the config dict."""
@@ -152,7 +154,7 @@ class BooleanParam(ConfigParam):
             del _kwargs["type"]
         if value is not None:
             _kwargs["default"] = value
-        return click.confirm(self._prompt_text, **_kwargs)
+        return confirm(self._prompt_text, **_kwargs)
 
 
 EMPTY_VALUES = {"none", "empty", "skip"}

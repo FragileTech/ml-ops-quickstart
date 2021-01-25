@@ -43,10 +43,10 @@ exclude_lines =["no cover",
     'raise NotImplementedError',
     'if __name__ == "__main__":']
 ignore_errors = true
-omit = ["mloq/tests/*"]
+omit = ["mloq/tests/*", "mloq/cli/custom_prompt.py"]
 
 [tool.pylint.master]
-ignore = ['tests', "cli.py"]
+ignore = ['tests', "custom_prompt.py"]
 load-plugins =' pylint.extensions.docparams'
 
 [tool.pylint.messages_control]
@@ -91,7 +91,10 @@ pycodestyle = ["-*"]
 pyflakes = ["-*"]
 "flake8*" = ["-*"]
 
-[tool.flakehell.exceptions."mloq/cli.py"]
+[tool.flakehell.exceptions."mloq/cli/custom_prompt.py"]
+"*" = ["-*"]
+
+[tool.flakehell.exceptions."mloq/cli/main.py"]
 pycodestyle = ["-D*"]
 pylint = ["-W9015", "-W9017"]
 "flake8*" = ["-D*", "-W9015", "-W9017"]
