@@ -1,6 +1,5 @@
 project_config:
   open_source: true
-  proprietary: false
   docker: true
   ci: python
   mlflow: true
