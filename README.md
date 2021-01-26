@@ -1,7 +1,6 @@
 # ML Ops Quickstart
 [![Code coverage](https://codecov.io/github/fragiletech/ml-ops-quickstart/coverage.svg)](https://codecov.io/github/fragiletech/ml-ops-quickstart)
 [![PyPI package](https://badgen.net/pypi/v/mloq)](https://pypi.org/project/mloq/)
-[![Latest docker image](https://badgen.net/docker/pulls/fragiletech/mloq)](https://hub.docker.com/r/fragiletech/mloq/tags)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![license: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
@@ -54,26 +53,28 @@ pip install -e .
 ## [2.](#Index) Usage
 ### [2.1](#Index) Command line interface
 
-To set up a new repository from scratch interactively in the curren working directory:
-```bash
-mloq quickstart .
-```
-
-To load a configuration file from the current repository and initialize the directory `example`, and 
-override all existing files:
-```bash
-mloq quickstart -f . -o example
-```
-
 Options:
 * `--file` `-f`: Name of the configuration file. If `file` it's a directory it will load the `mloq.yml` file present in it.
 
 * `--override` `-o`: Rewrite files that already exist in the target project.
+* `--interactive` `-i`: Missing configuration data can be defined interactively from the CLI.
 
+#### Usage examples
 Arguments:
 * `OUTPUT`: Path to the target project.
 
-![ci python](docs/images/quickstart_form.png)
+To set up a new repository from scratch interactively in the curren working directory:
+```bash
+mloq setup -i .
+```
+
+To load a `mloq.yml` configuration file from the current repository, and initialize the directory `example`, and 
+override all existing files with no interactivity:
+```bash
+mloq setup -f . -o example
+```
+
+![ci python](docs/images/mloq_setup.png)
 
 ### [2.2](#Index) mloq.yml config file
 
@@ -81,30 +82,37 @@ This yaml file contains all the information used by mloq to set up a new project
 All values are strings except **python_versions** and **requirements**,
 that are lists of strings. **null** values are interpreted as missing values.
 ```yaml
+# This yaml file contains all the information used by mloq to set up a new project.
+# All values in template are strings and booleans,
+# except "python_versions" and "requirements" that are lists of strings.
+# "null" values are interpreted as non-defined values.
+# ------------------------------------------------------------------------------
 
-# `template` contains all the values that will be written in the generated files.
+# project_config values are necessary to define the files that will be written, and the tools
+# that will be configured.
+project_config:
+  open_source: null  # boolean. If True, set up and Open Source project
+  docker: null  # boolean If True, set up a Docker image for the project
+  ci: null  # Name of the GitHub Actions CI workflow that will be configured.
+  mlflow: null # boolean. If True configure a MLproject file compatible with ML Flow projects.
+  requirements: null # List containing the pre-defined requirements of the project.
+
+# template contains all the values that will be written in the generated files.
 # They are loaded as a dictionary and passed to jinja2 to fill in the templates.
-template: 
+template:
   project_name: null  # Name of the new Python project
-  owner: null  # ------- Github handle of the project owner
-  author: null # Person or entity listed as the project author in setup.py
+  default_branch: null  # Name of the defaul branch. Used in the CI push workflow.
+  owner: null  # Github handle of the project owner
+  author: null  # Person(s) or entity listed as the project author in setup.py
   email: null  # Owner contact email
-  copyright_holder: null # Owner of the project's copyright.
-  project_url: null # GitHub project url. Defaults to https://github.com/{owner}/{project_name}
-  download_url: null # Download link
-  bot_name: null # Bot account to push from ci when bumping the project's version
+  copyright_holder: null  # Owner of the project's copyright.
+  project_url: null  # Project download url. Defaults to https://github.com/{owner}/{project_name}
+  bot_name: null  # GitHub login of the account used to push when bumping the project's version
   bot_email: null # Bot account email
-  license: "MIT" # Currently only MIT license is supported
-  description: "example_description" # Short description of the project
-  python_versions: ['3.6', '3.7', '3.8', '3.9'] # Supported Python versions
-  default_branch: "master" # Name of the default git branch of the project
-
-requirements: ["datascience", "pytorch", "dataviz"]
-
-# workflows:
-# "dist" for python packages with compiled extensions
-# "python" for pure python packages.
-workflow: "python"
+  license: null  # Currently only priprietary and MIT license is supported
+  description: null  # Short description of the project
+  python_versions: null # Supported Python versions
+  docker_image: null  # Your project Docker container will inherit from this image.
 ```
 
 ## [3.](#Index) Features
