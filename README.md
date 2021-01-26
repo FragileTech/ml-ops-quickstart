@@ -7,10 +7,10 @@
 ML Ops Quickstart is a tool for initializing Machine Learning projects following ML Ops best practices.
 
 Setting up new repositories is a time-consuming task that involves creating different files and 
-configuring tools such as linters, docker containers and continuous integration pipelines. 
+configuring tools such as linters, docker containers, and continuous integration pipelines. 
 The goal of `mloq` is to simplify that process, so you can start writing code as fast as possible.
 
-`mloq` generates customized templates for Python projects with focus on Maching Learning. An example of 
+`mloq` generates customized templates for Python projects with a focus on Maching Learning. An example of 
 the generated templates can be found in [mloq-template](https://github.com/FragileTech/mloq-template).
 
 ## Index
@@ -54,7 +54,7 @@ pip install -e .
 ### [2.1](#Index) Command line interface
 
 Options:
-* `--file` `-f`: Name of the configuration file. If `file` it's a directory it will load the `mloq.yml` file present in it.
+* `--file` `-f`: Name of the configuration file. If `file` is a directory, it will load the `mloq.yml` file present in it.
 
 * `--override` `-o`: Rewrite files that already exist in the target project.
 * `--interactive` `-i`: Missing configuration data can be defined interactively from the CLI.
@@ -63,7 +63,7 @@ Options:
 Arguments:
 * `OUTPUT`: Path to the target project.
 
-To set up a new repository from scratch interactively in the curren working directory:
+To set up a new repository from scratch interactively in the current working directory:
 ```bash
 mloq setup -i .
 ```
@@ -80,7 +80,7 @@ mloq setup -f . -o example
 
 This yaml file contains all the information used by mloq to set up a new project.
 All values are strings except **python_versions** and **requirements**,
-that are lists of strings. **null** values are interpreted as missing values.
+which are lists of strings. **null** values are interpreted as missing values.
 ```yaml
 # This yaml file contains all the information used by mloq to set up a new project.
 # All values in template are strings and booleans,
@@ -101,13 +101,13 @@ project_config:
 # They are loaded as a dictionary and passed to jinja2 to fill in the templates.
 template:
   project_name: null  # Name of the new Python project
-  default_branch: null  # Name of the defaul branch. Used in the CI push workflow.
+  default_branch: null  # Name of the default branch. Used in the CI push workflow.
   owner: null  # Github handle of the project owner
   author: null  # Person(s) or entity listed as the project author in setup.py
   email: null  # Owner contact email
-  copyright_holder: null  # Owner of the project's copyright.
+  copyright_holder: null  # Owner of the project copyright.
   project_url: null  # Project download url. Defaults to https://github.com/{owner}/{project_name}
-  bot_name: null  # GitHub login of the account used to push when bumping the project's version
+  bot_name: null  # GitHub login of the account used to push when bumping the project version
   bot_email: null # Bot account email
   license: null  # Currently only priprietary and MIT license is supported
   description: null  # Short description of the project
@@ -139,14 +139,13 @@ All the necessary configuration for the following tools is defined in [pyproject
 - [flakehell](https://flakehell.readthedocs.io/): Linter tool build on top of `flake8`, `pylint` and `pycodestyle`
 
 ### [3.4](#Index) Requirements
-`mloq` creates three different requirements files in the root directory of the project. Each file contains 
-pinned dependencies.
+`mloq` creates three different requirements files in the root directory of the project. Each file contains pinned dependencies.
 
 - [requirements-lint.txt](mloq/assets/requirements/requirements-lint.txt): 
 Contains the dependencies for running style check analysis and automatic formatting of the code.
   
 - [requirements-text.txt](mloq/assets/requirements/requirements-test.txt):
-Dependencies for running pytest, hypothesis and test coverage.
+Dependencies for running pytest, hypothesis, and test coverage.
   
 - `requirements.txt`: Contains different pre-configured dependencies that can be defined in `mloq.yml`. The available pre-configured dependencies are:
    * [data-science](mloq/assets/requirements/data-science.txt): Dependencies of common data science libraries.
@@ -156,10 +155,10 @@ Dependencies for running pytest, hypothesis and test coverage.
 ### [3.5](#Index) Docker
 
 A [Dockerfile](mloq/assets/templates/Dockerfile) that builds a container on top of the FragileTech [Docker Hub]() images:
-- If *tensorflow* or *pytorch* are selected as requirements the container has CUDA 11.0 installed.
+- If *tensorflow* or *pytorch* are selected as requirements, the container has CUDA 11.0 installed.
 - Installs all the packages listed in `requirements.txt`.
 - Installs `requirements-test.txt` and `requirements-lint.txt` dependencies.
-- Install a `jupyter notebook` server with a configurable password in the port 8080.
+- Install a `jupyter notebook` server with a configurable password on port 8080.
 - Installs the project with `pip install -e .`.
 
 ### [3.6](#Index) Continuous integration using GitHub Actions
@@ -173,14 +172,14 @@ Automatic build and tests:
 - **Test-docker**: Build the project's Docker container and run the tests inside it.
 - **Build-pypi**: Build the project and upload it to [Test Pypi](https://test.pypi.org/) with a version tag unique to each commit.
 - **Test-pypi**: Install the project from Test Pypi and run the tests using pytest.
-- **Bump-version**: Automatically bump the project's version and create a tag in the repository every time the default branch is updated.
+- **Bump-version**: Automatically bump the project version and create a tag in the repository every time the default branch is updated.
 
 Deploy each new version:
 - **Push-docker-container**: Upload the project's Docker container to [Docker Hub](https://hub.docker.com/).
 - **Release-package**: Upload to [Pypi](https://pypi.org/) the source of the project and the corresponding wheels.
 
 ### [3.7](#Index) Testing
-The lasts versions of `pytest`, `hypothesis` and `pytest-cov` can be found in `requirements-test.txt`.
+The lasts versions of `pytest`, `hypothesis`, and `pytest-cov` can be found in `requirements-test.txt`.
 
 The folder structure for the library and tests is created. A `scripts` folder containing the scripts
 that will be run in the CI will also be created on the root folder of the project.
@@ -211,5 +210,5 @@ Contributions are very welcome! Please check the [contributing guidelines](CONTR
 - [ ] Improve documentation and test coverage.
 - [ ] Configure sphinx to build the docs automatically.
 - [ ] Implement checks for additional best practices.
-- [ ] Improve command line interface and logging.
+- [ ] Improve command-line interface and logging.
 - [ ] Add new customization options.
