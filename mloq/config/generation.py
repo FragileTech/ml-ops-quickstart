@@ -1,8 +1,6 @@
 """Contains the functions that generate the required configuration."""
 from typing import Optional
 
-import click
-
 from mloq.config.logic import get_docker_image, load_empty_config
 from mloq.config.params import Config, PROJECT_CONFIG, TEMPLATE
 
@@ -32,15 +30,10 @@ def generate_project_config(
     project_config["open_source"] = PROJECT_CONFIG["open_source"](
         project_config, interactive, default=True
     )
-    project_config["proprietary"] = PROJECT_CONFIG["proprietary"](
-        project_config, interactive, default=False
-    )
-    project_config["docker"] = PROJECT_CONFIG["docker"](project_config, interactive, default=False)
+    # use_docker = PROJECT_CONFIG["docker"](project_config, interactive, default=True)
+    project_config["docker"] = True  # use_docker
     project_config["ci"] = PROJECT_CONFIG["ci"](project_config, interactive, default="python")
     project_config["mlflow"] = PROJECT_CONFIG["mlflow"](project_config, interactive, default=False)
-    if interactive:
-        click.echo("Please specify the requirements of the project as a comma separated list.")
-        click.echo("Available values: {data-science, data-viz, torch, tensorflow}")
     project_config["requirements"] = PROJECT_CONFIG["requirements"](
         project_config, interactive, default="None"
     )
@@ -99,7 +92,7 @@ def generate_template(
         template["bot_email"] = TEMPLATE["bot_email"](
             template, interactive, default=template["email"]
         )
-    if project_config["proprietary"]:
+    if not project_config["open_source"] or project_config["open_source"] is None:
         template["license"] = "proprietary"
     else:
         template["license"] = TEMPLATE["license_type"](template, interactive, default="MIT")

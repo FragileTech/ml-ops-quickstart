@@ -10,7 +10,6 @@ from mloq.config.generation import generate_project_config, generate_template
 def project_config():
     test_project_config = {
         "open_source": True,
-        "proprietary": False,
         "docker": True,
         "ci": "python",
         "mlflow": True,
@@ -58,10 +57,12 @@ def test_generate_config(project_config):
     compare_dicts(project_config, new_template)
 
 
-def test_generate_template(template):
+def test_generate_template(template, project_config):
     in_template = copy.deepcopy(template)
     in_template["project_name"] = None
     os.environ["MLOQ_PROJECT_NAME"] = "test_project"
-    new_template = generate_template(template=in_template, interactive=False)
+    new_template = generate_template(
+        template=in_template, project_config=project_config, interactive=False
+    )
     del os.environ["MLOQ_PROJECT_NAME"]
     compare_dicts(template, new_template)

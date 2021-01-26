@@ -8,7 +8,6 @@
 # They are loaded as a dictionary and passed to jinja2 to fill in the templates.
 project_config:
   open_source: null  # boolean
-  proprietary: null # boolean
   docker: null  # boolean
   ci: null  # string
   mlflow: null #boolean

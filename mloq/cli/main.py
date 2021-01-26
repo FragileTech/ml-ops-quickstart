@@ -1,9 +1,7 @@
 """Command line interface for mloq."""
-import click
+import os
 
-from mloq.api import setup_repository
-from mloq.config.generation import generate_project_config, generate_template
-from mloq.config.logic import read_config_safe, write_config
+import click
 
 
 override_opt = click.option(
@@ -37,6 +35,14 @@ interactive_opt = click.option(
 )
 
 
+def _parse_env(config_file, override, interactive):
+    """Parse environment variables defining command options."""
+    config_file = os.getenv("MLOQ_CONFIG_FILE", config_file)
+    override = os.getenv("MLOQ_OVERRIDE", override)
+    interactive = os.getenv("MLOQ_INTERACTIVE", interactive)
+    return config_file, override, interactive
+
+
 @click.group()
 def cli():
     """Command line interface for ML Ops Quickstart."""
@@ -49,21 +55,7 @@ def cli():
 @config_file_opt
 @output_path_arg
 def setup(config_file, output, override: bool, interactive: bool):
-    """Initialize a new project using ML Ops Quickstart."""
-    config = read_config_safe(config_file)
-    project, template = config["project_config"], config["template"]
-    if interactive:
-        click.echo("Welcome to MLOQ, let's set up a new project!")
-        click.echo("Please define the type of project that mloq will set up")
-    project = generate_project_config(project_config=project, interactive=interactive)
-    if interactive:
-        click.echo("Please fill in the parameters needed to configure the project")
-    template = generate_template(
-        template=template, project_config=project, interactive=interactive
-    )
-    config = {"project_config": project, "template": template}
-    if click.confirm("Do you want to generate a mloq.yml file?"):
-        write_config(config, output, safe=True)
-    if not override and interactive:
-        override = click.confirm("Do you want to override existing files?")
-    setup_repository(path=output, template=template, project_config=project, override=override)
+    from mloq.cli.setup_cmd import setup_cmd
+
+    config_file, override, interactive = _parse_env(config_file, override, interactive)
+    setup_cmd(config_file, output, override, interactive)

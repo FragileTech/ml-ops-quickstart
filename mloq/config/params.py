@@ -29,7 +29,7 @@ class ConfigParam:
         """
         self.name = name
         prompt_text = text if text is not None else self.name
-        self._prompt_text = click.style(prompt_text, fg="bright_magenta", reset=False)
+        self._prompt_text = click.style(f"> {prompt_text}", fg="bright_magenta", reset=False)
         self._prompt_kwargs = kwargs
         self._prompt_kwargs["show_default"] = kwargs.get("show_default", True)
         self._prompt_kwargs["type"] = kwargs.get("type", str)
@@ -39,6 +39,7 @@ class ConfigParam:
         config: Optional[Config] = None,
         interactive: bool = False,
         default: Optional[Any] = None,
+        raise_error: bool = True,
         **kwargs,
     ):
         """
@@ -49,6 +50,8 @@ class ConfigParam:
             interactive: Prompt the user to input the value from CLI if it's not defined \
                         in config or as en environment variable.
             default: Default value displayed in the interactive mode.
+            raise_error: If True, a ValueError will be raise if the value is not defined. \
+                         If False, return None when the value is not defined.
             **kwargs: Passed to click.prompt in interactive mode. Overrides the \
                       values defined in __init__
 
@@ -61,7 +64,7 @@ class ConfigParam:
         value = value if value is not None else default
         if interactive:
             value = self._prompt(value, **kwargs)
-        if value is None:
+        if value is None and raise_error:
             raise ValueError(f"Config value {self.name} is not defined.")
         return value
 
@@ -181,7 +184,7 @@ def is_empty(value: Union[str, list, tuple, set]) -> bool:
 project_name = ConfigParam("project_name", "Select project name")
 owner = ConfigParam("owner", "Github handle of the project owner")
 email = ConfigParam("email", "Owner contact email")
-author = ConfigParam("author", "Author of the project")
+author = ConfigParam("author", "Author(s) of the project")
 copyright_holder = ConfigParam("copyright_holder", "Copyright holder")
 project_url = ConfigParam("project_url", "GitHub project url")
 bot_name = ConfigParam("bot_name", "Bot's GitHub login to push commits in CI")
@@ -190,11 +193,11 @@ default_branch = ConfigParam("default_branch", "Default branch of the project")
 description = ConfigParam("description", "Short description of the project")
 docker_image = ConfigParam("docker_image", "Base docker image for the project's Docker container")
 license_type = ConfigParam(
-    "license", "Project license type", type=click.Choice(["MIT"], case_sensitive=False),
+    "license", "Project license type", type=click.Choice(["MIT", "None"], case_sensitive=False),
 )
 ci = ConfigParam(
     "ci",
-    "Push workflow for Github Actions CI",
+    "Github Actions push workflow",
     type=click.Choice(["python", "dist", "none"], case_sensitive=False),
 )
 python_versions = MultiChoiceParam(
@@ -206,7 +209,6 @@ requirements = MultiChoiceParam(
     text="Project requirements",
     choices=["data-science", "data-viz", "torch", "tensorflow", "none"],
 )
-proprietary = BooleanParam("proprietary", "Is the project proprietary?")
 open_source = BooleanParam("open_source", "Is the project Open Source?")
 use_docker = BooleanParam("docker", "Do you want to set up a Docker container?")
 mlflow = BooleanParam("mlflow", "Do you want to set up ML Flow?")
@@ -214,7 +216,6 @@ mlflow = BooleanParam("mlflow", "Do you want to set up ML Flow?")
 """Contains all the parameters that define how the project will be set up."""
 PROJECT_CONFIG = {
     "requirements": requirements,
-    "proprietary": proprietary,
     "open_source": open_source,
     "docker": use_docker,
     "ci": ci,
