@@ -4,6 +4,9 @@ include mloq/assets/requirements/pytorch.txt
 include mloq/assets/requirements/requirements-lint.txt
 include mloq/assets/requirements/requirements-test.txt
 include mloq/assets/requirements/tensorflow.txt
+include mloq/assets/static/init.txt
+include mloq/assets/static/main.txt
+include mloq/assets/static/version.txt
 include mloq/assets/static/mloq.yml
 include mloq/assets/static/DCO.md
 include mloq/assets/static/.gitignore
@@ -12,7 +15,7 @@ include mloq/assets/static/build-manylinux-wheels.sh
 include mloq/assets/templates/CODE_OF_CONDUCT.md
 include mloq/assets/templates/MIT_LICENSE
 include mloq/assets/templates/pyproject.toml
-include mloq/assets/templates/setup.py
+include mloq/assets/templates/setup.txt
 include mloq/assets/templates/Makefile
 include mloq/assets/templates/Dockerfile
 include mloq/assets/templates/MLproject
@@ -20,10 +23,7 @@ include mloq/assets/templates/README.md
 include mloq/assets/templates/CONTRIBUTING.md
 include mloq/assets/templates/makefile.docker
 include mloq/assets/templates/test_main.txt
-include mloq/assets/templates/rename_testpypi_wheels.py
+include mloq/assets/templates/rename_testpypi_wheels.txt
 include mloq/assets/workflows/push-dist.yml
 include mloq/assets/workflows/push-python.yml
-include mloq/assets/static/__init__.py
-include mloq/assets/static/__main__.py
-include mloq/assets/static/version.py
 include README.md

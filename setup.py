@@ -35,6 +35,7 @@ setup(
     package_data={
         "": ["README.md"],
         "mloq": [
+            "mloq/assets/static/*.txt",
             "mloq/assets/static/mloq.yml",
             "mloq/assets/static/DCO.md",
             "mloq/assets/static/.gitignore",
@@ -47,7 +48,7 @@ setup(
             "mloq/assets/templates/makefile.docker",
             "mloq/assets/templates/Dockerfile",
             "mloq/assets/templates/MLproject",
-            "mloq/assets/templates/test_main.txt",
+            "mloq/assets/templates/*.txt",
             "mloq/assets/workflows/*.yml",
             "mloq/assets/requirements/*.txt",
         ],
