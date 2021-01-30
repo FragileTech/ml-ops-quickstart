@@ -29,3 +29,10 @@ test:
 	rm -rf build
 	make html
 	make server
+
+.PHONY: build
+build:
+	pip3 install -r requirements-docs.txt
+	pip3 install -r requirements-build.txt
+	rm -rf build
+	make html
