@@ -10,5 +10,5 @@ Contributions are very welcome! Please check the [contributing guidelines](CONTR
 - [ ] Improve documentation and test coverage.
 - [ ] Configure sphinx to build the docs automatically.
 - [ ] Implement checks for additional best practices.
-- [ ] Improve command line interface and logging.
+- [ ] Improve command\-line interface and logging.
 - [ ] Add new customization options.
