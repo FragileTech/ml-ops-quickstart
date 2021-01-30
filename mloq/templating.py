@@ -51,7 +51,7 @@ def write_template(file: File, template: Config, path: Union[Path, str], overrid
     """
     path = Path(path)
     if not override and (path / file.dst).exists():
-        _logger.info(f"file {file.name} already exists. Skipping")
+        _logger.debug(f"file {file.name} already exists. Skipping")
         return
     rendered = render_template(file, template)
     with open(path / file.dst, "w") as f:
