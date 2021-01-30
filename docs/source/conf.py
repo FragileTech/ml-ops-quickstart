@@ -20,7 +20,7 @@ import sys
 # -- Project information -----------------------------------------------------
 
 project = "MLOQ"
-copyright = "2021, Guillem Duran, Vadim Markovtsev"
+copyright = "2021, Fragile Technologies"
 author = "Guillem Duran, Vadim Markovtsev"
 
 # The short X.Y version
