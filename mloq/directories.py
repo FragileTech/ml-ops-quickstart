@@ -20,7 +20,7 @@ def create_empty_file(filepath: Path) -> None:
         None
     """
     if filepath.exists():
-        _logger.info(f"file {filepath.name} already exists")
+        _logger.debug(f"file {filepath.name} already exists")
         return
     with open(filepath, "w") as _:
         pass
@@ -48,7 +48,7 @@ def copy_file(file: File, path: Union[Path, str], override: bool = False) -> Non
     if not os.path.isfile(str(target)) or override:
         copyfile(file.src, target)
     else:
-        _logger.info(f"file {file.name} already exists in {target}")
+        _logger.debug(f"file {file.name} already exists in {target}")
 
 
 def create_project_directories(

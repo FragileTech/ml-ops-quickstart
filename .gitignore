@@ -6,9 +6,9 @@
 .idea/
 
 # Documentation build templates
-doc/_build/
-doc/ast2vec.rst
-doc/modules.rst
+docs/_build/
+docs/build/
+
 
 # Byte-compiled / optimized / DLL templates
 __pycache__/
@@ -124,7 +124,6 @@ ENV/
 
 data/
 
-docs/
 examples/
 *.pck
 *.npy
