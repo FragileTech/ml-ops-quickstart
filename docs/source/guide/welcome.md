@@ -7,10 +7,10 @@
 ML Ops Quickstart is a tool for initializing Machine Learning projects following ML Ops best practices.
 
 Setting up new repositories is a time-consuming task that involves creating different files and 
-configuring tools such as linters, docker containers and continuous integration pipelines. 
+configuring tools such as linters, docker containers, and continuous integration pipelines. 
 The goal of `mloq` is to simplify that process, so you can start writing code as fast as possible.
 
-`mloq` generates customized templates for Python projects with focus on Maching Learning. An example of 
+`mloq` generates customized templates for Python projects with a focus on Maching Learning. An example of 
 the generated templates can be found in [mloq-template](https://github.com/FragileTech/mloq-template).
 
 ## Installation

@@ -21,14 +21,13 @@ All the necessary configuration for the following tools is defined in [pyproject
 - [flakehell](https://flakehell.readthedocs.io/): Linter tool build on top of `flake8`, `pylint` and `pycodestyle`
 
 ## Requirements
-`mloq` creates three different requirements files in the root directory of the project. Each file contains 
-pinned dependencies.
+`mloq` creates three different requirements files in the root directory of the project. Each file contains pinned dependencies.
 
 - [requirements-lint.txt](mloq/assets/requirements/requirements-lint.txt): 
 Contains the dependencies for running style check analysis and automatic formatting of the code.
   
 - [requirements-text.txt](mloq/assets/requirements/requirements-test.txt):
-Dependencies for running pytest, hypothesis and test coverage.
+Dependencies for running pytest, hypothesis, and test coverage.
   
 - `requirements.txt`: Contains different pre-configured dependencies that can be defined in `mloq.yml`. The available pre-configured dependencies are:
    * [data-science](mloq/assets/requirements/data-science.txt): Dependencies of common data science libraries.
@@ -38,10 +37,10 @@ Dependencies for running pytest, hypothesis and test coverage.
 ## Docker
 
 A [Dockerfile](mloq/assets/templates/Dockerfile) that builds a container on top of the FragileTech [Docker Hub]() images:
-- If *tensorflow* or *pytorch* are selected as requirements the container has CUDA 11.0 installed.
+- If *tensorflow* or *pytorch* are selected as requirements, the container has CUDA 11.0 installed.
 - Installs all the packages listed in `requirements.txt`.
 - Installs `requirements-test.txt` and `requirements-lint.txt` dependencies.
-- Install a `jupyter notebook` server with a configurable password in the port 8080.
+- Install a `jupyter notebook` server with a configurable password on port 8080.
 - Installs the project with `pip install -e .`.
 
 ## Continuous integration using GitHub Actions
@@ -55,14 +54,14 @@ Automatic build and tests:
 - **Test-docker**: Build the project's Docker container and run the tests inside it.
 - **Build-pypi**: Build the project and upload it to [Test Pypi](https://test.pypi.org/) with a version tag unique to each commit.
 - **Test-pypi**: Install the project from Test Pypi and run the tests using pytest.
-- **Bump-version**: Automatically bump the project's version and create a tag in the repository every time the default branch is updated.
+- **Bump-version**: Automatically bump the project version and create a tag in the repository every time the default branch is updated.
 
 Deploy each new version:
 - **Push-docker-container**: Upload the project's Docker container to [Docker Hub](https://hub.docker.com/).
 - **Release-package**: Upload to [Pypi](https://pypi.org/) the source of the project and the corresponding wheels.
 
 ## Testing
-The lasts versions of `pytest`, `hypothesis` and `pytest-cov` can be found in `requirements-test.txt`.
+The last versions of `pytest`, `hypothesis`, and `pytest-cov` can be found in `requirements-test.txt`.
 
 The folder structure for the library and tests is created. A `scripts` folder containing the scripts
 that will be run in the CI will also be created on the root folder of the project.
