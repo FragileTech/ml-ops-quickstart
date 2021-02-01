@@ -27,6 +27,8 @@ server:
 .PHONY: test
 test:
 	rm -rf build
+	rm -rf ./source/assets/*
+	cp -r ../mloq/assets/* source/assets
 	make html
 	make server
 

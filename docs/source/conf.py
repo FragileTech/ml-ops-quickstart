@@ -11,11 +11,24 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+from pathlib import Path
 import sys
 
+from ruamel.yaml import load as yaml_load, Loader
 
-# sys.path.insert(0, os.path.abspath("../../"))
-# sys.setrecursionlimit(1500)
+
+sys.path.insert(0, os.path.abspath("../../"))
+sys.setrecursionlimit(1500)
+
+
+def read_template() -> dict:
+    """Load the project configuration from the target path."""
+    template_path = Path(__file__).parent / "_static" / "mloq.yml"
+    with open(template_path, "r") as config:
+        params = yaml_load(config.read(), Loader)
+
+    return params
+
 
 # -- Project information -----------------------------------------------------
 
@@ -101,6 +114,23 @@ html_theme = "sphinx_rtd_theme"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
+
+# myst_parser options
+myst_heading_anchors = 2
+myst_substitutions = read_template()
+myst_enable_extensions = [
+    "amsmath",
+    "colon_fence",
+    "deflist",
+    "dollarmath",
+    "html_admonition",
+    "html_image",
+    # "linkify",
+    "replacements",
+    "smartquotes",
+    "substitution",
+]
+
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True

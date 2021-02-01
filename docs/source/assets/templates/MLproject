@@ -1,0 +1,9 @@
+name: {{project_name}}
+
+docker_env:
+  image: {{project_name}}
+  volumes: ["{{project_path}}:/{{project_name}}"]
+
+entry_points:
+  main:
+    command: "python -m {{project_name}}"

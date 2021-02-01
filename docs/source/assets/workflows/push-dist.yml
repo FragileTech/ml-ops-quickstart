@@ -1,0 +1,401 @@
+name: Push
+
+on:
+  push:
+    branches:
+      - {{default_branch}}
+  pull_request:
+    branches:
+      - {{default_branch}}
+
+env:
+  PROJECT_NAME: {{project_name}}
+  VERSION_FILE: {{project_name}}/version.py
+  DEFAULT_BRANCH: {{default_branch}}
+  BOT_NAME: {{bot_name}}
+  BOT_EMAIL: {{bot_email}}
+  BOT_AUTH_TOKEN: ${{'{{'}} secrets.BOT_AUTH_TOKEN {{'}}'}}
+  TEST_PYPI_PASS: ${{'{{'}} secrets.TEST_PYPI_PASS {{'}}'}}
+  PYPI_PASS: ${{'{{'}} secrets.PYPI_PASS {{'}}'}}
+  DOCKER_ORG: {{owner}}
+  DOCKER_USERNAME: ${{'{{'}} secrets.DOCKERHUB_LOGIN {{'}}'}}
+  DOCKER_PASSWORD: ${{'{{'}} secrets.DOCKERHUB_PASS {{'}}'}}
+
+jobs:
+  style-check:
+    name: Style check
+    if: "!contains(github.event.head_commit.message, 'Bump version')"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.8"
+    - name: Install lint dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements-lint.txt ]; then pip install -r requirements-lint.txt; fi
+    - name: Run style check and linter
+      run: |
+        make -f scripts/makefile.docker check
+
+  pytest:
+    name: Run Pytest
+    needs: style-check
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: {{python_versions}}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{"{{"}} matrix.python-version {{"}}"}}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{"{{"}} matrix.python-version {{"}}"}}
+    - name: Install test and package dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements-test.txt ]; then pip install -r requirements-test.txt; fi
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install .
+    - name: Test with pytest
+      run: |
+        make -f scripts/makefile.docker test-codecov
+    - name: Upload coverage report
+      if: ${{"{{"}} matrix.python-version=='3.8' {{"}}"}}
+      uses: codecov/codecov-action@v1
+
+  test-docker:
+    name: Test Docker container
+    needs: style-check
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build container
+      run: |
+        make -f scripts/makefile.docker docker-build
+    - name: Run tests
+      run: |
+        make -f scripts/makefile.docker docker-test
+
+  build-source:
+    name: Build source distribution
+    needs: Style-check
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+            git fetch --prune --unshallow
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install -U pip
+          python -m pip install -U setuptools twine wheel bumpversion
+
+      - name: Create unique version for test.pypi
+        run: |
+          current_version=$(grep __version__ $VERSION_FILE | cut -d\" -f2)
+          ts=$(date +%s)
+          new_version="$current_version$ts"
+          bumpversion --current-version $current_version --new-version $new_version patch $VERSION_FILE
+
+      - name: Build package
+        run: |
+          python setup.py --version
+          python setup.py sdist --format=gztar
+          twine check dist/*
+
+      - name: Publish package to TestPyPI
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{"{{"}} secrets.TEST_PYPI_PASS {{"}}"}}
+          repository_url: https://test.pypi.org/legacy/
+          skip_existing: true
+
+  test-source:
+    name: Test source from Test PyPI
+    if: "'$TEST_PYPI_PASS' != ''"
+    needs: build-pypi
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install -U pip
+          python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple $PROJECT_NAME
+          python -m pip install -r requirements-test.txt
+
+      - name: Test package
+        run: |
+          mv $PROJECT_NAME/tests ./tests
+          rm -rf $PROJECT_NAME
+          make -f scripts/makefile.docker test
+
+  build-wheels:
+    name: Build wheels
+    needs: test-source
+    runs-on: ${{'{{'}} matrix.os {{'}}'}}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macOS-latest]
+        python-version: [3.6, 3.7, 3.8, 3.9]
+        include:
+          - os: ubuntu-latest
+            python-version: 3.8
+            wheel: aarch64
+          - os: ubuntu-latest
+            python-version: 3.8
+            wheel: x86
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+        git fetch --prune --unshallow
+
+    - name: Set up Python ${{'{{'}} matrix.python-version {{'}}'}}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{'{{'}} matrix.python-version {{'}}'}}
+
+    - name: Docker Buildx
+      if: matrix.os == 'ubuntu-latest'
+      id: buildx
+      uses: crazy-max/ghaction-docker-buildx@v3.3.0
+      with:
+        buildx-version: latest
+        qemu-version: latest
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade -q pip pytest wheel setuptools twine requests
+        python -m pip install -r requirements-test.txt
+
+    - name: Build macOS/Windows wheel
+      if: matrix.os != 'ubuntu-latest'
+      run: python setup.py -q bdist_wheel
+
+    - name: Build ManyLinux2014_aarch64 wheels
+      if: matrix.wheel == 'aarch64'
+      run: |
+        docker buildx build --platform linux/arm64 \
+        -t ujson_aarch64 --output tmpwheelhouse -f scripts/Dockerfile_aarch64 .
+        mkdir -p dist
+        mv tmpwheelhouse/wheelhouse/*.whl dist/
+
+    - name: Build x86 Linux wheels
+      if: matrix.wheel == 'x86'
+      run: |
+        docker run -e PLAT=manylinux1_x86_64 -v `pwd`:/io quay.io/pypa/manylinux1_x86_64 /io/scripts/build-manylinux-wheels.sh
+        docker run -e PLAT=manylinux1_i686 -v `pwd`:/io quay.io/pypa/manylinux1_i686 /io/scripts/build-manylinux-wheels.sh
+
+    - name: Rename wheels with test.pypi version
+      run: |
+        pip install requests
+        python scripts/rename_testpypi_wheels.py
+
+    - name: Upload as build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: wheels
+        path: dist/*.whl
+
+    - name: Publish package to TestPyPI
+      if: "'$TEST_PYPI_PASS' != ''"
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: "${{'{{'}} secrets.TEST_PYPI_PASS {{'}}'}}"
+      run: |
+        twine upload --repository-url https://test.pypi.org/legacy/ --skip-existing dist/*.whl
+
+  test-pypi:
+    name: Test wheels from Test PyPI
+    if: "'$TEST_PYPI_PASS' != ''"
+    needs: build-wheels
+    runs-on: ${{'{{'}} matrix.os {{'}}'}}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ windows-latest, macOS-latest ]
+        python-version: {{python_versions}}
+        include:
+          - os: ubuntu-latest
+            python-version: 3.8
+            wheel: aarch64
+          - os: ubuntu-latest
+            python-version: 3.8
+            wheel: x86
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install -U pip
+          python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple $PROJECT_NAME
+          python -m pip install -r requirements-test.txt
+
+      - name: Test package
+        run: |
+          make -f scripts/makefile.docker test
+
+  bump-version:
+    name: Bump package version
+    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$BOT_AUTH_TOKEN' != ''"
+    runs-on: ubuntu-20.04
+    needs:
+      - pytest
+      - test-pypi
+      - test-docker
+    steps:
+      - name: actions/checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: current_version
+        run: |
+          echo "current_version=$(grep __version__ $VERSION_FILE | cut -d\" -f2)" >> $GITHUB_ENV
+          echo "version_file=$VERSION_FILE" >> $GITHUB_ENV
+          echo 'bot_name="${BOT_NAME}"' >> $GITHUB_ENV
+          echo 'bot_email="${BOT_EMAIL}"' >> $GITHUB_ENV
+      - name: FragileTech/bump-version
+        uses: FragileTech/bump-version@main
+        with:
+          current_version: "${{'{{'}} env.current_version {{'}}'}}"
+          files: "${{'{{'}} env.version_file {{'}}'}}"
+          commit_name: "${{'{{'}} env.bot_name {{'}}'}}"
+          commit_email: "${{'{{'}} env.bot_email {{'}}'}}"
+          login: "${{'{{'}} env.bot_name {{'}}'}}"
+          token: "${{'{{'}} secrets.BOT_AUTH_TOKEN {{'}}'}}"
+
+  push-docker:
+    name: Push Docker container
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}' && '$DOCKER_PASSWORD' != ''"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to DockerHub
+        run: |
+          docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
+      - name: Build container
+        run: |
+          CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
+          make -f scripts/makefile.docker docker-build VERSION=${CONTAINER_VERSION} PROJECT=${PROJECT_NAME} DOCKER_ORG=${DOCKER_ORG}
+      - name: Push images
+        run: |
+          CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
+          make -f scripts/makefile.docker docker-push VERSION=${CONTAINER_VERSION} PROJECT=${PROJECT_NAME} DOCKER_ORG=${DOCKER_ORG}
+
+
+  release-source:
+    name: Release source to PyPI
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}'  && '$PYPI_PASS' != ''"
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          git fetch --prune --unshallow
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install -U pip
+          python -m pip install -U setuptools twine wheel
+
+      - name: Build package
+        run: |
+          python setup.py --version
+          python setup.py sdist --format=gztar
+          twine check dist/*
+
+      - name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: "${{'{{'}} secrets.PYPI_PASS {{'}}'}}"
+
+  release-wheels:
+    name: Release wheels to PyPI
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}'  && '$PYPI_PASS' != ''"
+    runs-on: ${{'{{'}} matrix.os {{'}}'}}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ windows-latest, macOS-latest ]
+        python-version: {{python_versions}}
+        include:
+          - os: ubuntu-latest
+            python-version: 3.8
+            wheel: aarch64
+          - os: ubuntu-latest
+            python-version: 3.8
+            wheel: x86
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          git fetch --prune --unshallow
+
+      - name: Set up Python ${{'{{'}} matrix.python-version {{'}}'}}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{'{{'}} matrix.python-version {{'}}'}}
+
+      - name: Docker Buildx
+        if: matrix.os == 'ubuntu-latest'
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v3.3.0
+        with:
+          buildx-version: latest
+          qemu-version: latest
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade -q pip pytest wheel setuptools twine
+
+      - name: Build macOS/Windows wheel
+        if: matrix.os != 'ubuntu-latest'
+        run: python setup.py -q bdist_wheel
+
+      - name: Build ManyLinux2014_aarch64 wheels
+        if: matrix.wheel == 'aarch64'
+        run: |
+          docker buildx build --platform linux/arm64 \
+          -t ujson_aarch64 --output tmpwheelhouse -f scripts/Dockerfile_aarch64 .
+          mkdir -p dist
+          mv tmpwheelhouse/wheelhouse/*.whl dist/
+
+      - name: Build x86 Linux wheels
+        if: matrix.wheel == 'x86'
+        run: |
+          docker run -e PLAT=manylinux1_x86_64 -v `pwd`:/io quay.io/pypa/manylinux1_x86_64 /io/scripts/build-manylinux-wheels.sh
+          docker run -e PLAT=manylinux1_i686 -v `pwd`:/io quay.io/pypa/manylinux1_i686 /io/scripts/build-manylinux-wheels.sh
+
+      - name: Upload as build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheels
+          path: dist/*.whl
+
+      - name: Publish package to PyPI
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{'{{'}} secrets.PYPI_PASS {{'}}'}}
+        run: twine upload --skip-existing dist/*.whl

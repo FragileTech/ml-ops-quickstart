@@ -1,0 +1,32 @@
+# This yaml file contains all the information used by mloq to set up a new project.
+# All values are strings, except `python_versions` and `requirements`
+# that are lists of strings.
+# `null` values are interpreted as missing values.
+# ------------------------------------------------------------------------------
+
+# `template` contains all the values that will be written in the generated files.
+# They are loaded as a dictionary and passed to jinja2 to fill in the templates.
+project_config:
+  open_source: null  # boolean
+  docker: null  # boolean
+  ci: null  # string
+  mlflow: null #boolean
+  requirements: null # list
+
+template:
+  project_name: null
+  default_branch: null
+  owner: null
+  author: null
+  email: null
+  copyright_holder: null
+  project_url: null
+  bot_name: null
+  bot_email: null
+  license: null
+  description: null
+  python_versions: null
+  docker_image: null
+
+
+

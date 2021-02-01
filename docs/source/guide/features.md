@@ -1,21 +1,20 @@
-
 ## Repository files
 Set up the following common repository files personalized for your project with the values
 defined in `mloq.yml`:
 
-- README.md
-- DCO.md
-- CONTRIBUTING.md
-- code_of_conduct.md
-- LICENSE
-- .gitignore
+- [README.md](../assets/templates/README.md)
+- [DCO.md](../assets/static/DCO.md)
+- [CONTRIBUTING.md](../assets/templates/README.md)
+- [CODE_OF_CONDUCT.md](../assets/templates/CONTRIBUTING.md)
+- [LICENSE](../assets/templates/MIT_LICENSE)
+- [.gitignore](../assets/static/.gitignore)
 
 ## Packaging
 
 Automatic configuration of `pyproject.toml` and `setup.py` to distribute your project as a Python package.
 
 ## Code style
-All the necessary configuration for the following tools is defined in [pyproject.toml](mloq/assets/templates/pyproject.toml).
+All the necessary configuration for the following tools is defined in [pyproject.toml](../assets/templates/pyproject.toml).
 - [black](https://black.readthedocs.io/en/stable/?badge=stable): Automatic code formatter.
 - [isort](https://pycqa.github.io/isort/): Rearrange your imports automatically.
 - [flakehell](https://flakehell.readthedocs.io/): Linter tool build on top of `flake8`, `pylint` and `pycodestyle`
@@ -23,20 +22,20 @@ All the necessary configuration for the following tools is defined in [pyproject
 ## Requirements
 `mloq` creates three different requirements files in the root directory of the project. Each file contains pinned dependencies.
 
-- [requirements-lint.txt](mloq/assets/requirements/requirements-lint.txt): 
+- [requirements-lint.txt](../assets/requirements/requirements-lint.txt): 
 Contains the dependencies for running style check analysis and automatic formatting of the code.
-  
-- [requirements-text.txt](mloq/assets/requirements/requirements-test.txt):
+- [requirements-test.txt](../assets/requirements/requirements-test.txt):
+
 Dependencies for running pytest, hypothesis, and test coverage.
   
 - `requirements.txt`: Contains different pre-configured dependencies that can be defined in `mloq.yml`. The available pre-configured dependencies are:
-   * [data-science](mloq/assets/requirements/data-science.txt): Dependencies of common data science libraries.
-   * [data-visualization](mloq/assets/requirements/data-visualization.txt): Common visualization libraries.
-   * Last version of [pytorch](mloq/assets/requirements/pytorch.txt) and [tensorflow](mloq/assets/requirements/tensorflow.txt)
+   * [data-science](../assets/requirements/data-science.txt): Dependencies of common data science libraries.
+   * [data-visualization](../assets/requirements/data-visualization.txt): Common visualization libraries.
+   * Last version of [pytorch](../assets/requirements/pytorch.txt) and [tensorflow](../assets/requirements/tensorflow.txt)
    
 ## Docker
 
-A [Dockerfile](mloq/assets/templates/Dockerfile) that builds a container on top of the FragileTech [Docker Hub]() images:
+A [Dockerfile](../assets/templates/Dockerfile) that builds a container on top of the FragileTech [Docker Hub](https://hub.docker.com/orgs/fragiletech/repositories) images:
 - If *tensorflow* or *pytorch* are selected as requirements, the container has CUDA 11.0 installed.
 - Installs all the packages listed in `requirements.txt`.
 - Installs `requirements-test.txt` and `requirements-lint.txt` dependencies.
@@ -45,7 +44,7 @@ A [Dockerfile](mloq/assets/templates/Dockerfile) that builds a container on top 
 
 ## Continuous integration using GitHub Actions
 Set up automatically a continuous integration (CI) pipeline using GitHub actions with the following jobs:
-![GitHub Actions pipeline](docs/images/ci_python.png)
+![GitHub Actions pipeline](../../images/ci_python.png)
 
 Automatic build and tests:
 

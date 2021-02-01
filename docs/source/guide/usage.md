@@ -1,4 +1,3 @@
-
 ## Command line interface
 
 Options:
@@ -22,7 +21,7 @@ override all existing files with no interactivity:
 mloq setup -f . -o example
 ```
 
-![ci python](docs/images/mloq_setup.png)
+![ci python](../../images/mloq_setup.png)
 
 
 ## mloq.yml config file
