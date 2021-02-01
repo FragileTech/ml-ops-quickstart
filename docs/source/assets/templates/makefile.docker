@@ -1,0 +1,74 @@
+current_dir = $(shell pwd)
+
+PROJECT = {{project_name}}
+DOCKER_ORG = {{project_org}}
+VERSION ?= latest
+UBUNTU_NAME = $(lsb_release -s -c)
+n ?= auto
+
+# Installation commands used by Dockerfiles
+# Install system packages
+.PHONY: install-common-dependencies
+install-common-dependencies:
+	apt-get update && \
+	apt-get install -y --no-install-suggests --no-install-recommends \
+		ca-certificates locales pkg-config apt-utils gcc g++ wget make cmake git curl flex ssh gpgv \
+		libffi-dev libjpeg-turbo-progs libjpeg8-dev libjpeg-turbo8 libjpeg-turbo8-dev gnupg2 \
+		libpng-dev libpng16-16 libglib2.0-0 bison gfortran lsb-release \
+		libsm6 libxext6 libxrender1 libfontconfig1 libhdf5-dev libopenblas-base libopenblas-dev \
+		libfreetype6 libfreetype6-dev zlib1g-dev zlib1g xvfb python-opengl ffmpeg && \
+	ln -s /usr/lib/x86_64-linux-gnu/libz.so /lib/ && \
+	ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so /lib/ && \
+	echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
+	locale-gen && \
+	wget -O - https://bootstrap.pypa.io/get-pip.py | python3 && \
+	rm -rf /var/lib/apt/lists/* && \
+	echo '#!/bin/bash\n\\n\echo\n\echo "  $@"\n\echo\n\' > /browser && \
+	chmod +x /browser
+
+.PHONY: remove-dev-packages
+remove-dev-packages:
+	pip3 uninstall -y cython && \
+	apt-get remove -y cmake pkg-config flex bison curl libpng-dev \
+		libjpeg-turbo8-dev zlib1g-dev libhdf5-dev libopenblas-dev gfortran \
+		libfreetype6-dev libjpeg8-dev libffi-dev && \
+	apt-get autoremove -y && \
+	apt-get clean && \
+	rm -rf /var/lib/apt/lists/*
+
+.POSIX:
+check:
+	!(grep -R /tmp ${PROJECT}/tests)
+	flakehell lint ${PROJECT}
+	pylint ${PROJECT}
+	black --check ${PROJECT}
+
+.PHONY: test
+test:
+	find -name "*.pyc" -delete
+	pytest -n $n -s -o log_cli=true -o log_cli_level=info
+
+.PHONY: test-codecov
+test-codecov:
+	find -name "*.pyc" -delete
+	pytest -n $n -s -o log_cli=true -o log_cli_level=info --cov=./ --cov-report=xml
+
+.PHONY: docker-build
+docker-build:
+	docker build --pull -t ${DOCKER_ORG}/${PROJECT}:${VERSION} .
+
+.PHONY: docker-test
+docker-test:
+	find -name "*.pyc" -delete
+	docker run --rm -it --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest -n $n -s -o log_cli=true -o log_cli_level=info
+
+.PHONY: docker-push
+docker-push:
+	docker push ${DOCKER_ORG}/${PROJECT}:${VERSION}
+	docker tag ${DOCKER_ORG}/${PROJECT}:${VERSION} ${DOCKER_ORG}/${PROJECT}:latest
+	docker push ${DOCKER_ORG}/${PROJECT}:latest
+
+.PHONY: docker-test
+docker-test:
+	find -name "*.pyc" -delete
+	docker run --rm -it  -v $(pwd):/io --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest

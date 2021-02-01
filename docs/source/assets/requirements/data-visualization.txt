@@ -1,0 +1,9 @@
+bokeh==2.2.3
+holoviews==1.14.0
+hvplot==0.7.0
+matplotlib==3.3.3
+panel==0.10.2
+param==1.10.0
+plotly==4.14.1
+selenium==3.141.0
+streamz==0.6.1
