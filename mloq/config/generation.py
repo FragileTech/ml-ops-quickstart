@@ -6,7 +6,7 @@ from mloq.config.params import Config, PROJECT_CONFIG, TEMPLATE
 
 
 def generate_project_config(
-    project_config: Optional[Config] = None, interactive: bool = False
+    project_config: Optional[Config] = None, interactive: bool = False,
 ) -> Config:
     """
     Generate a dictionary containing the necessary values to define the project configuration.
@@ -28,14 +28,14 @@ def generate_project_config(
     project_config.update(_project)
     # Fill in project values
     project_config["open_source"] = PROJECT_CONFIG["open_source"](
-        project_config, interactive, default=True
+        project_config, interactive, default=True,
     )
     # use_docker = PROJECT_CONFIG["docker"](project_config, interactive, default=True)
     project_config["docker"] = True  # use_docker
     project_config["ci"] = PROJECT_CONFIG["ci"](project_config, interactive, default="python")
     project_config["mlflow"] = PROJECT_CONFIG["mlflow"](project_config, interactive, default=False)
     project_config["requirements"] = PROJECT_CONFIG["requirements"](
-        project_config, interactive, default="None"
+        project_config, interactive, default="None",
     )
     return project_config
 
@@ -71,13 +71,13 @@ def generate_template(
     template["project_name"] = TEMPLATE["project_name"](template, interactive)
     template["description"] = TEMPLATE["description"](template, interactive)
     template["default_branch"] = TEMPLATE["default_branch"](
-        template, interactive, default="master"
+        template, interactive, default="master",
     )
     template["owner"] = TEMPLATE["owner"](template, interactive)
     template["author"] = TEMPLATE["author"](template, interactive, default=template["owner"])
     template["email"] = TEMPLATE["email"](template, interactive)
     copyright_holder = TEMPLATE["copyright_holder"](
-        template, interactive, default=template["owner"]
+        template, interactive, default=template["owner"],
     )
     template["copyright_holder"] = copyright_holder
     default_url = f"https://github.com/{template['owner']}/{template['project_name']}"
@@ -87,10 +87,10 @@ def generate_template(
     # If project is undefined parse the full template
     if project_config["ci"] or project_config["ci"] is None:
         template["bot_name"] = TEMPLATE["bot_name"](
-            template, interactive, default=template["author"]
+            template, interactive, default=template["author"],
         )
         template["bot_email"] = TEMPLATE["bot_email"](
-            template, interactive, default=template["email"]
+            template, interactive, default=template["email"],
         )
     if not project_config["open_source"] or project_config["open_source"] is None:
         template["license"] = "proprietary"

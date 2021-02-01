@@ -52,7 +52,7 @@ def copy_file(file: File, path: Union[Path, str], override: bool = False) -> Non
 
 
 def create_project_directories(
-    project_name: str, root_path: Path, project_config: Config = None, override: bool = False
+    project_name: str, root_path: Path, project_config: Config = None, override: bool = False,
 ) -> None:
     """
     Initialize the folder structure of a new Python project.

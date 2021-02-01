@@ -1,4 +1,5 @@
 """Command line interface for mloq."""
+
 import os
 
 import click
@@ -22,8 +23,9 @@ config_file_opt = click.option(
 )
 
 
-output_path_arg = click.argument(
-    "output", type=click.Path(exists=True, file_okay=False, dir_okay=True, resolve_path=True)
+output_directory_arg = click.argument(
+    "output_directory",
+    type=click.Path(exists=True, file_okay=False, dir_okay=True, resolve_path=True),
 )
 
 interactive_opt = click.option(
@@ -50,12 +52,13 @@ def cli():
 
 
 @cli.command()
+@config_file_opt
+@output_directory_arg
 @override_opt
 @interactive_opt
-@config_file_opt
-@output_path_arg
-def setup(config_file, output, override: bool, interactive: bool):
+def setup(config_file, output_directory, override: bool, interactive: bool) -> None:
+    """Entry point of `mloq setup`."""
     from mloq.cli.setup_cmd import setup_cmd
 
     config_file, override, interactive = _parse_env(config_file, override, interactive)
-    setup_cmd(config_file, output, override, interactive)
+    exit(setup_cmd(config_file, output_directory, override, interactive))

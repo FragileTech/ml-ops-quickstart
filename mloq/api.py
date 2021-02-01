@@ -1,51 +1,56 @@
 """The api module exposes the mloq functionality to the CLI."""
 import copy
 from pathlib import Path
-from typing import Union
+from typing import List, Tuple, Union
 
 from mloq.config import Config
 from mloq.directories import create_project_directories
 from mloq.files import mlproject, OPEN_SOURCE_FILES, ROOT_PATH_FILES, SCRIPTS, setup_py, test_main
-from mloq.requirements import setup_requirements
+from mloq.git import setup_git
+from mloq.requirements import install_requirements, write_requirements
 from mloq.templating import write_template
 from mloq.workflows import setup_push_workflow
 
 
-def requirements(
-    project_config: Config,
+def setup_requirements(
     path: Union[Path, str],
+    project_config: Config,
     lint: bool = True,
     test: bool = True,
-    install=None,
+    install: Union[str, Tuple[str], List[str], None] = None,
     override: bool = False,
-):
+) -> None:
     """Write requirements files and install them if requested."""
     if isinstance(install, (tuple, list)) and "all" in install or install == "all":
-        install_reqs = True
-        install_lint = True
-        install_test = True
+        install_reqs = install_lint = install_test = True
     elif isinstance(install, (tuple, list)):
         install_reqs = "reqs" in install or "requirements" in install
         install_lint = "lint" in install
         install_test = "test" in install
     else:
-        install_reqs = False
-        install_lint = False
-        install_test = False
+        install_reqs = install_lint = install_test = False
     options = project_config.get("requirements", ["empty"])
-    setup_requirements(
+    write_requirements(
+        out_path=path,
         options=options,
-        path=Path(path),
         test=test,
         lint=lint,
-        install_test=install_test,
-        install_reqs=install_reqs,
-        install_lint=install_lint,
         override=override,
+    )
+    install_requirements(
+        path=path,
+        requirements=install_reqs,
+        test=install_test,
+        lint=install_lint,
+        py3=True,
     )
 
 
-def setup_project_files(path, template: Config, project_config: Config, override: bool = False):
+def setup_project_files(path: Union[Path, str],
+                        template: Config,
+                        project_config: Config,
+                        override: bool = False,
+                        ) -> None:
     """Write the template for common repository config files."""
     path = Path(path)
     _template = copy.deepcopy(template)
@@ -53,13 +58,13 @@ def setup_project_files(path, template: Config, project_config: Config, override
     project_name = _template["project_name"]
     create_project_directories(project_name=project_name, root_path=path, override=override)
     setup_root_files(
-        template=_template, project_config=project_config, path=path, override=override
+        template=_template, project_config=project_config, path=path, override=override,
     )
     tests_path = path / project_name / "tests"
     write_template(test_main, template=_template, path=tests_path, override=override)
 
 
-def setup_scripts(path: Union[str, Path], template: Config, override: bool = False):
+def setup_scripts(path: Union[str, Path], template: Config, override: bool = False) -> None:
     """Initialize CI scripts folder files."""
     path = Path(path)
     path = path if path.name == "scripts" else path / "scripts"
@@ -68,8 +73,8 @@ def setup_scripts(path: Union[str, Path], template: Config, override: bool = Fal
 
 
 def setup_root_files(
-    path: Union[str, Path], template: Config, project_config: Config, override: bool = False
-):
+    path: Union[str, Path], template: Config, project_config: Config, override: bool = False,
+) -> None:
     """Initialize root folder files."""
     for file in ROOT_PATH_FILES:
         write_template(file, template=template, path=path, override=override)
@@ -86,16 +91,37 @@ def setup_root_files(
     write_template(setup_py, template=setup_template, path=path, override=override)
 
 
-def setup_repository(
+def setup_project(
     path: Union[str, Path], template: Config, project_config: Config, override: bool = False,
-):
+) -> None:
     """Initialize the project folder structure and all the filled in boilerplate files."""
     path = Path(path)
     setup_project_files(
-        path=path, template=template, project_config=project_config, override=override
+        path=path,
+        template=template,
+        project_config=project_config,
+        override=override,
     )
     setup_push_workflow(
-        project_config=project_config, path=path, template=template, override=override
+        path=path,
+        project_config=project_config,
+        template=template,
+        override=override,
     )
-    requirements(project_config=project_config, path=path, test=True, lint=True, override=override)
-    setup_scripts(template=template, path=path, override=override)
+    setup_requirements(
+        path=path,
+        project_config=project_config,
+        test=True,
+        lint=True,
+        override=override,
+    )
+    setup_scripts(
+        path=path,
+        template=template,
+        override=override,
+    )
+    setup_git(
+        path=path,
+        project_config=project_config,
+        template=template,
+    )

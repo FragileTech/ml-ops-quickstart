@@ -2,7 +2,6 @@
 requires = ["setuptools >= 50.3.2", "wheel >= 0.29.0"]
 build-backend = "setuptools.build_meta"
 
-# Example configuration for Black.
 [tool.black]
 line-length = 99
 target-version = ['py36', 'py37', 'py38']
@@ -76,31 +75,14 @@ application_import_names = ["mloq"]
 'flake8*' = ["+*"]
 pylint = ["+*"]
 pyflakes = ["+*"]
-pycodestyle = ["+*" ,"-B008","-B301","-C815","-C816","-C812","-D100",
-    "-D105","-D200","-D202","-D301","-D402","-E121","-E123","-E126","-E203","-E226",
-    "-E24","-E704","-F821","-W503","-W504"]
+pycodestyle = ["+*" , "-D100", "-D104", "-D301", "-W503", "-W504"]
 
-# match by prefix
+# No docs in the tests. Whatever.
 [tool.flakehell.exceptions."**/tests/*"]
-pycodestyle = ["-F401", "-F811"]
-pyflakes = ["-*"]
-"flake8*" = ["-D*", "-I*"]
+pycodestyle = ["-D*"]
+"flake8*" = ["-D*"]
 
 [tool.flakehell.exceptions."**/assets/*"]
 pycodestyle = ["-*"]
 pyflakes = ["-*"]
 "flake8*" = ["-*"]
-
-[tool.flakehell.exceptions."mloq/cli/custom_prompt.py"]
-"*" = ["-*"]
-
-[tool.flakehell.exceptions."mloq/cli/main.py"]
-pycodestyle = ["-D*"]
-pylint = ["-W9015", "-W9017"]
-"flake8*" = ["-D*", "-W9015", "-W9017"]
-
-[tool.flakehell.exceptions."**/configuration/**"]
-pycodestyle = ["-D*"]
-pylint = ["-W9015", "-W9017"]
-"flake8*" = ["-D*", "-W9015", "-W9017"]
-
