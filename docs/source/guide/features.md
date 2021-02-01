@@ -24,8 +24,8 @@ All the necessary configuration for the following tools is defined in [pyproject
 
 - [requirements-lint.txt](../assets/requirements/requirements-lint.txt): 
 Contains the dependencies for running style check analysis and automatic formatting of the code.
-  
 - [requirements-test.txt](../assets/requirements/requirements-test.txt):
+
 Dependencies for running pytest, hypothesis, and test coverage.
   
 - `requirements.txt`: Contains different pre-configured dependencies that can be defined in `mloq.yml`. The available pre-configured dependencies are:
@@ -35,7 +35,7 @@ Dependencies for running pytest, hypothesis, and test coverage.
    
 ## Docker
 
-A [Dockerfile](../assets/templates/Dockerfile) that builds a container on top of the FragileTech [Docker Hub]() images:
+A [Dockerfile](../assets/templates/Dockerfile) that builds a container on top of the FragileTech [Docker Hub](https://hub.docker.com/orgs/fragiletech/repositories) images:
 - If *tensorflow* or *pytorch* are selected as requirements, the container has CUDA 11.0 installed.
 - Installs all the packages listed in `requirements.txt`.
 - Installs `requirements-test.txt` and `requirements-lint.txt` dependencies.
