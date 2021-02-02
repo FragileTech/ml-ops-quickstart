@@ -22,7 +22,7 @@ black = "==19.10b0"
 click = "==7.1.2"
 invoke = "==1.4.1"
 ruyaml = "==0.19.2"
-Jinja2 = "==2.11.2"
+Jinja2 = "==2.11.3"
 mloq = {editable = true, path = "."}
 
 [requires]
