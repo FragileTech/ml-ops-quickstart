@@ -1,9 +1,10 @@
 """
-This is mostly a copy paste from
+This is mostly a copy paste from \
 https://github.com/pallets/click/blob/2fc486c880eda9fdb746ed8baa49416acab9ea6d/src/click/termui.py
+
 Modified to allow prompt input that has a different color than the prompt text, while keeping
 the color of the default prompt values the same as the prompt text color.
-"""
+"""  # noqa: D400
 import io
 
 from click.exceptions import Abort, UsageError
@@ -19,6 +20,7 @@ _ansi_reset_all = "\033[0m"
 
 
 def hidden_prompt_func(prompt):
+    """Input hidden text from the user."""
     import getpass
 
     return getpass.getpass(prompt)
@@ -52,7 +54,7 @@ def prompt(
     err=False,
     show_choices=True,
 ):
-    """Prompts a user for input.  This is a convenience function that can
+    """Prompts a user for input.  This is a convenience function that can \
     be used to prompt a user for input later.
 
     If the user aborts the input by sending a interrupt signal, this

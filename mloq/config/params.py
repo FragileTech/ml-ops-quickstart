@@ -106,7 +106,11 @@ class MultiChoiceParam(ConfigParam):
     """
 
     def __init__(
-        self, name: str, choices: Optional[Choices] = None, text: Optional[str] = None, **kwargs
+        self,
+        name: str,
+        choices: Optional[Choices] = None,
+        text: Optional[str] = None,
+        **kwargs,
     ):
         """
         Initialize a ConfigParam.
@@ -193,7 +197,9 @@ default_branch = ConfigParam("default_branch", "Default branch of the project")
 description = ConfigParam("description", "Short description of the project")
 docker_image = ConfigParam("docker_image", "Base docker image for the project's Docker container")
 license_type = ConfigParam(
-    "license", "Project license type", type=click.Choice(["MIT", "None"], case_sensitive=False),
+    "license",
+    "Project license type",
+    type=click.Choice(["MIT", "None"], case_sensitive=False),
 )
 ci = ConfigParam(
     "ci",
@@ -201,7 +207,9 @@ ci = ConfigParam(
     type=click.Choice(["python", "dist", "none"], case_sensitive=False),
 )
 python_versions = MultiChoiceParam(
-    "python_versions", text="Supported python versions", choices=["3.6", "3.7", "3.8", "3.9"],
+    "python_versions",
+    text="Supported python versions",
+    choices=["3.6", "3.7", "3.8", "3.9"],
 )
 # MLOQ project parameters
 requirements = MultiChoiceParam(
@@ -212,6 +220,9 @@ requirements = MultiChoiceParam(
 open_source = BooleanParam("open_source", "Is the project Open Source?")
 use_docker = BooleanParam("docker", "Do you want to set up a Docker container?")
 mlflow = BooleanParam("mlflow", "Do you want to set up ML Flow?")
+git_init = BooleanParam("git_init", "Initialize Git repository?")
+git_push = BooleanParam("git_push", "Execute git push to the target repository?")
+git_message = ConfigParam("git_message", "Initial Git commit message?")
 # Dictionaries grouping the different sections of mloq.yml
 """Contains all the parameters that define how the project will be set up."""
 PROJECT_CONFIG = {
@@ -220,6 +231,8 @@ PROJECT_CONFIG = {
     "docker": use_docker,
     "ci": ci,
     "mlflow": mlflow,
+    "git_init": git_init,
+    "git_push": git_push,
 }
 """Contains all the parameters that are used to customize the generated template files."""
 TEMPLATE = {
@@ -236,4 +249,5 @@ TEMPLATE = {
     "license_type": license_type,
     "python_versions": python_versions,
     "docker_image": docker_image,
+    "git_message": git_message,
 }

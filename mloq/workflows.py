@@ -16,7 +16,10 @@ WORKFLOW_NAMES = {
 
 
 def setup_workflow_template(
-    root_path: Union[Path, str], project_config: Config, template: Config, override: bool = False
+    root_path: Union[Path, str],
+    project_config: Config,
+    template: Config,
+    override: bool = False,
 ):
     """Add the target workflows to the corresponding .github/workflows repository."""
     workflow = project_config.get("ci", "empty")
@@ -34,12 +37,18 @@ def setup_workflow_template(
 
 
 def setup_push_workflow(
-    project_config: Config, template: Config, path: Union[str, Path], override: bool = False
-):
+    path: Union[str, Path],
+    project_config: Config,
+    template: Config,
+    override: bool = False,
+) -> None:
     """Initialize the target workflow."""
     if is_empty(project_config.get("ci", "empty")):
         return
     create_github_actions_directories(path)
     setup_workflow_template(
-        project_config=project_config, template=template, root_path=path, override=override
+        project_config=project_config,
+        template=template,
+        root_path=path,
+        override=override,
     )

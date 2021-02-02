@@ -130,7 +130,10 @@ def write_requirements(
     out_path = Path(out_path)
     if options is not None and not is_empty(options):
         write_project_requirements(
-            options=options, out_path=out_path, out_name=out_name, override=override
+            options=options,
+            out_path=out_path,
+            out_name=out_name,
+            override=override,
         )
     write_dev_requirements(out_path, override=override, test=test, lint=lint)
 
@@ -162,21 +165,3 @@ def install_requirements(
         lint = "requirements-lint.txt" if isinstance(lint, bool) else lint
         lint = lint if isinstance(lint, Path) else path / lint
         install_requirement_file(lint, py3=py3)
-
-
-def setup_requirements(
-    options: Iterable[str],
-    path: Union[Path, str],
-    test: bool = True,
-    lint: bool = True,
-    install_reqs: bool = False,
-    install_test: bool = False,
-    install_lint: bool = False,
-    override: bool = False,
-    py3: bool = True,
-):
-    """Write the requirements file and install them if necessary."""
-    write_requirements(out_path=path, options=options, test=test, lint=lint, override=override)
-    install_requirements(
-        path=path, requirements=install_reqs, test=install_test, lint=install_lint, py3=py3
-    )

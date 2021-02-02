@@ -1,41 +1,7 @@
 import copy
 import os
 
-import pytest
-
 from mloq.config.generation import generate_project_config, generate_template
-
-
-@pytest.fixture()
-def project_config():
-    test_project_config = {
-        "open_source": True,
-        "docker": True,
-        "ci": "python",
-        "mlflow": True,
-        "requirements": ["torch"],
-    }
-    return test_project_config
-
-
-@pytest.fixture()
-def template():
-    test_template = {
-        "project_name": "test_project",
-        "default_branch": "master",
-        "owner": "owner_test",
-        "author": "owner_test",
-        "email": "owner@mail.com",
-        "copyright_holder": "owner_test",
-        "project_url": "https://github.com/owner_test/test_project",
-        "bot_name": "owner_test",
-        "bot_email": "owner@mail.com",
-        "license": "MIT",
-        "description": "test description of the project",
-        "python_versions": ["3.6", "3.7", "3.8", "3.9"],
-        "docker_image": "fragiletech/ubuntu18.04-cuda-11.0-py39",
-    }
-    return test_template
 
 
 def compare_dicts(a, b):
@@ -62,7 +28,9 @@ def test_generate_template(template, project_config):
     in_template["project_name"] = None
     os.environ["MLOQ_PROJECT_NAME"] = "test_project"
     new_template = generate_template(
-        template=in_template, project_config=project_config, interactive=False
+        template=in_template,
+        project_config=project_config,
+        interactive=False,
     )
     del os.environ["MLOQ_PROJECT_NAME"]
     compare_dicts(template, new_template)

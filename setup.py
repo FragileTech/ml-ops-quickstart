@@ -5,7 +5,8 @@ from setuptools import find_packages, setup
 
 
 version = SourceFileLoader(
-    "mloq.version", str(Path(__file__).parent / "mloq" / "version.py"),
+    "mloq.version",
+    str(Path(__file__).parent / "mloq" / "version.py"),
 ).load_module()
 
 with open(Path(__file__).with_name("README.md"), encoding="utf-8") as f:

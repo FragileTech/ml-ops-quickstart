@@ -1,10 +1,13 @@
 """Implements the `mloq setup` CLI command."""
+import sys
+
 import click
 
-from mloq.api import setup_repository
+from mloq.api import setup_project
 from mloq.config.generation import generate_project_config, generate_template
 from mloq.config.logic import get_docker_image, read_config_safe, write_config
 from mloq.config.params import Config, is_empty, PROJECT_CONFIG, TEMPLATE
+from mloq.failure import Failure
 from mloq.version import __version__
 
 
@@ -23,7 +26,7 @@ def generate_config_interactive(template: Config, project_config: Config):
     # License information
     click.echo("Please define the license of the project. ")
     click.echo(
-        "Open Source projects will include the corresponding " "LICENSE file and a DCO.md file"
+        "Open Source projects will include the corresponding " "LICENSE file and a DCO.md file",
     )
     is_open_source = PROJECT_CONFIG["open_source"](project_config, True, default=True)
     project_config["open_source"] = is_open_source
@@ -35,7 +38,7 @@ def generate_config_interactive(template: Config, project_config: Config):
     # Python version and requirements
     click.echo(
         "What Python versions are supported? "
-        "Please provide the values as a comma separated list. "
+        "Please provide the values as a comma separated list. ",
     )
     versions = TEMPLATE["python_versions"](template, True, default="3.6, 3.7, 3.8, 3.9")
     template["python_versions"] = versions
@@ -43,7 +46,7 @@ def generate_config_interactive(template: Config, project_config: Config):
     click.echo("Available values:")
     click.echo("    data-science: Common data science libraries such as numpy, pandas, sklearn...")
     click.echo(
-        "    data-viz: Visualization libraries such as holoviews, bokeh, plotly, matplotlib..."
+        "    data-viz: Visualization libraries such as holoviews, bokeh, plotly, matplotlib...",
     )
     click.echo("    pytorch: Latest version of pytorch, torchvision and pytorch_lightning")
     click.echo("    tensorflow: ")  # , data-viz, torch, tensorflow}")
@@ -75,6 +78,22 @@ def generate_config_interactive(template: Config, project_config: Config):
     template["docker_image"] = str(base_docker) if base_docker is None else base_docker
     click.echo("You can optionally create an ML Flow MLproject file.")
     project_config["mlflow"] = PROJECT_CONFIG["mlflow"](project_config, True, default=False)
+    project_config["git_init"] = git_init = PROJECT_CONFIG["git_init"](
+        project_config,
+        True,
+        default=True,
+    )
+    if git_init:
+        project_config["git_push"] = PROJECT_CONFIG["git_push"](
+            project_config,
+            True,
+            default=False,
+        )
+        template["git_message"] = TEMPLATE["git_message"](
+            template,
+            True,
+            default="Generate project files with mloq",
+        )
     return project_config, template
 
 
@@ -84,12 +103,12 @@ def welcome_message():
     click.echo()
     click.echo(
         "Please enter values for the following settings (just press Enter "
-        "to accept a default value, if one is given in brackets)."
+        "to accept a default value, if one is given in brackets).",
     )
     click.echo()
 
 
-def setup_cmd(config_file, output, override: bool, interactive: bool):
+def setup_cmd(config_file, output, override: bool, interactive: bool) -> int:
     """Initialize a new project using ML Ops Quickstart."""
     config = read_config_safe(config_file)
     project_config, template = config["project_config"], config["template"]
@@ -105,6 +124,14 @@ def setup_cmd(config_file, output, override: bool, interactive: bool):
         write_config(config, output, safe=True)
     if not override and interactive:
         override = click.confirm("Do you want to override existing files?")
-    setup_repository(
-        path=output, template=template, project_config=project_config, override=override
-    )
+    try:
+        setup_project(
+            path=output,
+            template=template,
+            project_config=project_config,
+            override=override,
+        )
+    except Failure as e:
+        print(f"Failed to setup the project: {e}", file=sys.stderr)
+        return 1
+    return 0

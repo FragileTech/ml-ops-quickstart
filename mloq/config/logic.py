@@ -18,7 +18,8 @@ def get_docker_python_version(template: Config) -> str:
 
 
 def get_docker_image(
-    template: Config, project_config: Optional[Config] = None
+    template: Config,
+    project_config: Optional[Config] = None,
 ) -> Union[str, None]:
     """
     Add to params the base docker container that will be used to define the project's container.
