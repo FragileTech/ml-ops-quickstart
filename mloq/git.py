@@ -9,10 +9,11 @@ from mloq.config import Config
 from mloq.failure import Failure
 
 
-def setup_git(path: Union[Path, str],
-              project_config: Config,
-              template: Config,
-              ) -> None:
+def setup_git(
+    path: Union[Path, str],
+    project_config: Config,
+    template: Config,
+) -> None:
     """Initialize a Git repository over the generated files."""
     git_init = project_config["git_init"]
     if not git_init:

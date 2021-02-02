@@ -62,7 +62,9 @@ def test_generate_template(template, project_config):
     in_template["project_name"] = None
     os.environ["MLOQ_PROJECT_NAME"] = "test_project"
     new_template = generate_template(
-        template=in_template, project_config=project_config, interactive=False,
+        template=in_template,
+        project_config=project_config,
+        interactive=False,
     )
     del os.environ["MLOQ_PROJECT_NAME"]
     compare_dicts(template, new_template)

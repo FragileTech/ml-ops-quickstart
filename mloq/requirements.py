@@ -130,7 +130,10 @@ def write_requirements(
     out_path = Path(out_path)
     if options is not None and not is_empty(options):
         write_project_requirements(
-            options=options, out_path=out_path, out_name=out_name, override=override,
+            options=options,
+            out_path=out_path,
+            out_name=out_name,
+            override=override,
         )
     write_dev_requirements(out_path, override=override, test=test, lint=lint)
 

@@ -46,11 +46,12 @@ def setup_requirements(
     )
 
 
-def setup_project_files(path: Union[Path, str],
-                        template: Config,
-                        project_config: Config,
-                        override: bool = False,
-                        ) -> None:
+def setup_project_files(
+    path: Union[Path, str],
+    template: Config,
+    project_config: Config,
+    override: bool = False,
+) -> None:
     """Write the template for common repository config files."""
     path = Path(path)
     _template = copy.deepcopy(template)
@@ -58,7 +59,10 @@ def setup_project_files(path: Union[Path, str],
     project_name = _template["project_name"]
     create_project_directories(project_name=project_name, root_path=path, override=override)
     setup_root_files(
-        template=_template, project_config=project_config, path=path, override=override,
+        template=_template,
+        project_config=project_config,
+        path=path,
+        override=override,
     )
     tests_path = path / project_name / "tests"
     write_template(test_main, template=_template, path=tests_path, override=override)
@@ -73,7 +77,10 @@ def setup_scripts(path: Union[str, Path], template: Config, override: bool = Fal
 
 
 def setup_root_files(
-    path: Union[str, Path], template: Config, project_config: Config, override: bool = False,
+    path: Union[str, Path],
+    template: Config,
+    project_config: Config,
+    override: bool = False,
 ) -> None:
     """Initialize root folder files."""
     for file in ROOT_PATH_FILES:
@@ -92,7 +99,10 @@ def setup_root_files(
 
 
 def setup_project(
-    path: Union[str, Path], template: Config, project_config: Config, override: bool = False,
+    path: Union[str, Path],
+    template: Config,
+    project_config: Config,
+    override: bool = False,
 ) -> None:
     """Initialize the project folder structure and all the filled in boilerplate files."""
     path = Path(path)

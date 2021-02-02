@@ -14,5 +14,8 @@ def repo_path():
 def test_init_repository(project_config, template):
     with tempfile.TemporaryDirectory() as tmp:
         setup_project(
-            path=Path(tmp), project_config=project_config, template=template, override=False,
+            path=Path(tmp),
+            project_config=project_config,
+            template=template,
+            override=False,
         )

@@ -106,7 +106,11 @@ class MultiChoiceParam(ConfigParam):
     """
 
     def __init__(
-        self, name: str, choices: Optional[Choices] = None, text: Optional[str] = None, **kwargs,
+        self,
+        name: str,
+        choices: Optional[Choices] = None,
+        text: Optional[str] = None,
+        **kwargs,
     ):
         """
         Initialize a ConfigParam.
@@ -193,7 +197,9 @@ default_branch = ConfigParam("default_branch", "Default branch of the project")
 description = ConfigParam("description", "Short description of the project")
 docker_image = ConfigParam("docker_image", "Base docker image for the project's Docker container")
 license_type = ConfigParam(
-    "license", "Project license type", type=click.Choice(["MIT", "None"], case_sensitive=False),
+    "license",
+    "Project license type",
+    type=click.Choice(["MIT", "None"], case_sensitive=False),
 )
 ci = ConfigParam(
     "ci",
@@ -201,7 +207,9 @@ ci = ConfigParam(
     type=click.Choice(["python", "dist", "none"], case_sensitive=False),
 )
 python_versions = MultiChoiceParam(
-    "python_versions", text="Supported python versions", choices=["3.6", "3.7", "3.8", "3.9"],
+    "python_versions",
+    text="Supported python versions",
+    choices=["3.6", "3.7", "3.8", "3.9"],
 )
 # MLOQ project parameters
 requirements = MultiChoiceParam(

@@ -79,13 +79,20 @@ def generate_config_interactive(template: Config, project_config: Config):
     click.echo("You can optionally create an ML Flow MLproject file.")
     project_config["mlflow"] = PROJECT_CONFIG["mlflow"](project_config, True, default=False)
     project_config["git_init"] = git_init = PROJECT_CONFIG["git_init"](
-        project_config, True, default=True)
+        project_config,
+        True,
+        default=True,
+    )
     if git_init:
         project_config["git_push"] = PROJECT_CONFIG["git_push"](
-            project_config, True, default=False,
+            project_config,
+            True,
+            default=False,
         )
         template["git_message"] = TEMPLATE["git_message"](
-            template, True, default="Generate project files with mloq",
+            template,
+            True,
+            default="Generate project files with mloq",
         )
     return project_config, template
 
@@ -119,7 +126,10 @@ def setup_cmd(config_file, output, override: bool, interactive: bool) -> int:
         override = click.confirm("Do you want to override existing files?")
     try:
         setup_project(
-            path=output, template=template, project_config=project_config, override=override,
+            path=output,
+            template=template,
+            project_config=project_config,
+            override=override,
         )
     except Failure as e:
         print(f"Failed to setup the project: {e}", file=sys.stderr)
