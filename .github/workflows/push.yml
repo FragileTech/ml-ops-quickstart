@@ -74,7 +74,7 @@ jobs:
       uses: codecov/codecov-action@v1
 
   build-pypi:
-    name: Build wheels
+    name: Build package
     needs: style-check
     runs-on: ubuntu-18.04
     steps:
@@ -118,7 +118,7 @@ jobs:
           skip_existing: true
 
   test-pypi:
-    name: Test wheels
+    name: Test package
     if: "'$TEST_PYPI_PASS' != ''"
     needs: build-pypi
     runs-on: ubuntu-18.04
@@ -133,8 +133,7 @@ jobs:
         run: |
           set -x
           python -m pip install -U pip
-          # TODO(vmarkovtsev): install the built wheel, and we don't need any test-pypi for that
-          # python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple $PROJECT_NAME
+          python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple $PROJECT_NAME
           python -m pip install -r requirements-test.txt
 
       - name: Test package
@@ -142,8 +141,10 @@ jobs:
           set -x
           mv $PROJECT_NAME/tests ./tests
           rm -rf $PROJECT_NAME
-          # FIXME(vmarkovtsev): enable back when the current package installs
-          # make -f scripts/makefile.docker test
+          git config --global user.name "Bot"
+          git config --global user.email "bot@fragile.tech"
+          git config --global init.defaultBranch master
+          make -f scripts/makefile.docker test
 
   bump-version:
     name: Bump package version

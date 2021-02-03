@@ -80,7 +80,7 @@ jobs:
         make -f scripts/makefile.docker docker-test
 
   build-pypi:
-    name: Build wheels
+    name: Build package
     needs: style-check
     runs-on: ubuntu-18.04
     steps:
@@ -121,7 +121,7 @@ jobs:
           skip_existing: true
 
   test-pypi:
-    name: Test wheels from Test PyPI
+    name: Test package
     if: "'$TEST_PYPI_PASS' != ''"
     needs: build-pypi
     runs-on: ubuntu-18.04
