@@ -32,6 +32,7 @@ setup(
         "jinja2>=2.0.0",
         "click>=7.1.2,<8.0.0",
         "invoke>=1.4.1",
+        "hydra-core>=1.0,<1.1",
     ],
     package_data={
         "": ["README.md"],

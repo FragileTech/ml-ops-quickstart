@@ -44,7 +44,7 @@ def write_template(file: File, template: Config, path: Union[Path, str], overrid
                 that will be used to render the templates.
         path: Absolute path to the folder containing the target templates.
         override: If False, copy the file if it does not already exists in the \
-                  target path. If True, override the target file if it is already present.
+                  target path. If True, overwrite the target file if it is already present.
 
     Returns:
         None.

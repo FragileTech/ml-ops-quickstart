@@ -2,10 +2,11 @@
 import sys
 
 import click
+from omegaconf import DictConfig
 
 from mloq.api import setup_project
 from mloq.config.generation import generate_project_config, generate_template
-from mloq.config.logic import get_docker_image, read_config_safe, write_config
+from mloq.config.logic import get_docker_image, write_config
 from mloq.config.params import Config, is_empty, PROJECT_CONFIG, TEMPLATE
 from mloq.failure import Failure
 from mloq.version import __version__
@@ -108,9 +109,8 @@ def welcome_message():
     click.echo()
 
 
-def setup_cmd(config_file, output, override: bool, interactive: bool) -> int:
+def setup_cmd(config: DictConfig, output, overwrite: bool, interactive: bool) -> int:
     """Initialize a new project using ML Ops Quickstart."""
-    config = read_config_safe(config_file)
     project_config, template = config["project_config"], config["template"]
     if interactive:
         welcome_message()
@@ -122,14 +122,14 @@ def setup_cmd(config_file, output, override: bool, interactive: bool) -> int:
     config = {"project_config": project_config, "template": template}
     if interactive and click.confirm("Do you want to generate a mloq.yml file?"):
         write_config(config, output, safe=True)
-    if not override and interactive:
-        override = click.confirm("Do you want to override existing files?")
+    if not overwrite and interactive:
+        overwrite = click.confirm("Do you want to overwrite existing files?")
     try:
         setup_project(
             path=output,
             template=template,
             project_config=project_config,
-            override=override,
+            override=overwrite,
         )
     except Failure as e:
         print(f"Failed to setup the project: {e}", file=sys.stderr)

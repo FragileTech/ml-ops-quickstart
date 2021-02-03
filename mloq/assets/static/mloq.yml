@@ -10,8 +10,10 @@ project_config:
   open_source: null  # boolean
   docker: null  # boolean
   ci: null  # string
-  mlflow: null #boolean
+  mlflow: null # boolean
   requirements: null # list
+  git_init: null # boolean
+  git_push: null # boolean
 
 template:
   project_name: null
@@ -27,6 +29,4 @@ template:
   description: null
   python_versions: null
   docker_image: null
-
-
-
+  git_message: null
