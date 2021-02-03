@@ -40,7 +40,7 @@ def copy_file(file: File, path: Union[Path, str], override: bool = False) -> Non
         file: File object representing the file that will be copied.
         path: Path to the destination of the copied file.
         override: If False, copy the file if it does not already exists in the \
-                  target path. If True, override the target file if it is already present.
+                  target path. If True, overwrite the target file if it is already present.
     Returns:
         None.
     """
@@ -62,7 +62,7 @@ def create_project_directories(
 
     It creates a directory for the project containing an empty __init__.py file, and a \
     tests folder inside it with its corresponding __init__.py file. This function will only \
-    create new files and folders in case they don't already exist, but it won't override any \
+    create new files and folders in case they don't already exist, but it won't overwrite any \
     existing file.
 
     Args:
@@ -70,7 +70,7 @@ def create_project_directories(
         root_path: Absolute path where the new project folder will be created.
         project_config: Contains all the parameters that define how the project will be set up.
         override: If False, copy the file if it does not already exists in the \
-                  target path. If True, override the target file if it is already present.
+                  target path. If True, overwrite the target file if it is already present.
 
     Returns:
         None.

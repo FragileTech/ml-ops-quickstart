@@ -12,7 +12,7 @@ from click.types import Choice, convert_type
 from click.utils import echo, LazyFile
 
 
-# The prompt functions to use.  The doc tools currently override these
+# The prompt functions to use.  The doc tools currently overwrite these
 # functions to customize how they work.
 visible_prompt_func = input
 

@@ -3,3 +3,4 @@ flogging==0.0.2
 invoke==1.5.0
 jinja2==2.11.2
 ruyaml==0.19.2
+hydra-core==1.0.6

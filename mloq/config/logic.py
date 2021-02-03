@@ -44,36 +44,6 @@ def get_docker_image(
     return image
 
 
-def read_config(path: Union[Path, str]) -> Config:
-    """Load the project configuration from the target path."""
-    with open(path, "r") as config:
-        params = yaml_load(config.read(), Loader)
-
-    return params
-
-
-def read_config_safe(path: Optional[Union[Path, str]]) -> Config:
-    """
-    Read the configuration file if it exists, otherwise return an empty config dict.
-
-    Args:
-        path: If it points to a file, it will read the file and return its content.
-              If it points to a directory, it will try to read an mloq.yml file \
-              present in that directory.
-
-    Returns:
-        Loaded configuration if a config file is present. Empty configuration otherwise.
-    """
-    if path is None:
-        return load_empty_config()
-    path = Path(path)
-    path = path / mloq_yml.name if path.is_dir() else path
-    try:
-        return read_config(path)
-    except FileNotFoundError:
-        return load_empty_config()
-
-
 def write_config(config: Config, path: Union[Path, str], safe: bool = False):
     """Write config in a yaml file."""
     yaml = RuamelYAML()

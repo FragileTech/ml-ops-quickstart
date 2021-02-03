@@ -1,12 +1,18 @@
 """Command line interface for mloq."""
 
 import os
+from pathlib import Path
+import sys
+from unittest.mock import patch
 
 import click
+import hydra
+from omegaconf import DictConfig
 
+from mloq.files import mloq_yml
 
-override_opt = click.option(
-    "--override/--no-override",
+overwrite_opt = click.option(
+    "--overwrite/--no-overwrite",
     "-o/ ",
     default=False,
     show_default=True,
@@ -51,14 +57,32 @@ def cli():
     pass
 
 
-@cli.command()
+@cli.command(context_settings=dict(ignore_unknown_options=True))
 @config_file_opt
 @output_directory_arg
-@override_opt
+@overwrite_opt
 @interactive_opt
-def setup(config_file, output_directory, override: bool, interactive: bool) -> None:
+@click.argument("hydra_args", nargs=-1, type=click.UNPROCESSED)
+def setup(
+    config_file: str,
+    output_directory: str,
+    overwrite: bool,
+    interactive: bool,
+    hydra_args: str,
+) -> None:
     """Entry point of `mloq setup`."""
     from mloq.cli.setup_cmd import setup_cmd
 
-    config_file, override, interactive = _parse_env(config_file, override, interactive)
-    exit(setup_cmd(config_file, output_directory, override, interactive))
+    config_file = Path(config_file) if config_file else mloq_yml.src
+    hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)
+    config = DictConfig({})
+
+    @hydra.main(config_name=config_file.name)
+    def load_config(loaded_config: DictConfig):
+        nonlocal config
+        config = loaded_config
+
+    with patch("sys.argv", [sys.argv[0]] + list(hydra_args)):
+        load_config()
+
+    exit(setup_cmd(config, output_directory, overwrite, interactive))
