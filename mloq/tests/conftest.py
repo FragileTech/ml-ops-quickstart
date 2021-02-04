@@ -34,3 +34,35 @@ def template():
         "git_message": "Test init commit",
     }
     return test_template
+
+
+@pytest.fixture(scope="module")
+def mloq_yaml_dict():
+    data = {
+        "project_config": {
+            "open_source": True,
+            "docker": True,
+            "ci": "python",
+            "mlflow": False,
+            "requirements": ["None"],
+            "git_init": True,
+            "git_push": False,
+        },
+        "template": {
+            "project_name": "miau",
+            "default_branch": "master",
+            "owner": "guille",
+            "author": "guille",
+            "email": "maiol@maic.om",
+            "copyright_holder": "guille",
+            "project_url": "https://github.com/guille/miau",
+            "bot_name": "guille",
+            "bot_email": "maiol@maic.om",
+            "license": "MIT",
+            "description": "caca",
+            "python_versions": ["3.6", "3.7", "3.8", "3.9"],
+            "docker_image": "fragiletech/ubuntu18.04-base-py39",
+            "git_message": "Generate project files with mloq",
+        },
+    }
+    return data

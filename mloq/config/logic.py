@@ -1,8 +1,8 @@
 """This module contains the functionality for parsing ad modifying the project configuration."""
 from pathlib import Path
-from typing import Dict, Optional, Union
+from typing import Optional, Union
 
-from ruamel.yaml import load as yaml_load, Loader, YAML as RuamelYAML
+from omegaconf import OmegaConf
 
 from mloq.config import Config
 from mloq.directories import copy_file
@@ -46,19 +46,16 @@ def get_docker_image(
 
 def write_config(config: Config, path: Union[Path, str], safe: bool = False):
     """Write config in a yaml file."""
-    yaml = RuamelYAML()
-    yaml.indent(sequence=4, offset=2)
     if safe:
         path = Path(path)
         path = path / mloq_yml.name if path.is_dir() else path
     with open(path, "w") as f:
-        yaml.dump(config, f)
+        OmegaConf.save(config, f)
 
 
-def load_empty_config() -> Dict[str, Dict[str, None]]:
+def load_empty_config() -> Config:
     """Return a dictionary containing all the MLOQ config values set to None."""
-    with open(mloq_yml.src, "r") as config:
-        empty_config = yaml_load(config.read(), Loader)
+    empty_config = OmegaConf.load(mloq_yml.src)
     return empty_config
 
 
