@@ -1,6 +1,6 @@
 """This file contains the logic defining all the parameters needed to se up a project with mloq."""
 import os
-from typing import Any, List, Optional, Union
+from typing import Any, List, NamedTuple, Optional, Union
 
 import click
 
@@ -184,70 +184,52 @@ def is_empty(value: Union[str, list, tuple, set]) -> bool:
     return any([v.lower() in EMPTY_VALUES for v in value])
 
 
-# MLOQ template parameters
-project_name = ConfigParam("project_name", "Select project name")
-owner = ConfigParam("owner", "Github handle of the project owner")
-email = ConfigParam("email", "Owner contact email")
-author = ConfigParam("author", "Author(s) of the project")
-copyright_holder = ConfigParam("copyright_holder", "Copyright holder")
-project_url = ConfigParam("project_url", "GitHub project url")
-bot_name = ConfigParam("bot_name", "Bot's GitHub login to push commits in CI")
-bot_email = ConfigParam("bot_email", "Bot account email")
-default_branch = ConfigParam("default_branch", "Default branch of the project")
-description = ConfigParam("description", "Short description of the project")
-docker_image = ConfigParam("docker_image", "Base docker image for the project's Docker container")
-license_type = ConfigParam(
-    "license",
-    "Project license type",
-    type=click.Choice(["MIT", "None"], case_sensitive=False),
-)
-ci = ConfigParam(
-    "ci",
-    "Github Actions push workflow",
-    type=click.Choice(["python", "dist", "none"], case_sensitive=False),
-)
-python_versions = MultiChoiceParam(
-    "python_versions",
-    text="Supported python versions",
-    choices=["3.6", "3.7", "3.8", "3.9"],
-)
-# MLOQ project parameters
-requirements = MultiChoiceParam(
-    "requirements",
-    text="Project requirements",
-    choices=["data-science", "data-viz", "torch", "tensorflow", "none"],
-)
-open_source = BooleanParam("open_source", "Is the project Open Source?")
-use_docker = BooleanParam("docker", "Do you want to set up a Docker container?")
-mlflow = BooleanParam("mlflow", "Do you want to set up ML Flow?")
-git_init = BooleanParam("git_init", "Initialize Git repository?")
-git_push = BooleanParam("git_push", "Execute git push to the target repository?")
-git_message = ConfigParam("git_message", "Initial Git commit message?")
-# Dictionaries grouping the different sections of mloq.yml
 """Contains all the parameters that define how the project will be set up."""
-PROJECT_CONFIG = {
-    "requirements": requirements,
-    "open_source": open_source,
-    "docker": use_docker,
-    "ci": ci,
-    "mlflow": mlflow,
-    "git_init": git_init,
-    "git_push": git_push,
-}
+_PROJECT = [
+    MultiChoiceParam(
+        "requirements",
+        text="Project requirements",
+        choices=["data-science", "data-viz", "torch", "tensorflow", "none"],
+    ),
+    BooleanParam("open_source", "Is the project Open Source?"),
+    BooleanParam("docker", "Do you want to set up a Docker container?"),
+    ConfigParam(
+        "ci",
+        "Github Actions push workflow",
+        type=click.Choice(["python", "dist", "none"], case_sensitive=False),
+    ),
+    BooleanParam("mlflow", "Do you want to set up ML Flow?"),
+    BooleanParam("git_init", "Initialize Git repository?"),
+    BooleanParam("git_push", "Execute git push to the target repository?"),
+]
+
 """Contains all the parameters that are used to customize the generated template files."""
-TEMPLATE = {
-    "project_name": project_name,
-    "owner": owner,
-    "email": email,
-    "author": author,
-    "copyright_holder": copyright_holder,
-    "project_url": project_url,
-    "bot_name": bot_name,
-    "bot_email": bot_email,
-    "default_branch": default_branch,
-    "description": description,
-    "license_type": license_type,
-    "python_versions": python_versions,
-    "docker_image": docker_image,
-    "git_message": git_message,
-}
+_TEMPLATE = [
+    ConfigParam("project_name", "Select project name"),
+    ConfigParam("owner", "Github handle of the project owner"),
+    ConfigParam("email", "Owner contact email"),
+    ConfigParam("author", "Author(s) of the project"),
+    ConfigParam("copyright_holder", "Copyright holder"),
+    ConfigParam("project_url", "GitHub project url"),
+    ConfigParam("bot_name", "Bot's GitHub login to push commits in CI"),
+    ConfigParam("bot_email", "Bot account email"),
+    ConfigParam("default_branch", "Default branch of the project"),
+    ConfigParam("description", "Short description of the project"),
+    ConfigParam(
+        "license_type",
+        "Project license type",
+        type=click.Choice(["MIT", "Apache 2.0", "GPL", "None"], case_sensitive=False),
+    ),
+    MultiChoiceParam(
+        "python_versions",
+        text="Supported python versions",
+        choices=["3.6", "3.7", "3.8", "3.9"],
+    ),
+    ConfigParam("docker_image", "Base docker image for the project's Docker container"),
+    ConfigParam("git_message", "Initial Git commit message?"),
+]
+
+PROJECT, TEMPLATE = (
+    NamedTuple(name, [(param.name, type(param)) for param in params])(*params)
+    for (name, params) in [("PROJECT", _PROJECT), ("TEMPLATE", _TEMPLATE)]
+)
