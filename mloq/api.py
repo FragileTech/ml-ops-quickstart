@@ -3,6 +3,8 @@ import copy
 from pathlib import Path
 from typing import List, Tuple, Union
 
+from omegaconf import OmegaConf
+
 from mloq.config import Config
 from mloq.directories import create_project_directories
 from mloq.files import mlproject, OPEN_SOURCE_FILES, ROOT_PATH_FILES, SCRIPTS, setup_py, test_main
@@ -92,9 +94,10 @@ def setup_root_files(
             write_template(file, template=template, path=path, override=override)
     propietary_classif = "License :: Other/Proprietary License"
     license_classifiers = {"mit": "License :: OSI Approved :: MIT License"}
-    setup_template = copy.deepcopy(template)
     license_classif = license_classifiers.get(template["license"], propietary_classif)
-    setup_template["license_classifier"] = license_classif
+    setup_template = {k: copy.deepcopy(v) for k, v in template.items()}
+    setup_template.update({"license_classifier": license_classif})
+    setup_template = OmegaConf.create(setup_template)
     write_template(setup_py, template=setup_template, path=path, override=override)
 
 
