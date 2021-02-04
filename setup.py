@@ -27,7 +27,7 @@ setup(
     keywords=["Machine learning", "artificial intelligence"],
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
     install_requires=[
-        "flogging",
+        "flogging>=0.0.8",
         "jinja2>=2.0.0",
         "click>=7.1.2,<8.0.0",
         "invoke>=1.4.1",

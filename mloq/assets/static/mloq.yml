@@ -6,7 +6,7 @@
 
 # `template` contains all the values that will be written in the generated files.
 # They are loaded as a dictionary and passed to jinja2 to fill in the templates.
-project_config:
+project:
   open_source: null  # boolean
   docker: null  # boolean
   ci: null  # string

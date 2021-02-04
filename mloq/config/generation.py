@@ -25,7 +25,7 @@ def generate_project_config(
         Dictionary containing the generated project_config parameters.
     """
     _project = project_config or {}
-    project_config = load_empty_config()["project_config"]
+    project_config = load_empty_config()["project"]
     project_config.update(_project)
     # Fill in project values
     project_config["open_source"] = PROJECT_CONFIG["open_source"](
@@ -69,7 +69,7 @@ def generate_template(
     # Initialize configuration placeholders
     _template, _project = template or {}, project_config or {}
     config = load_empty_config()
-    project_config, template = config["project_config"], config["template"]
+    project_config, template = config["project"], config["template"]
     project_config.update(_project)
     template.update(_template)
     # Fill in template values

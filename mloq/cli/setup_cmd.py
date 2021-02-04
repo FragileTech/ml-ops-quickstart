@@ -111,7 +111,7 @@ def welcome_message():
 
 def setup_cmd(config: DictConfig, output, overwrite: bool, interactive: bool) -> int:
     """Initialize a new project using ML Ops Quickstart."""
-    project_config, template = config["project_config"], config["template"]
+    project_config, template = config["project"], config["template"]
     if interactive:
         welcome_message()
         data = generate_config_interactive(template=template, project_config=project_config)
@@ -119,7 +119,7 @@ def setup_cmd(config: DictConfig, output, overwrite: bool, interactive: bool) ->
     else:
         project_config = generate_project_config(project_config=project_config)
         template = generate_template(template=template, project_config=project_config)
-    config = {"project_config": project_config, "template": template}
+    config = {"project": project_config, "template": template}
     if interactive and click.confirm("Do you want to generate a mloq.yml file?"):
         write_config(config, output, safe=True)
     if not overwrite and interactive:
