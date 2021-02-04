@@ -34,10 +34,12 @@ jobs:
         python-version: "3.8"
     - name: Install lint dependencies
       run: |
+        set -x
         python -m pip install --upgrade pip
         if [ -f requirements-lint.txt ]; then pip install -r requirements-lint.txt; fi
     - name: Run style check and linter
       run: |
+        set -x
         make -f scripts/makefile.docker check
 
   pytest:
@@ -55,12 +57,14 @@ jobs:
         python-version: ${{"{{"}} matrix.python-version {{"}}"}}
     - name: Install test and package dependencies
       run: |
+        set -x
         python -m pip install --upgrade pip
         if [ -f requirements-test.txt ]; then pip install -r requirements-test.txt; fi
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install .
     - name: Test with pytest
       run: |
+        set -x
         make -f scripts/makefile.docker test-codecov
     - name: Upload coverage report
       if: ${{"{{"}} matrix.python-version=='3.8' {{"}}"}}
@@ -74,19 +78,19 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build container
       run: |
+        set -x
         make -f scripts/makefile.docker docker-build
     - name: Run tests
       run: |
+        set -x
         make -f scripts/makefile.docker docker-test
 
   build-pypi:
-    name: Build package
+    name: Build and test the package
     needs: style-check
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - run: |
-            git fetch --prune --unshallow
 
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
@@ -95,11 +99,13 @@ jobs:
 
       - name: Install dependencies
         run: |
+          set -x
           python -m pip install -U pip
           python -m pip install -U setuptools twine wheel bumpversion
 
       - name: Create unique version for test.pypi
         run: |
+          set -x
           current_version=$(grep __version__ $VERSION_FILE | cut -d\" -f2)
           ts=$(date +%s)
           new_version="$current_version$ts"
@@ -107,6 +113,7 @@ jobs:
 
       - name: Build package
         run: |
+          set -x
           python setup.py --version
           python setup.py bdist_wheel sdist --format=gztar
           twine check dist/*
@@ -120,26 +127,15 @@ jobs:
           repository_url: https://test.pypi.org/legacy/
           skip_existing: true
 
-  test-pypi:
-    name: Test package
-    if: "'$TEST_PYPI_PASS' != ''"
-    needs: build-pypi
-    runs-on: ubuntu-18.04
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-
       - name: Install dependencies
         run: |
-          python -m pip install -U pip
-          python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple $PROJECT_NAME
+          set -x
+          python -m pip install dist/*.whl
           python -m pip install -r requirements-test.txt
 
       - name: Test package
         run: |
+          set -x
           mv $PROJECT_NAME/tests ./tests
           rm -rf $PROJECT_NAME
           make -f scripts/makefile.docker test
@@ -157,8 +153,10 @@ jobs:
         uses: actions/checkout@v2
         with:
           persist-credentials: false
+          fetch-depth: 100
       - name: current_version
         run: |
+          set -x
           echo "current_version=$(grep __version__ $VERSION_FILE | cut -d\" -f2)" >> $GITHUB_ENV
           echo "version_file=$VERSION_FILE" >> $GITHUB_ENV
           echo 'bot_name="${BOT_NAME}"' >> $GITHUB_ENV
@@ -181,15 +179,18 @@ jobs:
       - uses: actions/checkout@v2
       - name: Login to DockerHub
         run: |
+          set -x
           docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
 
       - name: Build container
         run: |
+          set -x
           CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
           make -f scripts/makefile.docker docker-build VERSION=$CONTAINER_VERSION PROJECT=$PROJECT_NAME DOCKER_ORG=$DOCKER_ORG
       - name: Push images
 
         run: |
+          set -x
           CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
           make -f scripts/makefile.docker docker-push VERSION=$CONTAINER_VERSION PROJECT=$PROJECT_NAME DOCKER_ORG=$DOCKER_ORG
 
@@ -199,8 +200,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          git fetch --prune --unshallow
+
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
@@ -208,11 +208,13 @@ jobs:
 
       - name: Install dependencies
         run: |
+          set -x
           python -m pip install -U pip
           python -m pip install -U setuptools twine wheel
 
       - name: Build package
         run: |
+          set -x
           python setup.py --version
           python setup.py bdist_wheel sdist --format=gztar
           twine check dist/*
