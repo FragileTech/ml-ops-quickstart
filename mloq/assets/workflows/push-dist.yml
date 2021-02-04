@@ -34,6 +34,7 @@ jobs:
         python-version: "3.8"
     - name: Install lint dependencies
       run: |
+        set -x
         python -m pip install --upgrade pip
         if [ -f requirements-lint.txt ]; then pip install -r requirements-lint.txt; fi
     - name: Run style check and linter
@@ -55,6 +56,7 @@ jobs:
         python-version: ${{"{{"}} matrix.python-version {{"}}"}}
     - name: Install test and package dependencies
       run: |
+        set -x
         python -m pip install --upgrade pip
         if [ -f requirements-test.txt ]; then pip install -r requirements-test.txt; fi
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
@@ -74,9 +76,11 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build container
       run: |
+        set -x
         make -f scripts/makefile.docker docker-build
     - name: Run tests
       run: |
+        set -x
         make -f scripts/makefile.docker docker-test
 
   build-source:
@@ -85,8 +89,6 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - run: |
-            git fetch --prune --unshallow
 
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
@@ -95,11 +97,13 @@ jobs:
 
       - name: Install dependencies
         run: |
+          set -x
           python -m pip install -U pip
           python -m pip install -U setuptools twine wheel bumpversion
 
       - name: Create unique version for test.pypi
         run: |
+          set -x
           current_version=$(grep __version__ $VERSION_FILE | cut -d\" -f2)
           ts=$(date +%s)
           new_version="$current_version$ts"
@@ -107,6 +111,7 @@ jobs:
 
       - name: Build package
         run: |
+          set -x
           python setup.py --version
           python setup.py sdist --format=gztar
           twine check dist/*
@@ -133,12 +138,14 @@ jobs:
 
       - name: Install dependencies
         run: |
+          set -x
           python -m pip install -U pip
           python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple $PROJECT_NAME
           python -m pip install -r requirements-test.txt
 
       - name: Test package
         run: |
+          set -x
           mv $PROJECT_NAME/tests ./tests
           rm -rf $PROJECT_NAME
           make -f scripts/makefile.docker test
@@ -162,6 +169,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
+        set -x
         git fetch --prune --unshallow
 
     - name: Set up Python ${{'{{'}} matrix.python-version {{'}}'}}
@@ -179,16 +187,20 @@ jobs:
 
     - name: Install dependencies
       run: |
+        set -x
         python -m pip install --upgrade -q pip pytest wheel setuptools twine requests
         python -m pip install -r requirements-test.txt
 
     - name: Build macOS/Windows wheel
       if: matrix.os != 'ubuntu-latest'
-      run: python setup.py -q bdist_wheel
+      run: |
+        set -x
+        python setup.py -q bdist_wheel
 
     - name: Build ManyLinux2014_aarch64 wheels
       if: matrix.wheel == 'aarch64'
       run: |
+        set -x
         docker buildx build --platform linux/arm64 \
         -t ujson_aarch64 --output tmpwheelhouse -f scripts/Dockerfile_aarch64 .
         mkdir -p dist
@@ -197,11 +209,13 @@ jobs:
     - name: Build x86 Linux wheels
       if: matrix.wheel == 'x86'
       run: |
+        set -x
         docker run -e PLAT=manylinux1_x86_64 -v `pwd`:/io quay.io/pypa/manylinux1_x86_64 /io/scripts/build-manylinux-wheels.sh
         docker run -e PLAT=manylinux1_i686 -v `pwd`:/io quay.io/pypa/manylinux1_i686 /io/scripts/build-manylinux-wheels.sh
 
     - name: Rename wheels with test.pypi version
       run: |
+        set -x
         pip install requests
         python scripts/rename_testpypi_wheels.py
 
@@ -217,6 +231,7 @@ jobs:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: "${{'{{'}} secrets.TEST_PYPI_PASS {{'}}'}}"
       run: |
+        set -x
         twine upload --repository-url https://test.pypi.org/legacy/ --skip-existing dist/*.whl
 
   test-pypi:
@@ -245,6 +260,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          set -x
           python -m pip install -U pip
           python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple $PROJECT_NAME
           python -m pip install -r requirements-test.txt
@@ -266,8 +282,10 @@ jobs:
         uses: actions/checkout@v2
         with:
           persist-credentials: false
+          fetch-depth: 100
       - name: current_version
         run: |
+          set -x
           echo "current_version=$(grep __version__ $VERSION_FILE | cut -d\" -f2)" >> $GITHUB_ENV
           echo "version_file=$VERSION_FILE" >> $GITHUB_ENV
           echo 'bot_name="${BOT_NAME}"' >> $GITHUB_ENV
@@ -290,13 +308,16 @@ jobs:
       - uses: actions/checkout@v2
       - name: Login to DockerHub
         run: |
+          set -x
           docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
       - name: Build container
         run: |
+          set -x
           CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
           make -f scripts/makefile.docker docker-build VERSION=${CONTAINER_VERSION} PROJECT=${PROJECT_NAME} DOCKER_ORG=${DOCKER_ORG}
       - name: Push images
         run: |
+          set -x
           CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
           make -f scripts/makefile.docker docker-push VERSION=${CONTAINER_VERSION} PROJECT=${PROJECT_NAME} DOCKER_ORG=${DOCKER_ORG}
 
@@ -307,8 +328,6 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          git fetch --prune --unshallow
 
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
@@ -317,11 +336,13 @@ jobs:
 
       - name: Install dependencies
         run: |
+          set -x
           python -m pip install -U pip
           python -m pip install -U setuptools twine wheel
 
       - name: Build package
         run: |
+          set -x
           python setup.py --version
           python setup.py sdist --format=gztar
           twine check dist/*
@@ -350,8 +371,6 @@ jobs:
             wheel: x86
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          git fetch --prune --unshallow
 
       - name: Set up Python ${{'{{'}} matrix.python-version {{'}}'}}
         uses: actions/setup-python@v2
@@ -368,15 +387,19 @@ jobs:
 
       - name: Install dependencies
         run: |
+          set -x
           python -m pip install --upgrade -q pip pytest wheel setuptools twine
 
       - name: Build macOS/Windows wheel
         if: matrix.os != 'ubuntu-latest'
-        run: python setup.py -q bdist_wheel
+        run: |
+          set -x
+          python setup.py -q bdist_wheel
 
       - name: Build ManyLinux2014_aarch64 wheels
         if: matrix.wheel == 'aarch64'
         run: |
+          set -x
           docker buildx build --platform linux/arm64 \
           -t ujson_aarch64 --output tmpwheelhouse -f scripts/Dockerfile_aarch64 .
           mkdir -p dist
@@ -385,6 +408,7 @@ jobs:
       - name: Build x86 Linux wheels
         if: matrix.wheel == 'x86'
         run: |
+          set -x
           docker run -e PLAT=manylinux1_x86_64 -v `pwd`:/io quay.io/pypa/manylinux1_x86_64 /io/scripts/build-manylinux-wheels.sh
           docker run -e PLAT=manylinux1_i686 -v `pwd`:/io quay.io/pypa/manylinux1_i686 /io/scripts/build-manylinux-wheels.sh
 
@@ -398,4 +422,6 @@ jobs:
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{'{{'}} secrets.PYPI_PASS {{'}}'}}
-        run: twine upload --skip-existing dist/*.whl
+        run: |
+          set -x
+          twine upload --skip-existing dist/*.whl
