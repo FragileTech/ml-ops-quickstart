@@ -119,6 +119,9 @@ ENV/
 # Notebooks by default are ignored
 *.ipynb
 
+# hydra command history
+outputs/
+
 data/
 
 docs/
