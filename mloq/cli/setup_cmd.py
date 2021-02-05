@@ -31,7 +31,7 @@ def generate_config_interactive(template: Config, project_config: Config):
     )
     is_open_source = PROJECT.open_source(project_config, True, default=True)
     project_config["open_source"] = is_open_source
-    default_license = "MIT" if is_open_source else "proprietary"
+    default_license = "MIT" if is_open_source else "None"
     template["license"] = TEMPLATE.license_type(template, True, default=default_license)
     copyright_holder = TEMPLATE.copyright_holder(template, True, default=template["owner"])
     template["copyright_holder"] = copyright_holder

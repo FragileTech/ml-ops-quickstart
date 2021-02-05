@@ -81,6 +81,7 @@ pycodestyle = ["+*" , "-D100", "-D104", "-D301", "-W503", "-W504"]
 [tool.flakehell.exceptions."**/tests/*"]
 pycodestyle = ["-D*"]
 "flake8*" = ["-D*"]
+pyflakes = ["-F401", "-F811"]
 
 [tool.flakehell.exceptions."**/assets/*"]
 pycodestyle = ["-*"]
