@@ -7,26 +7,29 @@
 # `template` contains all the values that will be written in the generated files.
 # They are loaded as a dictionary and passed to jinja2 to fill in the templates.
 project:
-  open_source: null  # boolean
-  docker: null  # boolean
-  ci: null  # string
-  mlflow: null # boolean
-  requirements: null # list
-  git_init: null # boolean
-  git_push: null # boolean
+  open_source:  # boolean
+  docker:  # boolean
+  ci:  # string
+  mlflow: # boolean
+  requirements: # list
+  git_init: # boolean
+  git_push: # boolean
 
 template:
-  project_name: null
-  default_branch: null
-  owner: null
-  author: null
-  email: null
-  copyright_holder: null
-  project_url: null
-  bot_name: null
-  bot_email: null
-  license: null
-  description: null
-  python_versions: null
-  docker_image: null
-  git_message: null
+  project_name:
+  default_branch:
+  owner:
+  author:
+  email:
+  copyright_holder:
+  project_url:
+  bot_name:
+  bot_email:
+  license:
+  description:
+  python_versions:
+  docker_image:
+  ci_python_version:
+  ci_ubuntu_version:
+  ci_extra_setup:
+  git_message:

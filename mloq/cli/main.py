@@ -17,7 +17,7 @@ overwrite_opt = click.option(
     "-o/ ",
     default=False,
     show_default=True,
-    help="If True overwrite existing files. If False ignore files that already exist.",
+    help="Value indicating whether to overwrite existing files.",
 )
 config_file_opt = click.option(
     "--filename",
@@ -28,8 +28,13 @@ config_file_opt = click.option(
     help="Name of the repository config file",
     type=click.Path(exists=True, file_okay=True, dir_okay=True, resolve_path=True),
 )
-
-
+only_config_opt = click.option(
+    "--only-config/--everything",
+    "-c/ ",
+    default=False,
+    show_default=True,
+    help="Value indicating whether to not generate all the files except mloq.yml.",
+)
 output_directory_arg = click.argument(
     "output_directory",
     type=click.Path(exists=True, file_okay=False, dir_okay=True, resolve_path=True),
@@ -63,11 +68,13 @@ def cli():
 @output_directory_arg
 @overwrite_opt
 @interactive_opt
+@only_config_opt
 @click.argument("hydra_args", nargs=-1, type=click.UNPROCESSED)
 def setup(
     config_file: str,
     output_directory: str,
     overwrite: bool,
+    only_config: bool,
     interactive: bool,
     hydra_args: str,
 ) -> None:
@@ -86,4 +93,4 @@ def setup(
     with patch("sys.argv", [sys.argv[0]] + list(hydra_args)):
         load_config()
 
-    exit(setup_cmd(config, output_directory, overwrite, interactive))
+    exit(setup_cmd(config, output_directory, overwrite, interactive, only_config))

@@ -1,0 +1,37 @@
+project:
+  open_source: true
+  docker: true
+  ci: python
+  mlflow: false
+  requirements:
+  - None
+  git_init: false
+  git_push: null
+template:
+  project_name: mloq
+  default_branch: master
+  owner: FragileTech
+  author: FragileTech
+  email: guillem@fragile.tech
+  copyright_holder: FragileTech
+  project_url: https://github.com/FragileTech/ml-ops-quickstart
+  bot_name: fragile-bot
+  bot_email: bot@fragile.tech
+  license: MIT
+  description: Package for initializing ML projects following ML Ops best practices.
+  python_versions:
+  - '3.6'
+  - '3.7'
+  - '3.8'
+  - '3.9'
+  docker_image: fragiletech/ubuntu18.04-base-py39
+  ci_python_version: '3.8'
+  ci_ubuntu_version: ubuntu-20.04
+  ci_extra_setup: |-
+    git config --global user.name "Bot"
+    git config --global user.email "bot@fragile.tech"
+    git config --global init.defaultBranch master
+    mkdir generated
+    mloq setup generated -f mloq.yml
+    diff .github/workflows/push.yml generated/.github/workflows/push.yml
+  git_message: null

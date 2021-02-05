@@ -1,4 +1,4 @@
-project_config:
+project:
   open_source: true
   docker: true
   ci: python
@@ -23,4 +23,7 @@ template:
     - '3.7'
     - '3.8'
     - '3.9'
+  ci_python_version: 3.8
+  ci_ubuntu_version: ubuntu-20.04
+  ci_extra_setup: ''
   docker_image: fragiletech/ubuntu18.04-cuda-11.0-py39

@@ -31,6 +31,9 @@ def template():
         "description": "test description of the project",
         "python_versions": ["3.6", "3.7", "3.8", "3.9"],
         "docker_image": "fragiletech/ubuntu18.04-cuda-11.0-py39",
+        "ci_python_version": "3.8",
+        "ci_ubuntu_version": "ubuntu-20.04",
+        "ci_extra_setup": "",
         "git_message": "Test init commit",
     }
     return test_template
@@ -39,7 +42,7 @@ def template():
 @pytest.fixture(scope="module")
 def mloq_yaml_dict():
     data = {
-        "project_config": {
+        "project": {
             "open_source": True,
             "docker": True,
             "ci": "python",

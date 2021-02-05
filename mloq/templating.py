@@ -1,4 +1,5 @@
 """This module defines common functionality for rendering and writing File templates."""
+from datetime import datetime
 from pathlib import Path
 from typing import Union
 
@@ -31,6 +32,7 @@ def render_template(file: File, template: Config) -> str:
     if file.is_static:
         return read_file(file)
     jinja_template = jinja_env.get_template(str(file.name))
+    jinja_template.globals["now"] = datetime.now
     return jinja_template.render(**template)
 
 

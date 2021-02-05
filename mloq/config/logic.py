@@ -44,7 +44,7 @@ def get_docker_image(
     return image
 
 
-def write_config(config: Config, path: Union[Path, str], safe: bool = False):
+def write_config(config: dict, path: Union[Path, str], safe: bool = False):
     """Write config in a yaml file."""
     if safe:
         path = Path(path)

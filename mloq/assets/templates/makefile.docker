@@ -57,11 +57,6 @@ test-codecov:
 docker-build:
 	docker build --pull -t ${DOCKER_ORG}/${PROJECT}:${VERSION} .
 
-.PHONY: docker-test
-docker-test:
-	find -name "*.pyc" -delete
-	docker run --rm -it --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest -n $n -s -o log_cli=true -o log_cli_level=info
-
 .PHONY: docker-push
 docker-push:
 	docker push ${DOCKER_ORG}/${PROJECT}:${VERSION}
@@ -71,4 +66,4 @@ docker-push:
 .PHONY: docker-test
 docker-test:
 	find -name "*.pyc" -delete
-	docker run --rm -it  -v $(pwd):/io --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest
+	docker run --rm -v $(pwd):/io --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest
