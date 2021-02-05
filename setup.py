@@ -20,10 +20,10 @@ setup(
     packages=find_packages(),
     version=version.__version__,
     license="MIT",
-    author="Guillem Duran Ballester",
+    author="FragileTech",
     author_email="guillem@fragile.tech",
     url="https://github.com/FragileTech/ml-ops-quickstart",
-    download_url="https://github.com/FragileTech/ml-ops-quickstart.git",
+    download_url="https://github.com/FragileTech/ml-ops-quickstart/releases",
     keywords=["Machine learning", "artificial intelligence"],
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
     install_requires=[

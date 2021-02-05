@@ -72,6 +72,9 @@ def generate_config_interactive(template: Config, project_config: Config):
         template["bot_email"] = TEMPLATE.bot_email(template, True, default=template["email"])
 
     project_config["docker"] = True
+    template["ci_python_version"] = "3.8"
+    template["ci_ubuntu_version"] = "ubuntu-20.04"
+    template["ci_extra_setup"] = ""
     click.echo("MLOQ will generate a Dockerfile for your project.")
     base_docker = get_docker_image(template=template, project_config=project_config)
     if base_docker is not None:
@@ -109,7 +112,13 @@ def welcome_message():
     click.echo()
 
 
-def setup_cmd(config: DictConfig, output, overwrite: bool, interactive: bool) -> int:
+def setup_cmd(
+    config: DictConfig,
+    output,
+    overwrite: bool,
+    interactive: bool,
+    only_config: bool,
+) -> int:
     """Initialize a new project using ML Ops Quickstart."""
     project_config, template = config["project"], config["template"]
     if interactive:
@@ -120,8 +129,10 @@ def setup_cmd(config: DictConfig, output, overwrite: bool, interactive: bool) ->
         project_config = generate_project_config(project_config=project_config)
         template = generate_template(template=template, project_config=project_config)
     config = {"project": project_config, "template": template}
-    if interactive and click.confirm("Do you want to generate a mloq.yml file?"):
+    if interactive and (only_config or click.confirm("Do you want to generate a mloq.yml file?")):
         write_config(config, output, safe=True)
+    if only_config:
+        return 0
     if not overwrite and interactive:
         overwrite = click.confirm("Do you want to overwrite existing files?")
     try:
