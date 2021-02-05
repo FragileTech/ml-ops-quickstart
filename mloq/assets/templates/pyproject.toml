@@ -72,10 +72,12 @@ pycodestyle = ["+*" , "-D100", "-D104", "-D301", "-W503", "-W504"]
 pylint = ["-D*"]
 pyflakes = ["-F401"]
 
-# No docs in the tests. Whatever.
+# No docs in the tests. No unused imports (otherwise pytest fixtures raise errors).
 [tool.flakehell.exceptions."**/tests/*"]
 pycodestyle = ["-D*"]
 "flake8*" = ["-D*"]
+pylint = ["-D*"]
+pyflakes = ["-F401", "-F811"]
 
 [tool.pylint.master]
 ignore = 'tests'

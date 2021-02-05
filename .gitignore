@@ -123,6 +123,8 @@ ENV/
 *.lock
 
 data/
+# hydra command history
+outputs/
 
 examples/
 *.pck
