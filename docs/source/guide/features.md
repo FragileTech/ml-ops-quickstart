@@ -4,8 +4,8 @@ defined in `mloq.yml`:
 
 - [README.md](../assets/templates/README.md)
 - [DCO.md](../assets/static/DCO.md)
-- [CONTRIBUTING.md](../assets/templates/README.md)
-- [CODE_OF_CONDUCT.md](../assets/templates/CONTRIBUTING.md)
+- [CONTRIBUTING.md](../assets/templates/CONTRIBUTING.md)
+- [CODE_OF_CONDUCT.md](../assets/templates/CODE_OF_CONDUCT.md)
 - [LICENSE](../assets/templates/MIT_LICENSE)
 - [.gitignore](../assets/static/.gitignore)
 
