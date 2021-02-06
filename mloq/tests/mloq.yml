@@ -17,7 +17,7 @@ template:
   bot_name: owner_test
   bot_email: owner@mail.com
   license: MIT
-  description:
+  description: "my project description"
   python_versions:
     - '3.6'
     - '3.7'

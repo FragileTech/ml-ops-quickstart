@@ -1,6 +1,5 @@
 """Command line interface for mloq."""
 
-import os
 from pathlib import Path
 import sys
 from unittest.mock import patch
@@ -47,14 +46,6 @@ interactive_opt = click.option(
     show_default=True,
     help="If True the configuration values will be defined interactively on the command line.",
 )
-
-
-def _parse_env(config_file, override, interactive):
-    """Parse environment variables defining command options."""
-    config_file = os.getenv("MLOQ_CONFIG_FILE", config_file)
-    override = os.getenv("MLOQ_OVERRIDE", override)
-    interactive = os.getenv("MLOQ_INTERACTIVE", interactive)
-    return config_file, override, interactive
 
 
 @click.group()

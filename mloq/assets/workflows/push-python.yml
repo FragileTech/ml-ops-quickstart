@@ -17,7 +17,7 @@ env:
   BOT_AUTH_TOKEN: ${{'{{'}} secrets.BOT_AUTH_TOKEN {{'}}'}}
   TEST_PYPI_PASS: ${{'{{'}} secrets.TEST_PYPI_PASS {{'}}'}}
   PYPI_PASS: ${{'{{'}} secrets.PYPI_PASS {{'}}'}}
-  DOCKER_ORG: {{owner}}
+  DOCKER_ORG: {{owner.lower()}}
   DOCKER_USERNAME: ${{'{{'}} secrets.DOCKERHUB_LOGIN {{'}}'}}
   DOCKER_PASSWORD: ${{'{{'}} secrets.DOCKERHUB_PASS {{'}}'}}
   PIP_CACHE: |

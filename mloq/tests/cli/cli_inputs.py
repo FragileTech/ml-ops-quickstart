@@ -49,7 +49,29 @@ cli_input_proprietary = (
     "\n"  # Overwrite files
 )
 
+cli_no_ci = (
+    "test_project_name\n"  # Project name
+    "my_test_description\n"  # Description
+    "owner\n"  # project owner
+    "owner@email.com\n"
+    "\n"  # Authors, set to owner
+    "\n"  # url default
+    "n\n"  # open source
+    "none\n"  # Mit license
+    "Owner LTD\n"  # copyright owner
+    "\n"  # Python versions
+    "torch\n"  # requirements
+    "none\n"  # Workflow python
+    "\n"  # Default base docker image
+    "\n"  # No ML Flow
+    "n\n"  # Init git repo
+    "y\n"  # Generate mloq.yml
+    "\n"  # Overwrite files
+)
 
-@pytest.fixture(params=[cli_input_defaults, cli_input_proprietary], scope="module")
+_all_cli_inputs = [cli_input_defaults, cli_input_proprietary, cli_no_ci]
+
+
+@pytest.fixture(params=_all_cli_inputs, scope="module")
 def cli_input(request):
     return request.param

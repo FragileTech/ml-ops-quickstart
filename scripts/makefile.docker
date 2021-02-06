@@ -1,7 +1,7 @@
 current_dir = $(shell pwd)
 
 PROJECT = mloq
-DOCKER_ORG = fragile
+DOCKER_ORG = fragiletech
 VERSION ?= latest
 UBUNTU_NAME = $(lsb_release -s -c)
 n ?= auto
