@@ -19,5 +19,15 @@ def test_setup_non_interactive():
     with tempfile.TemporaryDirectory() as tmp:
         runner = CliRunner(echo_stdin=False)
         result = runner.invoke(cli, ["setup", "-f", str(mloq_file), str(tmp)])
-        result = runner.invoke(cli, ["setup", "-f", str(mloq_file), str(tmp)])
+        _ = runner.invoke(cli, ["setup", "-f", str(mloq_file), str(tmp)])
     assert result.exit_code == 0, result.stdout
+
+
+def test_setup_error():
+    mloq_file = Path(__file__).parent.parent / "mloq.yml"
+    runner = CliRunner(echo_stdin=False)
+    result = runner.invoke(cli, ["setup", "-f", str(mloq_file), "/"])
+    msg = "Failed to setup the project:"
+    fails = msg in result.output or result.exit_code == 1
+    fails = fails or result.stderr_bytes is None  # Pass when running inside docker
+    assert fails, result.output

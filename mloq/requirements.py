@@ -141,14 +141,14 @@ def write_requirements(
 def install_requirement_file(path: Union[Path, str], py3: bool = True):
     """Install the dependencies listed in the target requirements file."""
     python = "python3" if py3 else "python"
-    run(f"{python} -m pip install -r {str(path)}")
+    return run(f"{python} -m pip install -r {str(path)}")
 
 
 def install_requirements(
     path: Union[Path, str],
-    requirements: Optional[Union[str, bool, Path]],
-    test: Optional[Union[str, bool, Path]],
-    lint: Optional[Union[str, bool, Path]],
+    requirements: Optional[Union[str, bool, Path]] = None,
+    test: Optional[Union[str, bool, Path]] = None,
+    lint: Optional[Union[str, bool, Path]] = None,
     py3: bool = True,
 ):
     """Install the dependencies listed in the target requirements files."""

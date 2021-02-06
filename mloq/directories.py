@@ -6,6 +6,7 @@ from typing import Union
 
 from mloq import _logger
 from mloq.config import Config
+from mloq.failure import Failure
 from mloq.files import File, init, main, version
 
 
@@ -60,18 +61,21 @@ def create_project_directories(
     """
     project_config = project_config or {}
     # Project dir
-    project_path = root_path / project_name
-    os.makedirs(project_path, exist_ok=True)
-    copy_file(init, project_path, override)
-    copy_file(version, project_path, override)
-    copy_file(main, project_path, override)
-    # Test dir inside project
-    test_path = project_path / "tests"
-    os.makedirs(test_path, exist_ok=True)
-    copy_file(init, test_path, override)
-    # Scripts dir
-    scripts_path = root_path / "scripts"
-    os.makedirs(scripts_path, exist_ok=True)
+    try:
+        project_path = root_path / project_name
+        os.makedirs(project_path, exist_ok=True)
+        copy_file(init, project_path, override)
+        copy_file(version, project_path, override)
+        copy_file(main, project_path, override)
+        # Test dir inside project
+        test_path = project_path / "tests"
+        os.makedirs(test_path, exist_ok=True)
+        copy_file(init, test_path, override)
+        # Scripts dir
+        scripts_path = root_path / "scripts"
+        os.makedirs(scripts_path, exist_ok=True)
+    except (PermissionError, FileNotFoundError) as e:
+        raise Failure() from e
 
 
 def create_github_actions_directories(root_path: Union[str, Path]) -> None:

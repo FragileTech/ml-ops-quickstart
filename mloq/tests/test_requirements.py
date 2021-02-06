@@ -3,12 +3,16 @@ import tempfile
 
 import pytest
 
-from mloq.files import File
+from mloq.files import File, test_req
 from mloq.requirements import (
     compose_requirements,
     get_aliased_requirements_file,
+    install_requirement_file,
+    install_requirements,
     read_requirements_file,
+    require_cuda,
     write_dev_requirements,
+    write_project_requirements,
 )
 
 
@@ -66,3 +70,24 @@ def test_compose_requirements(all_requirements):
 def test_write_dev_requirements():
     with tempfile.TemporaryDirectory() as tmp:
         write_dev_requirements(tmp)
+        write_dev_requirements(tmp, False, False, False)
+
+
+def test_require_cuda():
+    assert not require_cuda()
+    assert not require_cuda(project_config={"requirements": "none"})
+    assert not require_cuda(project_config={"requirements": "datascience"})
+    assert require_cuda(project_config={"requirements": "torch"})
+
+
+def test_write_project_requirements():
+    assert write_project_requirements(["None"]) is None
+
+
+def test_install_requirements_file():
+    result = install_requirement_file(test_req.src)
+    assert result.ok
+
+
+def test_install_requirements():
+    install_requirements(".", test_req.src, test_req.src, test_req.src)
