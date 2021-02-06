@@ -5,6 +5,8 @@ project:
   mlflow: true
   requirements:
     - torch
+  git_init: false
+  git_push: false
 template:
   project_name: test_project
   default_branch: master

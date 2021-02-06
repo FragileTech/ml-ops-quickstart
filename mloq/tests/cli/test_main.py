@@ -19,4 +19,5 @@ def test_setup_non_interactive():
     with tempfile.TemporaryDirectory() as tmp:
         runner = CliRunner(echo_stdin=False)
         result = runner.invoke(cli, ["setup", "-f", str(mloq_file), str(tmp)])
+        result = runner.invoke(cli, ["setup", "-f", str(mloq_file), str(tmp)])
     assert result.exit_code == 0, result.stdout
