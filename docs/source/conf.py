@@ -26,7 +26,6 @@ def read_template() -> dict:
     template_path = Path(__file__).parent / "_static" / "mloq.yml"
     with open(template_path, "r") as config:
         params = yaml_load(config.read(), Loader)
-
     return params
 
 
@@ -125,7 +124,7 @@ myst_enable_extensions = [
     "dollarmath",
     "html_admonition",
     "html_image",
-    # "linkify",
+    "linkify",
     "replacements",
     "smartquotes",
     "substitution",

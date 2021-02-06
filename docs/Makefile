@@ -23,18 +23,15 @@ help:
 server:
 	python3 -m http.server --directory  build/html/
 
+.PHONY: assets
+assets:
+	rm -rf build
+	rm -rf ./source/assets
+	mkdir source/assets
+	cp -r ../mloq/assets source
 
 .PHONY: test
 test:
-	rm -rf build
-	rm -rf ./source/assets/*
-	cp -r ../mloq/assets/* source/assets
+	make assets
 	make html
 	make server
-
-.PHONY: build
-build:
-	pip3 install -r requirements-docs.txt
-	pip3 install -r requirements-build.txt
-	rm -rf build
-	make html
