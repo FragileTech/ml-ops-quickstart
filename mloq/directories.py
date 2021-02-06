@@ -9,23 +9,6 @@ from mloq.config import Config
 from mloq.files import File, init, main, version
 
 
-def create_empty_file(filepath: Path) -> None:
-    """
-    Create an empty file in the target path.
-
-    Args:
-        filepath: Absolute path to the file that will be created.
-
-    Returns:
-        None
-    """
-    if filepath.exists():
-        _logger.debug(f"file {filepath.name} already exists")
-        return
-    with open(filepath, "w") as _:
-        pass
-
-
 def read_file(file: File) -> str:
     """Return and string with the content of the provided file."""
     with open(file.src, "r") as f:
