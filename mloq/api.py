@@ -7,7 +7,7 @@ from omegaconf import OmegaConf
 
 from mloq.config import Config
 from mloq.directories import create_project_directories
-from mloq.files import mlproject, OPEN_SOURCE_FILES, ROOT_PATH_FILES, SCRIPTS, setup_py, test_main
+from mloq.files import mlproject, OPEN_SOURCE_FILES, ROOT_PATH_FILES, SCRIPTS, setup_py
 from mloq.git import setup_git
 from mloq.requirements import install_requirements, write_requirements
 from mloq.templating import write_template
@@ -66,8 +66,6 @@ def setup_project_files(
         path=path,
         override=override,
     )
-    tests_path = path / project_name / "tests"
-    write_template(test_main, template=_template, path=tests_path, override=override)
 
 
 def setup_scripts(path: Union[str, Path], template: Config, override: bool = False) -> None:
