@@ -1,6 +1,5 @@
 """Command line interface for mloq."""
 
-import os
 from pathlib import Path
 import sys
 from unittest.mock import patch

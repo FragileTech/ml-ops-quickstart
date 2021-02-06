@@ -1,7 +1,7 @@
 current_dir = $(shell pwd)
 
 PROJECT = {{project_name}}
-DOCKER_ORG = {{owner}}
+DOCKER_ORG = {{owner.lower()}}
 VERSION ?= latest
 n ?= auto
 
