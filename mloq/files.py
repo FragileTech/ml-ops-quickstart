@@ -47,7 +47,6 @@ test_req = file("requirements-test.txt", REQUIREMENTS_PATH, is_static=True)
 # Templates
 mit_license = file("MIT_LICENSE", TEMPLATES_PATH, "LICENSE")
 setup_py = file("setup.txt", TEMPLATES_PATH, "setup.py")
-test_main = file("test_main.txt", TEMPLATES_PATH, "test_main.py")
 rename_wheels = file("rename_testpypi_wheels.txt", TEMPLATES_PATH, "rename_testpypi_wheels.py")
 dockerfile = file("Dockerfile", TEMPLATES_PATH)
 makefile = file("Makefile", TEMPLATES_PATH)
