@@ -49,14 +49,6 @@ interactive_opt = click.option(
 )
 
 
-def _parse_env(config_file, override, interactive):
-    """Parse environment variables defining command options."""
-    config_file = os.getenv("MLOQ_CONFIG_FILE", config_file)
-    override = os.getenv("MLOQ_OVERRIDE", override)
-    interactive = os.getenv("MLOQ_INTERACTIVE", interactive)
-    return config_file, override, interactive
-
-
 @click.group()
 def cli():
     """Command line interface for ML Ops Quickstart."""

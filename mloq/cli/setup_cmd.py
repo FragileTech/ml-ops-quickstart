@@ -80,7 +80,7 @@ def generate_config_interactive(template: Config, project_config: Config):
     if base_docker is not None:
         base_docker = TEMPLATE.docker_image(template, True, default=base_docker)
     template["docker_image"] = str(base_docker) if base_docker is None else base_docker
-    click.echo("You can optionally create an ML Flow MLproject file.")
+    click.echo("You can optionally create an ML Flow MLProject file.")
     project_config["mlflow"] = PROJECT.mlflow(project_config, True, default=False)
     project_config["git_init"] = git_init = PROJECT.git_init(
         project_config,

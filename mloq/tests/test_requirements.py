@@ -47,7 +47,7 @@ def test_get_aliased_requirements_file(option):
         get_aliased_requirements_file("miau")
 
 
-def test_reqd_requirements_file(option):
+def test_read_requirements_file(option):
     text = read_requirements_file(option)
     assert isinstance(text, str)
 
