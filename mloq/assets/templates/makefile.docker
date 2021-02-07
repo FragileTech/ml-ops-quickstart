@@ -51,7 +51,7 @@ test:
 .PHONY: test-codecov
 test-codecov:
 	find -name "*.pyc" -delete
-	pytest -n $n -s -o log_cli=true -o log_cli_level=info --cov=./ --cov-report=xml
+	pytest -n $n -s -o log_cli=true -o log_cli_level=info --cov=./ --cov-report=xml --cov-config=pyproject.toml
 
 .PHONY: docker-build
 docker-build:
