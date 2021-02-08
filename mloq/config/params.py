@@ -226,9 +226,11 @@ _TEMPLATE = [
         choices=["3.6", "3.7", "3.8", "3.9"],
     ),
     ConfigParam("docker_image", "Base docker image for the project's Docker container"),
+    BooleanParam("docstring_checks", "Enable/disable linting docstrings"),
+    ConfigParam("pyproject_extra", "Additional pyproject.toml configuration"),
     ConfigParam("ci_python_version", "Primary Python version in GitHub Actions"),
     ConfigParam("ci_ubuntu_version", "Primary Ubuntu version in GitHub Actions"),
-    ConfigParam("ci_extra_setup", "Additional environment setup script in GitHub Actions"),
+    ConfigParam("ci_extra", "Additional script in GitHub Actions before runnign the main tests"),
     ConfigParam("git_message", "Initial Git commit message?"),
 ]
 

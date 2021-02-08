@@ -25,9 +25,15 @@ template:
   - '3.8'
   - '3.9'
   docker_image: fragiletech/ubuntu18.04-base-py39
+  docstring_checks: true
+  pyproject_extra: |-
+    [tool.flakehell.exceptions."**/assets/*"]
+    pycodestyle = ["-*"]
+    pyflakes = ["-*"]
+    "flake8*" = ["-*"]
   ci_python_version: '3.8'
   ci_ubuntu_version: ubuntu-20.04
-  ci_extra_setup: |-
+  ci_extra: |-
     git config --global user.name "Bot"
     git config --global user.email "bot@fragile.tech"
     git config --global init.defaultBranch master
@@ -37,4 +43,5 @@ template:
     diff requirements.txt generated/requirements.txt
     diff requirements-lint.txt generated/requirements-lint.txt
     diff requirements-test.txt generated/requirements-test.txt
+    diff pyproject.toml generated/pyproject.toml
   git_message: null

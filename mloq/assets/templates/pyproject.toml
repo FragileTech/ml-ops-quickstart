@@ -1,8 +1,8 @@
 [build-system]
-requires = ["setuptools >= 50.3.2", "wheel", "importlib"]
+requires = ["setuptools >= 50.3.2", "wheel >= 0.29.0"]
 build-backend = "setuptools.build_meta"
 
-# Example configuration for Black.
+# black is the tool to format the source code
 [tool.black]
 line-length = 99
 target-version = ['py36', 'py37', 'py38']
@@ -21,7 +21,7 @@ exclude = '''
   | dist
 )/
 '''
-# Isort configuration to manage imports
+# isort orders and lints imports
 [tool.isort]
 profile = "black"
 line_length = 99
@@ -62,14 +62,14 @@ application_package_names = ["{{project_name}}"]
 application_import_names = ["{{project_name}}"]
 
 [tool.flakehell.plugins]
-"flake8*" = ["+*", "-D*"] # disable docs by default
-pylint = ["+*", "-D*"]
+"flake8*" = ["+*"{% if no_docs_checks %}, "-D*"{% endif %}]
+pylint = ["+*"{% if no_docs_checks %}, "-D*"{% endif %}]
 pyflakes = ["+*"]
 pycodestyle = ["+*" , "-D100", "-D104", "-D301", "-W503", "-W504"]
 
-[tool.flakehell.exceptions."**/__init__.py"]
+[tool.flakehell.exceptions."**/__init__.py"]{% if no_docs_checks %}
 "flake8*" = ["-D*"]
-pylint = ["-D*"]
+pylint = ["-D*"]{% endif %}
 pyflakes = ["-F401"]
 
 # No docs in the tests. No unused imports (otherwise pytest fixtures raise errors).
@@ -91,3 +91,5 @@ enable = """,
          differing-type-doc,
          missing-return-doc,
          """
+
+{{ pyproject_extra }}

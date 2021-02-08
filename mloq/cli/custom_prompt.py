@@ -53,7 +53,7 @@ def prompt(
     show_default=True,
     err=False,
     show_choices=True,
-):
+) -> None:
     """Prompts a user for input.  This is a convenience function that can \
     be used to prompt a user for input later.
 
@@ -87,6 +87,7 @@ def prompt(
                          For example if type is a Choice of either day or week,
                          show_choices is true and text is "Group by" then the
                          prompt will be "Group by (day, week): ".
+    :return: None
     """
     result = None
 
@@ -137,7 +138,14 @@ def prompt(
         echo("Error: the two entered values do not match", err=err)
 
 
-def confirm(text, default=False, abort=False, prompt_suffix=": ", show_default=True, err=False):
+def confirm(
+    text,
+    default=False,
+    abort=False,
+    prompt_suffix=": ",
+    show_default=True,
+    err=False,
+) -> bool:
     """Prompts for confirmation (yes/no question).
 
     If the user aborts the input by sending a interrupt signal this
@@ -154,6 +162,7 @@ def confirm(text, default=False, abort=False, prompt_suffix=": ", show_default=T
     :param show_default: shows or hides the default value in the prompt.
     :param err: if set to true the file defaults to ``stderr`` instead of
                 ``stdout``, the same as with echo.
+    :return: User's decision.
     """
     prompt_ = _build_prompt(text, prompt_suffix, show_default, "Y/n" if default else "y/N")
     while 1:

@@ -74,7 +74,9 @@ def generate_config_interactive(template: Config, project_config: Config):
     project_config["docker"] = True
     template["ci_python_version"] = "3.8"
     template["ci_ubuntu_version"] = "ubuntu-20.04"
-    template["ci_extra_setup"] = ""
+    template["ci_extra"] = ""
+    template["pyproject_extra"] = ""
+    template["docstring_checks"] = False
     click.echo("MLOQ will generate a Dockerfile for your project.")
     base_docker = get_docker_image(template=template, project_config=project_config)
     if base_docker is not None:
