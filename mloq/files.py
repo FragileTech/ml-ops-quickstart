@@ -43,6 +43,7 @@ pytorch_req = file("pytorch.txt", REQUIREMENTS_PATH, is_static=True)
 tensorflow_req = file("tensorflow.txt", REQUIREMENTS_PATH, is_static=True)
 lint_req = file("requirements-lint.txt", REQUIREMENTS_PATH, is_static=True)
 test_req = file("requirements-test.txt", REQUIREMENTS_PATH, is_static=True)
+dogfood_req = file("dogfood.txt", REQUIREMENTS_PATH, is_static=True)
 
 # Templates
 mit_license = file("MIT_LICENSE", TEMPLATES_PATH, "LICENSE")

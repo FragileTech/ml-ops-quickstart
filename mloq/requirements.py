@@ -10,6 +10,7 @@ from mloq.directories import copy_file
 from mloq.files import (
     data_science_req,
     data_viz_req,
+    dogfood_req,
     File,
     lint_req,
     pytorch_req,
@@ -49,6 +50,8 @@ def get_aliased_requirements_file(option: str) -> File:
     for file, valid_alias in REQUIREMENTS_ALIASES.items():
         if option in valid_alias:
             return file
+    if option == "dogfood":
+        return dogfood_req
     raise KeyError(f"{option} is not a valid name. Valid aliases are {REQUIREMENTS_ALIASES}")
 
 
