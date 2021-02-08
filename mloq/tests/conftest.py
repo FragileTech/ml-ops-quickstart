@@ -33,7 +33,9 @@ def template():
         "docker_image": "fragiletech/ubuntu18.04-cuda-11.0-py39",
         "ci_python_version": "3.8",
         "ci_ubuntu_version": "ubuntu-20.04",
-        "ci_extra_setup": "",
+        "ci_extra": "",
+        "docstring_checks": False,
+        "pyproject_extra": "",
         "git_message": "Test init commit",
     }
     return test_template

@@ -29,7 +29,9 @@ template:
   description:
   python_versions:
   docker_image:
+  docstring_checks:
+  pyproject_extra:
   ci_python_version:
   ci_ubuntu_version:
-  ci_extra_setup:
+  ci_extra:
   git_message:

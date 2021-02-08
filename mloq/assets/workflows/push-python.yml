@@ -76,11 +76,11 @@ jobs:
       run: |
         set -x
         pip install -r requirements-test.txt -r requirements.txt
-        pip install .{% if ci_extra_setup %}
+        pip install .{% if ci_extra %}
     - name: Additional setup
       run: |
         set -x
-        {{ ci_extra_setup | indent(8) }}{% endif %}
+        {{ ci_extra | indent(8) }}{% endif %}
 
     - name: Test with pytest
       run: |
@@ -155,11 +155,11 @@ jobs:
       - name: Install dependencies
         run: |
           set -x
-          python -m pip install dist/*.whl -r requirements-test.txt{% if ci_extra_setup %}
+          python -m pip install dist/*.whl -r requirements-test.txt{% if ci_extra %}
       - name: Additional setup
         run: |
           set -x
-          {{ ci_extra_setup | indent(10) }}{% endif %}
+          {{ ci_extra | indent(10) }}{% endif %}
 
       - name: Test package
         run: |

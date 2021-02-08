@@ -113,4 +113,7 @@ def generate_template(
     if base_docker is not None:
         base_docker = TEMPLATE.docker_image(template, interactive, default=base_docker)
     template["docker_image"] = str(base_docker) if base_docker is None else base_docker
+    template["docstring_checks"] = False
+    template["ci_python_version"] = "3.8"
+    template["ci_ubuntu_version"] = "ubuntu-20.04"
     return template

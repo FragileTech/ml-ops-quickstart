@@ -5,13 +5,13 @@ from mloq.config.generation import generate_project_config, generate_template
 
 
 def compare_dicts(a, b):
-    for (k1, v1), (k2, v2) in zip(a.items(), b.items()):
+    for (k1, v1), (k2, v2) in zip(sorted(a.items()), sorted(b.items())):
         assert k1 == k2
         if not isinstance(v1, list):
-            assert v1 == v2
+            assert v1 == v2, k1
         else:
             for x1, x2 in zip(v1, v2):
-                assert x1 == x2
+                assert x1 == x2, k1
 
 
 def test_generate_config(project_config):

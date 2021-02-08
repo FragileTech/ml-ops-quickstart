@@ -89,6 +89,7 @@ jobs:
         diff requirements.txt generated/requirements.txt
         diff requirements-lint.txt generated/requirements-lint.txt
         diff requirements-test.txt generated/requirements-test.txt
+        diff pyproject.toml generated/pyproject.toml
 
     - name: Test with pytest
       run: |
@@ -176,6 +177,7 @@ jobs:
           diff requirements.txt generated/requirements.txt
           diff requirements-lint.txt generated/requirements-lint.txt
           diff requirements-test.txt generated/requirements-test.txt
+          diff pyproject.toml generated/pyproject.toml
 
       - name: Test package
         run: |
