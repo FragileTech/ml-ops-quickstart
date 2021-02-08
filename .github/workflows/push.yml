@@ -86,6 +86,9 @@ jobs:
         mkdir generated
         mloq setup generated -f mloq.yml
         diff .github/workflows/push.yml generated/.github/workflows/push.yml
+        diff requirements.txt generated/requirements.txt
+        diff requirements-lint.txt generated/requirements-lint.txt
+        diff requirements-test.txt generated/requirements-test.txt
 
     - name: Test with pytest
       run: |
@@ -170,6 +173,9 @@ jobs:
           mkdir generated
           mloq setup generated -f mloq.yml
           diff .github/workflows/push.yml generated/.github/workflows/push.yml
+          diff requirements.txt generated/requirements.txt
+          diff requirements-lint.txt generated/requirements-lint.txt
+          diff requirements-test.txt generated/requirements-test.txt
 
       - name: Test package
         run: |

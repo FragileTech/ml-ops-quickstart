@@ -4,7 +4,7 @@ project:
   ci: python
   mlflow: false
   requirements:
-  - None
+  - dogfood
   git_init: false
   git_push: null
 template:
@@ -34,4 +34,7 @@ template:
     mkdir generated
     mloq setup generated -f mloq.yml
     diff .github/workflows/push.yml generated/.github/workflows/push.yml
+    diff requirements.txt generated/requirements.txt
+    diff requirements-lint.txt generated/requirements-lint.txt
+    diff requirements-test.txt generated/requirements-test.txt
   git_message: null
