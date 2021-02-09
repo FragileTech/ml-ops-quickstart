@@ -1,4 +1,5 @@
 """Contains the functions that generate the required configuration."""
+from datetime import datetime
 from typing import Optional
 
 from mloq.config.logic import get_docker_image, load_empty_config
@@ -88,6 +89,7 @@ def generate_template(
         interactive,
         default=template["owner"],
     )
+    template["copyright_year"] = datetime.now().year
     template["copyright_holder"] = copyright_holder
     default_url = f"https://github.com/{template['owner']}/{template['project_name']}"
     template["project_url"] = TEMPLATE.project_url(template, interactive, default=default_url)

@@ -23,6 +23,7 @@ def template():
         "owner": "owner_test",
         "author": "owner_test",
         "email": "owner@mail.com",
+        "copyright_year": 2021,
         "copyright_holder": "owner_test",
         "project_url": "https://github.com/owner_test/test_project",
         "bot_name": "owner_test",

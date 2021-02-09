@@ -209,6 +209,7 @@ _TEMPLATE = [
     ConfigParam("owner", "Github handle of the project owner"),
     ConfigParam("email", "Owner contact email"),
     ConfigParam("author", "Author(s) of the project"),
+    ConfigParam("copyright_year", "Year when the project started"),
     ConfigParam("copyright_holder", "Copyright holder"),
     ConfigParam("project_url", "GitHub project url"),
     ConfigParam("bot_name", "Bot's GitHub login to push commits in CI"),
