@@ -95,6 +95,7 @@ jobs:
         diff CONTRIBUTING.md generated/CONTRIBUTING.md
         diff LICENSE generated/LICENSE
         diff Makefile generated/Makefile
+        diff .pre-commit-config.yaml generated/.pre-commit-config.yaml
 
     - name: Test with pytest
       run: |
@@ -188,6 +189,7 @@ jobs:
           diff CONTRIBUTING.md generated/CONTRIBUTING.md
           diff LICENSE generated/LICENSE
           diff Makefile generated/Makefile
+          diff .pre-commit-config.yaml generated/.pre-commit-config.yaml
 
       - name: Test package
         run: |
