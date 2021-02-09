@@ -28,6 +28,7 @@ WORKFLOWS_PATH = ASSETS_PATH / "workflows"
 # Common files
 mloq_yml = file("mloq.yml", STATIC_FILES_PATH, is_static=True)
 gitignore = file(".gitignore", STATIC_FILES_PATH, is_static=True)
+pre_commit_hook = file(".pre-commit-config.yaml", STATIC_FILES_PATH, is_static=True)
 dco = file("DCO.md", STATIC_FILES_PATH, is_static=True)
 init = file("init.txt", STATIC_FILES_PATH, "__init__.py", is_static=True)
 main = file("main.txt", STATIC_FILES_PATH, "__main__.py", is_static=True)
@@ -63,6 +64,7 @@ push_dist_wkf = file("push-dist.yml", WORKFLOWS_PATH, "push.yml")
 
 ROOT_PATH_FILES = [
     gitignore,
+    pre_commit_hook,
     pyproject_toml,
     makefile,
     dockerfile,

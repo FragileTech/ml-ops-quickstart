@@ -1,0 +1,9 @@
+repos:
+- repo: https://github.com/psf/black
+  rev: 20.8b1
+  hooks:
+  - id: black
+- repo: https://github.com/life4/flakehell
+  rev: v.0.8.0
+  hooks:
+  - id: flakehell

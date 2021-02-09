@@ -14,6 +14,7 @@ from mloq.files import File, TEMPLATES_PATH, WORKFLOWS_PATH
 jinja_env = Environment(
     loader=FileSystemLoader([str(TEMPLATES_PATH), str(WORKFLOWS_PATH)]),
     autoescape=select_autoescape(["html", "xml"]),
+    keep_trailing_newline=True,
 )
 
 

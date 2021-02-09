@@ -28,6 +28,7 @@ def setup_git(
     try:
         _git_cmd(path, "init")
         _git_cmd(path, *f"remote add origin ssh://git@github.com/{owner}/{project_name}".split())
+        subprocess.run(("pre-commit", "install"), check=True, cwd=path)
         _git_cmd(path, *"add .".split())
         _git_cmd(path, *f"commit {'--signoff' if sign_off else ''} -m".split(), message)
         if push:

@@ -6,7 +6,7 @@ project:
   requirements:
   - dogfood
   git_init: false
-  git_push: null
+  git_push: false
 template:
   project_name: mloq
   default_branch: master
@@ -50,4 +50,5 @@ template:
     diff CONTRIBUTING.md generated/CONTRIBUTING.md
     diff LICENSE generated/LICENSE
     diff Makefile generated/Makefile
+    diff .pre-commit-config.yaml generated/.pre-commit-config.yaml
   git_message: null
