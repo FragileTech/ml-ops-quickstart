@@ -21,6 +21,7 @@ template:
   owner:
   author:
   email:
+  copyright_year:
   copyright_holder:
   project_url:
   bot_name:

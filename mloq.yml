@@ -13,6 +13,7 @@ template:
   owner: FragileTech
   author: FragileTech
   email: guillem@fragile.tech
+  copyright_year: 2020
   copyright_holder: FragileTech
   project_url: https://github.com/FragileTech/ml-ops-quickstart
   bot_name: fragile-bot
@@ -44,4 +45,8 @@ template:
     diff requirements-lint.txt generated/requirements-lint.txt
     diff requirements-test.txt generated/requirements-test.txt
     diff pyproject.toml generated/pyproject.toml
+    diff DCO.md generated/DCO.md
+    diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
+    diff CONTRIBUTING.md generated/CONTRIBUTING.md
+    diff LICENSE generated/LICENSE
   git_message: null

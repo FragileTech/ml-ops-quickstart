@@ -90,6 +90,10 @@ jobs:
         diff requirements-lint.txt generated/requirements-lint.txt
         diff requirements-test.txt generated/requirements-test.txt
         diff pyproject.toml generated/pyproject.toml
+        diff DCO.md generated/DCO.md
+        diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
+        diff CONTRIBUTING.md generated/CONTRIBUTING.md
+        diff LICENSE generated/LICENSE
 
     - name: Test with pytest
       run: |
@@ -178,6 +182,10 @@ jobs:
           diff requirements-lint.txt generated/requirements-lint.txt
           diff requirements-test.txt generated/requirements-test.txt
           diff pyproject.toml generated/pyproject.toml
+          diff DCO.md generated/DCO.md
+          diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
+          diff CONTRIBUTING.md generated/CONTRIBUTING.md
+          diff LICENSE generated/LICENSE
 
       - name: Test package
         run: |
