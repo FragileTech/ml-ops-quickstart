@@ -11,7 +11,7 @@ style:
 	isort .
 
 .POSIX:
-check:
+check: style
 	!(grep -R /tmp ${PROJECT}/tests)
 	flakehell lint ${PROJECT}
 	pylint ${PROJECT}
@@ -29,13 +29,21 @@ pipenv-install:
 	pipenv install --dev -r requirements-test.txt
 	pipenv install --pre --dev -r requirements-lint.txt
 	pipenv install -r requirements.txt
-	pipenv install .
+	pipenv install -e .
 	pipenv lock
 
 .PHONY: pipenv-test
 pipenv-test:
 	find -name "*.pyc" -delete
 	pipenv run pytest -s
+
+.PHONY: docker-shell
+docker-shell:
+	docker run --rm --gpus all -v ${current_dir}:/${PROJECT} --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION} bash
+
+.PHONY: docker-notebook
+docker-notebook:
+	docker run --rm --gpus all -v ${current_dir}:/${PROJECT} --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION}
 
 .PHONY: docker-build
 docker-build:
@@ -45,14 +53,6 @@ docker-build:
 docker-test:
 	find -name "*.pyc" -delete
 	docker run --rm -it --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest -n $n -s -o log_cli=true -o log_cli_level=info
-
-.PHONY: docker-shell
-docker-shell:
-	docker run --rm --gpus all -v ${current_dir}:/${PROJECT} --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION} bash
-
-.PHONY: docker-notebook
-docker-notebook:
-	docker run --rm --gpus all -v ${current_dir}:/${PROJECT} --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION}
 
 .PHONY: remove-dev-packages
 remove-dev-packages:

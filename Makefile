@@ -3,9 +3,7 @@ current_dir = $(shell pwd)
 PROJECT = mloq
 DOCKER_ORG = fragiletech
 VERSION ?= latest
-UBUNTU_NAME = $(lsb_release -s -c)
 n ?= auto
-# Project usage commands
 
 .POSIX:
 style:
@@ -13,11 +11,16 @@ style:
 	isort .
 
 .POSIX:
-check:
+check: style
 	!(grep -R /tmp ${PROJECT}/tests)
 	flakehell lint ${PROJECT}
 	pylint ${PROJECT}
 	black --check ${PROJECT}
+
+.PHONY: test
+test:
+	find -name "*.pyc" -delete
+	pytest -n $n -s -o log_cli=true -o log_cli_level=info
 
 .PHONY: pipenv-install
 pipenv-install:
@@ -29,11 +32,6 @@ pipenv-install:
 	pipenv install -e .
 	pipenv lock
 
-.PHONY: test
-test:
-	find -name "*.pyc" -delete
-	pytest -n $n -s -o log_cli=true -o log_cli_level=info
-
 .PHONY: pipenv-test
 pipenv-test:
 	find -name "*.pyc" -delete
@@ -41,8 +39,33 @@ pipenv-test:
 
 .PHONY: docker-shell
 docker-shell:
-	docker run --rm -v $(pwd):/io --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION} bash
+	docker run --rm --gpus all -v ${current_dir}:/${PROJECT} --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION} bash
 
 .PHONY: docker-notebook
 docker-notebook:
-	docker run --rm -v $(pwd):/io --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION}
+	docker run --rm --gpus all -v ${current_dir}:/${PROJECT} --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION}
+
+.PHONY: docker-build
+docker-build:
+	docker build --pull -t ${DOCKER_ORG}/${PROJECT}:${VERSION} .
+
+.PHONY: docker-test
+docker-test:
+	find -name "*.pyc" -delete
+	docker run --rm -it --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest -n $n -s -o log_cli=true -o log_cli_level=info
+
+.PHONY: remove-dev-packages
+remove-dev-packages:
+	pip3 uninstall -y cython && \
+	apt-get remove -y cmake pkg-config flex bison curl libpng-dev \
+		libjpeg-turbo8-dev zlib1g-dev libhdf5-dev libopenblas-dev gfortran \
+		libfreetype6-dev libjpeg8-dev libffi-dev && \
+	apt-get autoremove -y && \
+	apt-get clean && \
+	rm -rf /var/lib/apt/lists/*
+
+.PHONY: docker-push
+docker-push:
+	docker push ${DOCKER_ORG}/${DOCKER_TAG}:${VERSION}
+	docker tag ${DOCKER_ORG}/${DOCKER_TAG}:${VERSION} ${DOCKER_ORG}/${DOCKER_TAG}:latest
+	docker push ${DOCKER_ORG}/${DOCKER_TAG}:latest
