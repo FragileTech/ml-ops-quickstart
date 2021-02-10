@@ -57,6 +57,7 @@ mlproject = file("MLproject", TEMPLATES_PATH)
 readme = file("README.md", TEMPLATES_PATH)
 contributing = file("CONTRIBUTING.md", TEMPLATES_PATH)
 pyproject_toml = file("pyproject.toml", TEMPLATES_PATH)
+codecov = file(".codecov.yml", TEMPLATES_PATH)
 
 # Workflows
 push_python_wkf = file("push-python.yml", WORKFLOWS_PATH, "push.yml")
@@ -71,6 +72,7 @@ ROOT_PATH_FILES = [
     readme,
     contributing,
     code_of_conduct,
+    codecov,
 ]
 
 OPEN_SOURCE_FILES = [dco, mit_license]
