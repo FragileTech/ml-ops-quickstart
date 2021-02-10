@@ -100,6 +100,7 @@ jobs:
         diff scripts/Dockerfile_aarch64 generated/scripts/Dockerfile_aarch64
         diff scripts/makefile.docker generated/scripts/makefile.docker
         diff scripts/rename_testpypi_wheels.py generated/scripts/rename_testpypi_wheels.py
+        diff .codecov.yml generated/.codecov.yml
 
     - name: Test with pytest
       run: |
@@ -198,6 +199,7 @@ jobs:
           diff scripts/Dockerfile_aarch64 generated/scripts/Dockerfile_aarch64
           diff scripts/makefile.docker generated/scripts/makefile.docker
           diff scripts/rename_testpypi_wheels.py generated/scripts/rename_testpypi_wheels.py
+          diff .codecov.yml generated/.codecov.yml
 
       - name: Test package
         run: |
