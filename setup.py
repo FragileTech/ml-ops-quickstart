@@ -1,3 +1,4 @@
+"""mloq package installation metadata."""
 from importlib.machinery import SourceFileLoader
 from pathlib import Path
 

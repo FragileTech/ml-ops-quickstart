@@ -5,7 +5,7 @@ from typing import Union
 from mloq import _logger
 from mloq.config.params import Config, is_empty
 from mloq.directories import create_github_actions_directories
-from mloq.files import push_dist_wkf, push_python_wkf
+from mloq.files import Ledger, push_dist_wkf, push_python_wkf
 from mloq.templating import write_template
 
 
@@ -19,6 +19,7 @@ def setup_workflow_template(
     root_path: Union[Path, str],
     project_config: Config,
     template: Config,
+    ledger: Ledger,
     override: bool = False,
 ):
     """Add the target workflows to the corresponding .github/workflows repository."""
@@ -33,13 +34,20 @@ def setup_workflow_template(
     if workflow_file is None:
         _logger.warning(f"Workflow {workflow} not defined. Skipping")
     else:
-        write_template(workflow_file, template=template, path=workflows_path, override=override)
+        write_template(
+            workflow_file,
+            template=template,
+            path=workflows_path,
+            ledger=ledger,
+            override=override,
+        )
 
 
 def setup_push_workflow(
     path: Union[str, Path],
     project_config: Config,
     template: Config,
+    ledger: Ledger,
     override: bool = False,
 ) -> None:
     """Initialize the target workflow."""
@@ -50,5 +58,6 @@ def setup_push_workflow(
         project_config=project_config,
         template=template,
         root_path=path,
+        ledger=ledger,
         override=override,
     )

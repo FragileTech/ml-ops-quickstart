@@ -67,10 +67,10 @@ def test_compose_requirements(all_requirements):
         assert lib_name == example
 
 
-def test_write_dev_requirements():
+def test_write_dev_requirements(ledger):
     with tempfile.TemporaryDirectory() as tmp:
-        write_dev_requirements(tmp)
-        write_dev_requirements(tmp, False, False, False)
+        write_dev_requirements(ledger, tmp)
+        write_dev_requirements(ledger, tmp, False, False, False)
 
 
 def test_require_cuda():
@@ -80,8 +80,8 @@ def test_require_cuda():
     assert require_cuda(project_config={"requirements": "torch"})
 
 
-def test_write_project_requirements():
-    assert write_project_requirements(["None"]) is None
+def test_write_project_requirements(ledger):
+    assert write_project_requirements(["None"], ledger) is None
 
 
 def test_install_requirements_file():

@@ -6,9 +6,8 @@ from typing import Union
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from mloq import _logger
-from mloq.config import Config
 from mloq.directories import read_file
-from mloq.files import File, TEMPLATES_PATH, WORKFLOWS_PATH
+from mloq.files import File, Ledger, TEMPLATES_PATH, WORKFLOWS_PATH
 
 
 jinja_env = Environment(
@@ -18,7 +17,7 @@ jinja_env = Environment(
 )
 
 
-def render_template(file: File, template: Config) -> str:
+def render_template(file: File, template: dict) -> str:
     """
     Render a jinja template with the provided parameter dict.
 
@@ -37,7 +36,13 @@ def render_template(file: File, template: Config) -> str:
     return jinja_template.render(**template)
 
 
-def write_template(file: File, template: Config, path: Union[Path, str], override: bool = False):
+def write_template(
+    file: File,
+    template: dict,
+    path: Union[Path, str],
+    ledger: Ledger,
+    override: bool = False,
+):
     """
     Create new file containing the rendered template found in source_path.
 
@@ -46,6 +51,7 @@ def write_template(file: File, template: Config, path: Union[Path, str], overrid
         template: Dictionary containing the parameters key and corresponding values \
                 that will be used to render the templates.
         path: Absolute path to the folder containing the target templates.
+        ledger: Book keeper to keep track of the generated files.
         override: If False, copy the file if it does not already exists in the \
                   target path. If True, overwrite the target file if it is already present.
 
@@ -56,6 +62,7 @@ def write_template(file: File, template: Config, path: Union[Path, str], overrid
     if not override and (path / file.dst).exists():
         _logger.debug(f"file {file.name} already exists. Skipping")
         return
+    ledger.register(file)
     rendered = render_template(file, template)
     with open(path / file.dst, "w") as f:
         f.write(rendered)

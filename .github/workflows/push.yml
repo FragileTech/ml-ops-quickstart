@@ -101,6 +101,7 @@ jobs:
         diff scripts/makefile.docker generated/scripts/makefile.docker
         diff scripts/rename_testpypi_wheels.py generated/scripts/rename_testpypi_wheels.py
         diff .codecov.yml generated/.codecov.yml
+        diff .gitignore generated/.gitignore
 
     - name: Test with pytest
       run: |
@@ -200,6 +201,7 @@ jobs:
           diff scripts/makefile.docker generated/scripts/makefile.docker
           diff scripts/rename_testpypi_wheels.py generated/scripts/rename_testpypi_wheels.py
           diff .codecov.yml generated/.codecov.yml
+          diff .gitignore generated/.gitignore
 
       - name: Test package
         run: |
