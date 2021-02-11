@@ -12,6 +12,7 @@ from mloq.files import (
     data_viz_req,
     dogfood_req,
     File,
+    Ledger,
     lint_req,
     pytorch_req,
     tensorflow_req,
@@ -86,6 +87,7 @@ def compose_requirements(options: Iterable[str]) -> str:
 
 def write_project_requirements(
     options: Iterable[str],
+    ledger: Ledger,
     out_path: Optional[Union[Path, str]] = None,
     out_name: str = "requirements.txt",
     override: bool = False,
@@ -103,11 +105,16 @@ def write_project_requirements(
     if not override and file_path.exists():
         return
     requirements = compose_requirements(options) if options is not None else ""
+    ledger.register(
+        out_name,
+        "list of exact versions of the packages on which your project depends",
+    )
     with open(file_path, "w") as f:
         f.write(requirements)
 
 
 def write_dev_requirements(
+    ledger: Ledger,
     out_path: Optional[Union[Path, str]] = None,
     override: bool = False,
     test: bool = True,
@@ -116,13 +123,16 @@ def write_dev_requirements(
     """Write requirements-lint.txt and requirements-test.txt in the target directory."""
     out_path = Path(os.getcwd() if out_path is None else out_path)
     if lint:
+        ledger.register(lint_req)
         copy_file(lint_req, out_path, override)
     if test:
+        ledger.register(test_req)
         copy_file(test_req, out_path, override)
 
 
 def write_requirements(
     out_path: Union[str, Path],
+    ledger: Ledger,
     options: Optional[Iterable[str]] = None,
     out_name="requirements.txt",
     override: bool = False,
@@ -137,8 +147,15 @@ def write_requirements(
             out_path=out_path,
             out_name=out_name,
             override=override,
+            ledger=ledger,
         )
-    write_dev_requirements(out_path, override=override, test=test, lint=lint)
+    write_dev_requirements(
+        out_path=out_path,
+        override=override,
+        test=test,
+        lint=lint,
+        ledger=ledger,
+    )
 
 
 def install_requirement_file(path: Union[Path, str], py3: bool = True):

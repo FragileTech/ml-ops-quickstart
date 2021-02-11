@@ -1,3 +1,5 @@
+# This file is here just for the reference
+WHAT_MLOQ_GENERATED.md
 
 #Mac OS
 *.DS_Store
@@ -6,9 +8,8 @@
 .idea/
 
 # Documentation build templates
-doc/_build/
-doc/ast2vec.rst
-doc/modules.rst
+docs/_build/
+docs/build/
 
 # Byte-compiled / optimized / DLL templates
 __pycache__/
@@ -119,14 +120,11 @@ ENV/
 # Notebooks by default are ignored
 *.ipynb
 
+# lock files
+*.lock
+
 # hydra command history
 outputs/
 
-data/
-
-docs/
-examples/
 *.pck
 *.npy
-
-Pipfile.lock

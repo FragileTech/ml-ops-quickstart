@@ -1,4 +1,9 @@
+from pathlib import Path
+
+import omegaconf
 import pytest
+
+from mloq.files import Ledger
 
 
 @pytest.fixture(scope="module")
@@ -39,7 +44,7 @@ def template():
         "pyproject_extra": "",
         "git_message": "Test init commit",
     }
-    return test_template
+    return omegaconf.DictConfig(test_template)
 
 
 @pytest.fixture(scope="module")
@@ -72,3 +77,13 @@ def mloq_yaml_dict():
         },
     }
     return data
+
+
+@pytest.fixture()
+def repo_path():
+    return Path(__file__).parent / "test_project"
+
+
+@pytest.fixture(scope="function")
+def ledger():
+    return Ledger()

@@ -2,15 +2,9 @@ from pathlib import Path
 import tempfile
 
 import invoke
-import pytest
 
 from mloq.api import setup_project, setup_requirements
 from mloq.files import test_req
-
-
-@pytest.fixture()
-def repo_path():
-    return Path(__file__).parent / "test_project"
 
 
 def test_init_repository(project_config, template):
@@ -23,9 +17,9 @@ def test_init_repository(project_config, template):
         )
 
 
-def test_setup_requirements():
+def test_setup_requirements(ledger):
     try:
-        setup_requirements(test_req.src.parent, project_config={}, install=("all",))
+        setup_requirements(test_req.src.parent, project_config={}, install=("all",), ledger=ledger)
     except invoke.exceptions.UnexpectedExit:
         pass
-    setup_requirements(test_req.src.parent, project_config={}, install=("lint",))
+    setup_requirements(test_req.src.parent, project_config={}, install=("lint",), ledger=ledger)
