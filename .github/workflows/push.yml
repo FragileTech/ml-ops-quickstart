@@ -102,6 +102,7 @@ jobs:
         diff scripts/rename_testpypi_wheels.py generated/scripts/rename_testpypi_wheels.py
         diff .codecov.yml generated/.codecov.yml
         diff .gitignore generated/.gitignore
+        diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
 
     - name: Test with pytest
       run: |
@@ -202,6 +203,7 @@ jobs:
           diff scripts/rename_testpypi_wheels.py generated/scripts/rename_testpypi_wheels.py
           diff .codecov.yml generated/.codecov.yml
           diff .gitignore generated/.gitignore
+          diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
 
       - name: Test package
         run: |

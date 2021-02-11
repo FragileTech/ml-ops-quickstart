@@ -8,11 +8,11 @@
 * `DCO.md` - Developer Certificate of Origin - needed in open source projects to certify that the incoming contributions are legitimate 
 * `Dockerfile` - Dockerfile to install the project 
 * `Dockerfile_aarch64` - Dockerfile to build for aarch64 hardware 
+* `LICENSE` - license of the project 
 * `Makefile` - common make commands for development 
 * `Python package installation metadata` - setup.py 
 * `README.md` - README 
 * `build-manylinux-wheels.sh` - script to build universal Linux wheels 
-* `license of the project` - LICENSE 
 * `makefile.docker` - common make commands executed in Docker for development 
 * `push.yml` - GitHub Actions continuous integration workflow file 
 * `pyproject.toml` - configuration of various development tools: linters, formatters 
