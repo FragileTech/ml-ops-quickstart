@@ -1,4 +1,4 @@
-FROM {{base_docker_image}}
+FROM {{ docker_image }}
 ARG JUPYTER_PASSWORD="{{jupyter_password}}"
 ENV BROWSER=/browser \
     LC_ALL=en_US.UTF-8 \
@@ -12,11 +12,11 @@ RUN cd {{project_name}} \
     && pip3 install -r requirements-test.txt  \
     && pip3 install -r requirements.txt  \
     && pip install ipython jupyter \
-    && pip3 install -e . --no-use-pep517 \
+    && pip3 install -e . \
     && git config --global init.defaultBranch master \
     && git config --global user.name "Whoever" \
     && git config --global user.email "whoever@fragile.tech"
-RUN make -f {{project_name}}/scripts/makefile.docker remove-dev-packages
+RUN make remove-dev-packages
 RUN mkdir /root/.jupyter && \
     echo 'c.NotebookApp.token = "'${JUPYTER_PASSWORD}'"' > /root/.jupyter/jupyter_notebook_config.py
 CMD jupyter notebook --allow-root --port 8080 --ip 0.0.0.0

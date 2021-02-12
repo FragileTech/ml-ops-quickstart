@@ -21,7 +21,7 @@ def project_config():
 
 
 @pytest.fixture(scope="module")
-def template():
+def template_config():
     test_template = {
         "project_name": "test_project",
         "default_branch": "master",
@@ -45,6 +45,11 @@ def template():
         "git_message": "Test init commit",
     }
     return omegaconf.DictConfig(test_template)
+
+
+@pytest.fixture(scope="module")
+def config(project_config, template_config):
+    return omegaconf.DictConfig({"project": project_config, "template": template_config})
 
 
 @pytest.fixture(scope="module")

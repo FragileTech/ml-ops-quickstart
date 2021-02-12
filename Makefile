@@ -22,6 +22,11 @@ test:
 	find -name "*.pyc" -delete
 	pytest -n $n -s -o log_cli=true -o log_cli_level=info
 
+.PHONY: test-codecov
+test-codecov:
+	find -name "*.pyc" -delete
+	pytest -n $n -s -o log_cli=true -o log_cli_level=info --cov=./ --cov-report=xml --cov-config=pyproject.toml
+
 .PHONY: pipenv-install
 pipenv-install:
 	rm -rf *.egg-info && rm -rf build && rm -rf __pycache__
@@ -52,7 +57,13 @@ docker-build:
 .PHONY: docker-test
 docker-test:
 	find -name "*.pyc" -delete
-	docker run --rm -it --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest -n $n -s -o log_cli=true -o log_cli_level=info
+	docker run --rm --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest -n $n -s -o log_cli=true -o log_cli_level=info
+
+.PHONY: docker-push
+docker-push:
+	docker push ${DOCKER_ORG}/${DOCKER_TAG}:${VERSION}
+	docker tag ${DOCKER_ORG}/${DOCKER_TAG}:${VERSION} ${DOCKER_ORG}/${DOCKER_TAG}:latest
+	docker push ${DOCKER_ORG}/${DOCKER_TAG}:latest
 
 .PHONY: remove-dev-packages
 remove-dev-packages:
@@ -63,9 +74,3 @@ remove-dev-packages:
 	apt-get autoremove -y && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
-
-.PHONY: docker-push
-docker-push:
-	docker push ${DOCKER_ORG}/${DOCKER_TAG}:${VERSION}
-	docker tag ${DOCKER_ORG}/${DOCKER_TAG}:${VERSION} ${DOCKER_ORG}/${DOCKER_TAG}:latest
-	docker push ${DOCKER_ORG}/${DOCKER_TAG}:latest

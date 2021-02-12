@@ -11,19 +11,18 @@ from mloq.failure import Failure
 
 def setup_git(
     path: Union[Path, str],
-    project_config: Config,
-    template: Config,
+    config: Config,
 ) -> None:
     """Initialize a Git repository over the generated files."""
-    git_init = project_config["git_init"]
+    git_init = config.project.git_init
     if not git_init:
         return
-    message = template["git_message"]
-    push = project_config["git_push"]
-    branch = template["default_branch"]
-    project_name = template["project_name"]
-    owner = template["owner"]
-    sign_off = project_config["open_source"]
+    message = config.template.git_message
+    push = config.project.git_push
+    branch = config.template.default_branch
+    project_name = config.template.project_name
+    owner = config.template.owner
+    sign_off = config.project.open_source
     path = str(path)
     try:
         _git_cmd(path, "init")

@@ -71,17 +71,18 @@ def generate_config_interactive(template: Config, project_config: Config):
         template["bot_name"] = TEMPLATE.bot_name(template, True, default=template["author"])
         template["bot_email"] = TEMPLATE.bot_email(template, True, default=template["email"])
 
-    project_config["docker"] = True
     template["ci_python_version"] = "3.8"
     template["ci_ubuntu_version"] = "ubuntu-20.04"
     template["ci_extra"] = ""
     template["pyproject_extra"] = ""
     template["docstring_checks"] = False
-    click.echo("MLOQ will generate a Dockerfile for your project.")
-    base_docker = get_docker_image(template=template, project_config=project_config)
-    if base_docker is not None:
-        base_docker = TEMPLATE.docker_image(template, True, default=base_docker)
-    template["docker_image"] = str(base_docker) if base_docker is None else base_docker
+    project_config["docker"] = has_docker = PROJECT.docker(project_config, True, default=True)
+    if has_docker:
+        click.echo("MLOQ will generate a Dockerfile for your project.")
+        base_docker = get_docker_image(template=template, project_config=project_config)
+        if base_docker is not None:
+            base_docker = TEMPLATE.docker_image(template, True, default=base_docker)
+        template["docker_image"] = str(base_docker) if base_docker is None else base_docker
     click.echo("You can optionally create an ML Flow MLProject file.")
     project_config["mlflow"] = PROJECT.mlflow(project_config, True, default=False)
     project_config["git_init"] = git_init = PROJECT.git_init(
@@ -122,7 +123,7 @@ def setup_cmd(
     only_config: bool,
 ) -> int:
     """Initialize a new project using ML Ops Quickstart."""
-    project_config, template = config["project"], config["template"]
+    project_config, template = config.project, config.template
     if interactive:
         welcome_message()
         data = generate_config_interactive(template=template, project_config=project_config)
@@ -130,7 +131,7 @@ def setup_cmd(
     else:
         project_config = generate_project_config(project_config=project_config)
         template = generate_template(template=template, project_config=project_config)
-    config = {"project": project_config, "template": template}
+    config = DictConfig({"project": project_config, "template": template})
     if interactive and (only_config or click.confirm("Do you want to generate a mloq.yml file?")):
         write_config(config, output, safe=True)
     if only_config:
@@ -140,8 +141,7 @@ def setup_cmd(
     try:
         setup_project(
             path=output,
-            template=template,
-            project_config=project_config,
+            config=config,
             override=overwrite,
         )
     except Failure as e:

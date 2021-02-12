@@ -17,6 +17,7 @@ cli_input_defaults = (
     "\n"  # default branch master
     "bot-account\n"  # bot
     "bot@email.com\n"  # bot email
+    "\n"  # With docker
     "\n"  # Default base docker image
     "\n"  # No ML Flow
     "\n"  # Init git repo
@@ -42,6 +43,7 @@ cli_input_proprietary = (
     "\n"  # default branch master
     "bot-account\n"  # bot
     "bot@email.com\n"  # bot email
+    "\n"  # With docker
     "\n"  # Default base docker image
     "\n"  # No ML Flow
     "n\n"  # Init git repo
@@ -62,6 +64,7 @@ cli_no_ci = (
     "\n"  # Python versions
     "torch\n"  # requirements
     "none\n"  # Workflow python
+    "\n"  # With docker
     "\n"  # Default base docker image
     "\n"  # No ML Flow
     "n\n"  # Init git repo
