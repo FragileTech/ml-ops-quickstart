@@ -1,9 +1,10 @@
 """This module defines common functionality for rendering and writing File templates."""
 from datetime import datetime
 from pathlib import Path
-from typing import Union
+from typing import Any, Mapping, Union
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+from omegaconf import DictConfig
 
 from mloq import _logger
 from mloq.directories import read_file
@@ -17,13 +18,13 @@ jinja_env = Environment(
 )
 
 
-def render_template(file: File, template: dict) -> str:
+def render_template(file: File, kwargs: Mapping[str, Any]) -> str:
     """
     Render a jinja template with the provided parameter dict.
 
     Args:
         file: File object representing the jinja template that will be rendered.
-        template: Dictionary containing the parameters key and corresponding values \
+        kwargs: Dictionary containing the parameters key and corresponding values \
                 that will be used to render the template.
 
     Returns:
@@ -33,12 +34,12 @@ def render_template(file: File, template: dict) -> str:
         return read_file(file)
     jinja_template = jinja_env.get_template(str(file.name))
     jinja_template.globals["now"] = datetime.now
-    return jinja_template.render(**template)
+    return jinja_template.render(**kwargs)
 
 
 def write_template(
     file: File,
-    template: dict,
+    config: DictConfig,
     path: Union[Path, str],
     ledger: Ledger,
     override: bool = False,
@@ -48,7 +49,7 @@ def write_template(
 
     Args:
         file: File object representing the jinja template that will be rendered.
-        template: Dictionary containing the parameters key and corresponding values \
+        config: omegaconf dictionary containing the parameters key and corresponding values \
                 that will be used to render the templates.
         path: Absolute path to the folder containing the target templates.
         ledger: Book keeper to keep track of the generated files.
@@ -58,11 +59,14 @@ def write_template(
     Returns:
         None.
     """
+    assert isinstance(config, DictConfig)
     path = Path(path)
     if not override and (path / file.dst).exists():
         _logger.debug(f"file {file.name} already exists. Skipping")
         return
+
+    kwargs = {**config["template"], "project": config.project}
     ledger.register(file)
-    rendered = render_template(file, template)
+    rendered = render_template(file, kwargs)
     with open(path / file.dst, "w") as f:
         f.write(rendered)

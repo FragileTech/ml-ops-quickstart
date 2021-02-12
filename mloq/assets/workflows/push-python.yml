@@ -51,7 +51,7 @@ jobs:
     - name: Run style check and linter
       run: |
         set -x
-        make -f scripts/makefile.docker check
+        make check
 
   pytest:
     name: Run Pytest
@@ -85,12 +85,12 @@ jobs:
     - name: Test with pytest
       run: |
         set -x
-        make -f scripts/makefile.docker test-codecov
+        make test-codecov
 
     - name: Upload coverage report
       if: ${{"{{"}} matrix.python-version=='{{ ci_python_version }}' {{"}}"}}
       uses: codecov/codecov-action@v1
-
+{% if project.docker %}
   test-docker:
     name: Test Docker container
     runs-on: {{ ci_ubuntu_version }}
@@ -99,12 +99,12 @@ jobs:
     - name: Build container
       run: |
         set -x
-        make -f scripts/makefile.docker docker-build
+        make docker-build
     - name: Run tests
       run: |
         set -x
-        make -f scripts/makefile.docker docker-test
-
+        make docker-test
+{% endif %}
   build-test-package:
     name: Build and test the package
     needs: style-check
@@ -166,7 +166,7 @@ jobs:
           set -x
           mv $PROJECT_NAME/tests ./tests
           rm -rf $PROJECT_NAME
-          make -f scripts/makefile.docker test
+          make test
 
   bump-version:
     name: Bump package version
@@ -174,8 +174,8 @@ jobs:
     runs-on: {{ ci_ubuntu_version }}
     needs:
       - pytest
-      - build-test-package
-      - test-docker
+      - build-test-package{% if project.docker %}
+      - test-docker{% endif %}
     steps:
       - name: actions/checkout
         uses: actions/checkout@v2
@@ -198,7 +198,7 @@ jobs:
           commit_email: "${{'{{'}} env.bot_email {{'}}'}}"
           login: "${{'{{'}} env.bot_name {{'}}'}}"
           token: "${{'{{'}} secrets.BOT_AUTH_TOKEN {{'}}'}}"
-
+{% if project.docker %}
   push-docker:
     name: Push Docker container
     runs-on: {{ ci_ubuntu_version }}
@@ -214,14 +214,14 @@ jobs:
         run: |
           set -x
           CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
-          make -f scripts/makefile.docker docker-build VERSION=$CONTAINER_VERSION PROJECT=$PROJECT_NAME DOCKER_ORG=$DOCKER_ORG
+          make docker-build VERSION=$CONTAINER_VERSION PROJECT=$PROJECT_NAME DOCKER_ORG=$DOCKER_ORG
       - name: Push images
 
         run: |
           set -x
           CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
-          make -f scripts/makefile.docker docker-push VERSION=$CONTAINER_VERSION PROJECT=$PROJECT_NAME DOCKER_ORG=$DOCKER_ORG
-
+          make docker-push VERSION=$CONTAINER_VERSION PROJECT=$PROJECT_NAME DOCKER_ORG=$DOCKER_ORG
+{% endif %}
   release-package:
     name: Release PyPI package
     if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}'  && '$PYPI_PASS' != ''"

@@ -150,7 +150,12 @@ dogfood_req = file("dogfood.txt", REQUIREMENTS_PATH, is_static=True)
 
 # Templates
 mit_license = file("MIT_LICENSE", TEMPLATES_PATH, "license of the project", dst="LICENSE")
-setup_py = file("setup.txt", TEMPLATES_PATH, "setup.py", "Python package installation metadata")
+setup_py = file(
+    "setup.txt",
+    TEMPLATES_PATH,
+    "Python package installation metadata",
+    dst="setup.py",
+)
 rename_wheels = file(
     "rename_testpypi_wheels.txt",
     TEMPLATES_PATH,
@@ -159,11 +164,6 @@ rename_wheels = file(
 )
 dockerfile = file("Dockerfile", TEMPLATES_PATH, "Dockerfile to install the project")
 makefile = file("Makefile", TEMPLATES_PATH, "common make commands for development")
-makefile_docker = file(
-    "makefile.docker",
-    TEMPLATES_PATH,
-    "common make commands executed in Docker for development",
-)
 mlproject = file("MLproject", TEMPLATES_PATH)
 readme = file("README.md", TEMPLATES_PATH, "README")
 contributing = file(
@@ -202,7 +202,6 @@ ROOT_PATH_FILES = [
     pre_commit_hook,
     pyproject_toml,
     makefile,
-    dockerfile,
     readme,
     codecov,
 ]
@@ -223,7 +222,7 @@ REQUIREMENTS_FILES = [
     test_req,
 ]
 
-SCRIPTS = [build_manylinux_sh, dockerfile_aarch64, makefile_docker, rename_wheels]
+SCRIPTS = [build_manylinux_sh, rename_wheels]
 
 ALL_FILES = ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [mloq_yml]
 

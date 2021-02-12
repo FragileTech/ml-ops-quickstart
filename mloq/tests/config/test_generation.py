@@ -23,8 +23,8 @@ def test_generate_config(project_config):
     compare_dicts(project_config, new_template)
 
 
-def test_generate_template(template, project_config):
-    in_template = copy.deepcopy(template)
+def test_generate_template(template_config, project_config):
+    in_template = copy.deepcopy(template_config)
     in_template["project_name"] = None
     os.environ["MLOQ_PROJECT_NAME"] = "test_project"
     new_template = generate_template(
@@ -33,4 +33,4 @@ def test_generate_template(template, project_config):
         interactive=False,
     )
     del os.environ["MLOQ_PROJECT_NAME"]
-    compare_dicts(template, new_template)
+    compare_dicts(template_config, new_template)

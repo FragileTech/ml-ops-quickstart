@@ -2,7 +2,7 @@
 from pathlib import Path
 from typing import Optional, Union
 
-from omegaconf import OmegaConf
+from omegaconf import DictConfig, OmegaConf
 
 from mloq.config import Config
 from mloq.directories import copy_file
@@ -44,7 +44,7 @@ def get_docker_image(
     return image
 
 
-def write_config(config: dict, path: Union[Path, str], safe: bool = False):
+def write_config(config: DictConfig, path: Union[Path, str], safe: bool = False):
     """Write config in a yaml file."""
     if safe:
         path = Path(path)
