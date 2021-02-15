@@ -7,8 +7,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from omegaconf import DictConfig
 
 from mloq import _logger
-from mloq.directories import read_file
-from mloq.files import File, Ledger, TEMPLATES_PATH, WORKFLOWS_PATH
+from mloq.files import File, Ledger, read_file, TEMPLATES_PATH, WORKFLOWS_PATH
 
 
 jinja_env = Environment(

@@ -5,7 +5,6 @@ from typing import List, Tuple, Union
 from omegaconf import DictConfig
 
 from mloq.config import Config
-from mloq.directories import create_project_directories
 from mloq.files import (
     dockerfile,
     dockerfile_aarch64,
@@ -19,6 +18,7 @@ from mloq.files import (
 )
 from mloq.git import setup_git
 from mloq.requirements import install_requirements, write_requirements
+from mloq.skeleton import create_project_skeleton
 from mloq.templating import write_template
 from mloq.workflows import setup_push_workflow
 
@@ -68,9 +68,9 @@ def setup_project_files(
     """Write the template for common repository config files."""
     path = Path(path)
     original_project_name = config.template.project_name
-    project_name = config.template.project_name = config.template.project_name.replace("-", "_")
+    config.template.project_name = config.template.project_name.replace("-", "_")
     try:
-        create_project_directories(project_name=project_name, root_path=path, override=override)
+        create_project_skeleton(config=config, root_path=path, ledger=ledger, override=override)
         setup_root_files(
             config=config,
             path=path,

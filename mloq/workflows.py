@@ -4,8 +4,8 @@ from typing import Union
 
 from mloq import _logger
 from mloq.config.params import Config, is_empty
-from mloq.directories import create_github_actions_directories
 from mloq.files import Ledger, push_dist_wkf, push_python_wkf
+from mloq.skeleton import create_github_actions_directories
 from mloq.templating import write_template
 
 

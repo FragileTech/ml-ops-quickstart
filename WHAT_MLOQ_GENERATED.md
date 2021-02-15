@@ -11,6 +11,7 @@
 * `LICENSE` - license of the project
 * `Makefile` - common make commands for development
 * `README.md` - README
+* `__main__.py` - Python package executable entry point
 * `build-manylinux-wheels.sh` - script to build universal Linux wheels
 * `push.yml` - GitHub Actions continuous integration workflow file
 * `pyproject.toml` - configuration of various development tools: linters, formatters
@@ -19,3 +20,5 @@
 * `requirements-test.txt` - list of exact versions of the packages needed to run your test suite
 * `requirements.txt` - list of exact versions of the packages on which your project depends
 * `setup.py` - Python package installation metadata
+* `test_main.py` - Unit test of the python package executable entry point
+* `version.py` - defines the version of the package that is incremented on each push

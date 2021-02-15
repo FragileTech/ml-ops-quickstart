@@ -7,13 +7,8 @@ from typing import Union
 from mloq import _logger
 from mloq.config import Config
 from mloq.failure import Failure
-from mloq.files import File, init, main, version
-
-
-def read_file(file: File) -> str:
-    """Return and string with the content of the provided file."""
-    with open(file.src, "r") as f:
-        return f.read()
+from mloq.files import File, init, Ledger, main, test_main, version
+from mloq.templating import write_template
 
 
 def copy_file(file: File, path: Union[Path, str], override: bool = False) -> None:
@@ -35,14 +30,15 @@ def copy_file(file: File, path: Union[Path, str], override: bool = False) -> Non
         _logger.debug(f"file {file.name} already exists in {target}")
 
 
-def create_project_directories(
-    project_name: str,
+def create_project_skeleton(
     root_path: Path,
-    project_config: Config = None,
+    config: Config,
+    ledger: Ledger,
     override: bool = False,
 ) -> None:
     """
-    Initialize the folder structure of a new Python project.
+    Initialize the folder structure of a new Python project together with a bare minimum set of \
+    code files.
 
     It creates a directory for the project containing an empty __init__.py file, and a \
     tests folder inside it with its corresponding __init__.py file. This function will only \
@@ -50,26 +46,35 @@ def create_project_directories(
     existing file.
 
     Args:
-        project_name: Name of the project. This is the name of the directory that will be created.
         root_path: Absolute path where the new project folder will be created.
-        project_config: Contains all the parameters that define how the project will be set up.
+        config: Contains all the parameters that define how the project will be set up.
+        ledger: Book keeper for the generated files.
         override: If False, copy the file if it does not already exists in the \
                   target path. If True, overwrite the target file if it is already present.
 
     Returns:
         None.
     """
-    project_config = project_config or {}
+    project_name = config.template.project_name
     # Project dir
     try:
         project_path = root_path / project_name
         os.makedirs(project_path, exist_ok=True)
         copy_file(init, project_path, override)
+        ledger.register(version)
         copy_file(version, project_path, override)
+        ledger.register(main)
         copy_file(main, project_path, override)
         # Test dir inside project
         test_path = project_path / "tests"
         os.makedirs(test_path, exist_ok=True)
+        write_template(
+            test_main,
+            config=config,
+            path=test_path,
+            ledger=ledger,
+            override=override,
+        )
         copy_file(init, test_path, override)
         # Scripts dir
         scripts_path = root_path / "scripts"

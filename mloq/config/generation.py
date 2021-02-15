@@ -28,14 +28,13 @@ def generate_project_config(
     _project = project_config or {}
     project_config = load_empty_config()["project"]
     project_config.update(_project)
-    # Fill in project values
+    # Fill in the project settings
     project_config["open_source"] = PROJECT.open_source(
         project_config,
         interactive,
         default=True,
     )
-    # use_docker = PROJECT.docker(project_config, interactive, default=True)
-    project_config["docker"] = True  # use_docker
+    project_config["docker"] = PROJECT.docker(project_config, interactive, default=True)
     project_config["ci"] = PROJECT.ci(project_config, interactive, default="python")
     project_config["mlflow"] = PROJECT.mlflow(project_config, interactive, default=False)
     project_config["requirements"] = PROJECT.requirements(
@@ -111,10 +110,11 @@ def generate_template(
         template["license"] = "proprietary"
     else:
         template["license"] = TEMPLATE.license_type(template, interactive, default="MIT")
-    base_docker = get_docker_image(template=template, project_config=project_config)
-    if base_docker is not None:
-        base_docker = TEMPLATE.docker_image(template, interactive, default=base_docker)
-    template["docker_image"] = str(base_docker) if base_docker is None else base_docker
+    if project_config.docker:
+        base_docker = get_docker_image(template=template, project_config=project_config)
+        if base_docker is not None:
+            base_docker = TEMPLATE.docker_image(template, interactive, default=base_docker)
+        template["docker_image"] = str(base_docker) if base_docker is None else base_docker
     template["docstring_checks"] = False
     template["ci_python_version"] = "3.8"
     template["ci_ubuntu_version"] = "ubuntu-20.04"

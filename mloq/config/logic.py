@@ -5,9 +5,9 @@ from typing import Optional, Union
 from omegaconf import DictConfig, OmegaConf
 
 from mloq.config import Config
-from mloq.directories import copy_file
 from mloq.files import file as new_file, mloq_yml
 from mloq.requirements import require_cuda
+from mloq.skeleton import copy_file
 
 
 def get_docker_python_version(template: Config) -> str:

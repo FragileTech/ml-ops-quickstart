@@ -104,6 +104,13 @@ main = file(
     dst="__main__.py",
     is_static=True,
 )
+test_main = file(
+    "test_main.txt",
+    STATIC_FILES_PATH,
+    "Unit test of the python package executable entry point",
+    dst="test_main.py",
+    is_static=False,
+)
 version = file(
     "version.txt",
     STATIC_FILES_PATH,
@@ -210,7 +217,7 @@ OPEN_SOURCE_FILES = [dco, mit_license, contributing, code_of_conduct]
 
 WORKFLOW_FILES = [push_dist_wkf, push_python_wkf]
 
-PYTHON_FILES = [init, main, version]
+PYTHON_FILES = [init, main, test_main, version]
 
 REQUIREMENTS_FILES = [
     lint_req,
@@ -227,3 +234,9 @@ SCRIPTS = [build_manylinux_sh, rename_wheels]
 ALL_FILES = ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [mloq_yml]
 
 ALL_FILE_PATHS = [str(f.src) for f in ALL_FILES]
+
+
+def read_file(file: File) -> str:
+    """Return and string with the content of the provided file."""
+    with open(file.src, "r") as f:
+        return f.read()
