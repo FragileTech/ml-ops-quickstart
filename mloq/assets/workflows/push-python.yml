@@ -10,7 +10,8 @@ on:
 
 env:
   PROJECT_NAME: {{project_name}}
-  VERSION_FILE: {{project_name}}/version.py
+  PROJECT_DIR: {{project_name.replace("-", "_")}}
+  VERSION_FILE: {{project_name.replace("-", "_")}}/version.py
   DEFAULT_BRANCH: {{default_branch}}
   BOT_NAME: {{bot_name}}
   BOT_EMAIL: {{bot_email}}
@@ -167,8 +168,8 @@ jobs:
       - name: Test package
         run: |
           set -x
-          mv $PROJECT_NAME/tests ./tests
-          rm -rf $PROJECT_NAME
+          mv $PROJECT_DIR/tests ./tests
+          rm -rf $PROJECT_DIR
           make test
 
   bump-version:

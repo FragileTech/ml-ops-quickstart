@@ -6,7 +6,6 @@ from typing import Iterable, Optional, Union
 from invoke import run
 
 from mloq.config.params import Config, is_empty
-from mloq.directories import copy_file
 from mloq.files import (
     data_science_req,
     data_viz_req,
@@ -18,6 +17,7 @@ from mloq.files import (
     tensorflow_req,
     test_req,
 )
+from mloq.skeleton import copy_file
 
 
 REQUIREMENTS_ALIASES = {

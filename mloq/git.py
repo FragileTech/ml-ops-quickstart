@@ -28,10 +28,25 @@ def setup_git(
         _git_cmd(path, "init")
         _git_cmd(path, *f"remote add origin ssh://git@github.com/{owner}/{project_name}".split())
         subprocess.run(("pre-commit", "install"), check=True, cwd=path)
-        _git_cmd(path, *"add .".split())
-        _git_cmd(path, *f"commit {'--signoff' if sign_off else ''} -m".split(), message)
+
+        def commit_all():
+            _git_cmd(path, *"add .".split())
+            _git_cmd(path, *f"commit {'--signoff' if sign_off else ''} -m".split(), message)
+
         if push:
+            _git_cmd(path, *f"checkout -b {branch}".split())
+            _git_cmd(path, *"add README.md".split())
+            _git_cmd(
+                path,
+                *f"commit {'--signoff' if sign_off else ''} -m".split(),
+                f"Initialize {branch}",
+            )
             _git_cmd(path, *f"push origin {branch}".split())
+
+        commit_all()
+
+        if push:
+            _git_cmd(path, *f"push origin HEAD:init-{branch}".split())
     except subprocess.CalledProcessError as e:
         raise Failure() from e
 

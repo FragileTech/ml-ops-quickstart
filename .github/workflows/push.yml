@@ -10,6 +10,7 @@ on:
 
 env:
   PROJECT_NAME: mloq
+  PROJECT_DIR: mloq
   VERSION_FILE: mloq/version.py
   DEFAULT_BRANCH: master
   BOT_NAME: fragile-bot
@@ -104,6 +105,7 @@ jobs:
         diff .codecov.yml generated/.codecov.yml
         diff .gitignore generated/.gitignore
         diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
+        rm generated/mloq/tests/test_main.py
 
     - name: Test with pytest
       run: |
@@ -207,12 +209,13 @@ jobs:
           diff .codecov.yml generated/.codecov.yml
           diff .gitignore generated/.gitignore
           diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
+          rm generated/mloq/tests/test_main.py
 
       - name: Test package
         run: |
           set -x
-          mv $PROJECT_NAME/tests ./tests
-          rm -rf $PROJECT_NAME
+          mv $PROJECT_DIR/tests ./tests
+          rm -rf $PROJECT_DIR
           make test
 
   bump-version:
