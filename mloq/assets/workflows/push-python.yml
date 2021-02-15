@@ -56,6 +56,7 @@ jobs:
   pytest:
     name: Run Pytest
     runs-on: {{ ci_ubuntu_version }}
+    if: "!contains(github.event.head_commit.message, 'Bump version')"
     strategy:
       matrix:
         python-version: {{ python_versions }}
@@ -94,6 +95,7 @@ jobs:
   test-docker:
     name: Test Docker container
     runs-on: {{ ci_ubuntu_version }}
+    if: "!contains(github.event.head_commit.message, 'Bump version')"
     steps:
     - uses: actions/checkout@v2
     - name: Build container
@@ -109,6 +111,7 @@ jobs:
     name: Build and test the package
     needs: style-check
     runs-on: ubuntu-18.04
+    if: "!contains(github.event.head_commit.message, 'Bump version')"
     steps:
       - name: actions/checkout
         uses: actions/checkout@v2
