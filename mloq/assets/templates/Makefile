@@ -2,6 +2,7 @@ current_dir = $(shell pwd)
 
 PROJECT = {{project_name}}
 DOCKER_ORG = {{owner.lower()}}
+DOCKER_TAG ?= ${PROJECT}
 VERSION ?= latest
 n ?= auto
 
