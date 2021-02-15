@@ -8,7 +8,7 @@ Options:
 
 ## Usage examples
 Arguments:
-* `OUTPUT`: Path to the target project.
+* `OUTPUT_DIRECTORY`: Path to the target project.
 
 To set up a new repository from scratch interactively in the current working directory:
 ```bash
