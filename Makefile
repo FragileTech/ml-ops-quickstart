@@ -2,6 +2,7 @@ current_dir = $(shell pwd)
 
 PROJECT = mloq
 DOCKER_ORG = fragiletech
+DOCKER_TAG ?= ${PROJECT}
 VERSION ?= latest
 n ?= auto
 
