@@ -8,6 +8,7 @@ from mloq.files import (
     dockerfile,
     dockerfile_aarch64,
     Ledger,
+    LICENSES,
     mlproject,
     OPEN_SOURCE_FILES,
     ROOT_PATH_FILES,
@@ -117,9 +118,23 @@ def setup_root_files(
     if config.project.get("open_source"):
         for file in OPEN_SOURCE_FILES:
             write_template(file, config=config, path=path, ledger=ledger, overwrite=overwrite)
-    propietary_classifier = "License :: Other/Proprietary License"
-    license_classifiers = {"mit": "License :: OSI Approved :: MIT License"}
-    license_classifer = license_classifiers.get(config.template["license"], propietary_classifier)
+        license = config.template.license
+        write_template(
+            LICENSES[license],
+            config=config,
+            path=path,
+            ledger=ledger,
+            overwrite=overwrite,
+        )
+    else:
+        license = "proprietary"
+    license_classifiers = {
+        "MIT": "License :: OSI Approved :: MIT License",
+        "Apache-2.0": "License :: OSI Approved :: Apache Software License",
+        "GPL-3.0": "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "proprietary": "License :: Other/Proprietary License",
+    }
+    license_classifer = license_classifiers[license]
     config = DictConfig({**config, "license_classifier": license_classifer})
     write_template(setup_py, config=config, path=path, ledger=ledger, overwrite=overwrite)
 

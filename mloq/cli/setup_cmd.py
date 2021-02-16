@@ -33,7 +33,7 @@ def generate_config_interactive(config: DictConfig) -> DictConfig:
     is_open_source = PROJECT.open_source(project, True, default=True)
     project.open_source = is_open_source
     default_license = "MIT" if is_open_source else "None"
-    template.license = TEMPLATE.license_type(template, True, default=default_license)
+    template.license = TEMPLATE.license(template, True, default=default_license)
     copyright_holder = TEMPLATE.copyright_holder(template, True, default=template.owner)
     template.copyright_holder = copyright_holder
     click.echo()
