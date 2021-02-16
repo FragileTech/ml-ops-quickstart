@@ -142,7 +142,7 @@ def setup_cmd(
         setup_project(
             path=output,
             config=config,
-            override=overwrite,
+            overwrite=overwrite,
         )
     except Failure as e:
         print(f"Failed to setup the project: {e}", file=sys.stderr)

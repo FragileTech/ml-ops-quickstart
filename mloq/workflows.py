@@ -19,7 +19,7 @@ def setup_workflow_template(
     root_path: Union[Path, str],
     config: Config,
     ledger: Ledger,
-    override: bool = False,
+    overwrite: bool = False,
 ):
     """Add the target workflows to the corresponding .github/workflows repository."""
     workflow = config.project.get("ci", "empty")
@@ -38,7 +38,7 @@ def setup_workflow_template(
             config=config,
             path=workflows_path,
             ledger=ledger,
-            override=override,
+            overwrite=overwrite,
         )
 
 
@@ -46,7 +46,7 @@ def setup_push_workflow(
     path: Union[str, Path],
     config: Config,
     ledger: Ledger,
-    override: bool = False,
+    overwrite: bool = False,
 ) -> None:
     """Initialize the target workflow."""
     if is_empty(config.project.get("ci", "empty")):
@@ -56,5 +56,5 @@ def setup_push_workflow(
         config=config,
         root_path=path,
         ledger=ledger,
-        override=override,
+        overwrite=overwrite,
     )
