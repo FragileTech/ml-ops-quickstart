@@ -4,20 +4,19 @@ from typing import Union
 
 from omegaconf import DictConfig, OmegaConf
 
-from mloq.config import Config
 from mloq.files import file as new_file, mloq_yml
 from mloq.requirements import require_cuda
 from mloq.skeleton import copy_file
 
 
-def get_docker_python_version(template: Config) -> str:
+def get_docker_python_version(template: DictConfig) -> str:
     """Return the highest python version defined for the project."""
     max_version = list(sorted(template["python_versions"]))[-1]
     version = max_version.replace(".", "")
     return f"py{version}"
 
 
-def get_docker_image(config: Config) -> Union[str, None]:
+def get_docker_image(config: DictConfig) -> Union[str, None]:
     """
     Add to params the base docker container that will be used to define the project's container.
 
@@ -49,7 +48,7 @@ def write_config(config: DictConfig, path: Union[Path, str], safe: bool = False)
         OmegaConf.save(config, f)
 
 
-def load_empty_config() -> Config:
+def load_empty_config() -> DictConfig:
     """Return a dictionary containing all the MLOQ config values set to None."""
     return OmegaConf.load(mloq_yml.src)
 

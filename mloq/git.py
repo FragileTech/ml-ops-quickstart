@@ -5,13 +5,14 @@ from pathlib import Path
 import subprocess
 from typing import Union
 
-from mloq.config import Config
+from omegaconf import DictConfig
+
 from mloq.failure import Failure
 
 
 def setup_git(
     path: Union[Path, str],
-    config: Config,
+    config: DictConfig,
 ) -> None:
     """Initialize a Git repository over the generated files."""
     git_init = config.project.git_init

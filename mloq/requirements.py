@@ -4,8 +4,9 @@ from pathlib import Path
 from typing import Iterable, Optional, Union
 
 from invoke import run
+from omegaconf import DictConfig
 
-from mloq.config.params import Config, is_empty
+from mloq.config.params import is_empty
 from mloq.files import (
     data_science_req,
     data_viz_req,
@@ -28,7 +29,7 @@ REQUIREMENTS_ALIASES = {
 }
 
 
-def require_cuda(project_config: Optional[Config] = None) -> bool:
+def require_cuda(project_config: Optional[DictConfig] = None) -> bool:
     """Return True if any of the project dependencies require CUDA."""
     project_config = project_config or {}
     if "requirements" not in project_config:
