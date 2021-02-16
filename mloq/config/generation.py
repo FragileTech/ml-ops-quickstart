@@ -75,7 +75,7 @@ def _generate_template_config(config: Optional[DictConfig] = None) -> DictConfig
     if not project.open_source or project.open_source is None:
         template.license = "proprietary"
     else:
-        template.license = TEMPLATE.license_type(template, False, default="MIT")
+        template.license = TEMPLATE.license(template, False, default="MIT")
     if project.docker:
         base_docker = get_docker_image(config)
         if base_docker is not None:

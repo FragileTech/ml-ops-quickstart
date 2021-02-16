@@ -220,9 +220,9 @@ _TEMPLATE = [
     ConfigParam("default_branch", "Default branch of the project"),
     ConfigParam("description", "Short description of the project"),
     ConfigParam(
-        "license_type",
+        "license",
         "Project license type",
-        type=click.Choice(["MIT", "Apache 2.0", "GPL", "None"], case_sensitive=False),
+        type=click.Choice(["MIT", "Apache-2.0", "GPL-3.0", "None"], case_sensitive=False),
     ),
     MultiChoiceParam(
         "python_versions",

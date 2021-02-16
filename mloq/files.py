@@ -157,6 +157,14 @@ dogfood_req = file("dogfood.txt", REQUIREMENTS_PATH, is_static=True)
 
 # Templates
 mit_license = file("MIT_LICENSE", TEMPLATES_PATH, "license of the project", dst="LICENSE")
+apache_license = file("APACHE_LICENSE", TEMPLATES_PATH, "license of the project", dst="LICENSE")
+gpl_license = file(
+    "GPL_LICENSE",
+    STATIC_FILES_PATH,
+    "license of the project",
+    dst="LICENSE",
+    is_static=True,
+)
 setup_py = file(
     "setup.txt",
     TEMPLATES_PATH,
@@ -213,7 +221,13 @@ ROOT_PATH_FILES = [
     codecov,
 ]
 
-OPEN_SOURCE_FILES = [dco, mit_license, contributing, code_of_conduct]
+OPEN_SOURCE_FILES = [dco, contributing, code_of_conduct]
+
+LICENSES = {
+    "MIT": mit_license,
+    "Apache-2.0": apache_license,
+    "GPL-3.0": gpl_license,
+}
 
 WORKFLOW_FILES = [push_dist_wkf, push_python_wkf]
 
