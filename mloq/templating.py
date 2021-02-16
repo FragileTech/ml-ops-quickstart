@@ -41,7 +41,7 @@ def write_template(
     config: DictConfig,
     path: Union[Path, str],
     ledger: Ledger,
-    override: bool = False,
+    overwrite: bool = False,
 ):
     """
     Create new file containing the rendered template found in source_path.
@@ -52,15 +52,15 @@ def write_template(
                 that will be used to render the templates.
         path: Absolute path to the folder containing the target templates.
         ledger: Book keeper to keep track of the generated files.
-        override: If False, copy the file if it does not already exists in the \
-                  target path. If True, overwrite the target file if it is already present.
+        overwrite: If False, copy the file if it does not already exists in the \
+                   target path. If True, overwrite the target file if it is already present.
 
     Returns:
         None.
     """
     assert isinstance(config, DictConfig)
     path = Path(path)
-    if not override and (path / file.dst).exists():
+    if not overwrite and (path / file.dst).exists():
         _logger.debug(f"file {file.name} already exists. Skipping")
         return
 

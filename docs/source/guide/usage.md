@@ -3,7 +3,7 @@
 Options:
 * `--file` `-f`: Name of the configuration file. If `file` is a directory, it will load the `mloq.yml` file present in it.
 
-* `--override` `-o`: Rewrite files that already exist in the target project.
+* `--overwrite` `-o`: Rewrite files that already exist in the target project.
 * `--interactive` `-i`: Missing configuration data can be defined interactively from the CLI.
 
 ## Usage examples
@@ -16,7 +16,7 @@ mloq setup -i .
 ```
 
 To load a `mloq.yml` configuration file from the current repository, and initialize the directory `example`, and 
-override all existing files with no interactivity:
+overwrite all existing files with no interactivity:
 ```bash
 mloq setup -f . -o example
 ```

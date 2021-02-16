@@ -27,7 +27,7 @@ def test_setup_push_workflow(ledger):
             None,
             config=DictConfig({"project": {}, "template": {}}),
             ledger=ledger,
-            override=False,
+            overwrite=False,
         )
         is None
     )

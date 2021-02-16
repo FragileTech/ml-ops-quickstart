@@ -30,7 +30,7 @@ def setup_requirements(
     lint: bool = True,
     test: bool = True,
     install: Union[str, Tuple[str], List[str], None] = None,
-    override: bool = False,
+    overwrite: bool = False,
 ) -> None:
     """Write requirements files and install them if requested."""
     if isinstance(install, (tuple, list)) and "all" in install or install == "all":
@@ -48,7 +48,7 @@ def setup_requirements(
         test=test,
         lint=lint,
         ledger=ledger,
-        override=override,
+        overwrite=overwrite,
     )
     install_requirements(
         path=path,
@@ -63,18 +63,18 @@ def setup_project_files(
     path: Union[Path, str],
     config: Config,
     ledger: Ledger,
-    override: bool = False,
+    overwrite: bool = False,
 ) -> None:
     """Write the template for common repository config files."""
     path = Path(path)
     original_project_name = config.template.project_name
     config.template.project_name = config.template.project_name.replace("-", "_")
     try:
-        create_project_skeleton(config=config, root_path=path, ledger=ledger, override=override)
+        create_project_skeleton(config=config, root_path=path, ledger=ledger, overwrite=overwrite)
         setup_root_files(
             config=config,
             path=path,
-            override=override,
+            overwrite=overwrite,
             ledger=ledger,
         )
     finally:
@@ -85,20 +85,20 @@ def setup_scripts(
     path: Union[str, Path],
     config: Config,
     ledger: Ledger,
-    override: bool = False,
+    overwrite: bool = False,
 ) -> None:
     """Initialize CI scripts folder files."""
     path = Path(path)
     path = path if path.name == "scripts" else path / "scripts"
     for file in SCRIPTS:
-        write_template(file, config=config, path=path, ledger=ledger, override=override)
+        write_template(file, config=config, path=path, ledger=ledger, overwrite=overwrite)
     if config["project"].get("docker"):
         write_template(
             dockerfile_aarch64,
             config=config,
             path=path,
             ledger=ledger,
-            override=override,
+            overwrite=overwrite,
         )
 
 
@@ -106,30 +106,30 @@ def setup_root_files(
     path: Union[str, Path],
     config: Config,
     ledger: Ledger,
-    override: bool = False,
+    overwrite: bool = False,
 ) -> None:
     """Initialize root folder files."""
     for file in ROOT_PATH_FILES:
-        write_template(file, config=config, path=path, ledger=ledger, override=override)
+        write_template(file, config=config, path=path, ledger=ledger, overwrite=overwrite)
     if config.project.get("docker"):
-        write_template(dockerfile, config=config, path=path, ledger=ledger, override=override)
+        write_template(dockerfile, config=config, path=path, ledger=ledger, overwrite=overwrite)
     if config.project.get("mlflow"):
-        write_template(mlproject, config=config, path=path, ledger=ledger, override=override)
+        write_template(mlproject, config=config, path=path, ledger=ledger, overwrite=overwrite)
     if config.project.get("open_source"):
         for file in OPEN_SOURCE_FILES:
-            write_template(file, config=config, path=path, ledger=ledger, override=override)
+            write_template(file, config=config, path=path, ledger=ledger, overwrite=overwrite)
     propietary_classifier = "License :: Other/Proprietary License"
     license_classifiers = {"mit": "License :: OSI Approved :: MIT License"}
     license_classifer = license_classifiers.get(config.template["license"], propietary_classifier)
     config = DictConfig({**config, "license_classifier": license_classifer})
-    write_template(setup_py, config=config, path=path, ledger=ledger, override=override)
+    write_template(setup_py, config=config, path=path, ledger=ledger, overwrite=overwrite)
 
 
 def dump_ledger(
     path: Union[str, Path],
     config: Config,
     ledger: Ledger,
-    override: bool = False,
+    overwrite: bool = False,
 ) -> None:
     """Write the summary of the generated files."""
     config.template = DictConfig({**config.template, "generated_files": ledger.files})
@@ -138,14 +138,14 @@ def dump_ledger(
         config=config,
         path=path,
         ledger=ledger,
-        override=override,
+        overwrite=overwrite,
     )
 
 
 def setup_project(
     path: Union[str, Path],
     config: Config,
-    override: bool = False,
+    overwrite: bool = False,
 ) -> None:
     """Initialize the project folder structure and all the filled in boilerplate files."""
     assert isinstance(config, Config)
@@ -155,13 +155,13 @@ def setup_project(
         path=path,
         config=config,
         ledger=ledger,
-        override=override,
+        overwrite=overwrite,
     )
     setup_push_workflow(
         path=path,
         config=config,
         ledger=ledger,
-        override=override,
+        overwrite=overwrite,
     )
     setup_requirements(
         path=path,
@@ -169,19 +169,19 @@ def setup_project(
         test=True,
         lint=True,
         ledger=ledger,
-        override=override,
+        overwrite=overwrite,
     )
     setup_scripts(
         path=path,
         config=config,
         ledger=ledger,
-        override=override,
+        overwrite=overwrite,
     )
     dump_ledger(
         path=path,
         ledger=ledger,
         config=config,
-        override=override,
+        overwrite=overwrite,
     )
     setup_git(
         path=path,

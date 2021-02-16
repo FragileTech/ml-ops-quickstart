@@ -16,7 +16,7 @@ def test_init_repository(config):
         setup_project(
             path=Path(tmp),
             config=config,
-            override=False,
+            overwrite=False,
         )
 
 

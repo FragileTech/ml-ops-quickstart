@@ -90,7 +90,7 @@ def write_project_requirements(
     ledger: Ledger,
     out_path: Optional[Union[Path, str]] = None,
     out_name: str = "requirements.txt",
-    override: bool = False,
+    overwrite: bool = False,
 ):
     """
     Write the composed requirements.txt file.
@@ -102,7 +102,7 @@ def write_project_requirements(
         return
     out_path = os.getcwd() if out_path is None else out_path
     file_path = out_path / out_name
-    if not override and file_path.exists():
+    if not overwrite and file_path.exists():
         return
     requirements = compose_requirements(options) if options is not None else ""
     ledger.register(
@@ -116,7 +116,7 @@ def write_project_requirements(
 def write_dev_requirements(
     ledger: Ledger,
     out_path: Optional[Union[Path, str]] = None,
-    override: bool = False,
+    overwrite: bool = False,
     test: bool = True,
     lint: bool = True,
 ):
@@ -124,10 +124,10 @@ def write_dev_requirements(
     out_path = Path(os.getcwd() if out_path is None else out_path)
     if lint:
         ledger.register(lint_req)
-        copy_file(lint_req, out_path, override)
+        copy_file(lint_req, out_path, overwrite)
     if test:
         ledger.register(test_req)
-        copy_file(test_req, out_path, override)
+        copy_file(test_req, out_path, overwrite)
 
 
 def write_requirements(
@@ -135,7 +135,7 @@ def write_requirements(
     ledger: Ledger,
     options: Optional[Iterable[str]] = None,
     out_name="requirements.txt",
-    override: bool = False,
+    overwrite: bool = False,
     lint: bool = True,
     test: bool = True,
 ):
@@ -146,12 +146,12 @@ def write_requirements(
             options=options,
             out_path=out_path,
             out_name=out_name,
-            override=override,
+            overwrite=overwrite,
             ledger=ledger,
         )
     write_dev_requirements(
         out_path=out_path,
-        override=override,
+        overwrite=overwrite,
         test=test,
         lint=lint,
         ledger=ledger,
