@@ -5,36 +5,37 @@ import click
 from omegaconf import DictConfig
 
 from mloq.api import setup_project
-from mloq.config.generation import generate_project_config, generate_template
+from mloq.config.generation import generate_config
 from mloq.config.logic import get_docker_image, write_config
 from mloq.config.params import Config, is_empty, PROJECT, TEMPLATE
 from mloq.failure import Failure
 from mloq.version import __version__
 
 
-def generate_config_interactive(template: Config, project_config: Config):
+def generate_config_interactive(config: Config) -> Config:
     """Interactive generation of the project configuration."""
     # General project information
     click.echo("The following values will occur in several places in the generated files.")
-    template["project_name"] = TEMPLATE.project_name(template, True)
-    template["description"] = TEMPLATE.description(template, True)
-    template["owner"] = TEMPLATE.owner(template, True)
-    template["email"] = TEMPLATE.email(template, True)
-    template["author"] = TEMPLATE.author(template, True, default=template["owner"])
-    default_url = f"https://github.com/{template['owner']}/{template['project_name']}"
-    template["project_url"] = TEMPLATE.project_url(template, True, default=default_url)
+    project, template = config.project, config.template
+    template.project_name = TEMPLATE.project_name(template, True)
+    template.description = TEMPLATE.description(template, True)
+    template.owner = TEMPLATE.owner(template, True)
+    template.email = TEMPLATE.email(template, True)
+    template.author = TEMPLATE.author(template, True, default=template.owner)
+    default_url = f"https://github.com/{template.owner}/{template.project_name}"
+    template.project_url = TEMPLATE.project_url(template, True, default=default_url)
     click.echo()
     # License information
     click.echo("Please define the license of the project. ")
     click.echo(
         "Open Source projects will include the corresponding " "LICENSE file and a DCO.md file",
     )
-    is_open_source = PROJECT.open_source(project_config, True, default=True)
-    project_config["open_source"] = is_open_source
+    is_open_source = PROJECT.open_source(project, True, default=True)
+    project.open_source = is_open_source
     default_license = "MIT" if is_open_source else "None"
-    template["license"] = TEMPLATE.license_type(template, True, default=default_license)
-    copyright_holder = TEMPLATE.copyright_holder(template, True, default=template["owner"])
-    template["copyright_holder"] = copyright_holder
+    template.license = TEMPLATE.license_type(template, True, default=default_license)
+    copyright_holder = TEMPLATE.copyright_holder(template, True, default=template.owner)
+    template.copyright_holder = copyright_holder
     click.echo()
     # Python version and requirements
     click.echo(
@@ -42,7 +43,7 @@ def generate_config_interactive(template: Config, project_config: Config):
         "Please provide the values as a comma separated list. ",
     )
     versions = TEMPLATE.python_versions(template, True, default="3.6, 3.7, 3.8, 3.9")
-    template["python_versions"] = versions
+    template.python_versions = versions
     click.echo("Please specify the requirements of the project as a comma separated list.")
     click.echo("Available values:")
     click.echo("    data-science: Common data science libraries such as numpy, pandas, sklearn...")
@@ -51,8 +52,8 @@ def generate_config_interactive(template: Config, project_config: Config):
     )
     click.echo("    pytorch: Latest version of pytorch, torchvision and pytorch_lightning")
     click.echo("    tensorflow: ")  # , data-viz, torch, tensorflow}")
-    project_requirements = PROJECT.requirements(project_config, True, default="None")
-    project_config["requirements"] = project_requirements
+    project_requirements = PROJECT.requirements(project, True, default="None")
+    project.requirements = project_requirements
     click.echo()
     # Continuous integration and other optional tools
     click.echo("You can configure the continuous integration using Github Actions.")
@@ -60,48 +61,40 @@ def generate_config_interactive(template: Config, project_config: Config):
     click.echo("    Python: Push workflow for pure Python projects.")
     click.echo("    Dist: Push workflow for Python projects with compiled extensions.")
     click.echo("    None: Do not set up the CI.")
-    ci = PROJECT.ci(project_config, True, default="python")
-    project_config["ci"] = ci
+    ci = PROJECT.ci(project, True, default="python")
+    project.ci = ci
     if is_empty(ci):
-        template["bot_name"] = "None"
-        template["bot_email"] = "None"
+        template.bot_name = "None"
+        template.bot_email = "None"
     else:
-        template["default_branch"] = TEMPLATE.default_branch(template, True, default="master")
+        template.default_branch = TEMPLATE.default_branch(template, True, default="master")
         click.echo("A bot account will be used to automatically bump the version of your project.")
-        template["bot_name"] = TEMPLATE.bot_name(template, True, default=template["author"])
-        template["bot_email"] = TEMPLATE.bot_email(template, True, default=template["email"])
+        template.bot_name = TEMPLATE.bot_name(template, True, default=template.author)
+        template.bot_email = TEMPLATE.bot_email(template, True, default=template.email)
 
-    template["ci_python_version"] = "3.8"
-    template["ci_ubuntu_version"] = "ubuntu-20.04"
-    template["ci_extra"] = ""
-    template["pyproject_extra"] = ""
-    template["docstring_checks"] = False
-    project_config["docker"] = has_docker = PROJECT.docker(project_config, True, default=True)
+    template.ci_python_version = "3.8"
+    template.ci_ubuntu_version = "ubuntu-20.04"
+    template.ci_extra = ""
+    template.pyproject_extra = ""
+    template.docstring_checks = False
+    project.docker = has_docker = PROJECT.docker(project, True, default=True)
     if has_docker:
         click.echo("MLOQ will generate a Dockerfile for your project.")
-        base_docker = get_docker_image(template=template, project_config=project_config)
+        base_docker = get_docker_image(config)
         if base_docker is not None:
             base_docker = TEMPLATE.docker_image(template, True, default=base_docker)
-        template["docker_image"] = str(base_docker) if base_docker is None else base_docker
+        template.docker_image = str(base_docker) if base_docker is None else base_docker
     click.echo("You can optionally create an ML Flow MLProject file.")
-    project_config["mlflow"] = PROJECT.mlflow(project_config, True, default=False)
-    project_config["git_init"] = git_init = PROJECT.git_init(
-        project_config,
-        True,
-        default=True,
-    )
+    project.mlflow = PROJECT.mlflow(project, True, default=False)
+    project.git_init = git_init = PROJECT.git_init(project, True, default=True)
     if git_init:
-        project_config["git_push"] = PROJECT.git_push(
-            project_config,
-            True,
-            default=False,
-        )
-        template["git_message"] = TEMPLATE.git_message(
+        project.git_push = PROJECT.git_push(project, True, default=False)
+        template.git_message = TEMPLATE.git_message(
             template,
             True,
             default="Generate project files with mloq",
         )
-    return project_config, template
+    return config
 
 
 def welcome_message():
@@ -123,15 +116,11 @@ def setup_cmd(
     only_config: bool,
 ) -> int:
     """Initialize a new project using ML Ops Quickstart."""
-    project_config, template = config.project, config.template
     if interactive:
         welcome_message()
-        data = generate_config_interactive(template=template, project_config=project_config)
-        project_config, template = data
+        config = generate_config_interactive(config)
     else:
-        project_config = generate_project_config(project_config=project_config)
-        template = generate_template(template=template, project_config=project_config)
-    config = DictConfig({"project": project_config, "template": template})
+        config = generate_config(config)
     if interactive and (only_config or click.confirm("Do you want to generate a mloq.yml file?")):
         write_config(config, output, safe=True)
     if only_config:

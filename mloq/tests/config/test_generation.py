@@ -1,7 +1,11 @@
 import copy
 import os
 
-from mloq.config.generation import generate_project_config, generate_template
+from mloq.config.generation import (
+    _generate_project_config,
+    _generate_template_config,
+    generate_config,
+)
 
 
 def compare_dicts(a, b):
@@ -14,23 +18,37 @@ def compare_dicts(a, b):
                 assert x1 == x2, k1
 
 
-def test_generate_config(project_config):
-    in_config = copy.deepcopy(project_config)
-    in_config["requirements"] = None
+def test_generate_project_config(config):
+    _config = copy.deepcopy(config)
+    _config.project.requirements = None
     os.environ["MLOQ_REQUIREMENTS"] = "torch"
-    new_template = generate_project_config(project_config=in_config, interactive=False)
-    del os.environ["MLOQ_REQUIREMENTS"]
-    compare_dicts(project_config, new_template)
+    try:
+        new_project = _generate_project_config(_config)
+        compare_dicts(config.project, new_project)
+    finally:
+        del os.environ["MLOQ_REQUIREMENTS"]
 
 
-def test_generate_template(template_config, project_config):
-    in_template = copy.deepcopy(template_config)
-    in_template["project_name"] = None
+def test_generate_template_config(config):
+    _config = copy.deepcopy(config)
+    _config.template.project_name = None
     os.environ["MLOQ_PROJECT_NAME"] = "test_project"
-    new_template = generate_template(
-        template=in_template,
-        project_config=project_config,
-        interactive=False,
-    )
-    del os.environ["MLOQ_PROJECT_NAME"]
-    compare_dicts(template_config, new_template)
+    try:
+        new_template = _generate_template_config(_config)
+        compare_dicts(config.template, new_template)
+    finally:
+        del os.environ["MLOQ_PROJECT_NAME"]
+
+
+def test_generate_config(config):
+    _config = copy.deepcopy(config)
+    _config.project.requirements = None
+    _config.template.project_name = None
+    os.environ["MLOQ_REQUIREMENTS"] = "torch"
+    os.environ["MLOQ_PROJECT_NAME"] = "test_project"
+    try:
+        new_config = generate_config(_config)
+        compare_dicts(config, new_config)
+    finally:
+        del os.environ["MLOQ_REQUIREMENTS"]
+        del os.environ["MLOQ_PROJECT_NAME"]
