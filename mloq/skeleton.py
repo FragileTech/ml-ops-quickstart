@@ -4,8 +4,9 @@ from pathlib import Path
 from shutil import copyfile
 from typing import Union
 
+from omegaconf import DictConfig
+
 from mloq import _logger
-from mloq.config import Config
 from mloq.failure import Failure
 from mloq.files import File, init, Ledger, main, test_main, version
 from mloq.templating import write_template
@@ -32,7 +33,7 @@ def copy_file(file: File, path: Union[Path, str], overwrite: bool = False) -> No
 
 def create_project_skeleton(
     root_path: Path,
-    config: Config,
+    config: DictConfig,
     ledger: Ledger,
     overwrite: bool = False,
 ) -> None:

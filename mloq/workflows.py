@@ -2,8 +2,10 @@
 from pathlib import Path
 from typing import Union
 
+from omegaconf import DictConfig
+
 from mloq import _logger
-from mloq.config.params import Config, is_empty
+from mloq.config.params import is_empty
 from mloq.files import Ledger, push_dist_wkf, push_python_wkf
 from mloq.skeleton import create_github_actions_directories
 from mloq.templating import write_template
@@ -17,7 +19,7 @@ WORKFLOW_NAMES = {
 
 def setup_workflow_template(
     root_path: Union[Path, str],
-    config: Config,
+    config: DictConfig,
     ledger: Ledger,
     overwrite: bool = False,
 ):
@@ -44,7 +46,7 @@ def setup_workflow_template(
 
 def setup_push_workflow(
     path: Union[str, Path],
-    config: Config,
+    config: DictConfig,
     ledger: Ledger,
     overwrite: bool = False,
 ) -> None:

@@ -7,12 +7,12 @@ from omegaconf import DictConfig
 from mloq.api import setup_project
 from mloq.config.generation import generate_config
 from mloq.config.logic import get_docker_image, write_config
-from mloq.config.params import Config, is_empty, PROJECT, TEMPLATE
+from mloq.config.params import is_empty, PROJECT, TEMPLATE
 from mloq.failure import Failure
 from mloq.version import __version__
 
 
-def generate_config_interactive(config: Config) -> Config:
+def generate_config_interactive(config: DictConfig) -> DictConfig:
     """Interactive generation of the project configuration."""
     # General project information
     click.echo("The following values will occur in several places in the generated files.")

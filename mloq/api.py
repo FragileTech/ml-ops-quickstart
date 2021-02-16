@@ -4,7 +4,6 @@ from typing import List, Tuple, Union
 
 from omegaconf import DictConfig
 
-from mloq.config import Config
 from mloq.files import (
     dockerfile,
     dockerfile_aarch64,
@@ -25,7 +24,7 @@ from mloq.workflows import setup_push_workflow
 
 def setup_requirements(
     path: Union[Path, str],
-    config: Config,
+    config: DictConfig,
     ledger: Ledger,
     lint: bool = True,
     test: bool = True,
@@ -61,7 +60,7 @@ def setup_requirements(
 
 def setup_project_files(
     path: Union[Path, str],
-    config: Config,
+    config: DictConfig,
     ledger: Ledger,
     overwrite: bool = False,
 ) -> None:
@@ -83,7 +82,7 @@ def setup_project_files(
 
 def setup_scripts(
     path: Union[str, Path],
-    config: Config,
+    config: DictConfig,
     ledger: Ledger,
     overwrite: bool = False,
 ) -> None:
@@ -104,7 +103,7 @@ def setup_scripts(
 
 def setup_root_files(
     path: Union[str, Path],
-    config: Config,
+    config: DictConfig,
     ledger: Ledger,
     overwrite: bool = False,
 ) -> None:
@@ -127,7 +126,7 @@ def setup_root_files(
 
 def dump_ledger(
     path: Union[str, Path],
-    config: Config,
+    config: DictConfig,
     ledger: Ledger,
     overwrite: bool = False,
 ) -> None:
@@ -144,11 +143,11 @@ def dump_ledger(
 
 def setup_project(
     path: Union[str, Path],
-    config: Config,
+    config: DictConfig,
     overwrite: bool = False,
 ) -> None:
     """Initialize the project folder structure and all the filled in boilerplate files."""
-    assert isinstance(config, Config)
+    assert isinstance(config, DictConfig)
     path = Path(path)
     ledger = Ledger()
     setup_project_files(

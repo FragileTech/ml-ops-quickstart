@@ -1,11 +1,14 @@
 """This file contains the logic defining all the parameters needed to se up a project with mloq."""
 import os
-from typing import Any, List, NamedTuple, Optional, Union
+from typing import Any, List, NamedTuple, Optional, Set, Tuple, Union
 
 import click
+from omegaconf import DictConfig
 
 from mloq.cli.custom_prompt import confirm, prompt
-from mloq.config import Choices, Config
+
+
+Choices = Union[List[str], Tuple[str], Set[str]]
 
 
 class ConfigParam:
@@ -36,7 +39,7 @@ class ConfigParam:
 
     def __call__(
         self,
-        config: Optional[Config] = None,
+        config: Optional[DictConfig] = None,
         interactive: bool = False,
         default: Optional[Any] = None,
         raise_error: bool = True,
@@ -81,7 +84,7 @@ class ConfigParam:
             _kwargs["default"] = value
         return prompt(self._prompt_text, **_kwargs)
 
-    def _value_from_config(self, config: Config):
+    def _value_from_config(self, config: DictConfig):
         """Return the config value if it is present on the config dict."""
 
         def find_value(conf):
