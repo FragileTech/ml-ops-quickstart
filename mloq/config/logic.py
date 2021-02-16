@@ -1,6 +1,6 @@
 """This module contains the functionality for parsing ad modifying the project configuration."""
 from pathlib import Path
-from typing import Optional, Union
+from typing import Union
 
 from omegaconf import DictConfig, OmegaConf
 
@@ -17,28 +17,24 @@ def get_docker_python_version(template: Config) -> str:
     return f"py{version}"
 
 
-def get_docker_image(
-    template: Config,
-    project_config: Optional[Config] = None,
-) -> Union[str, None]:
+def get_docker_image(config: Config) -> Union[str, None]:
     """
     Add to params the base docker container that will be used to define the project's container.
 
     If the dependencies require cuda the base image will be gpu friendly.
     """
-    project_config = project_config or {}
-    docker_is_false = project_config.get("docker") is not None and not project_config.get("docker")
+    docker_is_false = not config.project.get("docker")
     if docker_is_false:  # Project does not require Docker
         return "empty"
     # If docker image is defined, return current value even if it's an empty image
-    if template.get("docker_image") is not None:
-        return template["docker_image"]
+    if config.template.get("docker_image") is not None:
+        return config.template["docker_image"]
     # Define the appropriate FragileTech docker container as base image
-    v = get_docker_python_version(template)
+    v = get_docker_python_version(config.template)
     ubuntu_v = "ubuntu20.04" if v == "py38" else "ubuntu18.04"
     image = (
         f"fragiletech/{ubuntu_v}-cuda-11.0-{v}"
-        if require_cuda(project_config)
+        if require_cuda(config.project)
         else f"fragiletech/{ubuntu_v}-base-{v}"
     )
     return image
@@ -55,8 +51,7 @@ def write_config(config: DictConfig, path: Union[Path, str], safe: bool = False)
 
 def load_empty_config() -> Config:
     """Return a dictionary containing all the MLOQ config values set to None."""
-    empty_config = OmegaConf.load(mloq_yml.src)
-    return empty_config
+    return OmegaConf.load(mloq_yml.src)
 
 
 def write_empty_config(path: Union[str, Path], overwrite: bool = False, filename: str = None):
