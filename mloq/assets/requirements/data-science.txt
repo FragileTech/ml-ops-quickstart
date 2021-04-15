@@ -1,4 +1,4 @@
-networkx==2.5
+networkx==2.5.1
 numba==0.52.0
 numpy==1.19.4
 opencv-python==4.4.0.46
