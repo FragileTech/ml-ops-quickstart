@@ -137,10 +137,29 @@ code_of_conduct = file(
 )
 
 # Requirements files
-data_science_req = file("data-science.txt", REQUIREMENTS_PATH)
-data_viz_req = file("data-visualization.txt", REQUIREMENTS_PATH, is_static=True)
-pytorch_req = file("pytorch.txt", REQUIREMENTS_PATH, is_static=True)
-tensorflow_req = file("tensorflow.txt", REQUIREMENTS_PATH, is_static=True)
+data_science_req = file(
+    "data-science.txt",
+    REQUIREMENTS_PATH,
+    "list of commonly used data science libraries",
+)
+data_viz_req = file(
+    "data-visualization.txt",
+    REQUIREMENTS_PATH,
+    "list of commonly used visualization libraries",
+    is_static=True,
+)
+pytorch_req = file(
+    "pytorch.txt",
+    REQUIREMENTS_PATH,
+    "Pytorch deep learning libraries",
+    is_static=True,
+)
+tensorflow_req = file(
+    "tensorflow.txt",
+    REQUIREMENTS_PATH,
+    "Tensorflow deep learning libraries",
+    is_static=True,
+)
 lint_req = file(
     "requirements-lint.txt",
     REQUIREMENTS_PATH,
@@ -153,7 +172,12 @@ test_req = file(
     "list of exact versions of the packages needed to run your test suite",
     is_static=True,
 )
-dogfood_req = file("dogfood.txt", REQUIREMENTS_PATH, is_static=True)
+dogfood_req = file(
+    "dogfood.txt",
+    REQUIREMENTS_PATH,
+    "list of mock requirements for testing purposes",
+    is_static=True,
+)
 
 # Templates
 mit_license = file("MIT_LICENSE", TEMPLATES_PATH, "license of the project", dst="LICENSE")
@@ -179,7 +203,7 @@ rename_wheels = file(
 )
 dockerfile = file("Dockerfile", TEMPLATES_PATH, "Dockerfile to install the project")
 makefile = file("Makefile", TEMPLATES_PATH, "common make commands for development")
-mlproject = file("MLproject", TEMPLATES_PATH)
+mlproject = file("MLproject", TEMPLATES_PATH, "file defining MLFlow projects")
 readme = file("README.md", TEMPLATES_PATH, "README")
 contributing = file(
     "CONTRIBUTING.md",
