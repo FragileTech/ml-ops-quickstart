@@ -3,4 +3,4 @@ flogging==0.0.13
 invoke==1.5.0
 jinja2==2.11.3
 hydra-core==1.0.6
-pre-commit==2.12.0
+pre-commit==2.12.1

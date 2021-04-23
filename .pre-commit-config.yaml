@@ -3,13 +3,8 @@ repos:
   rev: 20.8b1
   hooks:
   - id: black
-- repo: https://github.com/life4/flakehell
-  rev: v.0.8.0
-  hooks:
-  - id: flakehell
-    args: ["."]
 - repo: https://github.com/PyCQA/isort
-  rev: 5.7.0
+  rev: 5.8.0
   hooks:
   - id: isort
     args: ["."]
