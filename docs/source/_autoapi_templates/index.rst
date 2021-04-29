@@ -10,7 +10,7 @@ different sub-packages and modules, we might differentiate two big categories:
 core utilities and high-level ones.
 
 
-* **Core API:** This routines are locate within the `mloq.api` that show the different features of the library can be accessed programmatically.
+* **Core API:** This routines are located within the `mloq.api` that show the different features of the library can be accessed programmatically.
 
 
 

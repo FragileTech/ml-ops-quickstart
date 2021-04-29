@@ -9,13 +9,18 @@
 * `Dockerfile` - Dockerfile to install the project
 * `Dockerfile_aarch64` - Dockerfile to build for aarch64 hardware
 * `LICENSE` - license of the project
+* `Makefile` - common make commands for building the documentation
 * `Makefile` - common make commands for development
 * `README.md` - README
 * `__main__.py` - Python package executable entry point
 * `build-manylinux-wheels.sh` - script to build universal Linux wheels
+* `conf.py` - configuration file for sphinx and doc plugins
+* `index.md` - configuration file for sphinx and doc plugins
+* `make.bat` - common make commands for building the documentation
 * `push.yml` - GitHub Actions continuous integration workflow file
 * `pyproject.toml` - configuration of various development tools: linters, formatters
 * `rename_testpypi_wheels.py` - script to work with the test PyPi - test Python package repository
+* `requirements-docs.txt` - list of exact versions of the packages needed to build your documentation
 * `requirements-lint.txt` - list of exact versions of the packages used to check your code style
 * `requirements-test.txt` - list of exact versions of the packages needed to run your test suite
 * `requirements.txt` - list of exact versions of the packages on which your project depends

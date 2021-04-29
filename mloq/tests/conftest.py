@@ -13,6 +13,7 @@ def project_config():
         "docker": True,
         "ci": "python",
         "mlflow": True,
+        "docs": False,
         "requirements": ["torch"],
         "git_init": True,
         "git_push": False,
