@@ -255,16 +255,9 @@ what_mloq_generated = file("WHAT_MLOQ_GENERATED.md", TEMPLATES_PATH, "this file"
 
 # Workflows
 push_python_wkf = file(
-    "push-python.yml",
+    "push.yml",
     WORKFLOWS_PATH,
     "GitHub Actions continuous integration workflow file",
-    dst="push.yml",
-)
-push_dist_wkf = file(
-    "push-dist.yml",
-    WORKFLOWS_PATH,
-    "GitHub Actions continuous integration workflow file",
-    dst="push.yml",
 )
 
 ROOT_PATH_FILES = [
@@ -284,7 +277,7 @@ LICENSES = {
     "GPL-3.0": gpl_license,
 }
 
-WORKFLOW_FILES = [push_dist_wkf, push_python_wkf]
+WORKFLOW_FILES = [push_python_wkf]
 
 PYTHON_FILES = [init, main, test_main, version]
 

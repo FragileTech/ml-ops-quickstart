@@ -15,12 +15,7 @@ env:
   DEFAULT_BRANCH: master
   BOT_NAME: fragile-bot
   BOT_EMAIL: bot@fragile.tech
-  BOT_AUTH_TOKEN: ${{ secrets.BOT_AUTH_TOKEN }}
-  TEST_PYPI_PASS: ${{ secrets.TEST_PYPI_PASS }}
-  PYPI_PASS: ${{ secrets.PYPI_PASS }}
   DOCKER_ORG: fragiletech
-  DOCKER_USERNAME: ${{ secrets.DOCKERHUB_LOGIN }}
-  DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASS }}
   PIP_CACHE: |
     ~/.cache/pip
     ~/.local/bin
@@ -171,6 +166,8 @@ jobs:
           twine check dist/*
 
       - name: Publish package to TestPyPI
+        env:
+          TEST_PYPI_PASS: ${{ secrets.TEST_PYPI_PASS }}
         if: "'$TEST_PYPI_PASS' != ''"
         uses: pypa/gh-action-pypi-publish@master
         with:
@@ -220,6 +217,8 @@ jobs:
 
   bump-version:
     name: Bump package version
+    env:
+      BOT_AUTH_TOKEN: ${{ secrets.BOT_AUTH_TOKEN }}
     if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$BOT_AUTH_TOKEN' != ''"
     runs-on: ubuntu-20.04
     needs:
@@ -252,13 +251,15 @@ jobs:
   push-docker:
     name: Push Docker container
     runs-on: ubuntu-20.04
-    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$DOCKER_PASSWORD' != ''"
+    env:
+      DOCKERHUB_PASS: ${{ secrets.DOCKERHUB_PASS }}
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$DOCKERHUB_PASS' != ''"
     steps:
       - uses: actions/checkout@v2
       - name: Login to DockerHub
         run: |
           set -x
-          docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
+          docker login -u "${{ secrets.DOCKERHUB_LOGIN }}" -p "${{ secrets.DOCKERHUB_PASS }}" docker.io
 
       - name: Build container
         run: |
@@ -274,6 +275,8 @@ jobs:
 
   release-package:
     name: Release PyPI package
+    env:
+      PYPI_PASS: ${{ secrets.PYPI_PASS }}
     if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'  && '$PYPI_PASS' != ''"
     runs-on: ubuntu-18.04
     steps:
