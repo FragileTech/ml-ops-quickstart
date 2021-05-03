@@ -196,6 +196,7 @@ _PROJECT = [
     ),
     BooleanParam("open_source", "Is the project Open Source?"),
     BooleanParam("docker", "Do you want to set up a Docker container with your project?"),
+    BooleanParam("docs", "Do you want to set up the project documentation?"),
     ConfigParam(
         "ci",
         "Github Actions push workflow",

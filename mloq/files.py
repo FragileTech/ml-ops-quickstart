@@ -178,7 +178,38 @@ dogfood_req = file(
     "list of mock requirements for testing purposes",
     is_static=True,
 )
-
+docs_req = file(
+    "requirements-docs.txt",
+    REQUIREMENTS_PATH,
+    "list of exact versions of the packages needed to build your documentation",
+    is_static=True,
+)
+# Documentation files
+makefile_docs = file(
+    "makefile_docs.txt",
+    STATIC_FILES_PATH,
+    "common make commands for building the documentation",
+    dst="Makefile",
+    is_static=True,
+)
+make_bat_docs = file(
+    "make_bat.txt",
+    STATIC_FILES_PATH,
+    "common make commands for building the documentation",
+    dst="make.bat",
+    is_static=True,
+)
+conf_py = file(
+    "conf.txt",
+    TEMPLATES_PATH,
+    "configuration file for sphinx and doc plugins",
+    dst="conf.py",
+)
+index_md = file(
+    "index.md",
+    TEMPLATES_PATH,
+    "configuration file for sphinx and doc plugins",
+)
 # Templates
 mit_license = file("MIT_LICENSE", TEMPLATES_PATH, "license of the project", dst="LICENSE")
 apache_license = file("APACHE_LICENSE", TEMPLATES_PATH, "license of the project", dst="LICENSE")
@@ -257,19 +288,20 @@ WORKFLOW_FILES = [push_dist_wkf, push_python_wkf]
 
 PYTHON_FILES = [init, main, test_main, version]
 
+DOCS_FILES = [conf_py, index_md, makefile_docs, make_bat_docs, docs_req]
+
 REQUIREMENTS_FILES = [
     lint_req,
     pytorch_req,
     tensorflow_req,
     data_viz_req,
     data_science_req,
-    lint_req,
     test_req,
 ]
 
 SCRIPTS = [build_manylinux_sh, rename_wheels]
 
-ALL_FILES = ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [mloq_yml]
+ALL_FILES = ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [mloq_yml] + DOCS_FILES
 
 ALL_FILE_PATHS = [str(f.src) for f in ALL_FILES]
 

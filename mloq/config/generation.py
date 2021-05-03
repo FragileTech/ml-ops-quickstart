@@ -27,6 +27,7 @@ def _generate_project_config(config: Optional[DictConfig] = None) -> DictConfig:
     project.open_source = PROJECT.open_source(project, False, default=True)
     project.docker = PROJECT.docker(project, False, default=True)
     project.ci = PROJECT.ci(project, False, default="python")
+    project.docs = PROJECT.docs(project, False, default=True)
     project.mlflow = PROJECT.mlflow(project, False, default=False)
     project.requirements = PROJECT.requirements(project, False, default="None")
     return project

@@ -84,6 +84,7 @@ def generate_config_interactive(config: DictConfig) -> DictConfig:
         if base_docker is not None:
             base_docker = TEMPLATE.docker_image(template, True, default=base_docker)
         template.docker_image = str(base_docker) if base_docker is None else base_docker
+    project.docs = PROJECT.docs(project, True, default=True)
     click.echo("You can optionally create an ML Flow MLProject file.")
     project.mlflow = PROJECT.mlflow(project, True, default=False)
     project.git_init = git_init = PROJECT.git_init(project, True, default=True)

@@ -18,28 +18,28 @@ the generated templates can be found in [mloq-template](https://github.com/Fragi
 maxdepth: 5
 caption: Welcome to MLOQ
 ---
-guide/welcome.md
+markdown/welcome.md
 ```
 ```{toctree}
 ---
 maxdepth: 5
 caption: How to
 ---
-guide/usage.md
+markdown/usage.md
 ```
 ```{toctree}
 ---
 maxdepth: 5
 caption: Features
 ---
-guide/features.md
+markdown/features.md
 ```
 ```{toctree}
 ---
 maxdepth: 5
 caption: MLOQ Library
 ---
-guide/library.md
+markdown/library.md
 autoapi/index.rst
 ```
 

@@ -102,3 +102,28 @@ def create_github_actions_directories(root_path: Union[str, Path]) -> None:
     os.makedirs(gha_path, exist_ok=True)
     workflows_path = gha_path / "workflows"
     os.makedirs(workflows_path, exist_ok=True)
+
+
+def create_docs_directories(root_path: Union[str, Path]) -> None:
+    """
+    Create the documentation directory structure.
+
+    It creates a docs folder containing an images folder and a source folder. \
+    The source folder contains an images folder, an _static folder, and a markdown folder.
+
+    Args:
+        root_path: Absolute path where the docs folder will be crated.
+
+    Returns:
+        None.
+    """
+    docs_path = Path(root_path) / "docs"
+    os.makedirs(docs_path, exist_ok=True)
+    imgs_path = docs_path / "images"
+    os.makedirs(imgs_path, exist_ok=True)
+    source_path = docs_path / "source"
+    os.makedirs(source_path, exist_ok=True)
+    static_path = source_path / "_static"
+    os.makedirs(static_path, exist_ok=True)
+    markdown_path = source_path / "markdown"
+    os.makedirs(markdown_path, exist_ok=True)

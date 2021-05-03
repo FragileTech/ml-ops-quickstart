@@ -7,6 +7,7 @@ from omegaconf import DictConfig
 from mloq.files import (
     dockerfile,
     dockerfile_aarch64,
+    DOCS_FILES,
     Ledger,
     LICENSES,
     mlproject,
@@ -18,7 +19,7 @@ from mloq.files import (
 )
 from mloq.git import setup_git
 from mloq.requirements import install_requirements, write_requirements
-from mloq.skeleton import create_project_skeleton
+from mloq.skeleton import create_docs_directories, create_project_skeleton
 from mloq.templating import write_template
 from mloq.workflows import setup_push_workflow
 
@@ -156,6 +157,23 @@ def dump_ledger(
     )
 
 
+def setup_docs(
+    path: Union[str, Path],
+    config: DictConfig,
+    ledger: Ledger,
+    overwrite: bool = False,
+) -> None:
+    """Configure the project documentation."""
+    if not config.project.get("docs", False):
+        return
+    create_docs_directories(root_path=path)
+    source_files = {"conf.txt", "index.md"}
+    docs_path = Path(path) / "docs"
+    for file in DOCS_FILES:
+        out_path = (docs_path / "source") if file.name in source_files else docs_path
+        write_template(file, config=config, path=out_path, ledger=ledger, overwrite=overwrite)
+
+
 def setup_project(
     path: Union[str, Path],
     config: DictConfig,
@@ -165,18 +183,10 @@ def setup_project(
     assert isinstance(config, DictConfig)
     path = Path(path)
     ledger = Ledger()
-    setup_project_files(
-        path=path,
-        config=config,
-        ledger=ledger,
-        overwrite=overwrite,
-    )
-    setup_push_workflow(
-        path=path,
-        config=config,
-        ledger=ledger,
-        overwrite=overwrite,
-    )
+    setup_project_files(path=path, config=config, ledger=ledger, overwrite=overwrite)
+    setup_push_workflow(path=path, config=config, ledger=ledger, overwrite=overwrite)
+    setup_scripts(path=path, config=config, ledger=ledger, overwrite=overwrite)
+    setup_docs(path=path, config=config, ledger=ledger, overwrite=overwrite)
     setup_requirements(
         path=path,
         config=config,
@@ -185,19 +195,5 @@ def setup_project(
         ledger=ledger,
         overwrite=overwrite,
     )
-    setup_scripts(
-        path=path,
-        config=config,
-        ledger=ledger,
-        overwrite=overwrite,
-    )
-    dump_ledger(
-        path=path,
-        ledger=ledger,
-        config=config,
-        overwrite=overwrite,
-    )
-    setup_git(
-        path=path,
-        config=config,
-    )
+    dump_ledger(path=path, config=config, ledger=ledger, overwrite=overwrite)
+    setup_git(path=path, config=config)

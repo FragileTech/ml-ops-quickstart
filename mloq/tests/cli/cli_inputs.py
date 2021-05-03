@@ -19,6 +19,7 @@ cli_input_defaults = (
     "bot@email.com\n"  # bot email
     "\n"  # With docker
     "\n"  # Default base docker image
+    "n\n"  # Docs folder
     "\n"  # No ML Flow
     "\n"  # Init git repo
     "\n"  # No push
@@ -45,6 +46,7 @@ cli_input_proprietary = (
     "bot@email.com\n"  # bot email
     "\n"  # With docker
     "\n"  # Default base docker image
+    "n\n"  # Docs folder
     "\n"  # No ML Flow
     "n\n"  # Init git repo
     "y\n"  # Generate mloq.yml
@@ -66,6 +68,7 @@ cli_no_ci = (
     "none\n"  # Workflow python
     "\n"  # With docker
     "\n"  # Default base docker image
+    "n\n"  # Docs folder
     "\n"  # No ML Flow
     "n\n"  # Init git repo
     "y\n"  # Generate mloq.yml
