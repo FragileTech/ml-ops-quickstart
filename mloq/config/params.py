@@ -200,7 +200,7 @@ _PROJECT = [
     ConfigParam(
         "ci",
         "Github Actions push workflow",
-        type=click.Choice(["python", "dist", "none"], case_sensitive=False),
+        type=click.Choice(["python", "none"], case_sensitive=False),
     ),
     BooleanParam("mlflow", "Do you want to set up ML Flow?"),
     BooleanParam("git_init", "Initialize Git repository?"),

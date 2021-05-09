@@ -15,12 +15,7 @@ env:
   DEFAULT_BRANCH: {{default_branch}}
   BOT_NAME: {{bot_name}}
   BOT_EMAIL: {{bot_email}}
-  BOT_AUTH_TOKEN: ${{'{{'}} secrets.BOT_AUTH_TOKEN {{'}}'}}
-  TEST_PYPI_PASS: ${{'{{'}} secrets.TEST_PYPI_PASS {{'}}'}}
-  PYPI_PASS: ${{'{{'}} secrets.PYPI_PASS {{'}}'}}
   DOCKER_ORG: {{owner.lower()}}
-  DOCKER_USERNAME: ${{'{{'}} secrets.DOCKERHUB_LOGIN {{'}}'}}
-  DOCKER_PASSWORD: ${{'{{'}} secrets.DOCKERHUB_PASS {{'}}'}}
   PIP_CACHE: |
     ~/.cache/pip
     ~/.local/bin
@@ -148,11 +143,13 @@ jobs:
           twine check dist/*
 
       - name: Publish package to TestPyPI
+        env:
+          TEST_PYPI_PASS: ${{'{{'}} secrets.TEST_PYPI_PASS {{'}}'}}
         if: "'$TEST_PYPI_PASS' != ''"
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__
-          password: ${{"{{"}} secrets.TEST_PYPI_PASS {{"}}"}}
+          password: ${{'{{'}} secrets.TEST_PYPI_PASS {{'}}'}}
           repository_url: https://test.pypi.org/legacy/
           skip_existing: true
 
@@ -174,6 +171,8 @@ jobs:
 
   bump-version:
     name: Bump package version
+    env:
+      BOT_AUTH_TOKEN: ${{'{{'}} secrets.BOT_AUTH_TOKEN {{'}}'}}
     if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}' && '$BOT_AUTH_TOKEN' != ''"
     runs-on: {{ ci_ubuntu_version }}
     needs:
@@ -206,13 +205,15 @@ jobs:
   push-docker:
     name: Push Docker container
     runs-on: {{ ci_ubuntu_version }}
-    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}' && '$DOCKER_PASSWORD' != ''"
+    env:
+      DOCKERHUB_PASS: ${{'{{'}} secrets.DOCKERHUB_PASS {{'}}'}}
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}' && '$DOCKERHUB_PASS' != ''"
     steps:
       - uses: actions/checkout@v2
       - name: Login to DockerHub
         run: |
           set -x
-          docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
+          docker login -u "${{'{{'}} secrets.DOCKERHUB_LOGIN {{'}}'}}" -p "${{'{{'}} secrets.DOCKERHUB_PASS {{'}}'}}" docker.io
 
       - name: Build container
         run: |
@@ -228,6 +229,8 @@ jobs:
 {% endif %}
   release-package:
     name: Release PyPI package
+    env:
+      PYPI_PASS: ${{'{{'}} secrets.PYPI_PASS {{'}}'}}
     if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}'  && '$PYPI_PASS' != ''"
     runs-on: ubuntu-18.04
     steps:

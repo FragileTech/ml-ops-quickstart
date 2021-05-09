@@ -6,13 +6,12 @@ from omegaconf import DictConfig
 
 from mloq import _logger
 from mloq.config.params import is_empty
-from mloq.files import Ledger, push_dist_wkf, push_python_wkf
+from mloq.files import Ledger, push_python_wkf
 from mloq.skeleton import create_github_actions_directories
 from mloq.templating import write_template
 
 
 WORKFLOW_NAMES = {
-    "dist": push_dist_wkf,
     "python": push_python_wkf,
 }
 

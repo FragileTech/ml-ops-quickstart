@@ -59,7 +59,6 @@ def generate_config_interactive(config: DictConfig) -> DictConfig:
     click.echo("You can configure the continuous integration using Github Actions.")
     click.echo("Available values:")
     click.echo("    Python: Push workflow for pure Python projects.")
-    click.echo("    Dist: Push workflow for Python projects with compiled extensions.")
     click.echo("    None: Do not set up the CI.")
     ci = PROJECT.ci(project, True, default="python")
     project.ci = ci
