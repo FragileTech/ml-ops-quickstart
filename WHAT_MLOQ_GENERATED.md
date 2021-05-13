@@ -12,6 +12,8 @@
 * `Makefile` - common make commands for building the documentation
 * `Makefile` - common make commands for development
 * `README.md` - README
+* `__init__.py` - Python package header for the project module
+* `__init__.py` - Python package header for the test module
 * `__main__.py` - Python package executable entry point
 * `build-manylinux-wheels.sh` - script to build universal Linux wheels
 * `conf.py` - configuration file for sphinx and doc plugins

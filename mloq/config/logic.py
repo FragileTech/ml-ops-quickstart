@@ -4,9 +4,8 @@ from typing import Union
 
 from omegaconf import DictConfig, OmegaConf
 
-from mloq.files import file as new_file, mloq_yml
+from mloq.files import mloq_yml
 from mloq.requirements import require_cuda
-from mloq.skeleton import copy_file
 
 
 def get_docker_python_version(template: DictConfig) -> str:
@@ -51,11 +50,3 @@ def write_config(config: DictConfig, path: Union[Path, str], safe: bool = False)
 def load_empty_config() -> DictConfig:
     """Return a dictionary containing all the MLOQ config values set to None."""
     return OmegaConf.load(mloq_yml.src)
-
-
-def write_empty_config(path: Union[str, Path], overwrite: bool = False, filename: str = None):
-    """Write an empty config file to the target path."""
-    repo_file = (
-        mloq_yml if filename is None else new_file(mloq_yml.src, mloq_yml.src.parent, filename)
-    )
-    copy_file(repo_file, Path(path), overwrite)

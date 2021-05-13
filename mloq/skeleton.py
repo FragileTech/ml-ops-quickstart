@@ -2,7 +2,7 @@
 import os
 from pathlib import Path
 from shutil import copyfile
-from typing import Union
+from typing import Optional, Union
 
 from omegaconf import DictConfig
 
@@ -12,23 +12,32 @@ from mloq.files import File, init, Ledger, main, test_main, version
 from mloq.templating import write_template
 
 
-def copy_file(file: File, path: Union[Path, str], overwrite: bool = False) -> None:
+def copy_file(
+    file: File,
+    path: Union[Path, str],
+    ledger: Ledger,
+    overwrite: bool = False,
+    description: Optional[str] = None,
+) -> None:
     """
     Copy the file from src into dst.
 
     Args:
         file: File object representing the file that will be copied.
         path: Path to the destination of the copied file.
+        ledger: Book keeper to keep track of the generated files.
         overwrite: If False, copy the file if it does not already exists in the \
                    target path. If True, overwrite the target file if it is already present.
+        description: Description of the file that will be recorded by the Ledger.
     Returns:
         None.
     """
     target = path / file.dst
     if not os.path.isfile(str(target)) or overwrite:
+        ledger.register(file, description=description)
         copyfile(file.src, target)
     else:
-        _logger.debug(f"file {file.name} already exists in {target}")
+        _logger.debug(f"file {file.dst} already exists in {target}")
 
 
 def create_project_skeleton(
@@ -61,11 +70,10 @@ def create_project_skeleton(
     try:
         project_path = root_path / project_name
         os.makedirs(project_path, exist_ok=True)
-        copy_file(init, project_path, overwrite)
-        ledger.register(version)
-        copy_file(version, project_path, overwrite)
-        ledger.register(main)
-        copy_file(main, project_path, overwrite)
+        description = "Python package header for the project module"
+        copy_file(init, project_path, ledger, overwrite, description=description)
+        copy_file(version, project_path, ledger, overwrite)
+        write_template(main, config=config, path=project_path, ledger=ledger, overwrite=overwrite)
         # Test dir inside project
         test_path = project_path / "tests"
         os.makedirs(test_path, exist_ok=True)
@@ -76,7 +84,8 @@ def create_project_skeleton(
             ledger=ledger,
             overwrite=overwrite,
         )
-        copy_file(init, test_path, overwrite)
+        description = "Python package header for the test module"
+        copy_file(init, test_path, ledger, overwrite, description=description)
         # Scripts dir
         scripts_path = root_path / "scripts"
         os.makedirs(scripts_path, exist_ok=True)
