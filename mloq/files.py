@@ -20,7 +20,7 @@ def file(
     description: Optional[str] = None,
     dst: Optional[Union[Path, str]] = None,
     is_static: bool = False,
-):
+) -> File:
     """Define a new asset as a File namedtuple."""
     if description is None:
         print("FIXME: %s must have a description" % name, file=sys.stderr)
@@ -50,7 +50,7 @@ class Ledger:
     def register(self, file: Union[File, str, Path], description: Optional[str] = None) -> None:
         """Append another generated file to the book."""
         if isinstance(file, File):
-            description = file.description
+            description = file.description if description is None else description
             file = file.dst
         else:
             assert description is not None
@@ -106,7 +106,7 @@ main = file(
 )
 test_main = file(
     "test_main.txt",
-    STATIC_FILES_PATH,
+    TEMPLATES_PATH,
     "Unit test of the python package executable entry point",
     dst="test_main.py",
     is_static=False,

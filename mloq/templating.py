@@ -48,9 +48,9 @@ def write_template(
 
     Args:
         file: File object representing the jinja template that will be rendered.
-        config: omegaconf dictionary containing the parameters key and corresponding values \
+        config: OmegaConf dictionary containing the parameters key and corresponding values \
                 that will be used to render the templates.
-        path: Absolute path to the folder containing the target templates.
+        path: Absolute path to the folder where the file will be written.
         ledger: Book keeper to keep track of the generated files.
         overwrite: If False, copy the file if it does not already exists in the \
                    target path. If True, overwrite the target file if it is already present.

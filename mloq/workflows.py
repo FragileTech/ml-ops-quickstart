@@ -29,7 +29,6 @@ def setup_workflow_template(
     root_path = Path(root_path)
     create_github_actions_directories(root_path)
     workflows_path = Path(root_path) / ".github" / "workflows"
-    # TODO: Check for incompatible workflows
     workflow_file = WORKFLOW_NAMES.get(workflow)
     if workflow_file is None:
         _logger.warning(f"Workflow {workflow} not defined. Skipping")

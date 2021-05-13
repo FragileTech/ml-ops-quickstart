@@ -21,6 +21,7 @@ from mloq.files import (
 from mloq.skeleton import copy_file
 
 
+# TODO: aliases for the remaining requirements
 REQUIREMENTS_ALIASES = {
     data_science_req: ["data-science", "datascience", "ds"],
     pytorch_req: ["pytorch", "torch"],
@@ -31,7 +32,7 @@ REQUIREMENTS_ALIASES = {
 
 def require_cuda(project_config: Optional[DictConfig] = None) -> bool:
     """Return True if any of the project dependencies require CUDA."""
-    project_config = project_config or {}
+    project_config = {} if project_config is None else project_config
     if "requirements" not in project_config:
         return False
     options = project_config["requirements"]
@@ -124,11 +125,9 @@ def write_dev_requirements(
     """Write requirements-lint.txt and requirements-test.txt in the target directory."""
     out_path = Path(os.getcwd() if out_path is None else out_path)
     if lint:
-        ledger.register(lint_req)
-        copy_file(lint_req, out_path, overwrite)
+        copy_file(lint_req, out_path, ledger, overwrite)
     if test:
-        ledger.register(test_req)
-        copy_file(test_req, out_path, overwrite)
+        copy_file(test_req, out_path, ledger, overwrite)
 
 
 def write_requirements(
@@ -174,15 +173,15 @@ def install_requirements(
 ):
     """Install the dependencies listed in the target requirements files."""
     path = Path(path)
-    if requirements is not None and requirements:
+    if requirements:
         requirements = "requirements.txt" if isinstance(requirements, bool) else requirements
         requirements = requirements if isinstance(requirements, Path) else path / requirements
         install_requirement_file(requirements, py3=py3)
-    if test is not None and test:
+    if test:
         test = "requirements-test.txt" if isinstance(test, bool) else test
         test = test if isinstance(test, Path) else path / test
         install_requirement_file(test, py3=py3)
-    if lint is not None and lint:
+    if lint:
         lint = "requirements-lint.txt" if isinstance(lint, bool) else lint
         lint = lint if isinstance(lint, Path) else path / lint
         install_requirement_file(lint, py3=py3)
