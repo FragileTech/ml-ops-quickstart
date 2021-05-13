@@ -85,3 +85,52 @@ def setup(
         load_config()
 
     exit(setup_cmd(config, output_directory, overwrite, interactive, only_config))
+
+
+@cli.command(context_settings=dict(ignore_unknown_options=True))
+@config_file_opt
+@output_directory_arg
+@overwrite_opt
+@interactive_opt
+@only_config_opt
+@click.argument("hydra_args", nargs=-1, type=click.UNPROCESSED)
+def docs(
+    config_file: str,
+    output_directory: str,
+    overwrite: bool,
+    only_config: bool,
+    interactive: bool,
+    hydra_args: str,
+) -> None:
+    """
+    Entry point of `mloq docs`.
+
+    Command line option for MLOQ. Generates the necessary documentation
+    for the project.
+
+    Args:
+        config_file: Path containing the location of the configuration
+            file.
+        output_directory: Destination path.
+        overwrite: Boolean value. If True, overwrites the previous
+            `mloq.yml`.
+        only_config: Boolean value.
+        interactive: Boolean value. If True, calls the interactive mode
+            to create the documentation.
+        hydra_args: TODO
+    """
+    from mloq.cli.setup_cmd import setup_docs
+
+    config_file = Path(config_file) if config_file else mloq_yml.src
+    hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)
+    config = DictConfig({})
+
+    @hydra.main(config_name=config_file.name)
+    def load_config(loaded_config: DictConfig):
+        nonlocal config
+        config = loaded_config
+
+    with patch("sys.argv", [sys.argv[0]] + list(hydra_args)):
+        load_config()
+
+    exit(setup_docs(config, output_directory, overwrite, interactive, only_config))
