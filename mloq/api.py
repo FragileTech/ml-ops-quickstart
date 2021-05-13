@@ -6,14 +6,12 @@ from omegaconf import DictConfig
 
 from mloq.files import (
     dockerfile,
-    dockerfile_aarch64,
     DOCS_FILES,
     Ledger,
     LICENSES,
     mlproject,
     OPEN_SOURCE_FILES,
     ROOT_PATH_FILES,
-    SCRIPTS,
     setup_py,
     what_mloq_generated,
 )
@@ -80,27 +78,6 @@ def setup_project_files(
         )
     finally:
         config.template.project_name = original_project_name
-
-
-def setup_scripts(
-    path: Union[str, Path],
-    config: DictConfig,
-    ledger: Ledger,
-    overwrite: bool = False,
-) -> None:
-    """Initialize CI scripts folder files."""
-    path = Path(path)
-    path = path if path.name == "scripts" else path / "scripts"
-    for file in SCRIPTS:
-        write_template(file, config=config, path=path, ledger=ledger, overwrite=overwrite)
-    if config["project"].get("docker"):
-        write_template(
-            dockerfile_aarch64,
-            config=config,
-            path=path,
-            ledger=ledger,
-            overwrite=overwrite,
-        )
 
 
 def setup_root_files(
@@ -185,7 +162,6 @@ def setup_project(
     ledger = Ledger()
     setup_project_files(path=path, config=config, ledger=ledger, overwrite=overwrite)
     setup_push_workflow(path=path, config=config, ledger=ledger, overwrite=overwrite)
-    setup_scripts(path=path, config=config, ledger=ledger, overwrite=overwrite)
     setup_docs(path=path, config=config, ledger=ledger, overwrite=overwrite)
     setup_requirements(
         path=path,

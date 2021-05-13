@@ -62,8 +62,7 @@ Deploy each new version:
 ## Testing
 The last versions of `pytest`, `hypothesis`, and `pytest-cov` can be found in `requirements-test.txt`.
 
-The folder structure for the library and tests is created. A `scripts` folder containing the scripts
-that will be run in the CI will also be created on the root folder of the project.
+The folder structure for the library and tests is created.
 
 ## Project Makefile
 A `Makefile` will be created in the root directory of the project. It contains the following commands:
