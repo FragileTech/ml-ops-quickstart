@@ -118,18 +118,6 @@ version = file(
     dst="version.py",
     is_static=True,
 )
-dockerfile_aarch64 = file(
-    "Dockerfile_aarch64",
-    STATIC_FILES_PATH,
-    "Dockerfile to build for aarch64 hardware",
-    is_static=True,
-)
-build_manylinux_sh = file(
-    "build-manylinux-wheels.sh",
-    STATIC_FILES_PATH,
-    "script to build universal Linux wheels",
-    is_static=True,
-)
 code_of_conduct = file(
     "CODE_OF_CONDUCT.md",
     TEMPLATES_PATH,
@@ -226,12 +214,6 @@ setup_py = file(
     "Python package installation metadata",
     dst="setup.py",
 )
-rename_wheels = file(
-    "rename_testpypi_wheels.txt",
-    TEMPLATES_PATH,
-    "script to work with the test PyPi - test Python package repository",
-    dst="rename_testpypi_wheels.py",
-)
 dockerfile = file("Dockerfile", TEMPLATES_PATH, "Dockerfile to install the project")
 makefile = file("Makefile", TEMPLATES_PATH, "common make commands for development")
 mlproject = file("MLproject", TEMPLATES_PATH, "file defining MLFlow projects")
@@ -292,7 +274,6 @@ REQUIREMENTS_FILES = [
     test_req,
 ]
 
-SCRIPTS = [build_manylinux_sh, rename_wheels]
 
 ALL_FILES = ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [mloq_yml] + DOCS_FILES
 

@@ -52,10 +52,7 @@ template:
     diff LICENSE generated/LICENSE
     diff Makefile generated/Makefile
     diff .pre-commit-config.yaml generated/.pre-commit-config.yaml
-    diff scripts/build-manylinux-wheels.sh generated/scripts/build-manylinux-wheels.sh
     diff Dockerfile generated/Dockerfile
-    diff scripts/Dockerfile_aarch64 generated/scripts/Dockerfile_aarch64
-    diff scripts/rename_testpypi_wheels.py generated/scripts/rename_testpypi_wheels.py
     diff .codecov.yml generated/.codecov.yml
     diff .gitignore generated/.gitignore
     diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md

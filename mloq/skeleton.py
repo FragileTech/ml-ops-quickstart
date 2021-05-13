@@ -86,9 +86,6 @@ def create_project_skeleton(
         )
         description = "Python package header for the test module"
         copy_file(init, test_path, ledger, overwrite, description=description)
-        # Scripts dir
-        scripts_path = root_path / "scripts"
-        os.makedirs(scripts_path, exist_ok=True)
     except (PermissionError, FileNotFoundError) as e:
         raise Failure() from e
 
