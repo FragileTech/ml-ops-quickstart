@@ -175,7 +175,7 @@ def setup_project(
     setup_git(path=path, config=config)
 
 
-def setup_project_docs(
+def docs_project(
     path: Union[str, Path],
     config: DictConfig,
     overwrite: bool = False,
@@ -184,6 +184,6 @@ def setup_project_docs(
     assert isinstance(config, DictConfig)
     path = Path(path)
     ledger = Ledger()
-    setup_project_files(path=path, config=config, ledger=ledger, overwrite=overwrite)
+    # setup_project_files(path=path, config=config, ledger=ledger, overwrite=overwrite)
     setup_docs(path=path, config=config, ledger=ledger, overwrite=overwrite)
     dump_ledger(path=path, config=config, ledger=ledger, overwrite=overwrite)

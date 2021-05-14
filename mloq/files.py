@@ -59,16 +59,25 @@ class Ledger:
 
 # Assets paths
 ASSETS_PATH = Path(__file__).parent / "assets"
+CONFIGS_PATH = ASSETS_PATH / "configs"
 TEMPLATES_PATH = ASSETS_PATH / "templates"
 STATIC_FILES_PATH = ASSETS_PATH / "static"
 REQUIREMENTS_PATH = ASSETS_PATH / "requirements"
 WORKFLOWS_PATH = ASSETS_PATH / "workflows"
 
 # Common files
-mloq_yml = file(
-    "mloq.yml",
-    STATIC_FILES_PATH,
+setup_yml = file(
+    "setup.yml",
+    CONFIGS_PATH,
     "mloq configuration, you can safely remove it if you don't plan to upgrade",
+    dst="mloq.yml",
+    is_static=True,
+)
+docs_yml = file(
+    "docs.yml",
+    CONFIGS_PATH,
+    "mloq configuration, you can safely remove it if you don't plan to upgrade",
+    dst="mloq.yml",
     is_static=True,
 )
 gitignore = file(
@@ -275,7 +284,7 @@ REQUIREMENTS_FILES = [
 ]
 
 
-ALL_FILES = ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [mloq_yml] + DOCS_FILES
+ALL_FILES = ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [setup_yml, docs_yml] + DOCS_FILES
 
 ALL_FILE_PATHS = [str(f.src) for f in ALL_FILES]
 

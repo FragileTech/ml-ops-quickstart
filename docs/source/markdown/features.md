@@ -1,3 +1,6 @@
+`mloq` offers a set of features focused on generating automatically all the required 
+files to start your Machine Learning project. 
+
 ## Repository files
 Set up the following common repository files personalized for your project with the values
 defined in `mloq.yml`:

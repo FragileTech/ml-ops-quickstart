@@ -8,7 +8,7 @@ import click
 import hydra
 from omegaconf import DictConfig
 
-from mloq.files import mloq_yml
+from mloq.files import docs_yml, setup_yml
 
 
 overwrite_opt = click.option(
@@ -72,7 +72,7 @@ def setup(
     """Entry point of `mloq setup`."""
     from mloq.cli.setup_cmd import setup_cmd
 
-    config_file = Path(config_file) if config_file else mloq_yml.src
+    config_file = Path(config_file) if config_file else setup_yml.src
     hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)
     config = DictConfig({})
 
@@ -119,9 +119,9 @@ def docs(
             to create the documentation.
         hydra_args: TODO
     """
-    from mloq.cli.setup_cmd import setup_docs
+    from mloq.cli.docs_cmd import docs_cmd
 
-    config_file = Path(config_file) if config_file else mloq_yml.src
+    config_file = Path(config_file) if config_file else docs_yml.src
     hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)
     config = DictConfig({})
 
@@ -133,4 +133,4 @@ def docs(
     with patch("sys.argv", [sys.argv[0]] + list(hydra_args)):
         load_config()
 
-    exit(setup_docs(config, output_directory, overwrite, interactive, only_config))
+    exit(docs_cmd(config, output_directory, overwrite, interactive, only_config))
