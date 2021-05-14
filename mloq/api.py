@@ -184,6 +184,5 @@ def docs_project(
     assert isinstance(config, DictConfig)
     path = Path(path)
     ledger = Ledger()
-    # setup_project_files(path=path, config=config, ledger=ledger, overwrite=overwrite)
     setup_docs(path=path, config=config, ledger=ledger, overwrite=overwrite)
     dump_ledger(path=path, config=config, ledger=ledger, overwrite=overwrite)
