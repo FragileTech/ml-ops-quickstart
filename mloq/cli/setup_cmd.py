@@ -5,7 +5,7 @@ import click
 from omegaconf import DictConfig
 
 from mloq.api import setup_project, setup_project_docs
-from mloq.config.generation import generate_config
+from mloq.config.setup_generation import generate_config
 from mloq.config.logic import get_docker_image, write_config
 from mloq.config.params import is_empty, PROJECT, TEMPLATE
 from mloq.failure import Failure
