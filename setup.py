@@ -30,7 +30,7 @@ setup(
     install_requires=[
         "flogging>=0.0.8",
         "jinja2>=2.0.0",
-        "click>=7.1.2,<8.0.0",
+        "click>=7.1.2,<9.0.0",
         "invoke>=1.4.1",
         "hydra-core>=1.0,<1.1",
         "pre-commit>=2.10.0",
