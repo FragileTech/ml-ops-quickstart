@@ -24,7 +24,6 @@ def _generate_project_config(config: Optional[DictConfig] = None) -> DictConfig:
     project = load_empty_config_docs().project
     project.update(config.project if config is not None else {})
     # Fill in the project settings
-    project.open_source = PROJECT.open_source(project, False, default=True)
     project.docs = PROJECT.docs(project, False, default=True)
     project.requirements = PROJECT.requirements(project, False, default="None")
     return project
@@ -59,11 +58,6 @@ def _generate_template_config(config: Optional[DictConfig] = None) -> DictConfig
     copyright_holder = TEMPLATE.copyright_holder(template, False, default=template.author)
     template.copyright_year = datetime.now().year
     template.copyright_holder = copyright_holder
-    # If project is undefined parse the full template
-    if not project.open_source or project.open_source is None:
-        template.license = "proprietary"
-    else:
-        template.license = TEMPLATE.license(template, False, default="MIT")
     return template
 
 

@@ -42,7 +42,7 @@ def write_config_setup(config: DictConfig, path: Union[Path, str], safe: bool = 
     """Write setup config in a yaml file."""
     if safe:
         path = Path(path)
-        path = path / setup_yml.name if path.is_dir() else path
+        path = path / setup_yml.dst if path.is_dir() else path
     with open(path, "w") as f:
         OmegaConf.save(config, f)
 
@@ -56,7 +56,7 @@ def write_config_docs(config: DictConfig, path: Union[Path, str], safe: bool = F
     """Write docs config in a yaml file."""
     if safe:
         path = Path(path)
-        path = path / docs_yml.name if path.is_dir() else path
+        path = path / docs_yml.dst if path.is_dir() else path
     with open(path, "w") as f:
         OmegaConf.save(config, f)
 

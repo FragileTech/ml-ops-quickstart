@@ -21,20 +21,11 @@ def generate_config_interactive(config: DictConfig) -> DictConfig:
     template.description = TEMPLATE.description(template, True)
     template.author = TEMPLATE.author(template, True)
     click.echo()
-    # License information
-    click.echo("Please define the license of the project. ")
-    click.echo(
-        "Open Source projects will include the corresponding " "LICENSE file and a DCO.md file",
-    )
-    is_open_source = PROJECT.open_source(project, True, default=True)
-    project.open_source = is_open_source
-    default_license = "MIT" if is_open_source else "None"
-    template.license = TEMPLATE.license(template, True, default=default_license)
     copyright_holder = TEMPLATE.copyright_holder(template, True, default=template.author)
     template.copyright_holder = copyright_holder
     click.echo()
     # Python version and requirements
-    project.docs = PROJECT.docs(project, True, default=True)
+    project.docs = True
     return config
 
 

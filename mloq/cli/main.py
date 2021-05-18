@@ -105,19 +105,21 @@ def docs(
     """
     Entry point of `mloq docs`.
 
-    Command line option for MLOQ. Generates the necessary documentation
-    for the project.
+    Command line option of MLOQ. Generates the necessary documentation
+    files for the project. Generated files:
 
-    Args:
-        config_file: Path containing the location of the configuration
-            file.
-        output_directory: Destination path.
-        overwrite: Boolean value. If True, overwrites the previous
-            `mloq.yml`.
-        only_config: Boolean value.
-        interactive: Boolean value. If True, calls the interactive mode
-            to create the documentation.
-        hydra_args: TODO
+    * 'docs' folder containing the documentation of the project, as well
+    as the necessary tools to improve it.
+
+    * Customizable commands for building the documentation (included in 'Makefile').
+
+    * 'requirements-docs.txt' file containing the required libraries to
+    generate the documentation.
+
+    * 'conf.py' configuration file for sphinx and documentation plugins.
+
+    * [Optional] 'mloq.yml' file describing the configuration options
+    selected for this project.
     """
     from mloq.cli.docs_cmd import docs_cmd
 
