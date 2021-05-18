@@ -8,7 +8,7 @@ import click
 import hydra
 from omegaconf import DictConfig
 
-from mloq.files import mloq_yml
+from mloq.files import docs_yml, setup_yml
 
 
 overwrite_opt = click.option(
@@ -72,7 +72,7 @@ def setup(
     """Entry point of `mloq setup`."""
     from mloq.cli.setup_cmd import setup_cmd
 
-    config_file = Path(config_file) if config_file else mloq_yml.src
+    config_file = Path(config_file) if config_file else setup_yml.src
     hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)
     config = DictConfig({})
 
@@ -85,3 +85,54 @@ def setup(
         load_config()
 
     exit(setup_cmd(config, output_directory, overwrite, interactive, only_config))
+
+
+@cli.command(context_settings=dict(ignore_unknown_options=True))
+@config_file_opt
+@output_directory_arg
+@overwrite_opt
+@interactive_opt
+@only_config_opt
+@click.argument("hydra_args", nargs=-1, type=click.UNPROCESSED)
+def docs(
+    config_file: str,
+    output_directory: str,
+    overwrite: bool,
+    only_config: bool,
+    interactive: bool,
+    hydra_args: str,
+) -> None:
+    """
+    Entry point of `mloq docs`.
+
+    Command line option of MLOQ. Generates the necessary documentation
+    files for the project. Generated files:
+
+    * 'docs' folder containing the documentation of the project, as well
+    as the necessary tools to improve it.
+
+    * Customizable commands for building the documentation (included in 'Makefile').
+
+    * 'requirements-docs.txt' file containing the required libraries to
+    generate the documentation.
+
+    * 'conf.py' configuration file for sphinx and documentation plugins.
+
+    * [Optional] 'mloq.yml' file describing the configuration options
+    selected for this project.
+    """
+    from mloq.cli.docs_cmd import docs_cmd
+
+    config_file = Path(config_file) if config_file else docs_yml.src
+    hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)
+    config = DictConfig({})
+
+    @hydra.main(config_name=config_file.name)
+    def load_config(loaded_config: DictConfig):
+        nonlocal config
+        config = loaded_config
+
+    with patch("sys.argv", [sys.argv[0]] + list(hydra_args)):
+        load_config()
+
+    exit(docs_cmd(config, output_directory, overwrite, interactive, only_config))

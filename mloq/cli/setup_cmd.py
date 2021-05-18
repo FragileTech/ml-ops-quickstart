@@ -5,9 +5,9 @@ import click
 from omegaconf import DictConfig
 
 from mloq.api import setup_project
-from mloq.config.generation import generate_config
-from mloq.config.logic import get_docker_image, write_config
+from mloq.config.logic import get_docker_image, write_config_setup
 from mloq.config.params import is_empty, PROJECT, TEMPLATE
+from mloq.config.setup_generation import generate_config
 from mloq.failure import Failure
 from mloq.version import __version__
 
@@ -122,7 +122,7 @@ def setup_cmd(
     else:
         config = generate_config(config)
     if interactive and (only_config or click.confirm("Do you want to generate a mloq.yml file?")):
-        write_config(config, output, safe=True)
+        write_config_setup(config, output, safe=True)
     if only_config:
         return 0
     if not overwrite and interactive:

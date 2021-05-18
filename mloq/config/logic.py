@@ -4,7 +4,7 @@ from typing import Union
 
 from omegaconf import DictConfig, OmegaConf
 
-from mloq.files import mloq_yml
+from mloq.files import docs_yml, setup_yml
 from mloq.requirements import require_cuda
 
 
@@ -38,15 +38,29 @@ def get_docker_image(config: DictConfig) -> Union[str, None]:
     return image
 
 
-def write_config(config: DictConfig, path: Union[Path, str], safe: bool = False):
-    """Write config in a yaml file."""
+def write_config_setup(config: DictConfig, path: Union[Path, str], safe: bool = False):
+    """Write setup config in a yaml file."""
     if safe:
         path = Path(path)
-        path = path / mloq_yml.name if path.is_dir() else path
+        path = path / setup_yml.dst if path.is_dir() else path
     with open(path, "w") as f:
         OmegaConf.save(config, f)
 
 
-def load_empty_config() -> DictConfig:
-    """Return a dictionary containing all the MLOQ config values set to None."""
-    return OmegaConf.load(mloq_yml.src)
+def load_empty_config_setup() -> DictConfig:
+    """Return a dictionary containing all the MLOQ setup config values set to None."""
+    return OmegaConf.load(setup_yml.src)
+
+
+def write_config_docs(config: DictConfig, path: Union[Path, str], safe: bool = False):
+    """Write docs config in a yaml file."""
+    if safe:
+        path = Path(path)
+        path = path / docs_yml.dst if path.is_dir() else path
+    with open(path, "w") as f:
+        OmegaConf.save(config, f)
+
+
+def load_empty_config_docs() -> DictConfig:
+    """Return a dictionary containing all the MLOQ docs config values set to None."""
+    return OmegaConf.load(docs_yml.src)
