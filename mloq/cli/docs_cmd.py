@@ -7,7 +7,7 @@ from omegaconf import DictConfig
 from mloq.api import docs_project
 from mloq.config.docs_generation import generate_config
 from mloq.config.logic import write_config_docs
-from mloq.config.params import PROJECT, TEMPLATE
+from mloq.config.params import TEMPLATE
 from mloq.failure import Failure
 from mloq.version import __version__
 
