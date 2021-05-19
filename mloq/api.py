@@ -42,15 +42,15 @@ def setup_requirements(
 
     Args:
          path: Target folder where the configuration files will be written.
-         config: Configuration list summarizing the options selected for
-            this project.
+         config: DictConfig containing the selected project configuration.
          ledger: Ledger object. Keeps track of the generated files.
          lint: If True, writes the requirement-lint.txt file on the target
             folder.
          test: If True, writes the requirement-test.txt file on the target
             folder.
          install: Lists the target requirements files to be installed.
-         overwrite: If True, overwrites existing files.
+         overwrite: If True, overwrites existing files. Otherwise files
+            that already exists will not be modified.
     """
     if isinstance(install, (tuple, list)) and "all" in install or install == "all":
         install_reqs = install_lint = install_test = True
@@ -94,10 +94,10 @@ def setup_project_files(
 
     Args:
          path: Target folder where the generated files will be written.
-         config: Configuration list summarizing the options selected for
-            this project.
+         config: DictConfig containing the selected project configuration.
          ledger: Ledger object. Keeps track of the generated files.
-         overwrite: If True, overwrites existing files.
+         overwrite: If True, overwrites existing files. Otherwise files
+            that already exists will not be modified.
     """
     path = Path(path)
     original_project_name = config.template.project_name
@@ -128,10 +128,10 @@ def setup_root_files(
 
     Args:
          path: Target folder where the generated files will be written.
-         config: Configuration list summarizing the options selected for
-            this project.
+         config: DictConfig containing the selected project configuration.
          ledger: Ledger object. Keeps track of the generated files.
-         overwrite: If True, overwrites existing files.
+         overwrite: If True, overwrites existing files. Otherwise files
+            that already exists will not be modified.
     """
     for file in ROOT_PATH_FILES:
         write_template(file, config=config, path=path, ledger=ledger, overwrite=overwrite)
@@ -177,10 +177,10 @@ def dump_ledger(
 
     Args:
          path: Target folder where the generated files will be written.
-         config: Configuration list summarizing the options selected for
-            this project.
+         config: DictConfig containing the selected project configuration.
          ledger: Ledger object. Keeps track of the generated files.
-         overwrite: If True, overwrites existing files.
+         overwrite: If True, overwrites existing files. Otherwise files
+            that already exists will not be modified.
     """
     config.template = DictConfig({**config.template, "generated_files": ledger.files})
     write_template(
@@ -207,10 +207,10 @@ def setup_docs(
 
     Args:
          path: Target folder where the generated files will be written.
-         config: Configuration list summarizing the options selected for
-            this project.
+         config: DictConfig containing the selected project configuration.
          ledger: Ledger object. Keeps track of the generated files.
-         overwrite: If True, overwrites existing files.
+         overwrite: If True, overwrites existing files. Otherwise files
+            that already exists will not be modified.
     """
     if not config.project.get("docs", False):
         return
@@ -236,9 +236,9 @@ def setup_project(
 
     Args:
          path: Target folder where the generated files will be written.
-         config: Configuration list summarizing the options selected for
-            this project.
-         overwrite: If True, overwrites existing files.
+         config: DictConfig containing the selected project configuration.
+         overwrite: If True, overwrites existing files. Otherwise files
+            that already exists will not be modified.
     """
     assert isinstance(config, DictConfig)
     path = Path(path)
@@ -274,9 +274,9 @@ def docs_project(
 
     Args:
          path: Target folder where the generated files will be written.
-         config: Configuration list summarizing the options selected for
-            this project.
-         overwrite: If True, overwrites existing files.
+         config: DictConfig containing the selected project configuration.
+         overwrite: If True, overwrites existing files. Otherwise files
+            that already exists will not be modified.
     """
     assert isinstance(config, DictConfig)
     path = Path(path)
