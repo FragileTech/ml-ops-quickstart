@@ -292,8 +292,11 @@ REQUIREMENTS_FILES = [
 
 
 ALL_FILES = (
-    ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [setup_yml, docs_yml, package_yml] +
-    DOCS_FILES
+    ROOT_PATH_FILES
+    + WORKFLOW_FILES
+    + PYTHON_FILES
+    + [setup_yml, docs_yml, package_yml]
+    + DOCS_FILES
 )
 
 ALL_FILE_PATHS = [str(f.src) for f in ALL_FILES]
