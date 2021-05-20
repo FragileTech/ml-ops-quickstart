@@ -81,7 +81,7 @@ docs_yml = file(
     is_static=True,
 )
 package_yml = file(
-    "root.yml",
+    "package.yml",
     CONFIGS_PATH,
     "mloq configuration, you can safely remove it if you don't plan to upgrade",
     dst="mloq.yml",
