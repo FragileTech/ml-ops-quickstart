@@ -8,7 +8,7 @@ import click
 import hydra
 from omegaconf import DictConfig
 
-from mloq.files import docs_yml, root_yml, setup_yml
+from mloq.files import docs_yml, package_yml, setup_yml
 
 
 overwrite_opt = click.option(
@@ -145,7 +145,7 @@ def docs(
 @interactive_opt
 @only_config_opt
 @click.argument("hydra_args", nargs=-1, type=click.UNPROCESSED)
-def root(
+def package(
     config_file: str,
     output_directory: str,
     overwrite: bool,
@@ -154,7 +154,7 @@ def root(
     hydra_args: str,
 ) -> None:
     """
-    Entry point of `mloq root`.
+    Entry point of `mloq package`.
 
     Command line option of MLOQ. Generates the necessary root files
     for the project. Generated files:
@@ -179,9 +179,9 @@ def root(
 
     * [Optional] 'MLProject' file defining MLFlows projects.
     """
-    from mloq.cli.root_cmd import root_cmd
+    from mloq.cli.package_cmd import package_cmd
 
-    config_file = Path(config_file) if config_file else root_yml.src
+    config_file = Path(config_file) if config_file else package_yml.src
     hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)
     config = DictConfig({})
 
@@ -193,4 +193,4 @@ def root(
     with patch("sys.argv", [sys.argv[0]] + list(hydra_args)):
         load_config()
 
-    exit(root_cmd(config, output_directory, overwrite, interactive, only_config))
+    exit(package_cmd(config, output_directory, overwrite, interactive, only_config))

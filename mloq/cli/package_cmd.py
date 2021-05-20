@@ -4,10 +4,10 @@ import sys
 import click
 from omegaconf import DictConfig
 
-from mloq.api import root_project
-from mloq.config.logic import get_docker_image, write_config_root
+from mloq.api import package_project
+from mloq.config.logic import get_docker_image, write_config_package
 from mloq.config.params import PROJECT, TEMPLATE
-from mloq.config.root_generation import generate_config
+from mloq.config.package_generation import generate_config
 from mloq.failure import Failure
 from mloq.version import __version__
 
@@ -71,7 +71,7 @@ def welcome_message():
     click.echo()
 
 
-def root_cmd(
+def package_cmd(
     config: DictConfig,
     output,
     overwrite: bool,
@@ -85,13 +85,13 @@ def root_cmd(
     else:
         config = generate_config(config)
     if interactive and (only_config or click.confirm("Do you want to generate a mloq.yml file?")):
-        write_config_root(config, output, safe=True)
+        write_config_package(config, output, safe=True)
     if only_config:
         return 0
     if not overwrite and interactive:
         overwrite = click.confirm("Do you want to overwrite existing files?")
     try:
-        root_project(
+        package_project(
             path=output,
             config=config,
             overwrite=overwrite,

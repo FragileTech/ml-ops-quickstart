@@ -80,7 +80,7 @@ docs_yml = file(
     dst="mloq.yml",
     is_static=True,
 )
-root_yml = file(
+package_yml = file(
     "root.yml",
     CONFIGS_PATH,
     "mloq configuration, you can safely remove it if you don't plan to upgrade",
@@ -292,7 +292,8 @@ REQUIREMENTS_FILES = [
 
 
 ALL_FILES = (
-    ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [setup_yml, docs_yml, root_yml] + DOCS_FILES
+    ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [setup_yml, docs_yml, package_yml] +
+    DOCS_FILES
 )
 
 ALL_FILE_PATHS = [str(f.src) for f in ALL_FILES]

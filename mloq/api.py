@@ -285,7 +285,7 @@ def docs_project(
     dump_ledger(path=path, config=config, ledger=ledger, overwrite=overwrite)
 
 
-def root_project(
+def package_project(
     path: Union[str, Path],
     config: DictConfig,
     overwrite: bool = False,
