@@ -1,6 +1,6 @@
 bokeh==2.3.2
-holoviews==1.14.4
-hvplot==0.7.2
+holoviews==1.14.3
+hvplot==0.7.1
 matplotlib==3.4.2
 panel==0.11.3
 param==1.10.1
