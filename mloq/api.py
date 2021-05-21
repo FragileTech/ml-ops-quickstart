@@ -258,6 +258,55 @@ def setup_project(
     setup_git(path=path, config=config)
 
 
+def setup_modules(
+    path: Union[str, Path],
+    config: DictConfig,
+    overwrite: bool = False,
+) -> None:
+    """
+    Initialize the project folder structure and all the filled-in boilerplate files.
+
+    It calls the setup methods requested by the user to generate (on the
+    target path) the folder structure of the project, as well as
+    repository files, requirement lists, and Github workflows (if
+    requested). It should be emphasized that the different modules will
+    be installed based on the user preferences.
+
+    Args:
+         path: Target folder where the generated files will be written.
+         config: DictConfig containing the selected project configuration.
+         overwrite: If True, overwrites existing files. Otherwise files
+            that already exists will not be modified.
+    """
+    assert isinstance(config, DictConfig)
+    path = Path(path)
+    ledger = Ledger()
+    project = config.project
+    # Modules
+    package = "project_files" in project.modules
+    docs = "docs" in project.modules
+    git_workflows = "git_workflows" in project.modules
+    requirements = "requirements" in project.modules
+    # Select setups
+    if package:
+        setup_project_files(path=path, config=config, ledger=ledger, overwrite=overwrite)
+    if docs:
+        setup_docs(path=path, config=config, ledger=ledger, overwrite=overwrite)
+    if requirements:
+        setup_requirements(
+            path=path,
+            config=config,
+            test=True,
+            lint=True,
+            ledger=ledger,
+            overwrite=overwrite,
+        )
+    if git_workflows:
+        setup_push_workflow(path=path, config=config, ledger=ledger, overwrite=overwrite)
+        setup_git(path=path, config=config)
+    dump_ledger(path=path, config=config, ledger=ledger, overwrite=overwrite)
+
+
 def docs_project(
     path: Union[str, Path],
     config: DictConfig,
@@ -309,3 +358,63 @@ def package_project(
     ledger = Ledger()
     setup_project_files(path=path, config=config, ledger=ledger, overwrite=overwrite)
     dump_ledger(path=path, config=config, ledger=ledger, overwrite=overwrite)
+
+
+def requirement_project(
+    path: Union[str, Path],
+    config: DictConfig,
+    overwrite: bool = False,
+) -> None:
+    """
+    Initialize the project folder structure and requirement files.
+
+    It calls the setup requirements method to writes the necessary
+    requirement files for the new project. These requirement files lists
+    the exact versions of the packages needed to run the project.
+
+    Args:
+        path: Target folder where the generated files will be written.
+        config: DictConfig containing the selected project configuration.
+        overwrite: If True, overwrites existing files. Otherwise files
+            that already exists will not be modified.
+    """
+    assert isinstance(config, DictConfig)
+    path = Path(path)
+    ledger = Ledger()
+    setup_requirements(
+        path=path,
+        config=config,
+        test=True,
+        lint=True,
+        ledger=ledger,
+        overwrite=overwrite,
+    )
+    dump_ledger(path=path, config=config, ledger=ledger, overwrite=overwrite)
+
+
+def workflows_project(
+    path: Union[str, Path],
+    config: DictConfig,
+    overwrite: bool = False,
+) -> None:
+    """
+    Initialize the project folder structure for using GitHub actions.
+
+    This method adds the target workflows to the corresponding
+    .github/workflows repository and initializes the folder structure
+    for using GitHub actions workflows, creating a .github directory on
+    the target path. In addition, it creates a GitHub repository based on
+    the supplied data.
+
+    Args:
+         path: Target folder where the generated files will be written.
+         config: DictConfig containing the selected project configuration.
+         overwrite: If True, overwrites existing files. Otherwise files
+            that already exists will not be modified.
+    """
+    assert isinstance(config, DictConfig)
+    path = Path(path)
+    ledger = Ledger()
+    setup_push_workflow(path=path, config=config, ledger=ledger, overwrite=overwrite)
+    dump_ledger(path=path, config=config, ledger=ledger, overwrite=overwrite)
+    setup_git(path=path, config=config)

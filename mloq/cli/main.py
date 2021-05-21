@@ -8,7 +8,7 @@ import click
 import hydra
 from omegaconf import DictConfig
 
-from mloq.files import docs_yml, package_yml, setup_yml
+from mloq.files import docs_yml, package_yml, requirements_yml, setup_yml, workflows_yml
 
 
 overwrite_opt = click.option(
@@ -194,3 +194,101 @@ def package(
         load_config()
 
     exit(package_cmd(config, output_directory, overwrite, interactive, only_config))
+
+
+@cli.command(context_settings=dict(ignore_unknown_options=True))
+@config_file_opt
+@output_directory_arg
+@overwrite_opt
+@interactive_opt
+@only_config_opt
+@click.argument("hydra_args", nargs=-1, type=click.UNPROCESSED)
+def requirements(
+    config_file: str,
+    output_directory: str,
+    overwrite: bool,
+    only_config: bool,
+    interactive: bool,
+    hydra_args: str,
+) -> None:
+    """
+    Entry point of `mloq package`.
+
+    IN PROGRESS
+    Command line option of MLOQ. Generates the necessary root files
+    for the project. Generated files:
+
+    * 'root' folder containing an empty __init__.py file, __main__.py
+    executable file, and a test folder with its corresponding __init__.py
+    file.
+
+    * Project 'LICENSE' (choose from MIT, Apache-2.0, GPL-3.0, Proprietary,
+    None)
+
+    * [Optional] 'mloq.yml' file describing the configuration options
+    selected for this project.
+    """
+    from mloq.cli.requirements_cmd import requirements_cmd
+
+    config_file = Path(config_file) if config_file else requirements_yml.src
+    hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)
+    config = DictConfig({})
+
+    @hydra.main(config_name=config_file.name)
+    def load_config(loaded_config: DictConfig):
+        nonlocal config
+        config = loaded_config
+
+    with patch("sys.argv", [sys.argv[0]] + list(hydra_args)):
+        load_config()
+
+    exit(requirements_cmd(config, output_directory, overwrite, interactive, only_config))
+
+
+@cli.command(context_settings=dict(ignore_unknown_options=True))
+@config_file_opt
+@output_directory_arg
+@overwrite_opt
+@interactive_opt
+@only_config_opt
+@click.argument("hydra_args", nargs=-1, type=click.UNPROCESSED)
+def workflows(
+    config_file: str,
+    output_directory: str,
+    overwrite: bool,
+    only_config: bool,
+    interactive: bool,
+    hydra_args: str,
+) -> None:
+    """
+    Entry point of `mloq package`.
+
+    IN PROGRESS TODO
+    Command line option of MLOQ. Generates the necessary root files
+    for the project. Generated files:
+
+    * 'root' folder containing an empty __init__.py file, __main__.py
+    executable file, and a test folder with its corresponding __init__.py
+    file.
+
+    * Project 'LICENSE' (choose from MIT, Apache-2.0, GPL-3.0, Proprietary,
+    None)
+
+    * [Optional] 'mloq.yml' file describing the configuration options
+    selected for this project.
+    """
+    from mloq.cli.workflows_cmd import workflows_cmd
+
+    config_file = Path(config_file) if config_file else workflows_yml.src
+    hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)
+    config = DictConfig({})
+
+    @hydra.main(config_name=config_file.name)
+    def load_config(loaded_config: DictConfig):
+        nonlocal config
+        config = loaded_config
+
+    with patch("sys.argv", [sys.argv[0]] + list(hydra_args)):
+        load_config()
+
+    exit(workflows_cmd(config, output_directory, overwrite, interactive, only_config))

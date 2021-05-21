@@ -87,6 +87,20 @@ package_yml = file(
     dst="mloq.yml",
     is_static=True,
 )
+requirements_yml = file(
+    "requirements.yml",
+    CONFIGS_PATH,
+    "mloq configuration, you can safely remove it if you don't plan to upgrade",
+    dst="mloq.yml",
+    is_static=True,
+)
+workflows_yml = file(
+    "git_workflows.yml",
+    CONFIGS_PATH,
+    "mloq configuration, you can safely remove it if you don't plan to upgrade",
+    dst="mloq.yml",
+    is_static=True,
+)
 gitignore = file(
     ".gitignore",
     STATIC_FILES_PATH,
@@ -295,7 +309,7 @@ ALL_FILES = (
     ROOT_PATH_FILES
     + WORKFLOW_FILES
     + PYTHON_FILES
-    + [setup_yml, docs_yml, package_yml]
+    + [setup_yml, docs_yml, package_yml, requirements_yml, workflows_yml]
     + DOCS_FILES
 )
 

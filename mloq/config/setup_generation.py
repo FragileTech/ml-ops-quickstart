@@ -4,8 +4,9 @@ from typing import Optional
 
 from omegaconf import DictConfig
 
-from mloq.config.logic import get_docker_image, load_empty_config_setup
+from mloq.config.logic import get_docker_image, load_empty_config
 from mloq.config.params import PROJECT, TEMPLATE
+from mloq.files import setup_yml
 
 
 def _generate_project_config(config: Optional[DictConfig] = None) -> DictConfig:
@@ -21,7 +22,7 @@ def _generate_project_config(config: Optional[DictConfig] = None) -> DictConfig:
     Returns:
         Dictionary containing the generated "project" config parameters.
     """
-    project = load_empty_config_setup().project
+    project = load_empty_config(setup_yml).project
     project.update(config.project if config is not None else {})
     # Fill in the project settings
     project.open_source = PROJECT.open_source(project, False, default=True)
@@ -51,7 +52,7 @@ def _generate_template_config(config: Optional[DictConfig] = None) -> DictConfig
         _template, _project = config.template, config.project
     else:
         _template, _project = {}, {}
-    config = load_empty_config_setup()
+    config = load_empty_config(setup_yml)
     project, template = config.project, config.template
     project.update(_project)
     template.update(_template)

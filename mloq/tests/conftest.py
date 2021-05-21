@@ -76,7 +76,7 @@ def mloq_yaml_dict():
             "bot_name": "guille",
             "bot_email": "maiol@maic.om",
             "license": "MIT",
-            "description": "caca",
+            "description": "fuck fascism",
             "python_versions": ["3.6", "3.7", "3.8", "3.9"],
             "docker_image": "fragiletech/ubuntu18.04-base-py39",
             "git_message": "Generate project files with mloq",

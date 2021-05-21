@@ -205,6 +205,12 @@ _PROJECT = [
     BooleanParam("mlflow", "Do you want to set up ML Flow?"),
     BooleanParam("git_init", "Initialize Git repository?"),
     BooleanParam("git_push", "Execute git push to the target repository?"),
+    BooleanParam("complete", "Do you want to set up a complete installation?"),
+    MultiChoiceParam(
+        "modules",
+        text="Modules to be installed:",
+        choices=["project_files", "docs", "requirements", "git_workflows"],
+    ),
 ]
 
 """Contains all the parameters that are used to customize the generated template files."""
