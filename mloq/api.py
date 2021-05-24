@@ -283,3 +283,29 @@ def docs_project(
     ledger = Ledger()
     setup_docs(path=path, config=config, ledger=ledger, overwrite=overwrite)
     dump_ledger(path=path, config=config, ledger=ledger, overwrite=overwrite)
+
+
+def package_project(
+    path: Union[str, Path],
+    config: DictConfig,
+    overwrite: bool = False,
+) -> None:
+    """
+    Initialize the project folder structure and repository files.
+
+    It calls the setup project method to initialize the skeleton of the
+    new project and create repository code files. Using 'config' as input
+    dictionary, this method fills in core assets to generate primary files
+    on the target path.
+
+    Args:
+        path: Target folder where the generated files will be written.
+        config: DictConfig containing the selected project configuration.
+        overwrite: If True, overwrites existing files. Otherwise files
+            that already exists will not be modified.
+    """
+    assert isinstance(config, DictConfig)
+    path = Path(path)
+    ledger = Ledger()
+    setup_project_files(path=path, config=config, ledger=ledger, overwrite=overwrite)
+    dump_ledger(path=path, config=config, ledger=ledger, overwrite=overwrite)

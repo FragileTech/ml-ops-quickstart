@@ -4,7 +4,7 @@ from typing import Union
 
 from omegaconf import DictConfig, OmegaConf
 
-from mloq.files import docs_yml, setup_yml
+from mloq.files import docs_yml, package_yml, setup_yml
 from mloq.requirements import require_cuda
 
 
@@ -64,3 +64,17 @@ def write_config_docs(config: DictConfig, path: Union[Path, str], safe: bool = F
 def load_empty_config_docs() -> DictConfig:
     """Return a dictionary containing all the MLOQ docs config values set to None."""
     return OmegaConf.load(docs_yml.src)
+
+
+def write_config_package(config: DictConfig, path: Union[Path, str], safe: bool = False):
+    """Write root config in a yaml file."""
+    if safe:
+        path = Path(path)
+        path = path / package_yml.dst if path.is_dir() else path
+    with open(path, "w") as f:
+        OmegaConf.save(config, f)
+
+
+def load_empty_config_package() -> DictConfig:
+    """Return a dictionary containing all the MLOQ root config values set to None."""
+    return OmegaConf.load(package_yml.src)

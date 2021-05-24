@@ -8,7 +8,7 @@ import click
 import hydra
 from omegaconf import DictConfig
 
-from mloq.files import docs_yml, setup_yml
+from mloq.files import docs_yml, package_yml, setup_yml
 
 
 overwrite_opt = click.option(
@@ -136,3 +136,61 @@ def docs(
         load_config()
 
     exit(docs_cmd(config, output_directory, overwrite, interactive, only_config))
+
+
+@cli.command(context_settings=dict(ignore_unknown_options=True))
+@config_file_opt
+@output_directory_arg
+@overwrite_opt
+@interactive_opt
+@only_config_opt
+@click.argument("hydra_args", nargs=-1, type=click.UNPROCESSED)
+def package(
+    config_file: str,
+    output_directory: str,
+    overwrite: bool,
+    only_config: bool,
+    interactive: bool,
+    hydra_args: str,
+) -> None:
+    """
+    Entry point of `mloq package`.
+
+    Command line option of MLOQ. Generates the necessary root files
+    for the project. Generated files:
+
+    * 'root' folder containing an empty __init__.py file, __main__.py
+    executable file, and a test folder with its corresponding __init__.py
+    file.
+
+    * Project 'LICENSE' (choose from MIT, Apache-2.0, GPL-3.0, Proprietary,
+    None)
+
+    * Customizable commands for development (included in 'Makefile').
+
+    * 'README.md' and 'README' documentation.
+
+    * 'pyproject.toml' configuration file for various development tools.
+
+    * [Optional] 'mloq.yml' file describing the configuration options
+    selected for this project.
+
+    * [Optional] 'Dockerfile' to install the project.
+
+    * [Optional] 'MLProject' file defining MLFlows projects.
+    """
+    from mloq.cli.package_cmd import package_cmd
+
+    config_file = Path(config_file) if config_file else package_yml.src
+    hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)
+    config = DictConfig({})
+
+    @hydra.main(config_name=config_file.name)
+    def load_config(loaded_config: DictConfig):
+        nonlocal config
+        config = loaded_config
+
+    with patch("sys.argv", [sys.argv[0]] + list(hydra_args)):
+        load_config()
+
+    exit(package_cmd(config, output_directory, overwrite, interactive, only_config))
