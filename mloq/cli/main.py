@@ -70,8 +70,7 @@ def setup(
     hydra_args: str,
 ) -> None:
     """Entry point of `mloq setup`."""
-    from mloq._command import SetupCommand
-    # from mloq.cli import setup_cmd
+    from mloq.cli.setup_cmd import setup_cmd
 
     config_file = Path(config_file) if config_file else setup_yml.src
     hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)
@@ -84,15 +83,9 @@ def setup(
 
     with patch("sys.argv", [sys.argv[0]] + list(hydra_args)):
         load_config()
-    setup_command = SetupCommand(
-        config=config,
-        output_directory=output_directory,
-        overwrite=overwrite,
-        interactive=interactive,
-        only_config=only_config,
-    )
-    exit(setup_command())
-    # exit(setup_cmd(config, output_directory, overwrite, interactive, only_config))
+    # setup_command = SetupCommand(config, output_directory, overwrite, interactive, only_config)
+    # exit(setup_command())
+    exit(setup_cmd(config, output_directory, overwrite, interactive, only_config))
 
 
 @cli.command(context_settings=dict(ignore_unknown_options=True))

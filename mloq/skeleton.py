@@ -131,3 +131,5 @@ def create_docs_directories(root_path: Union[str, Path]) -> None:
     paths = [imgs_path, static_path, markdown_path]
     for path in paths:
         os.makedirs(path, exist_ok=True)
+
+
