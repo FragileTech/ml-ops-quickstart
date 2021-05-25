@@ -83,7 +83,8 @@ def setup(
 
     with patch("sys.argv", [sys.argv[0]] + list(hydra_args)):
         load_config()
-
+    # setup_command = SetupCommand(config, output_directory, overwrite, interactive, only_config)
+    # exit(setup_command())
     exit(setup_cmd(config, output_directory, overwrite, interactive, only_config))
 
 
