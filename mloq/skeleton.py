@@ -123,7 +123,6 @@ def create_docs_directories(root_path: Union[str, Path]) -> None:
     Returns:
         None.
     """
-
     docs_path = Path(root_path) / "docs"
     imgs_path = docs_path / "images"
     static_path = docs_path / "source" / "_static"
@@ -131,5 +130,3 @@ def create_docs_directories(root_path: Union[str, Path]) -> None:
     paths = [imgs_path, static_path, markdown_path]
     for path in paths:
         os.makedirs(path, exist_ok=True)
-
-
