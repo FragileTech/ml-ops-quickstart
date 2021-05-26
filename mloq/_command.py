@@ -344,3 +344,125 @@ class SetupCommand(Command):
             print(f"Failed to create folder: {e}", file=sys.stderr)  # FIXME is correct?
         finally:
             self._config.template.project_name = _original_project_name
+
+
+class DocsCommand(Command):
+    def __init__(
+        self,
+        config: DictConfig,
+        output_directory: Union[Path, str],
+        overwrite: bool,
+        interactive: bool,
+        only_config: bool,
+        ledger: Ledger,
+    ):
+        from mloq.files import docs_yml
+
+        self._file = docs_yml
+        super().__init__(
+            config=config,
+            output_directory=output_directory,
+            overwrite=overwrite,
+            interactive=interactive,
+            only_config=only_config,
+            file=self._file,
+            ledger=ledger,
+        )
+
+    # Configurations
+    def interactive_config(self) -> DictConfig:
+        """Generate the configuration of the project interactively."""
+        from mloq.cli.docs_cmd import generate_config_interactive
+
+        return generate_config_interactive(self.config)
+
+    def generate_config(self) -> DictConfig:
+        """Generate the configuration of the project via a configuration file."""
+        from mloq.config.docs_generation import generate_config
+
+        return generate_config(self.config)
+
+    def load_config(self) -> DictConfig:
+        """
+        Complete self.config based on user preferences.
+
+        Fills in self.config key-values using the user-supplied entries.
+        Such values can be provided interactively or via a configuration
+        file.
+
+        Returns:
+            This function returns a DictConfig object summarizing the
+                configuration used on MLOQ.
+        """
+        assert isinstance(self.interactive, bool)
+        if self.interactive:
+            string = "This generates the necessary documentation for your new project."
+            welcome_message(extra=True, string=string)
+            return self.interactive_config()
+        else:
+            return self.generate_config()
+
+    # Complete templates
+    def write_templates(self) -> None:
+        """
+        Create new files using rendered templates as basis.
+
+        It generates new files for the project by filling in the rendered
+        templates according to the information supplied by the user.
+        Generated files:
+        - Repository files
+        - Workflow actions to the corresponding repository
+        - Documentation files
+        - Requirement files (according to the selected options)
+        """
+        assert isinstance(self.config, DictConfig)
+        path = Path(self.output_directory)
+        try:
+            if self.config.project.get("docs", False):
+                self.write_template_docs()  # FIXME write it explicitly?
+        except Failure as e:  # FIXME is correct?
+            print(f"Failed to generate file: {e} using rendered templates", file=sys.stderr)
+
+    def write_template_docs(self) -> None:
+        """Generate documentation files using rendered templates as basis."""
+        from mloq.files import DOCS_FILES
+        from mloq.templating import write_template
+
+        source_files = {"conf.txt", "index.md"}
+        docs_path = Path(self.output_directory) / "docs"
+        for file in DOCS_FILES:
+            out_path = (docs_path / "source") if file.name in source_files else docs_path
+            write_template(
+                file,
+                config=self.config,
+                path=out_path,
+                ledger=self.ledger,
+                overwrite=self.overwrite,
+            )
+
+    # Create Directories and Files
+    def create_directories(self) -> None:
+        """
+        Create necessary folders for the project.
+
+        It generates the requested folders for the new project on the
+        target path following the configuration introduced by the user.
+        Generated folders:
+        - Root project skeleton
+        - Folder structure for using GitHub actions
+        - Documentation directory structure
+        - Git repository
+        """
+        from mloq.skeleton import create_docs_directories
+
+        assert isinstance(self.config, DictConfig)
+        path = Path(self.output_directory)
+        _original_project_name = self.config.template.project_name
+        self._config.template.project_name = self.config.template.project_name.replace("-", "_")
+        try:
+            if self.config.project.get("docs", False):
+                create_docs_directories(root_path=path)
+        except Failure as e:
+            print(f"Failed to create folder: {e}", file=sys.stderr)  # FIXME is correct?
+        finally:
+            self._config.template.project_name = _original_project_name
