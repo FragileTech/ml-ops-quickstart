@@ -1,0 +1,116 @@
+default:
+  project_name: mloq
+  default_branch: master
+  owner: FragileTech
+  author: FragileTech
+  email: guillem@fragile.tech
+  description: Package for initializing ML projects following ML Ops best practices.
+  project_url: https://github.com/FragileTech/ml-ops-quickstart
+  # open_source is a parameter used by two different commands FIXME
+
+license:
+  disable: false
+  open_source: true
+  license: MIT
+  copyright_year: 2020
+  copyright_holder: FragileTech
+
+mlflow:
+  disable: true
+  mlflow: true
+
+docs:
+  disable: false
+  project_name: ${default.project_name}
+  description: ${default.description}
+  author: ${default.author}
+  copyright_holder: ${license.copyright_holder}
+  copyright_year: ${license.copyright_year}
+
+git:
+  disable: false
+  git_init: false   # FIXME
+  git_push: false
+  git_message: Generate project files with mloq
+  default_branch: ${default.default_branch}
+  project_url: ${default.project_url}
+
+package:
+  disable: False
+  docker: ${docker.docker}
+  mlflow: ${mlflow.mlflow}
+  open_source: ${license.open_source}
+  project_name: ${default.project_name}
+  description: ${default.description}
+  default_branch: ${default.default_branch}
+  project_url: ${default.project_url}
+  docker_org: ${docker.docker_org}
+  owner: ${default.owner}
+  author: ${default.author}
+  email: ${default.email}
+  copyright_year: ${license.copyright_year}
+  copyright_holder: ${license.copyright_holder}
+  license: ${license.license}
+  docker_image: ${docker.docker_image}
+  requirements:
+    - dogfood
+  python_versions:
+  - '3.6'
+  - '3.7'
+  - '3.8'
+  - '3.9'
+  pyproject_extra: ""
+
+lint:
+  disable: False
+  docstring_checks: true
+  pyproject_extra: |-
+    [tool.flakehell.exceptions."**/assets/*"]
+    pycodestyle = ["-*"]
+    pyflakes = ["-*"]
+    "flake8*" = ["-*"]
+
+docker:
+  disable: false
+  docker_image: fragiletech/ubuntu20.04-base-py38
+  docker: true
+  docker_org: ${default.owner}
+
+ci:
+  disable: false
+  open_source: ${license.open_source}
+  ci: python
+  project_name: ${default.project_name}
+  default_branch: ${default.default_branch}
+  owner: ${default.owner}
+  author: ${default.author}
+  email: ${default.email}
+  project_url: ${default.project_url}
+  docker_org: ${docker.docker_org}
+  requires: package
+  bot_name: fragile-bot
+  bot_email: bot@fragile.tech
+  ci_python_version: '3.8'
+  ci_ubuntu_version: ubuntu-20.04
+  ci_extra: |-
+    git config --global user.name "Bot"
+    git config --global user.email "bot@fragile.tech"
+    git config --global init.defaultBranch master
+    mkdir generated
+    mloq setup generated -f mloq.yml
+    diff .github/workflows/push.yml generated/.github/workflows/push.yml
+    diff requirements.txt generated/requirements.txt
+    diff requirements-lint.txt generated/requirements-lint.txt
+    diff requirements-test.txt generated/requirements-test.txt
+    diff pyproject.toml generated/pyproject.toml
+    diff DCO.md generated/DCO.md
+    diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
+    diff CONTRIBUTING.md generated/CONTRIBUTING.md
+    diff LICENSE generated/LICENSE
+    diff Makefile generated/Makefile
+    diff .pre-commit-config.yaml generated/.pre-commit-config.yaml
+    diff Dockerfile generated/Dockerfile
+    diff .codecov.yml generated/.codecov.yml
+    diff .gitignore generated/.gitignore
+    diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
+    rm generated/mloq/tests/test_main.py
