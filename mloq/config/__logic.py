@@ -4,8 +4,8 @@ from typing import Union
 
 from omegaconf import DictConfig, OmegaConf
 
-from mloq.files import docs_yml, package_yml, setup_yml
-from mloq.requirements import require_cuda
+from mloq._requirements import require_cuda
+from mloq.files import mloq_yml
 
 
 def get_docker_python_version(template: DictConfig) -> str:
@@ -42,14 +42,14 @@ def write_config_setup(config: DictConfig, path: Union[Path, str], safe: bool = 
     """Write setup config in a yaml file."""
     if safe:
         path = Path(path)
-        path = path / setup_yml.dst if path.is_dir() else path
+        path = path / mloq_yml.dst if path.is_dir() else path
     with open(path, "w") as f:
         OmegaConf.save(config, f)
 
 
 def load_empty_config_setup() -> DictConfig:
     """Return a dictionary containing all the MLOQ setup config values set to None."""
-    return OmegaConf.load(setup_yml.src)
+    return OmegaConf.load(mloq_yml.src)
 
 
 def write_config_docs(config: DictConfig, path: Union[Path, str], safe: bool = False):

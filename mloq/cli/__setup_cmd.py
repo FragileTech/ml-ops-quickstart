@@ -4,10 +4,10 @@ import sys
 import click
 from omegaconf import DictConfig
 
-from mloq.api import setup_project
+from mloq.__api import setup_project
+from mloq.config.__params import is_empty, PROJECT, TEMPLATE
+from mloq.config.__setup_generation import generate_config
 from mloq.config.logic import get_docker_image, write_config_setup
-from mloq.config.params import is_empty, PROJECT, TEMPLATE
-from mloq.config.setup_generation import generate_config
 from mloq.failure import Failure
 from mloq.version import __version__
 

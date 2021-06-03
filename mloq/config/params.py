@@ -4,6 +4,7 @@ from typing import Any, List, NamedTuple, Optional, Set, Tuple, Union
 
 import click
 from omegaconf import DictConfig
+import omegaconf.errors
 
 from mloq.cli.custom_prompt import confirm, prompt
 
@@ -88,11 +89,13 @@ class ConfigParam:
         """Return the config value if it is present on the config dict."""
 
         def find_value(conf):
-            for k, v in conf.items():
-                if k == self.name:
-                    return v
-                elif isinstance(v, dict):
-                    return find_value(v)
+            for k in conf.keys():
+                if k == self.name and omegaconf.OmegaConf.is_missing(conf, k):
+                    return None
+                elif k == self.name:
+                    return conf[k]
+                elif isinstance(conf[k], dict):
+                    return find_value(conf[k])
 
         return find_value(config)
 
@@ -178,7 +181,7 @@ def is_empty(value: Union[str, list, tuple, set]) -> bool:
     used by mloq. For example, empty values can be used to define empty project \
     requirements or no base Docker image.
     """
-    if value is None:
+    if value is None or value == "???":
         return True
     elif isinstance(value, str):
         return value.lower() in EMPTY_VALUES
@@ -187,59 +190,99 @@ def is_empty(value: Union[str, list, tuple, set]) -> bool:
     return any([v.lower() in EMPTY_VALUES for v in value])
 
 
-"""Contains all the parameters that define how the project will be set up."""
-_PROJECT = [
-    MultiChoiceParam(
-        "requirements",
-        text="Project requirements",
-        choices=["data-science", "data-viz", "torch", "tensorflow", "none"],
-    ),
-    BooleanParam("open_source", "Is the project Open Source?"),
-    BooleanParam("docker", "Do you want to set up a Docker container with your project?"),
-    BooleanParam("docs", "Do you want to set up the project documentation?"),
-    ConfigParam(
-        "ci",
-        "Github Actions push workflow",
-        type=click.Choice(["python", "none"], case_sensitive=False),
-    ),
-    BooleanParam("mlflow", "Do you want to set up ML Flow?"),
-    BooleanParam("git_init", "Initialize Git repository?"),
-    BooleanParam("git_push", "Execute git push to the target repository?"),
-]
+def config_group(name, values):
+    return NamedTuple(name, [(param.name, type(param)) for param in values])(*values)
 
-"""Contains all the parameters that are used to customize the generated template files."""
-_TEMPLATE = [
+
+_GLOBALS = [
     ConfigParam("project_name", "Select project name"),
     ConfigParam("owner", "Github handle of the project owner"),
     ConfigParam("email", "Owner contact email"),
     ConfigParam("author", "Author(s) of the project"),
+    BooleanParam("open_source", "Is the project Open Source?"),
+    ConfigParam("default_branch", "Default branch of the project"),
+    ConfigParam("description", "Short description of the project"),
+    ConfigParam("project_url", "GitHub project url"),
+]
+
+GLOBALS = config_group("GLOBALS", _GLOBALS)
+
+_LICENSE = [
+    BooleanParam("disable", "Disable license command?"),
+    BooleanParam("open_source", "Is the project Open Source?"),
+    ConfigParam(
+        "license",
+        "Project license type",
+        type=click.Choice(["MIT", "Apache-2.0", "GPL-3.0", "None"], case_sensitive=False),
+    ),
     ConfigParam("copyright_year", "Year when the project started"),
     ConfigParam("copyright_holder", "Copyright holder"),
-    ConfigParam("project_url", "GitHub project url"),
-    ConfigParam("bot_name", "Bot's GitHub login to push commits in CI"),
-    ConfigParam("bot_email", "Bot account email"),
-    ConfigParam("default_branch", "Default branch of the project"),
+]
+_PROJECT = [
+    BooleanParam("disable", "Disable project command?"),
+    BooleanParam("docker", "Does the project contains a docker container?"),
+    ConfigParam("owner", "Github handle of the project owner"),
+    ConfigParam("project_name", "Select project name"),
     ConfigParam("description", "Short description of the project"),
     ConfigParam(
         "license",
         "Project license type",
         type=click.Choice(["MIT", "Apache-2.0", "GPL-3.0", "None"], case_sensitive=False),
     ),
+]
+PROJECT = config_group("PROJECT", _PROJECT)
+_GIT = [
+    BooleanParam("disable", "Disable git command?"),
+    ConfigParam("project_name", "Select project name"),
+    ConfigParam("git_message", "Initial Git commit message?"),
+    BooleanParam("git_init", "Initialize Git repository?"),
+    BooleanParam("git_push", "Execute git push to the target repository?"),
+    ConfigParam("default_branch", "Default branch of the project"),
+    ConfigParam("project_url", "GitHub project url"),
+]
+_DOCS = [
+    BooleanParam("disable", "Disable docs command?"),
+    ConfigParam("project_name", "Select project name"),
+    ConfigParam("description", "Short description of the project"),
+    ConfigParam("author", "Author(s) of the project"),
+    ConfigParam("copyright_year", "Year when the project started"),
+    ConfigParam("copyright_holder", "Copyright holder"),
+]
+DOCS = config_group("DOCS", _DOCS)
+_PACKAGE = [
+    BooleanParam("disable", "Disable package command?"),
+    ConfigParam("project_name", "Select project name"),
+    ConfigParam("pyproject_extra", "Additional pyproject.toml configuration"),
     MultiChoiceParam(
         "python_versions",
         text="Supported python versions",
         choices=["3.6", "3.7", "3.8", "3.9"],
     ),
-    ConfigParam("docker_image", "Base docker image for the project's Docker container"),
+    MultiChoiceParam(
+        "requirements",
+        text="Project requirements",
+        choices=["data-science", "data-viz", "torch", "tensorflow", "none"],
+    ),
+]
+
+_LINT = [
     BooleanParam("docstring_checks", "Enable/disable linting docstrings"),
     ConfigParam("pyproject_extra", "Additional pyproject.toml configuration"),
+]
+
+_DOCKER = [
+    BooleanParam("disable", "Disable docker command?"),
+    ConfigParam("docker_image", "Base docker image for the project's Docker container"),
+    ConfigParam("docker_org", "Name of your docker organization"),
+]
+_CI = [
+    BooleanParam("disable", "Disable ci command?"),
+    ConfigParam("project_name", "Select project name"),
+    ConfigParam("default_branch", "Default branch of the project"),
+    ConfigParam("docker_org", "Name of your docker organization"),
+    ConfigParam("bot_name", "Bot's GitHub login to push commits in CI"),
+    ConfigParam("bot_email", "Bot account email"),
     ConfigParam("ci_python_version", "Primary Python version in GitHub Actions"),
     ConfigParam("ci_ubuntu_version", "Primary Ubuntu version in GitHub Actions"),
     ConfigParam("ci_extra", "Additional script in GitHub Actions before runnign the main tests"),
-    ConfigParam("git_message", "Initial Git commit message?"),
 ]
-
-PROJECT, TEMPLATE = (
-    NamedTuple(name, [(param.name, type(param)) for param in params])(*params)
-    for (name, params) in [("PROJECT", _PROJECT), ("TEMPLATE", _TEMPLATE)]
-)
