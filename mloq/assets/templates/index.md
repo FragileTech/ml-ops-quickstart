@@ -1,11 +1,11 @@
-# Welcome to {{project_name}}
+# Welcome to {{docs.project_name}}
 
-{{description}}
+{{docs.description}}
 
 ```{toctree}
 ---
 maxdepth: 5
-caption: {{project_name}} API
+caption: {{docs.project_name}} API
 ---
 autoapi/index.rst
 ```

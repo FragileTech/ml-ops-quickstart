@@ -1,4 +1,4 @@
-"""{{ project_name }} entry point."""
+"""{{ project.project_name }} entry point."""
 import sys
 
 

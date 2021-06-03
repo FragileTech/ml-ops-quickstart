@@ -24,12 +24,12 @@ sys.setrecursionlimit(1500)
 
 # -- Project information -----------------------------------------------------
 
-project = "{{project_name}}"
-copyright = "{{copyright_year}}, {{copyright_holder}}"
-author = "{{author}}"
+project = "{{docs.project_name}}"
+copyright = "{{docs.copyright_year}}, {{docs.copyright_holder}}"
+author = "{{docs.author}}"
 
 # The short X.Y version
-from {{project_name}}.version import __version__
+from {{docs.project_name}}.version import __version__
 
 
 version = __version__
@@ -64,7 +64,7 @@ suppress_warnings = ["image.nonlocal_uri"]
 autodoc_typehints = "description"
 # Autoapi settings
 autoapi_type = "python"
-autoapi_dirs = ["../../{{project_name}}"]
+autoapi_dirs = ["../../{{docs.project_name}}"]
 autoapi_add_toctree_entry = True
 # Make use of custom templates
 autoapi_template_dir = "_autoapi_templates"

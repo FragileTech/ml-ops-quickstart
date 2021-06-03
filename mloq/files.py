@@ -59,63 +59,46 @@ class Ledger:
 
 # Assets paths
 ASSETS_PATH = Path(__file__).parent / "assets"
-CONFIGS_PATH = ASSETS_PATH / "configs"
 TEMPLATES_PATH = ASSETS_PATH / "templates"
-STATIC_FILES_PATH = ASSETS_PATH / "static"
 REQUIREMENTS_PATH = ASSETS_PATH / "requirements"
-WORKFLOWS_PATH = ASSETS_PATH / "workflows"
 
 # Common files
-setup_yml = file(
-    "setup.yml",
-    CONFIGS_PATH,
+mloq_yml = file(
+    "mloq.yml",
+    TEMPLATES_PATH,
     "mloq configuration, you can safely remove it if you don't plan to upgrade",
-    dst="mloq.yml",
     is_static=True,
 )
-docs_yml = file(
-    "docs.yml",
-    CONFIGS_PATH,
-    "mloq configuration, you can safely remove it if you don't plan to upgrade",
-    dst="mloq.yml",
-    is_static=True,
-)
-package_yml = file(
-    "package.yml",
-    CONFIGS_PATH,
-    "mloq configuration, you can safely remove it if you don't plan to upgrade",
-    dst="mloq.yml",
-    is_static=True,
-)
+
 gitignore = file(
     ".gitignore",
-    STATIC_FILES_PATH,
+    TEMPLATES_PATH,
     "list of files and directories ignored by Git operations",
     is_static=True,
 )
 pre_commit_hook = file(
     ".pre-commit-config.yaml",
-    STATIC_FILES_PATH,
+    TEMPLATES_PATH,
     "Git pre-commit hooks configuration",
     is_static=True,
 )
 dco = file(
     "DCO.md",
-    STATIC_FILES_PATH,
+    TEMPLATES_PATH,
     "Developer Certificate of Origin - needed in open source projects to certify that "
     "the incoming contributions are legitimate",
     is_static=True,
 )
 init = file(
     "init.txt",
-    STATIC_FILES_PATH,
+    TEMPLATES_PATH,
     "Python package header",
     dst="__init__.py",
     is_static=True,
 )
 main = file(
     "main.txt",
-    STATIC_FILES_PATH,
+    TEMPLATES_PATH,
     "Python package executable entry point",
     dst="__main__.py",
     is_static=True,
@@ -129,7 +112,7 @@ test_main = file(
 )
 version = file(
     "version.txt",
-    STATIC_FILES_PATH,
+    TEMPLATES_PATH,
     "defines the version of the package that is incremented on each push",
     dst="version.py",
     is_static=True,
@@ -191,14 +174,14 @@ docs_req = file(
 # Documentation files
 makefile_docs = file(
     "makefile_docs.txt",
-    STATIC_FILES_PATH,
+    TEMPLATES_PATH,
     "common make commands for building the documentation",
     dst="Makefile",
     is_static=True,
 )
 make_bat_docs = file(
     "make_bat.txt",
-    STATIC_FILES_PATH,
+    TEMPLATES_PATH,
     "common make commands for building the documentation",
     dst="make.bat",
     is_static=True,
@@ -219,7 +202,7 @@ mit_license = file("MIT_LICENSE", TEMPLATES_PATH, "license of the project", dst=
 apache_license = file("APACHE_LICENSE", TEMPLATES_PATH, "license of the project", dst="LICENSE")
 gpl_license = file(
     "GPL_LICENSE",
-    STATIC_FILES_PATH,
+    TEMPLATES_PATH,
     "license of the project",
     dst="LICENSE",
     is_static=True,
@@ -254,9 +237,11 @@ what_mloq_generated = file("WHAT_MLOQ_GENERATED.md", TEMPLATES_PATH, "this file"
 # Workflows
 push_python_wkf = file(
     "push.yml",
-    WORKFLOWS_PATH,
+    TEMPLATES_PATH,
     "GitHub Actions continuous integration workflow file",
 )
+
+PROJECT_FILES = [readme, makefile, init, main, test_main, version]
 
 ROOT_PATH_FILES = [
     gitignore,
@@ -291,13 +276,7 @@ REQUIREMENTS_FILES = [
 ]
 
 
-ALL_FILES = (
-    ROOT_PATH_FILES
-    + WORKFLOW_FILES
-    + PYTHON_FILES
-    + [setup_yml, docs_yml, package_yml]
-    + DOCS_FILES
-)
+ALL_FILES = ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [mloq_yml] + DOCS_FILES
 
 ALL_FILE_PATHS = [str(f.src) for f in ALL_FILES]
 
