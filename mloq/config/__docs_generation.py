@@ -4,8 +4,8 @@ from typing import Optional
 
 from omegaconf import DictConfig
 
-from mloq.config.logic import load_empty_config_docs
-from mloq.config.params import PROJECT, TEMPLATE
+from mloq.config.__params import PROJECT, TEMPLATE
+from mloq.config.__logic import load_empty_config_docs
 
 
 def _generate_project_config(config: Optional[DictConfig] = None) -> DictConfig:

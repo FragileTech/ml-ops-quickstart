@@ -4,6 +4,9 @@ from typing import List, Tuple, Union
 
 from omegaconf import DictConfig
 
+from mloq.__skeleton import create_docs_directories, create_project_skeleton
+from mloq.__workflows import setup_push_workflow
+from mloq._requirements import install_requirements, write_requirements
 from mloq.files import (
     dockerfile,
     DOCS_FILES,
@@ -16,10 +19,7 @@ from mloq.files import (
     what_mloq_generated,
 )
 from mloq.git import setup_git
-from mloq.requirements import install_requirements, write_requirements
-from mloq.skeleton import create_docs_directories, create_project_skeleton
 from mloq.templating import write_template
-from mloq.workflows import setup_push_workflow
 
 
 def setup_requirements(

@@ -1,19 +1,29 @@
-default:
+globals:
   project_name: mloq
   default_branch: master
   owner: FragileTech
   author: FragileTech
   email: guillem@fragile.tech
+  open_source: true
   description: Package for initializing ML projects following ML Ops best practices.
   project_url: https://github.com/FragileTech/ml-ops-quickstart
+
+project:
+  disable: false
+  git_init: false
+  git_push: false
+  project_name: ${deafult.project_name}
+  git_message: Generate project files with mloq
+  default_branch: ${globals.default_branch}
+  project_url: ${globals.project_url}
 
 mlflow:
   disable: true
 
 docs:
   disable: false
-  project_name: ${default.project_name}
-  author: ${default.author}
+  project_name: ${globals.project_name}
+  author: ${globals.author}
   copyright_holder: ${license.copyright_holder}
   copyright_year: ${license.copyright_year}
 
@@ -23,14 +33,6 @@ license:
   license: MIT
   copyright_year: 2020
   copyright_holder: FragileTech
-
-project:
-  disable: false
-  git_init: false
-  git_push: false
-  git_message: Generate project files with mloq
-  default_branch: ${default.default_branch}
-  project_url: ${default.project_url}
 
 package:
   disable: false
@@ -55,24 +57,22 @@ lint:
 docker:
   disable: false
   docker_image: fragiletech/ubuntu20.04-base-py38
-  docker: true
-  docker_org: ${default.owner}
+  docker_org: ${globals.owner}
 
 ci:
   disable: false
-  project_name: ${default.project_name}
-  default_branch: ${default.default_branch}
+  project_name: ${globals.project_name}
+  default_branch: ${globals.default_branch}
   docker_org: ${docker.docker_org}
-  requires: package
   ci: python
   bot_name: fragile-bot
   bot_email: bot@fragile.tech
   ci_python_version: '3.8'
   ci_ubuntu_version: ubuntu-20.04
   ci_extra: |-
-    git config --global user.name "Bot"
-    git config --global user.email "bot@fragile.tech"
-    git config --global init.defaultBranch master
+    git config --globals user.name "Bot"
+    git config --globals user.email "bot@fragile.tech"
+    git config --globals init.defaultBranch master
     mkdir generated
     mloq setup generated -f mloq.yml
     diff .github/workflows/push.yml generated/.github/workflows/push.yml

@@ -2,7 +2,7 @@ import tempfile
 
 from omegaconf import DictConfig
 
-from mloq.workflows import setup_push_workflow, setup_workflow_template
+from mloq.__workflows import setup_push_workflow, setup_workflow_template
 
 
 def test_setup_workflow_template(ledger):

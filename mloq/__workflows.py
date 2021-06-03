@@ -5,9 +5,9 @@ from typing import Union
 from omegaconf import DictConfig
 
 from mloq import _logger
-from mloq.config.params import is_empty
+from mloq.__skeleton import create_github_actions_directories
+from mloq.config.__params import is_empty
 from mloq.files import Ledger, push_python_wkf
-from mloq.skeleton import create_github_actions_directories
 from mloq.templating import write_template
 
 

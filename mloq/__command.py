@@ -7,7 +7,7 @@ import click
 import hydra
 from omegaconf import DictConfig, OmegaConf
 
-from mloq.api import dump_ledger as dl
+from mloq.__api import dump_ledger as dl
 from mloq.failure import Failure
 from mloq.files import File, Ledger
 from mloq.version import __version__
@@ -212,9 +212,9 @@ class SetupCommand(Command):
         only_config: bool,
         ledger: Ledger,
     ):
-        from mloq.files import setup_yml
+        from mloq.files import mloq_yml
 
-        self._file = setup_yml
+        self._file = mloq_yml
         super().__init__(
             config=config,
             output_directory=output_directory,
@@ -228,13 +228,13 @@ class SetupCommand(Command):
     # Configurations
     def interactive_config(self) -> DictConfig:
         """Generate the configuration of the project interactively."""
-        from mloq.cli.setup_cmd import generate_config_interactive
+        from mloq.cli.__setup_cmd import generate_config_interactive
 
         return generate_config_interactive(self.config)
 
     def generate_config(self) -> DictConfig:
         """Generate the configuration of the project via a configuration file."""
-        from mloq.config.setup_generation import generate_config
+        from mloq.config.__setup_generation import generate_config
 
         return generate_config(self.config)
 
@@ -251,9 +251,9 @@ class SetupCommand(Command):
         - Documentation files
         - Requirement files (according to the selected options)
         """
-        from mloq.api import setup_requirements, setup_root_files
-        from mloq.config.params import is_empty
-        from mloq.workflows import setup_workflow_template
+        from mloq.__api import setup_requirements, setup_root_files
+        from mloq.__workflows import setup_workflow_template
+        from mloq.config.__params import is_empty
 
         assert isinstance(self.config, DictConfig)
         path = Path(self.output_directory)
@@ -315,13 +315,13 @@ class SetupCommand(Command):
         - Documentation directory structure
         - Git repository
         """
-        from mloq.config.params import is_empty
-        from mloq.git import setup_git
-        from mloq.skeleton import (
+        from mloq.__skeleton import (
             create_docs_directories,
             create_github_actions_directories,
             create_project_skeleton,
         )
+        from mloq.config.__params import is_empty
+        from mloq.git import setup_git
 
         assert isinstance(self.config, DictConfig)
         path = Path(self.output_directory)
@@ -372,13 +372,13 @@ class DocsCommand(Command):
     # Configurations
     def interactive_config(self) -> DictConfig:
         """Generate the configuration of the project interactively."""
-        from mloq.cli.docs_cmd import generate_config_interactive
+        from mloq.cli.__docs_cmd import generate_config_interactive
 
         return generate_config_interactive(self.config)
 
     def generate_config(self) -> DictConfig:
         """Generate the configuration of the project via a configuration file."""
-        from mloq.config.docs_generation import generate_config
+        from mloq.config.__docs_generation import generate_config
 
         return generate_config(self.config)
 
@@ -453,7 +453,7 @@ class DocsCommand(Command):
         - Documentation directory structure
         - Git repository
         """
-        from mloq.skeleton import create_docs_directories
+        from mloq.__skeleton import create_docs_directories
 
         assert isinstance(self.config, DictConfig)
         path = Path(self.output_directory)

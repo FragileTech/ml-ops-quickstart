@@ -1,7 +1,7 @@
 """Command line interface for mloq."""
 import sys
 
-from mloq.cli.main import cli
+from mloq.cli.__main import cli
 
 
 if __name__ == "__main__":

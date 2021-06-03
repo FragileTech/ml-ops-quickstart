@@ -70,7 +70,7 @@ def setup(
     hydra_args: str,
 ) -> None:
     """Entry point of `mloq setup`."""
-    from mloq.cli.setup_cmd import setup_cmd
+    from mloq.cli.__setup_cmd import setup_cmd
 
     config_file = Path(config_file) if config_file else mloq_yml.src
     hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)
@@ -180,7 +180,7 @@ def package(
 
     * [Optional] 'MLProject' file defining MLFlows projects.
     """
-    from mloq.cli.package_cmd import package_cmd
+    from mloq.cli.__package_cmd import package_cmd
 
     config_file = Path(config_file) if config_file else package_yml.src
     hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)

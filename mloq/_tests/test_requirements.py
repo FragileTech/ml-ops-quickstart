@@ -3,8 +3,7 @@ import tempfile
 
 import pytest
 
-from mloq.files import File, test_req
-from mloq.requirements import (
+from mloq._requirements import (
     compose_requirements,
     get_aliased_requirements_file,
     install_requirement_file,
@@ -14,6 +13,7 @@ from mloq.requirements import (
     write_dev_requirements,
     write_project_requirements,
 )
+from mloq.files import File, test_req
 
 
 all_options = [

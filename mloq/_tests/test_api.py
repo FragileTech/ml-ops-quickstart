@@ -5,7 +5,7 @@ import invoke
 from omegaconf import DictConfig
 import pytest
 
-from mloq.api import setup_project, setup_requirements
+from mloq.__api import setup_project, setup_requirements
 from mloq.files import test_req
 
 

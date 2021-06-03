@@ -6,7 +6,8 @@ from typing import Iterable, Optional, Union
 from invoke import run
 from omegaconf import DictConfig
 
-from mloq.config.params import is_empty
+from mloq.__skeleton import copy_file
+from mloq.config.__params import is_empty
 from mloq.files import (
     data_science_req,
     data_viz_req,
@@ -18,7 +19,6 @@ from mloq.files import (
     tensorflow_req,
     test_req,
 )
-from mloq.skeleton import copy_file
 
 
 # TODO: aliases for the remaining requirements

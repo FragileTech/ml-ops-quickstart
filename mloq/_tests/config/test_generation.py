@@ -1,7 +1,7 @@
 import copy
 import os
 
-from mloq.config.setup_generation import (
+from mloq.config.__setup_generation import (
     _generate_project_config,
     _generate_template_config,
     generate_config,
