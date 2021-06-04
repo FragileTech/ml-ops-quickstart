@@ -5,9 +5,9 @@ import click
 from omegaconf import DictConfig
 
 from mloq.__api import package_project
+from mloq.config.__logic import get_docker_image, write_config_package
 from mloq.config.__package_generation import generate_config
 from mloq.config.__params import PROJECT, TEMPLATE
-from mloq.config.__logic import get_docker_image, write_config_package
 from mloq.failure import Failure
 from mloq.version import __version__
 
