@@ -3,8 +3,8 @@ from pathlib import Path
 from omegaconf import DictConfig
 import pytest
 
-from mloq.writer import CMDRecord
 from mloq.command import Command
+from mloq.writer import CMDRecord
 
 
 conf = {"docs": {}}

@@ -3,10 +3,10 @@ from pathlib import Path
 from omegaconf import DictConfig
 import pytest
 
-from mloq.writer import CMDRecord
 from mloq.command import ProjectCMD
 from mloq.files import File, init, main, makefile, readme, test_main, version
 from mloq.test.commands.test_command import TestCommand
+from mloq.writer import CMDRecord
 
 
 project_conf = {
@@ -59,11 +59,18 @@ def command_and_config(request):
 @pytest.fixture()
 def example_files():
     project_path = Path("test_project")
-    module_desc="Python package header for the project module"
+    module_desc = "Python package header for the project module"
     test_desc = "Python package header for the test module"
-    module_init = File(name=init.name, src=init.src, dst=init.dst, is_static=init.is_static, description=module_desc)
-    test_init = File(name=init.name, src=init.src, dst=init.dst, is_static=init.is_static,
-                       description=test_desc)
+    module_init = File(
+        name=init.name,
+        src=init.src,
+        dst=init.dst,
+        is_static=init.is_static,
+        description=module_desc,
+    )
+    test_init = File(
+        name=init.name, src=init.src, dst=init.dst, is_static=init.is_static, description=test_desc
+    )
     example_files = {
         Path() / makefile.dst: makefile,
         Path() / readme.dst: readme,

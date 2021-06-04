@@ -4,10 +4,10 @@ from typing import NamedTuple, Optional, Tuple
 import click
 from omegaconf import DictConfig
 
-from mloq.writer import CMDRecord
 from mloq.config import params
 from mloq.files import DOCS_FILES, PROJECT_FILES
 from mloq.version import __version__
+from mloq.writer import CMDRecord
 
 
 def welcome_message(extra: bool = False, string: Optional[str] = None):
@@ -87,15 +87,11 @@ class GlobalsCMD(Command):
         config = self.record.config.globals
         for param_name in self.CONFIG._fields:
             if param_name == "project_url":
-                default_url = (
-                    f"https://github.com/{config.owner}/{config.project_name.replace(' ', '-')}"
-                )
-                config.project_url = self.CONFIG.project_url(
-                    config, self.interactive, default=default_url
-                )
-            else:
-                value = getattr(self.CONFIG, param_name)(config, self.interactive)
-                setattr(config, param_name, value)
+                continue
+            value = getattr(self.CONFIG, param_name)(config, self.interactive)
+            setattr(config, param_name, value)
+        default_url = f"https://github.com/{config.owner}/{config.project_name.replace(' ', '-')}"
+        config.project_url = self.CONFIG.project_url(config, self.interactive, default=default_url)
         return self.record.config
 
     def record_files(self) -> None:
@@ -110,7 +106,7 @@ class ProjectCMD(Command):
     @property
     def directories(self) -> Tuple[Path]:
         project_folder = self.record.config.project.project_name.replace(" ", "_")
-        return tuple([Path(project_folder) / "tests"])
+        return tuple([Path(project_folder) / "test"])
 
     def record_files(self) -> None:
         from mloq.files import init, main, makefile, readme, test_main, version

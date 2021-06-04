@@ -7,7 +7,8 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from omegaconf import DictConfig
 
 from mloq import _logger
-from mloq.files import File, Ledger, read_file, TEMPLATES_PATH
+from mloq.files import File, read_file, TEMPLATES_PATH
+from mloq.record import Ledger
 
 
 jinja_env = Environment(
@@ -58,14 +59,11 @@ def write_template(
     Returns:
         None.
     """
-    assert isinstance(config, DictConfig)
-    path = Path(path)
-    if not overwrite and (path / file.dst).exists():
-        _logger.debug(f"file {file.name} already exists. Skipping")
+    if not overwrite and path.exists():
+        _logger.debug(f"file {file.dst} already exists. Skipping")
         return
 
-    kwargs = {**config["template"], "project": config.project}
-    ledger.register(file)
-    rendered = render_template(file, kwargs)
-    with open(path / file.dst, "w") as f:
+    ledger.register(file, description=file.description)
+    rendered = render_template(file, config)
+    with open(path, "w") as f:
         f.write(rendered)

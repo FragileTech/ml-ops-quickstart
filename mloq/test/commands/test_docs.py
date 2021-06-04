@@ -3,10 +3,10 @@ from pathlib import Path
 from omegaconf import DictConfig
 import pytest
 
-from mloq.writer import CMDRecord
 from mloq.command import DocsCMD
 from mloq.files import conf_py, docs_req, index_md, make_bat_docs, makefile_docs
 from mloq.test.commands.test_command import TestCommand
+from mloq.writer import CMDRecord
 
 
 docs_conf = {

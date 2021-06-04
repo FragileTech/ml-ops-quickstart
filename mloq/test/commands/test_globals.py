@@ -1,9 +1,9 @@
 from omegaconf import DictConfig
 import pytest
 
-from mloq.writer import CMDRecord
 from mloq.command import GlobalsCMD
 from mloq.test.commands.test_command import example_files, TestCommand
+from mloq.writer import CMDRecord
 
 
 globals_conf = DictConfig(

@@ -35,28 +35,6 @@ def file(
     )
 
 
-class Ledger:
-    """Keep track of the generated files."""
-
-    def __init__(self):
-        """Initialize a new instance of the Ledger class."""
-        self._files = []
-
-    @property
-    def files(self) -> List[Tuple[str, str]]:
-        """Return the list of generated file names."""
-        return [(str(f), d) for f, d in sorted(self._files)]
-
-    def register(self, file: Union[File, str, Path], description: Optional[str] = None) -> None:
-        """Append another generated file to the book."""
-        if isinstance(file, File):
-            description = file.description if description is None else description
-            file = file.dst
-        else:
-            assert description is not None
-        self._files.append((Path(file), description))
-
-
 # Assets paths
 ASSETS_PATH = Path(__file__).parent / "assets"
 TEMPLATES_PATH = ASSETS_PATH / "templates"
