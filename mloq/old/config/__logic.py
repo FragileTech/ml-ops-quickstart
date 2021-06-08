@@ -4,8 +4,8 @@ from typing import Union
 
 from omegaconf import DictConfig, OmegaConf
 
-from mloq._requirements import require_cuda
 from mloq.files import mloq_yml
+from mloq.old._requirements import require_cuda
 
 
 def get_docker_python_version(template: DictConfig) -> str:

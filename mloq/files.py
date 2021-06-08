@@ -230,6 +230,8 @@ ROOT_PATH_FILES = [
     codecov,
 ]
 
+PACKAGE_FILES = [pyproject_toml, setup_py]
+
 OPEN_SOURCE_FILES = [dco, contributing, code_of_conduct]
 
 LICENSES = {

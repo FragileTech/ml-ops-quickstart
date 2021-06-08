@@ -4,8 +4,7 @@ import tempfile
 from click.testing import CliRunner
 import pytest
 
-from mloq._tests.cli.cli_inputs import cli_input
-from mloq.cli.__main import cli
+from mloq.cli import cli
 
 
 # race condition in /home/runner/.cache/flakehell which is created in the Git pre-commit hook

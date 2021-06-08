@@ -1,4 +1,4 @@
-"""This file contains the logic defining all the parameters needed to se up a project with mloq."""
+"""This file contains the logic defining all the parameters needed to set up a project with mloq."""
 import os
 from typing import Any, List, NamedTuple, Optional, Set, Tuple, Union
 
@@ -6,7 +6,7 @@ import click
 from omegaconf import DictConfig
 import omegaconf.errors
 
-from mloq.cli.custom_prompt import confirm, prompt
+from mloq.custom_click import confirm, prompt
 
 
 Choices = Union[List[str], Tuple[str], Set[str]]
@@ -92,6 +92,8 @@ class ConfigParam:
             for k in conf.keys():
                 if k == self.name and omegaconf.OmegaConf.is_missing(conf, k):
                     return None
+                elif omegaconf.OmegaConf.is_missing(conf, k):
+                    continue
                 elif k == self.name:
                     return conf[k]
                 elif isinstance(conf[k], dict):
@@ -194,43 +196,9 @@ def config_group(name, values):
     return NamedTuple(name, [(param.name, type(param)) for param in values])(*values)
 
 
-_GLOBALS = [
-    ConfigParam("project_name", "Select project name"),
-    ConfigParam("owner", "Github handle of the project owner"),
-    ConfigParam("email", "Owner contact email"),
-    ConfigParam("author", "Author(s) of the project"),
-    BooleanParam("open_source", "Is the project Open Source?"),
-    ConfigParam("default_branch", "Default branch of the project"),
-    ConfigParam("description", "Short description of the project"),
-    ConfigParam("project_url", "GitHub project url"),
-]
 
-GLOBALS = config_group("GLOBALS", _GLOBALS)
 
-_LICENSE = [
-    BooleanParam("disable", "Disable license command?"),
-    BooleanParam("open_source", "Is the project Open Source?"),
-    ConfigParam(
-        "license",
-        "Project license type",
-        type=click.Choice(["MIT", "Apache-2.0", "GPL-3.0", "None"], case_sensitive=False),
-    ),
-    ConfigParam("copyright_year", "Year when the project started"),
-    ConfigParam("copyright_holder", "Copyright holder"),
-]
-_PROJECT = [
-    BooleanParam("disable", "Disable project command?"),
-    BooleanParam("docker", "Does the project contains a docker container?"),
-    ConfigParam("owner", "Github handle of the project owner"),
-    ConfigParam("project_name", "Select project name"),
-    ConfigParam("description", "Short description of the project"),
-    ConfigParam(
-        "license",
-        "Project license type",
-        type=click.Choice(["MIT", "Apache-2.0", "GPL-3.0", "None"], case_sensitive=False),
-    ),
-]
-PROJECT = config_group("PROJECT", _PROJECT)
+
 _GIT = [
     BooleanParam("disable", "Disable git command?"),
     ConfigParam("project_name", "Select project name"),
@@ -240,30 +208,8 @@ _GIT = [
     ConfigParam("default_branch", "Default branch of the project"),
     ConfigParam("project_url", "GitHub project url"),
 ]
-_DOCS = [
-    BooleanParam("disable", "Disable docs command?"),
-    ConfigParam("project_name", "Select project name"),
-    ConfigParam("description", "Short description of the project"),
-    ConfigParam("author", "Author(s) of the project"),
-    ConfigParam("copyright_year", "Year when the project started"),
-    ConfigParam("copyright_holder", "Copyright holder"),
-]
-DOCS = config_group("DOCS", _DOCS)
-_PACKAGE = [
-    BooleanParam("disable", "Disable package command?"),
-    ConfigParam("project_name", "Select project name"),
-    ConfigParam("pyproject_extra", "Additional pyproject.toml configuration"),
-    MultiChoiceParam(
-        "python_versions",
-        text="Supported python versions",
-        choices=["3.6", "3.7", "3.8", "3.9"],
-    ),
-    MultiChoiceParam(
-        "requirements",
-        text="Project requirements",
-        choices=["data-science", "data-viz", "torch", "tensorflow", "none"],
-    ),
-]
+
+
 
 _LINT = [
     BooleanParam("docstring_checks", "Enable/disable linting docstrings"),

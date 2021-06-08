@@ -5,8 +5,8 @@ import invoke
 from omegaconf import DictConfig
 import pytest
 
-from mloq.__api import setup_project, setup_requirements
 from mloq.files import test_req
+from mloq.old.__api import setup_project, setup_requirements
 
 
 # race condition in /home/runner/.cache/flakehell which is created in the Git pre-commit hook

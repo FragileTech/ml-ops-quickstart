@@ -4,11 +4,11 @@ import sys
 import click
 from omegaconf import DictConfig
 
-from mloq.__api import docs_project
-from mloq.config.__docs_generation import generate_config
-from mloq.config.__logic import write_config_docs
-from mloq.config.__params import TEMPLATE
 from mloq.failure import Failure
+from mloq.old.__api import docs_project
+from mloq.old.config.__docs_generation import generate_config
+from mloq.old.config.__logic import write_config_docs
+from mloq.old.config.__params import TEMPLATE
 from mloq.version import __version__
 
 

@@ -57,6 +57,6 @@ setup(
     ],
     entry_points="""
             [console_scripts]
-            mloq=mloq.cli.main:cli
+            mloq=mloq.cli:cli
         """,
 )

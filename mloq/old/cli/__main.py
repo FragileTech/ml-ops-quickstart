@@ -8,7 +8,7 @@ import click
 import hydra
 from omegaconf import DictConfig
 
-from mloq.files import docs_yml, mloq_yml, package_yml
+from mloq.files import mloq_yml
 
 
 overwrite_opt = click.option(
@@ -70,7 +70,7 @@ def setup(
     hydra_args: str,
 ) -> None:
     """Entry point of `mloq setup`."""
-    from mloq.cli.__setup_cmd import setup_cmd
+    from mloq.cli import setup_cmd
 
     config_file = Path(config_file) if config_file else mloq_yml.src
     hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)
@@ -122,7 +122,7 @@ def docs(
     * [Optional] 'mloq.yml' file describing the configuration options
     selected for this project.
     """
-    from mloq.cli.__docs_cmd import docs_cmd
+    from mloq.cli import docs_cmd
 
     config_file = Path(config_file) if config_file else docs_yml.src
     hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)
@@ -180,7 +180,7 @@ def package(
 
     * [Optional] 'MLProject' file defining MLFlows projects.
     """
-    from mloq.cli.__package_cmd import package_cmd
+    from mloq.cli import package_cmd
 
     config_file = Path(config_file) if config_file else package_yml.src
     hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)

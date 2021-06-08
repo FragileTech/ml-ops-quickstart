@@ -5,7 +5,7 @@ from typing import Any, List, NamedTuple, Optional, Set, Tuple, Union
 import click
 from omegaconf import DictConfig
 
-from mloq.cli.custom_prompt import confirm, prompt
+from mloq.cli import confirm, prompt
 
 
 Choices = Union[List[str], Tuple[str], Set[str]]

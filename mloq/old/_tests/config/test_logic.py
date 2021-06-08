@@ -1,7 +1,7 @@
 from pathlib import Path
 import tempfile
 
-from mloq.config.__logic import write_config_setup
+from mloq.old.config.__logic import write_config_setup
 
 
 def test_write_config(mloq_yaml_dict):

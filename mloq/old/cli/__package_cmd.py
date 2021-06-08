@@ -4,11 +4,11 @@ import sys
 import click
 from omegaconf import DictConfig
 
-from mloq.__api import setup_project
-from mloq.config.__logic import get_docker_image, write_config_setup
-from mloq.config.__params import is_empty, PROJECT, TEMPLATE
-from mloq.config.__setup_generation import generate_config
 from mloq.failure import Failure
+from mloq.old.__api import package_project
+from mloq.old.config.__logic import get_docker_image, write_config_package
+from mloq.old.config.__package_generation import generate_config
+from mloq.old.config.__params import PROJECT, TEMPLATE
 from mloq.version import __version__
 
 
@@ -44,38 +44,9 @@ def generate_config_interactive(config: DictConfig) -> DictConfig:
     )
     versions = TEMPLATE.python_versions(template, True, default="3.6, 3.7, 3.8, 3.9")
     template.python_versions = versions
-    click.echo("Please specify the requirements of the project as a comma separated list.")
-    click.echo("Available values:")
-    click.echo("    data-science: Common data science libraries such as numpy, pandas, sklearn...")
-    click.echo(
-        "    data-viz: Visualization libraries such as holoviews, bokeh, plotly, matplotlib...",
-    )
-    click.echo("    pytorch: Latest version of pytorch, torchvision and pytorch_lightning")
-    click.echo("    tensorflow: ")  # , data-viz, torch, tensorflow}")
-    project_requirements = PROJECT.requirements(project, True, default="None")
-    project.requirements = project_requirements
     click.echo()
     # Continuous integration and other optional tools
-    click.echo("You can configure the continuous integration using Github Actions.")
-    click.echo("Available values:")
-    click.echo("    Python: Push workflow for pure Python projects.")
-    click.echo("    None: Do not set up the CI.")
-    ci = PROJECT.ci(project, True, default="python")
-    project.ci = ci
-    if is_empty(ci):
-        template.bot_name = "None"
-        template.bot_email = "None"
-    else:
-        template.default_branch = TEMPLATE.default_branch(template, True, default="master")
-        click.echo("A bot account will be used to automatically bump the version of your project.")
-        template.bot_name = TEMPLATE.bot_name(template, True, default=template.author)
-        template.bot_email = TEMPLATE.bot_email(template, True, default=template.email)
-
-    template.ci_python_version = "3.8"
-    template.ci_ubuntu_version = "ubuntu-20.04"
-    template.ci_extra = ""
     template.pyproject_extra = ""
-    template.docstring_checks = False
     project.docker = has_docker = PROJECT.docker(project, True, default=True)
     if has_docker:
         click.echo("MLOQ will generate a Dockerfile for your project.")
@@ -83,23 +54,15 @@ def generate_config_interactive(config: DictConfig) -> DictConfig:
         if base_docker is not None:
             base_docker = TEMPLATE.docker_image(template, True, default=base_docker)
         template.docker_image = str(base_docker) if base_docker is None else base_docker
-    project.docs = PROJECT.docs(project, True, default=True)
     click.echo("You can optionally create an ML Flow MLProject file.")
     project.mlflow = PROJECT.mlflow(project, True, default=False)
-    project.git_init = git_init = PROJECT.git_init(project, True, default=True)
-    if git_init:
-        project.git_push = PROJECT.git_push(project, True, default=False)
-        template.git_message = TEMPLATE.git_message(
-            template,
-            True,
-            default="Generate project files with mloq",
-        )
     return config
 
 
 def welcome_message():
     """Welcome message to be displayed during interactive setup."""
     click.echo(f"Welcome to the MLOQ {__version__} interactive setup utility.")
+    click.echo("This generates the necessary repository files for your new project.")
     click.echo()
     click.echo(
         "Please enter values for the following settings (just press Enter "
@@ -108,7 +71,7 @@ def welcome_message():
     click.echo()
 
 
-def setup_cmd(
+def package_cmd(
     config: DictConfig,
     output,
     overwrite: bool,
@@ -122,13 +85,13 @@ def setup_cmd(
     else:
         config = generate_config(config)
     if interactive and (only_config or click.confirm("Do you want to generate a mloq.yml file?")):
-        write_config_setup(config, output, safe=True)
+        write_config_package(config, output, safe=True)
     if only_config:
         return 0
     if not overwrite and interactive:
         overwrite = click.confirm("Do you want to overwrite existing files?")
     try:
-        setup_project(
+        package_project(
             path=output,
             config=config,
             overwrite=overwrite,

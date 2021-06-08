@@ -1,0 +1,83 @@
+"""Command line interface for mloq."""
+import os
+from pathlib import Path
+
+import click
+
+from mloq.runner import run_command
+
+
+overwrite_opt = click.option(
+    "--overwrite/--no-overwrite",
+    "-o/ ",
+    default=False,
+    show_default=True,
+    help="Value indicating whether to overwrite existing files.",
+)
+config_file_opt = click.option(
+    "--filename",
+    "-f",
+    "config_file",
+    default=None,
+    show_default=True,
+    help="Name of the repository config file",
+    type=click.Path(exists=True, file_okay=True, dir_okay=True, resolve_path=True),
+)
+only_config_opt = click.option(
+    "--only-config/--everything",
+    "-c/ ",
+    default=False,
+    show_default=True,
+    help="Value indicating whether to not generate all the files except mloq.yml.",
+)
+output_directory_arg = click.argument(
+    "output_directory",
+    type=click.Path(exists=True, file_okay=False, dir_okay=True, resolve_path=True),
+)
+
+interactive_opt = click.option(
+    "--interactive/--no-interactive",
+    "-i/ ",
+    default=False,
+    show_default=True,
+    help="If True the configuration values will be defined interactively on the command line.",
+)
+
+hydra_args = click.argument("hydra_args", nargs=-1, type=click.UNPROCESSED)
+
+
+def mloq_command(func):
+    func = hydra_args(func)
+    func = only_config_opt(func)
+    func = interactive_opt(func)
+    func = overwrite_opt(func)
+    func = output_directory_arg(func)
+    func = config_file_opt(func)
+    func = click.command(context_settings=dict(ignore_unknown_options=True))(func)
+    return func
+
+
+class MloqCLI(click.MultiCommand):
+    command_folder = Path(__file__).parent / "commands"
+
+    def list_commands(self, ctx):
+        rv = []
+        for filename in os.listdir(self.command_folder):
+            if filename.endswith(".py") and filename != "__init__.py":
+                rv.append(filename[:-3])
+        rv.sort()
+        return rv
+
+    def get_command(self, ctx, name):
+        ns = {}
+        fn = os.path.join(self.command_folder, name + ".py")
+        with open(fn) as f:
+            code = compile(f.read(), fn, "exec")
+            eval(code, ns, ns)
+        name = f"{name.capitalize()}CMD"
+        return run_command(ns[name])
+
+
+@click.command(cls=MloqCLI)
+def cli():
+    pass
