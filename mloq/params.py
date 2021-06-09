@@ -221,14 +221,4 @@ _DOCKER = [
     ConfigParam("docker_image", "Base docker image for the project's Docker container"),
     ConfigParam("docker_org", "Name of your docker organization"),
 ]
-_CI = [
-    BooleanParam("disable", "Disable ci command?"),
-    ConfigParam("project_name", "Select project name"),
-    ConfigParam("default_branch", "Default branch of the project"),
-    ConfigParam("docker_org", "Name of your docker organization"),
-    ConfigParam("bot_name", "Bot's GitHub login to push commits in CI"),
-    ConfigParam("bot_email", "Bot account email"),
-    ConfigParam("ci_python_version", "Primary Python version in GitHub Actions"),
-    ConfigParam("ci_ubuntu_version", "Primary Ubuntu version in GitHub Actions"),
-    ConfigParam("ci_extra", "Additional script in GitHub Actions before runnign the main tests"),
-]
+
