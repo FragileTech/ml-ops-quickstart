@@ -32,7 +32,7 @@ setup(
         "jinja2>=2.0.0",
         "click>=7.1.2,<8.0.0",
         "invoke>=1.4.1",
-        "hydra-core>=1.0,<1.1",
+        "hydra-core>=1.0,<1.2",
         "pre-commit>=2.10.0",
     ],
     package_data={
