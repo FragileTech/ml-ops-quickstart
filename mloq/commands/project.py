@@ -7,6 +7,7 @@ from mloq.command import Command
 from mloq.files import PROJECT_FILES
 from mloq.params import BooleanParam, config_group, ConfigParam
 
+
 _PROJECT = [
     BooleanParam("disable", "Disable project command?"),
     BooleanParam("docker", "Does the project contains a docker container?"),

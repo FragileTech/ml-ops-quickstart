@@ -196,9 +196,6 @@ def config_group(name, values):
     return NamedTuple(name, [(param.name, type(param)) for param in values])(*values)
 
 
-
-
-
 _GIT = [
     BooleanParam("disable", "Disable git command?"),
     ConfigParam("project_name", "Select project name"),
@@ -208,7 +205,6 @@ _GIT = [
     ConfigParam("default_branch", "Default branch of the project"),
     ConfigParam("project_url", "GitHub project url"),
 ]
-
 
 
 _LINT = [
@@ -221,4 +217,3 @@ _DOCKER = [
     ConfigParam("docker_image", "Base docker image for the project's Docker container"),
     ConfigParam("docker_org", "Name of your docker organization"),
 ]
-

@@ -8,6 +8,7 @@ from mloq.command import Command
 from mloq.files import DOCS_FILES
 from mloq.params import BooleanParam, config_group, ConfigParam
 
+
 _DOCS = [
     BooleanParam("disable", "Disable docs command?"),
     ConfigParam("project_name", "Select project name"),

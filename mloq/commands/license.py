@@ -8,6 +8,7 @@ from mloq.command import Command
 from mloq.files import LICENSES, OPEN_SOURCE_FILES
 from mloq.params import BooleanParam, config_group, ConfigParam
 
+
 _LICENSE = [
     BooleanParam("disable", "Disable license command?"),
     BooleanParam("open_source", "Is the project Open Source?"),

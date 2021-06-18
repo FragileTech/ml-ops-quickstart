@@ -1,5 +1,6 @@
 from pathlib import Path
 import sys
+from typing import Callable
 from unittest.mock import patch
 
 import hydra
@@ -39,13 +40,13 @@ def load_config(config_file, hydra_args) -> DictConfig:
 def write_record(record, path, overwrite: bool = False, only_config: bool = False) -> None:
     if only_config:
         with open(Path(path) / mloq_yml.dst, "w") as f:
-            exit(OmegaConf.save(config=record.config, f=f))
+            OmegaConf.save(config=record.config, f=f)
     else:
         writer = Writer(record=record, overwrite=overwrite, path=path)
-        exit(writer.run())
+        writer.run()
 
 
-def run_command(cmd_cls, use_click: bool = True) -> None:
+def run_command(cmd_cls, use_click: bool = True) -> Callable:
     from mloq.cli import mloq_command
 
     def _run_command(

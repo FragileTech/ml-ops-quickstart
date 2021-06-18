@@ -5,7 +5,7 @@ import click
 from omegaconf import DictConfig
 
 from mloq.command import Command
-from mloq.files import WORKFLOW_FILES, push_python_wkf
+from mloq.files import push_python_wkf, WORKFLOW_FILES
 from mloq.params import BooleanParam, config_group, ConfigParam, MultiChoiceParam
 
 
@@ -19,10 +19,10 @@ _CI = [
     ConfigParam("bot_email", "Bot account email"),
     ConfigParam("ci_python_version", "Primary Python version in GitHub Actions"),
     MultiChoiceParam(
-            "python_versions",
-            text="Supported python versions",
-            choices=["3.6", "3.7", "3.8", "3.9"],
-        ),
+        "python_versions",
+        text="Supported python versions",
+        choices=["3.6", "3.7", "3.8", "3.9"],
+    ),
     ConfigParam("ubuntu_version", "Primary Ubuntu version in GitHub Actions"),
     ConfigParam("ci_extra", "Additional script in GitHub Actions before running the main tests"),
 ]

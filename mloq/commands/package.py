@@ -7,6 +7,7 @@ from mloq.command import Command
 from mloq.files import PACKAGE_FILES
 from mloq.params import BooleanParam, config_group, ConfigParam, MultiChoiceParam
 
+
 _PACKAGE = [
     BooleanParam("disable", "Disable package command?"),
     ConfigParam("project_name", "Select project name"),
@@ -34,11 +35,11 @@ class PackageCMD(Command):
     files = tuple(PACKAGE_FILES)
     CONFIG = config_group("PACKAGE", _PACKAGE)
     LICENSE_CLASSIFIERS = {
-            "MIT": "License :: OSI Approved :: MIT License",
-            "Apache-2.0": "License :: OSI Approved :: Apache Software License",
-            "GPL-3.0": "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
-            "proprietary": "License :: Other/Proprietary License",
-        }
+        "MIT": "License :: OSI Approved :: MIT License",
+        "Apache-2.0": "License :: OSI Approved :: Apache Software License",
+        "GPL-3.0": "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "proprietary": "License :: Other/Proprietary License",
+    }
 
     def parse_config(self) -> DictConfig:
         conf = super(PackageCMD, self).parse_config()

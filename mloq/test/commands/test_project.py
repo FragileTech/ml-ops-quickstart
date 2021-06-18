@@ -3,9 +3,9 @@ from pathlib import Path
 from omegaconf import DictConfig
 import pytest
 
-from mloq.command import ProjectCMD
+from mloq.commands.project import ProjectCMD
 from mloq.files import File, init, main, makefile, readme, test_main, version
-from mloq.test.commands.test_command import TestCommand
+from mloq.test.test_command import TestCommand
 from mloq.writer import CMDRecord
 
 

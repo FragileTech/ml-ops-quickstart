@@ -75,6 +75,7 @@ class MloqCLI(click.MultiCommand):
             code = compile(f.read(), fn, "exec")
             eval(code, ns, ns)
         name = f"{name.capitalize()}CMD"
+        # TODO: handle exit codes if needed
         return run_command(ns[name])
 
 

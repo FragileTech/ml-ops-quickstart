@@ -88,6 +88,8 @@ class TestCommand:
             assert f.dst in file_dsts
 
     def test_files_have_correct_path(self, command_and_config, example_files):
+        if not example_files:
+            return
         command, _ = command_and_config
         record = command.run()
         for path, file in record.files.items():

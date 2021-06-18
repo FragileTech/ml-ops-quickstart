@@ -1,7 +1,7 @@
 current_dir = $(shell pwd)
 
-PROJECT = {{project_name}}
-DOCKER_ORG = {{owner.lower()}}
+PROJECT = {{project.project_name}}
+DOCKER_ORG = {{project.owner}}  # TODO: evaluate if this is the right way
 DOCKER_TAG ?= ${PROJECT}
 VERSION ?= latest
 n ?= auto
