@@ -1,12 +1,12 @@
 globals:
-  project_name: ???
+  project_name: mloq
   default_branch: master
-  owner: ???
-  author: ???
-  email: ???
+  owner: FragileTech
+  author: FragileTech
+  email: guillem@fragile.tech
   description: ???
-  open_source: ???
-  project_url: ???
+  open_source: true
+  project_url: https://github.com/FragileTech/ml-ops-quickstart
 
 license:
   disable: false
@@ -74,15 +74,36 @@ docker:
   docker_org: ${globals.owner}
 
 ci:
-  bot_name: ???
-  bot_email: ???
+  bot_name: fragile-bot
+  bot_email: bot@fragile.tech
   disable: false
   vendor: github
   python_versions: ${package.python_versions}
   ubuntu_version: ubuntu-20.04
   ci_python_version: '3.8'
   ci_ubuntu_version: ubuntu-20.04
-  ci_extra: ""
+  ci_extra: |-
+    git config --global user.name "Bot"
+    git config --global user.email "bot@fragile.tech"
+    git config --global init.defaultBranch master
+    mkdir generated
+    mloq setup generated -f mloq.yml
+    diff .github/workflows/push.yml generated/.github/workflows/push.yml
+    diff requirements.txt generated/requirements.txt
+    diff requirements-lint.txt generated/requirements-lint.txt
+    diff requirements-test.txt generated/requirements-test.txt
+    diff pyproject.toml generated/pyproject.toml
+    diff DCO.md generated/DCO.md
+    diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
+    diff CONTRIBUTING.md generated/CONTRIBUTING.md
+    diff LICENSE generated/LICENSE
+    diff Makefile generated/Makefile
+    diff .pre-commit-config.yaml generated/.pre-commit-config.yaml
+    diff Dockerfile generated/Dockerfile
+    diff .codecov.yml generated/.codecov.yml
+    diff .gitignore generated/.gitignore
+    diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
+    rm generated/mloq/tests/test_main.py
   open_source: ${globals.open_source}
   project_name: ${globals.project_name}
   default_branch: ${globals.default_branch}
@@ -90,5 +111,5 @@ ci:
   author: ${globals.author}
   email: ${globals.email}
   project_url: ${globals.project_url}
-  docker: ???
+  docker: true
   docker_org: ${docker.docker_org}

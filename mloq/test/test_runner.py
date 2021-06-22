@@ -7,12 +7,12 @@ import tempfile
 from omegaconf import DictConfig, OmegaConf
 import pytest
 
-from mloq.commands import DocsCMD, ProjectCMD
+from mloq.commands import CiCMD, DocsCMD, ProjectCMD
 from mloq.files import mloq_yml, read_file
 from mloq.runner import load_config, run_command
 
 
-COMMANDS = [DocsCMD, ProjectCMD]
+COMMANDS = [DocsCMD, ProjectCMD, CiCMD]
 
 
 def generate_command_examples(commands):
