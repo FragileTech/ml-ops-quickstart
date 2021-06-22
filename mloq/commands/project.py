@@ -4,9 +4,11 @@ from typing import Tuple
 import click
 
 from mloq.command import Command
-from mloq.files import PROJECT_FILES
+from mloq.files import codecov, init, main, makefile, readme, test_main, version
 from mloq.params import BooleanParam, config_group, ConfigParam
 
+
+PROJECT_FILES = [codecov, readme, makefile, init, main, test_main, version]
 
 _PROJECT = [
     BooleanParam("disable", "Disable project command?"),

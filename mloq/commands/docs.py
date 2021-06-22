@@ -5,9 +5,11 @@ import click
 from omegaconf import DictConfig
 
 from mloq.command import Command
-from mloq.files import DOCS_FILES
+from mloq.files import conf_py, docs_req, index_md, make_bat_docs, makefile_docs
 from mloq.params import BooleanParam, config_group, ConfigParam
 
+
+DOCS_FILES = [conf_py, index_md, makefile_docs, make_bat_docs, docs_req]
 
 _DOCS = [
     BooleanParam("disable", "Disable docs command?"),

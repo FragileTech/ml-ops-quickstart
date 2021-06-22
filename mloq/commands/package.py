@@ -4,9 +4,11 @@ import click
 from omegaconf import DictConfig
 
 from mloq.command import Command
-from mloq.files import PACKAGE_FILES
+from mloq.files import pyproject_toml, setup_py
 from mloq.params import BooleanParam, config_group, ConfigParam, MultiChoiceParam
 
+
+PACKAGE_FILES = [pyproject_toml, setup_py]
 
 _PACKAGE = [
     BooleanParam("disable", "Disable package command?"),

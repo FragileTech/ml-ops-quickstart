@@ -15,7 +15,7 @@ env:
   DEFAULT_BRANCH: {{ci.default_branch}}
   BOT_NAME: {{ci.bot_name}}
   BOT_EMAIL: {{ci.bot_email}}
-  DOCKER_ORG: {{ci.docker_org.lower()}}
+  DOCKER_ORG: {{ci.docker_org}}
   PIP_CACHE: |
     ~/.cache/pip
     ~/.local/bin

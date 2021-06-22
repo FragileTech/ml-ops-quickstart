@@ -103,5 +103,5 @@ class TestRunCommand:
             interactive=False,
             hydra_args="",
         )
-
         assert dir_trees_are_equal(str(target_example_path), str(target_path))
+        temp_dir.cleanup()

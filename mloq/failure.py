@@ -9,3 +9,7 @@ class Failure(Exception):
         if self.args or not self.__cause__:
             return super().__str__()
         return f"{type(self.__cause__).__name__}: {self.__cause__}"
+
+
+class MissingConfigValue(Failure):
+    pass

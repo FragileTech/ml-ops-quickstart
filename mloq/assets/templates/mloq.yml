@@ -23,7 +23,6 @@ project:
   owner: ${globals.owner}
   description: ${globals.description}
 
-
 mlflow:
   disable: true
 
@@ -81,7 +80,6 @@ ci:
   python_versions: ${package.python_versions}
   ubuntu_version: ubuntu-20.04
   ci_python_version: '3.8'
-  ci_ubuntu_version: ubuntu-20.04
   ci_extra: ""
   open_source: ${globals.open_source}
   project_name: ${globals.project_name}

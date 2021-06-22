@@ -219,7 +219,7 @@ push_python_wkf = file(
     "GitHub Actions continuous integration workflow file",
 )
 
-PROJECT_FILES = [readme, makefile, init, main, test_main, version]
+PROJECT_FILES = [codecov, readme, makefile, init, main, test_main, version]
 
 ROOT_PATH_FILES = [
     gitignore,

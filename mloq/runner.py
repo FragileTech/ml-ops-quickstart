@@ -7,6 +7,7 @@ import hydra
 from omegaconf import DictConfig, OmegaConf
 
 from mloq import _logger
+from mloq.command import Command
 from mloq.files import mloq_yml
 from mloq.record import CMDRecord
 from mloq.writer import Writer
@@ -57,9 +58,9 @@ def run_command(cmd_cls, use_click: bool = True) -> Callable:
         interactive: bool,
         hydra_args: str,
     ) -> None:
-        config = load_config(config_file=config_file, hydra_args=hydra_args)
+        config: DictConfig = load_config(config_file=config_file, hydra_args=hydra_args)
         record = CMDRecord(config=config)
-        cmd = cmd_cls(record=record, interactive=interactive)
+        cmd: Command = cmd_cls(record=record, interactive=interactive)
         record = cmd.run()
         write_record(
             record=record, path=output_directory, overwrite=overwrite, only_config=only_config

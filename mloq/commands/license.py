@@ -5,9 +5,11 @@ import click
 from omegaconf import DictConfig
 
 from mloq.command import Command
-from mloq.files import LICENSES, OPEN_SOURCE_FILES
+from mloq.files import code_of_conduct, contributing, dco, LICENSES
 from mloq.params import BooleanParam, config_group, ConfigParam
 
+
+OPEN_SOURCE_FILES = [dco, contributing, code_of_conduct]
 
 _LICENSE = [
     BooleanParam("disable", "Disable license command?"),

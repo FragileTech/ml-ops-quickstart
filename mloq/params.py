@@ -7,6 +7,7 @@ from omegaconf import DictConfig
 import omegaconf.errors
 
 from mloq.custom_click import confirm, prompt
+from mloq.failure import MissingConfigValue
 
 
 Choices = Union[List[str], Tuple[str], Set[str]]
@@ -69,7 +70,7 @@ class ConfigParam:
         if interactive:
             value = self._prompt(value, **kwargs)
         if value is None and raise_error:
-            raise ValueError(f"Config value {self.name} is not defined.")
+            raise MissingConfigValue(f"Config value {self.name} is not defined.")
         return value
 
     def _value_from_env(self):

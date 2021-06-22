@@ -5,9 +5,11 @@ import click
 from omegaconf import DictConfig
 
 from mloq.command import Command
-from mloq.files import push_python_wkf, WORKFLOW_FILES
+from mloq.files import push_python_wkf
 from mloq.params import BooleanParam, config_group, ConfigParam, MultiChoiceParam
 
+
+WORKFLOW_FILES = [push_python_wkf]
 
 _CI = [
     BooleanParam("disable", "Disable ci command?"),

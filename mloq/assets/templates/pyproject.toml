@@ -38,14 +38,14 @@ honor_noqa = true
 # Code coverage config
 [tool.coverage.run]
 branch = true
-source = ["{{project_name}}"]
+source = ["{{package.project_name}}"]
 
 [tool.coverage.report]
 exclude_lines =["no cover",
     'raise NotImplementedError',
     'if __name__ == "__main__":']
 ignore_errors = true
-omit = ["{{project_name}}/tests/*"]
+omit = ["{{package.project_name}}/tests/*"]
 
 # Flakehell config
 [tool.flakehell]
@@ -58,16 +58,16 @@ max_line_length = 99 # show line of source code in output
 show_source = true
 inline_quotes='"'
 import_order_style = "appnexus"
-application_package_names = ["{{project_name}}"]
-application_import_names = ["{{project_name}}"]
+application_package_names = ["{{lint.project_name}}"]
+application_import_names = ["{{lint.project_name}}"]
 
 [tool.flakehell.plugins]
-"flake8*" = ["+*"{% if no_docs_checks %}, "-D*"{% endif %}]
-pylint = ["+*"{% if no_docs_checks %}, "-D*"{% endif %}]
+"flake8*" = ["+*"{% if lint.no_docs_checks %}, "-D*"{% endif %}]
+pylint = ["+*"{% if lint.no_docs_checks %}, "-D*"{% endif %}]
 pyflakes = ["+*"]
 pycodestyle = ["+*" , "-D100", "-D104", "-D301", "-W503", "-W504"]
 
-[tool.flakehell.exceptions."**/__init__.py"]{% if no_docs_checks %}
+[tool.flakehell.exceptions."**/__init__.py"]{% if lint.no_docs_checks %}
 "flake8*" = ["-D*"]
 pylint = ["-D*"]{% endif %}
 pyflakes = ["-F401"]
@@ -92,4 +92,4 @@ enable = """,
          missing-return-doc,
          """
 
-{{ pyproject_extra }}
+{{ lint.pyproject_extra }}

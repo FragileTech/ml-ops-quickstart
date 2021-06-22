@@ -4,8 +4,7 @@ from typing import NamedTuple, Optional, Tuple
 import click
 from omegaconf import DictConfig
 
-from mloq import params
-from mloq.files import DOCS_FILES, PROJECT_FILES
+from mloq.failure import MissingConfigValue
 from mloq.version import __version__
 from mloq.writer import CMDRecord
 
@@ -42,9 +41,14 @@ class Command:
 
     def parse_config(self) -> DictConfig:
         config = getattr(self.record.config, self.name)  # TODO: gestionar caso de config vacio.
-        for param_name in self.CONFIG._fields:
-            value = getattr(self.CONFIG, param_name)(config, self.interactive)
-            setattr(config, param_name, value)
+        for param in self.CONFIG:
+            try:
+                value = param(config, self.interactive)
+            except MissingConfigValue as e:
+                msg = f"Config value {param.name} not defined for {self.name} command."
+                raise MissingConfigValue(msg) from e
+
+            setattr(config, param.name, value)
         return self.record.config
 
     def interactive_config(self) -> DictConfig:

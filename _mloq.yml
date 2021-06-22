@@ -1,78 +1,44 @@
-globals:
+project:
+  open_source: true
+  docker: true
+  ci: python
+  mlflow: false
+  requirements:
+  - dogfood
+  git_init: false
+  git_push: false
+  docs: true
+template:
   project_name: mloq
   default_branch: master
   owner: FragileTech
   author: FragileTech
   email: guillem@fragile.tech
-  open_source: true
-  description: Package for initializing ML projects following ML Ops best practices.
-  project_url: https://github.com/FragileTech/ml-ops-quickstart
-
-project:
-  disable: false
-  git_init: false
-  git_push: false
-  project_name: ${deafult.project_name}
-  git_message: Generate project files with mloq
-  default_branch: ${globals.default_branch}
-  project_url: ${globals.project_url}
-
-mlflow:
-  disable: true
-
-docs:
-  disable: false
-  project_name: ${globals.project_name}
-  author: ${globals.author}
-  copyright_holder: ${license.copyright_holder}
-  copyright_year: ${license.copyright_year}
-
-license:
-  disable: false
-  open_source: true
-  license: MIT
   copyright_year: 2020
   copyright_holder: FragileTech
-
-package:
-  disable: false
-  requirements:
-    - dogfood
+  project_url: https://github.com/FragileTech/ml-ops-quickstart
+  bot_name: fragile-bot
+  bot_email: bot@fragile.tech
+  license: MIT
+  description: Package for initializing ML projects following ML Ops best practices.
   python_versions:
   - '3.6'
   - '3.7'
   - '3.8'
   - '3.9'
-  pyproject_extra: ""
-
-lint:
-  disable: false
+  docker_image: fragiletech/ubuntu20.04-base-py38
   docstring_checks: true
   pyproject_extra: |-
     [tool.flakehell.exceptions."**/assets/*"]
     pycodestyle = ["-*"]
     pyflakes = ["-*"]
     "flake8*" = ["-*"]
-
-docker:
-  disable: false
-  docker_image: fragiletech/ubuntu20.04-base-py38
-  docker_org: ${globals.owner}
-
-ci:
-  disable: false
-  project_name: ${globals.project_name}
-  default_branch: ${globals.default_branch}
-  docker_org: ${docker.docker_org}
-  ci: python
-  bot_name: fragile-bot
-  bot_email: bot@fragile.tech
   ci_python_version: '3.8'
   ci_ubuntu_version: ubuntu-20.04
   ci_extra: |-
-    git config --globals user.name "Bot"
-    git config --globals user.email "bot@fragile.tech"
-    git config --globals init.defaultBranch master
+    git config --global user.name "Bot"
+    git config --global user.email "bot@fragile.tech"
+    git config --global init.defaultBranch master
     mkdir generated
     mloq setup generated -f mloq.yml
     diff .github/workflows/push.yml generated/.github/workflows/push.yml
@@ -91,4 +57,4 @@ ci:
     diff .gitignore generated/.gitignore
     diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
     rm generated/mloq/tests/test_main.py
-
+  git_message: Generate project files with mloq
