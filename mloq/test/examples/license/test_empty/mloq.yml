@@ -1,19 +1,22 @@
 globals:
-  project_name: test_docs
+  project_name: test_license
   default_branch: master
   owner: tester
   author: tester-docs
   email: test_docs@mail.com
   description: test docs command
-  open_source: true
+  open_source: false
   project_url: "http://example_url/docs_test"
 
 license:
   disable: false
-  license: MIT
+  license: None
   copyright_year: ${current_year:}
   copyright_holder: ${globals.owner}
   open_source: ${globals.open_source}
+  project_name: ${globals.project_name}
+  project_url: ${globals.project_url}
+  email: ${globals.email}
 
 project:
   disable: false
@@ -75,12 +78,13 @@ docker:
   docker_org: ${globals.owner}
 
 ci:
-  bot_name: ???
-  bot_email: ???
+  bot_name: my_bot
+  bot_email: my_bot_email
+  python_versions: ${package.python_versions}
   disable: false
   vendor: github
   ci_python_version: '3.8'
-  ci_ubuntu_version: ubuntu-20.04
+  ubuntu_version: ubuntu-20.04
   ci_extra: ""
   open_source: ${globals.open_source}
   project_name: ${globals.project_name}
@@ -89,4 +93,5 @@ ci:
   author: ${globals.author}
   email: ${globals.email}
   project_url: ${globals.project_url}
-  docker_org: ${docker.docker_org}
+  docker_org: my_org
+  docker: true

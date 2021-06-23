@@ -40,5 +40,5 @@ class LicenseCMD(Command):
         if conf.open_source:
             for file in OPEN_SOURCE_FILES:
                 self.record.register_file(file=file, path=Path())
-        license_file = self.LICENSES[conf.license]
-        self.record.register_file(file=license_file, path=Path())
+            license_file = self.LICENSES[conf.license]
+            self.record.register_file(file=license_file, path=Path())

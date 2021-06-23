@@ -69,18 +69,20 @@ lint:
   pyproject_extra: ""
   project_name: ${globals.project_name}
 
+
 docker:
   disable: false
   docker_image: fragiletech/ubuntu20.04-base-py38
   docker_org: ${globals.owner}
 
 ci:
-  bot_name: ???
-  bot_email: ???
+  bot_name: my_bot
+  bot_email: my_bot_email
+  python_versions: ${package.python_versions}
   disable: false
   vendor: github
   ci_python_version: '3.8'
-  ci_ubuntu_version: ubuntu-20.04
+  ubuntu_version: ubuntu-20.04
   ci_extra: ""
   open_source: ${globals.open_source}
   project_name: ${globals.project_name}
@@ -89,4 +91,5 @@ ci:
   author: ${globals.author}
   email: ${globals.email}
   project_url: ${globals.project_url}
-  docker_org: ${docker.docker_org}
+  docker_org: my_org
+  docker: true
