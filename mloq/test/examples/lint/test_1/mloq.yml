@@ -67,6 +67,8 @@ lint:
   disable: false
   docstring_checks: true
   pyproject_extra: ""
+  project_name: ${globals.project_name}
+
 
 docker:
   disable: false

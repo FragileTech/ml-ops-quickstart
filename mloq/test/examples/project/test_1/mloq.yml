@@ -72,6 +72,7 @@ docker:
   disable: false
   docker_image: fragiletech/ubuntu20.04-base-py38
   docker_org: ${globals.owner}
+  project_name: ${globals.project_name}
 
 ci:
   bot_name: ???

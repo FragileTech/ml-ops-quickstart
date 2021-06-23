@@ -1,6 +1,6 @@
 # Contributing Guidelines
 
-{{project_name}} is [{{license}} licensed](LICENSE) and accepts
+{{license.project_name}} is [{{license.license}} licensed](LICENSE) and accepts
 contributions via GitHub pull requests.  This document outlines some of the
 conventions on development workflow, commit message formatting, contact points,
 and other resources to make it easier to get your contribution accepted.
@@ -22,7 +22,7 @@ This can be done easily using the [`-s`](https://github.com/git/git/blob/b2c150d
 
 The official support channels, for both users and contributors, are:
 
-- GitHub [issues]({{ project_url }}/issues)*
+- GitHub [issues]({{license.project_url }}/issues)*
 
 *Before opening a new issue or submitting a new pull request, it's helpful to
 search the project - it's likely that another user has already reported the
