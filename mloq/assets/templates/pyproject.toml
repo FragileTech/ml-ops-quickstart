@@ -38,14 +38,14 @@ honor_noqa = true
 # Code coverage config
 [tool.coverage.run]
 branch = true
-source = ["{{package.project_name}}"]
+source = ["{{lint.project_name}}"]
 
 [tool.coverage.report]
 exclude_lines =["no cover",
     'raise NotImplementedError',
     'if __name__ == "__main__":']
 ignore_errors = true
-omit = ["{{package.project_name}}/tests/*"]
+omit = ["{{lint.project_name}}/tests/*"]
 
 # Flakehell config
 [tool.flakehell]
