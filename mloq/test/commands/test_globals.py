@@ -2,7 +2,7 @@ from omegaconf import DictConfig
 import pytest
 
 from mloq.commands.globals import GlobalsCMD
-from mloq.test.test_command import example_files, TestCommand
+from mloq.test.test_command import command_and_example, TestCommand
 from mloq.writer import CMDRecord
 
 

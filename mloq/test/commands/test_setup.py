@@ -5,7 +5,7 @@ import pytest
 
 from mloq.commands.setup import SetupCMD
 from mloq.files import conf_py, docs_req, index_md, make_bat_docs, makefile_docs
-from mloq.test.test_command import example_files, TestCommand
+from mloq.test.test_command import command_and_example, TestCommand
 from mloq.writer import CMDRecord
 
 

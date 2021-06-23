@@ -2,13 +2,13 @@ import os
 from pathlib import Path
 import tempfile
 
-from omegaconf import DictConfig
+from omegaconf import DictConfig, OmegaConf
 import pytest
 
 from mloq.commands.ci import CiCMD
 from mloq.files import push_python_wkf
 from mloq.runner import run_command
-from mloq.test.test_command import TestCommand
+from mloq.test.test_command import TestCommand  # noqa: F401
 from mloq.test.test_runner import dir_trees_are_equal
 from mloq.writer import CMDRecord
 
@@ -76,14 +76,20 @@ ci_conf_with_globals = DictConfig(
 )
 
 
-@pytest.fixture(params=[ci_conf])
-def config1(request):
-    return request.param
-
-
-@pytest.fixture(params=[ci_conf_with_globals])
-def config2(request):
-    return request.param
+@pytest.fixture(params=[(ci_conf, ci_conf_with_globals)])
+def config_paths(request):
+    c1, c2 = request.param
+    temp_path = tempfile.TemporaryDirectory()
+    conf_1 = DictConfig(c1)
+    conf_2 = DictConfig(c2)
+    filepath_1 = Path(temp_path.name) / "mloq1.yml"
+    filepath_2 = Path(temp_path.name) / "mloq2.yml"
+    with open(filepath_1, "w") as f:
+        OmegaConf.save(conf_1, f)
+    with open(filepath_2, "w") as f:
+        OmegaConf.save(conf_2, f)
+    yield filepath_1, filepath_2
+    temp_path.cleanup()
 
 
 @pytest.fixture(params=[(CiCMD, ci_conf), (CiCMD, ci_conf_with_globals)], scope="function")
@@ -95,15 +101,21 @@ def command_and_config(request):
     return command, config
 
 
-@pytest.fixture()
-def example_files():
-    return None
-    ci_path = Path("ci")
-    source_path = ci_path / "source"
-    example_files = {
-        source_path / push_python_wkf.dst: push_python_wkf,
-    }
-    return example_files
+example_files = {
+    Path(".github") / "workflows" / push_python_wkf.dst: push_python_wkf,
+}
+
+
+@pytest.fixture(
+    params=[(CiCMD, ci_conf, example_files), (CiCMD, ci_conf_with_globals, example_files)],
+    scope="function",
+)
+def command_and_example(request):
+    command_cls, conf_dict, example = request.param
+    config = DictConfig(conf_dict)
+    record = CMDRecord(config)
+    command = command_cls(record=record)
+    return command, example
 
 
 class TestCi:
@@ -111,15 +123,8 @@ class TestCi:
         command, config = command_and_config
         assert command.name == "ci"
 
-    def _test_file_is_correct(self, example_files, command_and_config):
-        source_file = example_files
-        source_path = Path("ci") / "source" / push_python_wkf.dst
-        target_path = Path(".github") / "workflows" / push_python_wkf.dst
-        cmd, config = command_and_config
-        cmd.run()
-        assert cmd.record.files[target_path] == source_file[Path(source_path)]
-
-    def _test_workflow(self, config1, config2):
+    def test_equivalent_configs(self, config_paths):
+        path_conf_1, path_conf_2 = config_paths
         temp_path = tempfile.TemporaryDirectory()
         temp_path1 = Path(temp_path.name) / "target1"
         temp_path2 = Path(temp_path.name) / "target2"
@@ -127,7 +132,7 @@ class TestCi:
         os.makedirs(temp_path2)
         _run_cmd = run_command(cmd_cls=CiCMD, use_click=False)
         _run_cmd(
-            config_file=config1,
+            config_file=path_conf_1,
             output_directory=temp_path1,
             overwrite=False,
             only_config=False,
@@ -135,7 +140,7 @@ class TestCi:
             hydra_args="",
         )
         _run_cmd(
-            config_file=config2,
+            config_file=path_conf_2,
             output_directory=temp_path2,
             overwrite=False,
             only_config=False,

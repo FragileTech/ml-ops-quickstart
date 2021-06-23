@@ -56,7 +56,6 @@ def command_and_config(request):
     return command, config
 
 
-@pytest.fixture()
 def example_files():
     project_path = Path("test_project")
     module_desc = "Python package header for the project module"
@@ -71,7 +70,7 @@ def example_files():
     test_init = File(
         name=init.name, src=init.src, dst=init.dst, is_static=init.is_static, description=test_desc
     )
-    example_files = {
+    example = {
         Path() / makefile.dst: makefile,
         Path() / readme.dst: readme,
         project_path / version.dst: version,
@@ -80,4 +79,19 @@ def example_files():
         project_path / "test" / test_main.dst: test_main,
         project_path / "test" / test_init.dst: test_init,
     }
-    return example_files
+    return example
+
+
+cmd_examples_param = [
+    (ProjectCMD, project_conf, example_files()),
+    (ProjectCMD, project_conf_with_globals, example_files()),
+]
+
+
+@pytest.fixture(params=cmd_examples_param, scope="function")
+def command_and_example(request):
+    command_cls, conf_dict, example = request.param
+    config = DictConfig(conf_dict)
+    record = CMDRecord(config)
+    command = command_cls(record=record)
+    return command, example

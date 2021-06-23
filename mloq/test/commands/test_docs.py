@@ -54,18 +54,32 @@ def command_and_config(request):
     return command, config
 
 
-@pytest.fixture()
 def example_files():
     docs_path = Path("docs")
     source_path = docs_path / "source"
-    example_files = {
+    example = {
         source_path / conf_py.dst: conf_py,
         source_path / index_md.dst: index_md,
         docs_path / makefile_docs.dst: makefile_docs,
         docs_path / make_bat_docs.dst: make_bat_docs,
         docs_path / docs_req.dst: docs_req,
     }
-    return example_files
+    return example
+
+
+cmd_examples_param = [
+    (DocsCMD, docs_conf, example_files()),
+    (DocsCMD, docs_conf_with_globals, example_files()),
+]
+
+
+@pytest.fixture(params=cmd_examples_param, scope="function")
+def command_and_example(request):
+    command_cls, conf_dict, example = request.param
+    config = DictConfig(conf_dict)
+    record = CMDRecord(config)
+    command = command_cls(record=record)
+    return command, example
 
 
 class TestDocs:

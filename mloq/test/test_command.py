@@ -30,9 +30,13 @@ def command_and_config(request):
     return command, config
 
 
-@pytest.fixture()
-def example_files():
-    return {}
+@pytest.fixture(params=[(Command, conf, None)], scope="function")
+def command_and_example(request):
+    command_cls, conf_dict, example = request.param
+    config = DictConfig(conf_dict)
+    record = CMDRecord(config)
+    command = command_cls(record=record)
+    return command, example
 
 
 class TestCommand:
@@ -87,11 +91,17 @@ class TestCommand:
             assert f.src in file_srcs
             assert f.dst in file_dsts
 
-    def test_files_have_correct_path(self, command_and_config, example_files):
-        if not example_files:
+    def test_files_have_correct_path(self, command_and_example):
+        if not command_and_example:
             return
-        command, _ = command_and_config
+        command, example_files = command_and_example
+        if example_files is None:
+            return
         record = command.run()
         for path, file in record.files.items():
             assert path in example_files
             assert example_files[path] == file
+
+        for path, file in example_files.items():
+            assert path in record.files
+            assert record.files[path] == file

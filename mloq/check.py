@@ -58,6 +58,7 @@ def get_generated_files(path: Union[str, Path]) -> List[Path]:
 # TODO: Improve the Ledger class so it can also track the different directories
 #  that were created, and add them under a new section in the WHAT_MLOQ_GENERATED.md
 
+
 def get_generated_directories(path: Union[str, Path]) -> List[Path]:
     """
     List all the directories generated in the last mloq run.
