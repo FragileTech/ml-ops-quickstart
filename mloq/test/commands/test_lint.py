@@ -5,78 +5,48 @@ import tempfile
 from omegaconf import DictConfig, OmegaConf
 import pytest
 
-from mloq.commands.ci import CiCMD
-from mloq.files import push_python_wkf
+from mloq.commands.lint import LintCMD
+from mloq.files import pyproject_toml
 from mloq.runner import run_command
 from mloq.test.test_command import TestCommand  # noqa: F401
 from mloq.test.test_runner import dir_trees_are_equal
 from mloq.writer import CMDRecord
 
 
-ci_conf = {
-    "ci": dict(
-        bot_name="test_bot_name",
-        bot_email="test_bot_email",
-        disable=False,
-        vendor="test_vendor",
-        python_versions="3.8",
-        ubuntu_version="ubuntu-20.04",
-        ci_python_version="3.8",
-        ci_ubuntu_version="ubuntu-20.04",
-        ci_extra="",
-        open_source=True,
-        project_name="test_name",
-        default_branch="test_branch",
-        owner="test_owner",
-        author="test_author",
-        email="test_email",
-        project_url="test_url",
-        docker=True,
-        docker_org="test_org",
+lint_conf = {
+    "lint": dict(
+        disable=False, docstring_checks=True, pyproject_extra="", project_name="test_lint"
     )
 }
 
-ci_conf_with_globals = DictConfig(
+lint_conf_with_globals = DictConfig(
     {
         "globals": {
-            "project_name": "test_name",
-            "default_branch": "test_branch",
-            "owner": "test_owner",
-            "author": "test_author",
-            "email": "test_email",
-            "description": "test_description",
-            "open_source": True,
-            "project_url": "test_url",
+            "project_name": "test_lint",
+            "default_branch": "ll",
+            "owner": "test_paco",
+            "author": "test_fran",
+            "email": "test_jose@kk.com",
+            "description": "supercalifragilisticexpialidocious",
+            "open_source": None,
+            "project_url": "test_url.net",
         },
-        "package": dict(
-            python_versions="3.8",
-        ),
-        "docker": dict(docker_org="test_org"),
-        "ci": dict(
-            bot_name="test_bot_name",
-            bot_email="test_bot_email",
+        "lint": dict(
             disable=False,
-            vendor="test_vendor",
-            python_versions="${package.python_versions}",
-            ubuntu_version="ubuntu-20.04",
-            ci_python_version="3.8",
-            ci_ubuntu_version="ubuntu-20.04",
-            ci_extra="",
-            open_source="${globals.open_source}",
+            docstring_checks=True,
+            pyproject_extra="",
             project_name="${globals.project_name}",
-            default_branch="${globals.default_branch}",
-            owner="${globals.owner}",
-            author="${globals.author}",
-            email="${globals.email}",
-            project_url="${globals.project_url}",
-            docker=True,
-            docker_org="${docker.docker_org}",
         ),
     }
 )
 
 
-@pytest.fixture(params=[(ci_conf, ci_conf_with_globals)])
+example_files = {
+    Path() / pyproject_toml.dst: pyproject_toml,
+}
+
+
+@pytest.fixture(params=[(lint_conf, lint_conf_with_globals)])
 def config_paths(request):
     c1, c2 = request.param
     temp_path = tempfile.TemporaryDirectory()
@@ -92,7 +62,7 @@ def config_paths(request):
     temp_path.cleanup()
 
 
-@pytest.fixture(params=[(CiCMD, ci_conf), (CiCMD, ci_conf_with_globals)], scope="function")
+@pytest.fixture(params=[(LintCMD, lint_conf), (LintCMD, lint_conf_with_globals)], scope="function")
 def command_and_config(request):
     command_cls, conf_dict = request.param
     config = DictConfig(conf_dict)
@@ -101,13 +71,8 @@ def command_and_config(request):
     return command, config
 
 
-example_files = {
-    Path(".github") / "workflows" / push_python_wkf.dst: push_python_wkf,
-}
-
-
 @pytest.fixture(
-    params=[(CiCMD, ci_conf, example_files), (CiCMD, ci_conf_with_globals, example_files)],
+    params=[(LintCMD, lint_conf, example_files), (LintCMD, lint_conf_with_globals, example_files)],
     scope="function",
 )
 def command_and_example(request):
@@ -118,10 +83,10 @@ def command_and_example(request):
     return command, example
 
 
-class TestCi:
+class TestLint:
     def test_name_is_correct(self, command_and_config):
         command, config = command_and_config
-        assert command.name == "ci"
+        assert command.name == "lint"
 
     def test_equivalent_configs(self, config_paths):
         path_conf_1, path_conf_2 = config_paths
@@ -130,7 +95,7 @@ class TestCi:
         temp_path2 = Path(temp_path.name) / "target2"
         os.makedirs(temp_path1)
         os.makedirs(temp_path2)
-        _run_cmd = run_command(cmd_cls=CiCMD, use_click=False)
+        _run_cmd = run_command(cmd_cls=LintCMD, use_click=False)
         _run_cmd(
             config_file=path_conf_1,
             output_directory=temp_path1,
