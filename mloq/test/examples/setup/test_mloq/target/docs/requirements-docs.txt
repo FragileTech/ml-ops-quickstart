@@ -1,0 +1,6 @@
+sphinx==4.0.2
+linkify-it-py==1.0.1
+myst-parser==0.14.0
+ruyaml==0.20.0
+sphinx-autoapi==1.8.1
+sphinx-rtd-theme==0.5.2

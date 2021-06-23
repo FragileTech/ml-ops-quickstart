@@ -38,14 +38,14 @@ honor_noqa = true
 # Code coverage config
 [tool.coverage.run]
 branch = true
-source = ["test_docs"]
+source = [""]
 
 [tool.coverage.report]
 exclude_lines =["no cover",
     'raise NotImplementedError',
     'if __name__ == "__main__":']
 ignore_errors = true
-omit = ["test_docs/tests/*"]
+omit = ["/tests/*"]
 
 # Flakehell config
 [tool.flakehell]
@@ -58,8 +58,8 @@ max_line_length = 99 # show line of source code in output
 show_source = true
 inline_quotes='"'
 import_order_style = "appnexus"
-application_package_names = ["test_docs"]
-application_import_names = ["test_docs"]
+application_package_names = [""]
+application_import_names = [""]
 
 [tool.flakehell.plugins]
 "flake8*" = ["+*"]
@@ -90,3 +90,7 @@ enable = """,
          missing-return-doc,
          """
 
+[tool.flakehell.exceptions."**/assets/*"]
+pycodestyle = ["-*"]
+pyflakes = ["-*"]
+"flake8*" = ["-*"]
