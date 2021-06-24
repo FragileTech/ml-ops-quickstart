@@ -1,17 +1,16 @@
 from pathlib import Path
 
-from omegaconf import DictConfig, OmegaConf
+from omegaconf import OmegaConf
 import pytest
 
 from mloq.commands.setup import SetupCMD
-from mloq.files import conf_py, docs_req, index_md, make_bat_docs, makefile_docs
 from mloq.tests.test_command import command_and_example, TestCommand
 from mloq.writer import CMDRecord
 
 
 @pytest.fixture(scope="function")
 def command_and_config():
-    config = OmegaConf.load(Path(__file__).parent.parent.parent.parent / "mloq.yml")
+    config = OmegaConf.load(Path(__file__).parent.parent / "examples" / "mloq.yml")
     record = CMDRecord(config)
     command = SetupCMD(record=record)
     return command, config

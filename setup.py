@@ -40,6 +40,7 @@ setup(
         "mloq": [
             "assets/**/*",
             "assets/**/.*",
+            "tests/**/.*"
         ],
     },
     include_package_data=True,

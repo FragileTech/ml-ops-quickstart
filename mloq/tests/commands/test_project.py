@@ -4,7 +4,19 @@ from omegaconf import DictConfig
 import pytest
 
 from mloq.commands.project import ProjectCMD
-from mloq.files import File, init, main, makefile, readme, test_main, version
+from mloq.files import (
+    codecov,
+    File,
+    gitignore,
+    init,
+    main,
+    makefile,
+    pre_commit_hook,
+    readme,
+    test_main,
+    test_req,
+    version,
+)
 from mloq.tests.test_command import TestCommand
 from mloq.writer import CMDRecord
 
@@ -78,11 +90,15 @@ def example_files():
     example = {
         Path() / makefile.dst: makefile,
         Path() / readme.dst: readme,
+        Path() / test_req.dst: test_req,
+        Path() / pre_commit_hook.dst: pre_commit_hook,
+        Path() / codecov.dst: codecov,
+        Path() / gitignore.dst: gitignore,
         project_path / version.dst: version,
         project_path / init.dst: module_init,
         project_path / main.dst: main,
-        project_path / "test" / test_main.dst: test_main,
-        project_path / "test" / test_init.dst: test_init,
+        project_path / "tests" / test_main.dst: test_main,
+        project_path / "tests" / test_init.dst: test_init,
     }
     return example
 

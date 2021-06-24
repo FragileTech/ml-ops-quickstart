@@ -14,6 +14,10 @@ license:
   copyright_year: 2020
   copyright_holder: ${globals.owner}
   open_source: ${globals.open_source}
+  project_name: ${globals.project_name}
+  email: ${globals.email}
+  project_url: ${globals.project_url}
+  license_classifier: ""
 
 project:
   disable: false
@@ -22,6 +26,7 @@ project:
   project_name: ${globals.project_name}
   owner: ${globals.owner}
   description: ${globals.description}
+  project_url: ${globals.project_url}
 
 mlflow:
   disable: true
@@ -66,12 +71,13 @@ requirements:
 
 lint:
   disable: false
-  docstring_checks: true
+  docstring_checks: false
   pyproject_extra: |-
     [tool.flakehell.exceptions."**/assets/*"]
     pycodestyle = ["-*"]
     pyflakes = ["-*"]
     "flake8*" = ["-*"]
+  project_name: ${globals.project_name}
 
 docker:
   disable: false
@@ -110,9 +116,7 @@ ci:
     diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
     diff CONTRIBUTING.md generated/CONTRIBUTING.md
     diff LICENSE generated/LICENSE
-    diff Makefile generated/Makefile
     diff .pre-commit-config.yaml generated/.pre-commit-config.yaml
-    diff Dockerfile generated/Dockerfile
     diff .codecov.yml generated/.codecov.yml
     diff .gitignore generated/.gitignore
     diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md

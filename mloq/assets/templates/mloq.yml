@@ -17,6 +17,7 @@ license:
   project_name: ${globals.project_name}
   project_url: ${globals.project_url}
   email: ${globals.email}
+  license_classifier: ""
 
 project:
   disable: false
@@ -25,7 +26,6 @@ project:
   project_name: ${globals.project_name}
   owner: ${globals.owner}
   description: ${globals.description}
-  license_classifier: ???
 
 mlflow:
   disable: true
@@ -63,6 +63,7 @@ package:
   - '3.8'
   - '3.9'
   pyproject_extra: ""
+  license_classifier: ""
 
 requirements:
   - None

@@ -28,7 +28,6 @@ def _sub_commands():
         LintCMD,
         PackageCMD,
         ProjectCMD,
-        ProjectCMD,
         RequirementsCMD,
     )
 
