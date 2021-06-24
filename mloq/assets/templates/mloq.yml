@@ -25,6 +25,7 @@ project:
   project_name: ${globals.project_name}
   owner: ${globals.owner}
   description: ${globals.description}
+  license_classifier: ???
 
 mlflow:
   disable: true
