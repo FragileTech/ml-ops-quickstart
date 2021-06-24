@@ -1,5 +1,5 @@
 globals:
-  project_name: mloq
+  project_name: mloqq
   default_branch: master
   owner: FragileTech
   author: FragileTech
@@ -59,10 +59,11 @@ package:
   - '3.8'
   - '3.9'
   pyproject_extra: ""
-  license_classifier: ""
 
 requirements:
-  - dogfood
+  - tensorflow
+  - data-science
+  - dataviz
 
 lint:
   disable: false

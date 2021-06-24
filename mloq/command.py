@@ -1,25 +1,10 @@
 from pathlib import Path
-from typing import NamedTuple, Optional, Tuple
+from typing import NamedTuple, Tuple
 
-import click
 from omegaconf import DictConfig
 
 from mloq.failure import MissingConfigValue
-from mloq.version import __version__
 from mloq.writer import CMDRecord
-
-
-def welcome_message(extra: bool = False, string: Optional[str] = None):
-    """Welcome message to be displayed during interactive setup."""
-    click.echo(f"Welcome to the MLOQ {__version__} interactive setup utility.")
-    if extra:
-        click.echo(f"{string}")
-    click.echo()
-    click.echo(
-        "Please enter values for the following settings (just press Enter "
-        "to accept a default value, if one is given in brackets).",
-    )
-    click.echo()
 
 
 class Command:
@@ -69,8 +54,12 @@ class Command:
             config = self.parse_config()
         self.record.update_config(config)
 
+    def run_side_effects(self) -> None:
+        pass
+
     def run(self) -> CMDRecord:
         self.configure()
         self.record_directories()
         self.record_files()
+        self.run_side_effects()
         return self.record

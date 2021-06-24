@@ -1,7 +1,7 @@
 """This module defines all the different assets accessible from mloq."""
 from pathlib import Path
 import sys
-from typing import List, NamedTuple, Optional, Tuple, Union
+from typing import NamedTuple, Optional, Union
 
 
 class File(NamedTuple):
@@ -102,6 +102,13 @@ code_of_conduct = file(
 )
 
 # Requirements files
+
+requirements = file(
+    "requirements.txt",
+    REQUIREMENTS_PATH,
+    "Project requirements file",
+    is_static=True,
+)
 data_science_req = file(
     "data-science.txt",
     REQUIREMENTS_PATH,

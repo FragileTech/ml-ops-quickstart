@@ -1,4 +1,5 @@
-"""This file contains the logic defining all the parameters needed to set up a project with mloq."""
+"""This file contains the logic defining all the parameters needed to \
+set up a project with mloq."""
 import os
 from typing import Any, List, NamedTuple, Optional, Set, Tuple, Union
 

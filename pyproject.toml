@@ -62,7 +62,7 @@ application_package_names = ["mloq"]
 application_import_names = ["mloq"]
 
 [tool.flakehell.plugins]
-"flake8*" = ["+*"]
+"flake8*" = ["+*", "-D*"]
 pylint = ["+*"]
 pyflakes = ["+*"]
 pycodestyle = ["+*" , "-D100", "-D104", "-D301", "-W503", "-W504"]

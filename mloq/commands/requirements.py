@@ -12,6 +12,7 @@ from mloq.files import (
     dogfood_req,
     File,
     pytorch_req,
+    requirements,
     tensorflow_req,
 )
 from mloq.params import config_group, MultiChoiceParam
@@ -24,7 +25,7 @@ _REQUIREMENTS = [
         "requirements",
         text="Project requirements",
         choices=["data-science", "data-viz", "torch", "tensorflow", "none"],
-    )
+    ),
 ]
 
 
@@ -42,6 +43,15 @@ class RequirementsCMD(Command):
     def __init__(self, *args, **kwargs):
         super(RequirementsCMD, self).__init__(*args, **kwargs)
         self._temp_dir = tempfile.TemporaryDirectory()
+        reqs_src = Path(self._temp_dir.name) / "requirements.txt"
+        self._reqs_file = File(
+            name=requirements.name,
+            src=reqs_src,
+            dst=requirements.dst,
+            is_static=requirements.is_static,
+            description=requirements.description,
+        )
+        self.files = tuple(list(self.files) + [self._reqs_file])
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self._temp_dir.cleanup()
@@ -56,7 +66,7 @@ class RequirementsCMD(Command):
         if option == "dogfood":
             return dogfood_req
         raise KeyError(
-            f"{option} is not a valid name. Valid aliases are {cls.REQUIREMENTS_ALIASES}"
+            f"{option} is not a valid name. Valid aliases are {cls.REQUIREMENTS_ALIASES}",
         )
 
     @classmethod
@@ -75,7 +85,8 @@ class RequirementsCMD(Command):
          for the different options sorted alphabetically.
 
         Args:
-            options: Iterable containing the aliased names of the target dependencies for the project.
+            options: Iterable containing the aliased names of the target \
+                     dependencies for the project.
 
         Returns:
             str containing the pinned versions of all the selected requirements.
@@ -88,15 +99,21 @@ class RequirementsCMD(Command):
         requirements_text = "\n".join(sorted(requirements_text.split("\n"))).lstrip("\n")
         return requirements_text
 
+    def parse_config(self) -> DictConfig:
+        value = self.CONFIG.requirements(self.record.config, self.interactive)
+        self.record.config.requirements = value
+        return self.record.config
+
     def interactive_config(self) -> DictConfig:
         """Generate the configuration of the project interactively."""
         click.echo("Please specify the requirements of the project as a comma separated list.")
         click.echo("Available values:")
         click.echo(
-            "    data-science: Common data science libraries such as numpy, pandas, sklearn..."
+            "    data-science: Common data science libraries such as numpy, pandas, sklearn...",
         )
         click.echo(
-            "    data-viz: Visualization libraries such as holoviews, bokeh, plotly, matplotlib...",
+            "    data-viz: Visualization libraries such as holoviews, ",
+            "bokeh, plotly, matplotlib...",
         )
         click.echo("    pytorch: Latest version of pytorch, torchvision and pytorch_lightning")
         click.echo("    tensorflow: ")  # , data-viz, torch, tensorflow}")
@@ -109,18 +126,11 @@ class RequirementsCMD(Command):
         return False
 
     def record_files(self) -> None:
-        reqs_value = self.record.config.requirements.requirements
+        reqs_value = self.record.config.requirements
         if self._no_write_requirements(reqs_value):
             return
         reqs_content = self.compose_requirements(reqs_value)
-        reqs_src = Path(self._temp_dir.name) / "requirements.txt"
-        with open(reqs_src, "w") as f:
+        with open(self._reqs_file.src, "w") as f:
             f.write(reqs_content)
-        file = File(
-            name="requirements",
-            src=reqs_src,
-            dst=Path("requirements.txt"),
-            is_static=True,
-            description="Project requirements file",
-        )
-        self.record.register_file(file=file, path=Path())
+
+        self.record.register_file(file=self._reqs_file, path=Path())

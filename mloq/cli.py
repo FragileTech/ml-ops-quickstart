@@ -1,10 +1,12 @@
 """Command line interface for mloq."""
 import os
 from pathlib import Path
+from typing import Optional
 
 import click
 
 from mloq.runner import run_command
+from mloq.version import __version__
 
 
 overwrite_opt = click.option(
@@ -82,3 +84,16 @@ class MloqCLI(click.MultiCommand):
 @click.command(cls=MloqCLI)
 def cli():
     pass
+
+
+def welcome_message(extra: bool = False, string: Optional[str] = None):
+    """Welcome message to be displayed during interactive setup."""
+    click.echo(f"Welcome to the MLOQ {__version__} interactive setup utility.")
+    if extra:
+        click.echo(f"{string}")
+    click.echo()
+    click.echo(
+        "Please enter values for the following settings (just press Enter "
+        "to accept a default value, if one is given in brackets).",
+    )
+    click.echo()

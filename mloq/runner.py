@@ -63,7 +63,10 @@ def run_command(cmd_cls, use_click: bool = True) -> Callable:
         cmd: Command = cmd_cls(record=record, interactive=interactive)
         record = cmd.run()
         write_record(
-            record=record, path=output_directory, overwrite=overwrite, only_config=only_config
+            record=record,
+            path=output_directory,
+            overwrite=overwrite,
+            only_config=only_config,
         )
 
     if use_click:

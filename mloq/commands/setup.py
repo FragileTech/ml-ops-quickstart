@@ -5,19 +5,24 @@ import click
 from omegaconf import DictConfig
 
 from mloq.command import Command
-from mloq.files import conf_py, docs_req, index_md, make_bat_docs, makefile_docs
-from mloq.params import config_group
 from mloq.record import CMDRecord
 
 
 def _sub_commands():
-    from mloq.commands import CiCMD, DocsCMD, GlobalsCMD, LicenseCMD, LintCMD, ProjectCMD
+    from mloq.commands import (
+        CiCMD,
+        DocsCMD,
+        GlobalsCMD,
+        LicenseCMD,
+        LintCMD,
+        ProjectCMD,
+        RequirementsCMD,
+    )
 
-    return CiCMD, DocsCMD, GlobalsCMD, LicenseCMD, LintCMD, ProjectCMD, ProjectCMD
+    return CiCMD, DocsCMD, GlobalsCMD, LicenseCMD, LintCMD, ProjectCMD, ProjectCMD, RequirementsCMD
 
 
 SUB_COMMANDS = _sub_commands()
-DOCS_FILES = [conf_py, index_md, makefile_docs, make_bat_docs, docs_req]
 
 _SETUP = list(set([param for cmd in SUB_COMMANDS for param in cmd.CONFIG]))
 
@@ -25,7 +30,6 @@ _SETUP = list(set([param for cmd in SUB_COMMANDS for param in cmd.CONFIG]))
 class SetupCMD(Command):
     name = "setup"
     files = tuple([file for cmd in SUB_COMMANDS for file in cmd.files])
-    # CONFIG = config_group("SETUP", _SETUP)
     SUB_COMMAND_CLASSES = SUB_COMMANDS
 
     def __init__(self, record: CMDRecord, interactive: bool = False):
@@ -33,6 +37,7 @@ class SetupCMD(Command):
         self._sub_commands = [
             cmd(record=self.record, interactive=interactive) for cmd in self.SUB_COMMAND_CLASSES
         ]
+        self.files = tuple([file for cmd in self._sub_commands for file in cmd.files])
 
     @property
     def sub_commands(self) -> List[Command]:
