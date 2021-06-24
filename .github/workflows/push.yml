@@ -92,7 +92,6 @@ jobs:
         diff CONTRIBUTING.md generated/CONTRIBUTING.md
         diff LICENSE generated/LICENSE
         diff .pre-commit-config.yaml generated/.pre-commit-config.yaml
-        diff Dockerfile generated/Dockerfile
         diff .codecov.yml generated/.codecov.yml
         diff .gitignore generated/.gitignore
         diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
@@ -194,7 +193,6 @@ jobs:
           diff CONTRIBUTING.md generated/CONTRIBUTING.md
           diff LICENSE generated/LICENSE
           diff .pre-commit-config.yaml generated/.pre-commit-config.yaml
-          diff Dockerfile generated/Dockerfile
           diff .codecov.yml generated/.codecov.yml
           diff .gitignore generated/.gitignore
           diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md

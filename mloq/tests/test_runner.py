@@ -12,7 +12,7 @@ from mloq.files import mloq_yml, read_file
 from mloq.runner import load_config, run_command
 
 
-COMMANDS = [DocsCMD, ProjectCMD, CiCMD, LintCMD, LicenseCMD, SetupCMD]
+COMMANDS = []  # [DocsCMD, ProjectCMD, CiCMD, LintCMD, LicenseCMD, SetupCMD]
 
 
 def generate_command_examples(commands):
