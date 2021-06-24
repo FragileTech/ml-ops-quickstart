@@ -4,11 +4,11 @@ from typing import Tuple
 import click
 
 from mloq.command import Command
-from mloq.files import codecov, init, main, makefile, readme, test_main, version
+from mloq.files import codecov, init, main, makefile, readme, test_main, version, test_req
 from mloq.params import BooleanParam, config_group, ConfigParam
 
 
-PROJECT_FILES = [codecov, readme, makefile, init, main, test_main, version]
+PROJECT_FILES = [codecov, readme, makefile, init, main, test_main, version, test_req]
 
 _PROJECT = [
     BooleanParam("disable", "Disable project command?"),
@@ -47,3 +47,4 @@ class ProjectCMD(Command):
         description = "Python package header for the test module"
         self.record.register_file(file=init, path=project_folder / "test", description=description)
         self.record.register_file(file=test_main, path=project_folder / "test")
+        self.record.register_file(file=test_req, path=Path())
