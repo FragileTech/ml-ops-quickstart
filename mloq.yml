@@ -115,7 +115,6 @@ ci:
     diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
     diff CONTRIBUTING.md generated/CONTRIBUTING.md
     diff LICENSE generated/LICENSE
-    diff Makefile generated/Makefile
     diff .pre-commit-config.yaml generated/.pre-commit-config.yaml
     diff Dockerfile generated/Dockerfile
     diff .codecov.yml generated/.codecov.yml
