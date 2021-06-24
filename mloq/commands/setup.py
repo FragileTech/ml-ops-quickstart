@@ -15,11 +15,22 @@ def _sub_commands():
         GlobalsCMD,
         LicenseCMD,
         LintCMD,
+        PackageCMD,
         ProjectCMD,
         RequirementsCMD,
     )
 
-    return CiCMD, DocsCMD, GlobalsCMD, LicenseCMD, LintCMD, ProjectCMD, ProjectCMD, RequirementsCMD
+    return (
+        CiCMD,
+        DocsCMD,
+        GlobalsCMD,
+        LicenseCMD,
+        LintCMD,
+        PackageCMD,
+        ProjectCMD,
+        ProjectCMD,
+        RequirementsCMD,
+    )
 
 
 SUB_COMMANDS = _sub_commands()

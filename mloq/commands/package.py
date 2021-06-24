@@ -24,11 +24,6 @@ _PACKAGE = [
         text="Supported python versions",
         choices=["3.6", "3.7", "3.8", "3.9"],
     ),
-    MultiChoiceParam(
-        "requirements",
-        text="Project requirements",
-        choices=["data-science", "data-viz", "torch", "tensorflow", "none"],
-    ),
 ]
 
 
