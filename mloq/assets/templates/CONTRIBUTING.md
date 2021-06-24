@@ -22,7 +22,7 @@ This can be done easily using the [`-s`](https://github.com/git/git/blob/b2c150d
 
 The official support channels, for both users and contributors, are:
 
-- GitHub [issues]({{license.project_url }}/issues)*
+- GitHub [issues]({{ license.project_url }}/issues)*
 
 *Before opening a new issue or submitting a new pull request, it's helpful to
 search the project - it's likely that another user has already reported the

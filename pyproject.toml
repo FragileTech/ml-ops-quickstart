@@ -63,11 +63,13 @@ application_import_names = ["mloq"]
 
 [tool.flakehell.plugins]
 "flake8*" = ["+*", "-D*"]
-pylint = ["+*"]
+pylint = ["+*", "-D*"]
 pyflakes = ["+*"]
 pycodestyle = ["+*" , "-D100", "-D104", "-D301", "-W503", "-W504"]
 
 [tool.flakehell.exceptions."**/__init__.py"]
+"flake8*" = ["-D*"]
+pylint = ["-D*"]
 pyflakes = ["-F401"]
 
 # No docs in the tests. No unused imports (otherwise pytest fixtures raise errors).

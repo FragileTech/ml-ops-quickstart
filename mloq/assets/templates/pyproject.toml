@@ -62,12 +62,12 @@ application_package_names = ["{{lint.project_name}}"]
 application_import_names = ["{{lint.project_name}}"]
 
 [tool.flakehell.plugins]
-"flake8*" = ["+*"{% if lint.no_docs_checks %}, "-D*"{% endif %}]
-pylint = ["+*"{% if lint.no_docs_checks %}, "-D*"{% endif %}]
+"flake8*" = ["+*"{% if not lint.docstring_checks %}, "-D*"{% endif %}]
+pylint = ["+*"{% if not lint.docstring_checks %}, "-D*"{% endif %}]
 pyflakes = ["+*"]
 pycodestyle = ["+*" , "-D100", "-D104", "-D301", "-W503", "-W504"]
 
-[tool.flakehell.exceptions."**/__init__.py"]{% if lint.no_docs_checks %}
+[tool.flakehell.exceptions."**/__init__.py"]{% if not lint.docstring_checks %}
 "flake8*" = ["-D*"]
 pylint = ["-D*"]{% endif %}
 pyflakes = ["-F401"]

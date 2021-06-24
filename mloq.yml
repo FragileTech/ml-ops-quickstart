@@ -14,6 +14,9 @@ license:
   copyright_year: 2020
   copyright_holder: ${globals.owner}
   open_source: ${globals.open_source}
+  project_name: ${globals.project_name}
+  email: ${globals.email}
+  project_url: ${globals.project_url}
 
 project:
   disable: false
@@ -22,6 +25,7 @@ project:
   project_name: ${globals.project_name}
   owner: ${globals.owner}
   description: ${globals.description}
+  project_url: ${globals.project_url}
 
 mlflow:
   disable: true
@@ -66,12 +70,13 @@ requirements:
 
 lint:
   disable: false
-  docstring_checks: true
+  docstring_checks: false
   pyproject_extra: |-
     [tool.flakehell.exceptions."**/assets/*"]
     pycodestyle = ["-*"]
     pyflakes = ["-*"]
     "flake8*" = ["-*"]
+  project_name: ${globals.project_name}
 
 docker:
   disable: false
