@@ -136,7 +136,7 @@ def command_and_example(request):
     return command, example
 
 
-class TestLint:
+class TestLicense:
     def test_name_is_correct(self, command_and_config):
         command, config = command_and_config
         assert command.name == "license"

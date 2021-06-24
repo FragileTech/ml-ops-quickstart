@@ -45,7 +45,9 @@ class PackageCMD(Command):
 
     def parse_config(self) -> DictConfig:
         conf = super(PackageCMD, self).parse_config()
-        conf.license_classifier = self.LICENSE_CLASSIFIERS[conf.get("license", "proprietary")]
+        conf.license.license_classifier = self.LICENSE_CLASSIFIERS[
+            conf.license.get("license", "proprietary")
+        ]
         return conf
 
     def interactive_config(self) -> DictConfig:
