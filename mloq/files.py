@@ -106,7 +106,7 @@ code_of_conduct = file(
 requirements = file(
     "requirements.txt",
     REQUIREMENTS_PATH,
-    "Project requirements file",
+    "list of exact versions of the packages on which your project depends",
     is_static=True,
 )
 data_science_req = file(

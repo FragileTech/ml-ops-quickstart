@@ -6,7 +6,6 @@
 * `CODE_OF_CONDUCT.md` - behavioral rules and norms in open source projects
 * `CONTRIBUTING.md` - technical manual on how to contrib to the open source project
 * `DCO.md` - Developer Certificate of Origin - needed in open source projects to certify that the incoming contributions are legitimate
-* `Dockerfile` - Dockerfile to install the project
 * `LICENSE` - license of the project
 * `Makefile` - common make commands for building the documentation
 * `Makefile` - common make commands for development

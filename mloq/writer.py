@@ -49,7 +49,7 @@ class Writer:
         config = DictConfig({**self.record.config, "generated_files": self.ledger.files})
         self.write_template(
             what_mloq_generated,
-            path=self.path,
+            path=what_mloq_generated.dst,
             config=config,
         )
 
