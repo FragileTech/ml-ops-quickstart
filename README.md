@@ -61,10 +61,3 @@ ML Ops Quickstart is released under the [MIT](LICENSE) license.
 ## [6.](#Index) Contributing
 
 Contributions are very welcome! Please check the [contributing guidelines](CONTRIBUTING.md) before opening a pull request.
-
-## [7.](#Index) Roadmap
-
-- [ ] Improve documentation and test coverage.
-- [ ] Configure sphinx to build the docs automatically.
-- [ ] Expose all api as a CLI interface
-- [ ] Add new customization options.
