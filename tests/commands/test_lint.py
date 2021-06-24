@@ -8,9 +8,9 @@ import pytest
 from mloq.commands.lint import LintCMD
 from mloq.files import lint_req, pyproject_toml
 from mloq.runner import run_command
-from mloq.tests.test_command import TestCommand  # noqa: F401
-from mloq.tests.test_runner import dir_trees_are_equal
 from mloq.writer import CMDRecord
+from tests import TestCommand  # noqa: F401
+from tests.test_runner import dir_trees_are_equal
 
 
 lint_conf = {

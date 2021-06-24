@@ -8,9 +8,9 @@ import pytest
 from mloq.commands.ci import CiCMD
 from mloq.files import push_python_wkf
 from mloq.runner import run_command
-from mloq.tests.test_command import TestCommand  # noqa: F401
-from mloq.tests.test_runner import dir_trees_are_equal
 from mloq.writer import CMDRecord
+from tests import TestCommand  # noqa: F401
+from tests.test_runner import dir_trees_are_equal
 
 
 ci_conf = {

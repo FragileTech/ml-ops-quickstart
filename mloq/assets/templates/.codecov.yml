@@ -1,6 +1,6 @@
 comment: false
 ignore:
-- {{ project.project_name }}/tests
+- tests
 coverage:
   status:
     patch: off

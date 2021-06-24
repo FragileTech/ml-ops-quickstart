@@ -26,6 +26,7 @@ setup(
     url="https://github.com/FragileTech/ml-ops-quickstart",
     download_url="https://github.com/FragileTech/ml-ops-quickstart/releases",
     keywords=["Machine learning", "artificial intelligence"],
+    test_suite="tests",
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
     install_requires=[
         "flogging>=0.0.8",
@@ -37,11 +38,7 @@ setup(
     ],
     package_data={
         "": ["README.md"],
-        "mloq": [
-            "assets/**/*",
-            "assets/**/.*",
-            "tests/**/.*"
-        ],
+        "mloq": ["assets/**/*", "assets/**/.*", "tests/**/.*"],
     },
     include_package_data=True,
     classifiers=[

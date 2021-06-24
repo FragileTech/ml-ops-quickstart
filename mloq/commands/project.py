@@ -54,7 +54,7 @@ class ProjectCMD(Command):
     @property
     def directories(self) -> Tuple[Path]:
         project_folder = self.record.config.project.project_name.replace(" ", "_")
-        return tuple([Path(project_folder) / "tests"])
+        return tuple([Path(project_folder), Path("tests")])
 
     def record_files(self) -> None:
         self.record.register_file(file=readme, path=Path())
@@ -65,12 +65,8 @@ class ProjectCMD(Command):
         self.record.register_file(file=main, path=project_folder)
         self.record.register_file(file=version, path=project_folder)
         description = "Python package header for the test module"
-        self.record.register_file(
-            file=init,
-            path=project_folder / "tests",
-            description=description,
-        )
-        self.record.register_file(file=test_main, path=project_folder / "tests")
+        self.record.register_file(file=init, path=Path("tests"), description=description)
+        self.record.register_file(file=test_main, path=Path("tests"))
         root_files = [readme, makefile, test_req, pre_commit_hook, codecov, gitignore]
         for file in root_files:
             self.record.register_file(file=file, path=Path())

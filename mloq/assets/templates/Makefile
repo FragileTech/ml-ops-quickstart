@@ -13,7 +13,7 @@ style:
 
 .POSIX:
 check: style
-	!(grep -R /tmp ${PROJECT}/tests)
+	!(grep -R /tmp /tests)
 	flakehell lint ${PROJECT}
 	pylint ${PROJECT}
 	black --check ${PROJECT}

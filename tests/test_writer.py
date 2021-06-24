@@ -3,8 +3,8 @@ from tempfile import TemporaryDirectory
 import pytest
 
 from mloq.record import CMDRecord
-from mloq.tests.test_record import config_examples
 from mloq.writer import Writer
+from tests.test_record import config_examples
 
 
 @pytest.fixture(params=config_examples, scope="function")

@@ -165,7 +165,6 @@ jobs:
       - name: Test package
         run: |
           set -x
-          mv $PROJECT_DIR/tests ./tests
           rm -rf $PROJECT_DIR
           make test
 

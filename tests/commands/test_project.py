@@ -17,8 +17,8 @@ from mloq.files import (
     test_req,
     version,
 )
-from mloq.tests.test_command import TestCommand
 from mloq.writer import CMDRecord
+from tests.test_command import TestCommand
 
 
 project_conf = {
@@ -97,8 +97,8 @@ def example_files():
         project_path / version.dst: version,
         project_path / init.dst: module_init,
         project_path / main.dst: main,
-        project_path / "tests" / test_main.dst: test_main,
-        project_path / "tests" / test_init.dst: test_init,
+        Path("tests") / test_main.dst: test_main,
+        Path("tests") / test_init.dst: test_init,
     }
     return example
 

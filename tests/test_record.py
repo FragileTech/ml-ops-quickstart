@@ -5,7 +5,7 @@ import pytest
 
 from mloq.files import File, mloq_yml, setup_py
 from mloq.record import CMDRecord, Ledger
-from mloq.tests.commands.test_docs import docs_conf, docs_conf_with_globals
+from tests.commands.test_docs import docs_conf, docs_conf_with_globals
 
 
 @pytest.fixture(scope="function")

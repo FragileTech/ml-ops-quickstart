@@ -4,8 +4,8 @@ from omegaconf import OmegaConf
 import pytest
 
 from mloq.commands.setup import SetupCMD
-from mloq.tests.test_command import command_and_example, TestCommand
 from mloq.writer import CMDRecord
+from tests.test_command import command_and_example, TestCommand
 
 
 @pytest.fixture(scope="function")

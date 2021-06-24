@@ -95,7 +95,7 @@ jobs:
         diff .codecov.yml generated/.codecov.yml
         diff .gitignore generated/.gitignore
         diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
-        rm generated/mloq/tests/test_main.py
+        rm generated/tests/test_main.py
 
     - name: Test with pytest
       run: |
@@ -196,12 +196,11 @@ jobs:
           diff .codecov.yml generated/.codecov.yml
           diff .gitignore generated/.gitignore
           diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
-          rm generated/mloq/tests/test_main.py
+          rm generated/tests/test_main.py
 
       - name: Test package
         run: |
           set -x
-          mv $PROJECT_DIR/tests ./tests
           rm -rf $PROJECT_DIR
           make test
 

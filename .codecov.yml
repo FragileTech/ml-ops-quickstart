@@ -1,6 +1,6 @@
 comment: false
 ignore:
-- mloq/tests
+- tests
 coverage:
   status:
     patch: off
