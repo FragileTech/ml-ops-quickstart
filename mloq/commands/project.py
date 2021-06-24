@@ -4,11 +4,33 @@ from typing import Tuple
 import click
 
 from mloq.command import Command
-from mloq.files import codecov, init, main, makefile, readme, test_main, version, test_req, pre_commit_hook
+from mloq.files import (
+    codecov,
+    gitignore,
+    init,
+    main,
+    makefile,
+    pre_commit_hook,
+    readme,
+    test_main,
+    test_req,
+    version,
+)
 from mloq.params import BooleanParam, config_group, ConfigParam
 
 
-PROJECT_FILES = [codecov, readme, makefile, init, main, test_main, version, test_req, pre_commit_hook]
+PROJECT_FILES = [
+    codecov,
+    gitignore,
+    readme,
+    makefile,
+    init,
+    main,
+    test_main,
+    version,
+    test_req,
+    pre_commit_hook,
+]
 
 _PROJECT = [
     BooleanParam("disable", "Disable project command?"),
@@ -35,8 +57,6 @@ class ProjectCMD(Command):
         return tuple([Path(project_folder) / "test"])
 
     def record_files(self) -> None:
-        from mloq.files import init, main, makefile, readme, test_main, version
-
         self.record.register_file(file=readme, path=Path())
         self.record.register_file(file=makefile, path=Path())
         project_folder = Path(self.record.config.project.project_name.replace(" ", "_"))
@@ -47,5 +67,6 @@ class ProjectCMD(Command):
         description = "Python package header for the test module"
         self.record.register_file(file=init, path=project_folder / "test", description=description)
         self.record.register_file(file=test_main, path=project_folder / "test")
-        self.record.register_file(file=test_req, path=Path())
-        self.record.register_file(file=pre_commit_hook, path=Path())
+        root_files = [readme, makefile, test_req, pre_commit_hook, codecov, gitignore]
+        for file in root_files:
+            self.record.register_file(file=file, path=Path())

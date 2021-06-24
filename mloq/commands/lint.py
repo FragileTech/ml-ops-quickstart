@@ -4,7 +4,7 @@ import click
 from omegaconf import DictConfig
 
 from mloq.command import Command
-from mloq.files import pyproject_toml, lint_req
+from mloq.files import lint_req, pyproject_toml
 from mloq.params import BooleanParam, config_group, ConfigParam
 
 

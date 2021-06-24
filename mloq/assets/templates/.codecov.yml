@@ -1,6 +1,6 @@
 comment: false
 ignore:
-- {{ project_name }}/tests
+- {{ project.project_name }}/tests
 coverage:
   status:
     patch: off
@@ -10,4 +10,4 @@ coverage:
         threshold: 0%
         informational: true
         paths:
-        - {{ project_name }}
+        - {{ project.project_name }}
