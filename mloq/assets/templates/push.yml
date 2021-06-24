@@ -32,7 +32,7 @@ jobs:
     - name: Set up Python {{ ci.ci_python_version }}
       uses: actions/setup-python@v2
       with:
-        python-version: "{{ ci_python_version }}"
+        python-version: "{{ ci.ci_python_version }}"
     - name: actions/cache
       uses: actions/cache@v2
       with:
@@ -106,7 +106,7 @@ jobs:
   build-test-package:
     name: Build and test the package
     needs: style-check
-    runs-on: ubuntu-18.04
+    runs-on: {{ ci.ubuntu_version }}
     if: "!contains(github.event.head_commit.message, 'Bump version')"
     steps:
       - name: actions/checkout
@@ -119,7 +119,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{'{{'}} env.PIP_CACHE {{'}}'}}
-          key: {{ ci.ubuntu_version }}-pip-test-{{ ci_python_version }}-${{'{{'}} hashFiles('requirements.txt', 'requirements-test.txt') {{'}}'}}
+          key: {{ ci.ubuntu_version }}-pip-test-{{ ci.ci_python_version }}-${{'{{'}} hashFiles('requirements.txt', 'requirements-test.txt') {{'}}'}}
           restore-keys: {{ ci.ubuntu_version }}-pip-test-
       - name: Install dependencies
         run: |
@@ -173,7 +173,7 @@ jobs:
     name: Bump package version
     env:
       BOT_AUTH_TOKEN: ${{'{{'}} secrets.BOT_AUTH_TOKEN {{'}}'}}
-    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{default_branch}}' && '$BOT_AUTH_TOKEN' != ''"
+    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{ci.default_branch}}' && '$BOT_AUTH_TOKEN' != ''"
     runs-on: {{ ci.ubuntu_version }}
     needs:
       - pytest
@@ -232,7 +232,7 @@ jobs:
     env:
       PYPI_PASS: ${{'{{'}} secrets.PYPI_PASS {{'}}'}}
     if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{ci.default_branch}}'  && '$PYPI_PASS' != ''"
-    runs-on: ubuntu-18.04
+    runs-on: {{ ci.ubuntu_version }}
     steps:
       - name: actions/checkout
         uses: actions/checkout@v2

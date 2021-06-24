@@ -126,7 +126,7 @@ jobs:
   build-test-package:
     name: Build and test the package
     needs: style-check
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     if: "!contains(github.event.head_commit.message, 'Bump version')"
     steps:
       - name: actions/checkout
@@ -272,7 +272,7 @@ jobs:
     env:
       PYPI_PASS: ${{ secrets.PYPI_PASS }}
     if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'  && '$PYPI_PASS' != ''"
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: actions/checkout
         uses: actions/checkout@v2

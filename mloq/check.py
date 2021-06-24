@@ -17,7 +17,6 @@ def dir_trees_are_equal(dir1: Union[str, Path], dir2: Union[str, Path]) -> bool:
         there were no errors while accessing the directories or files,
         False otherwise.
     """
-
     dirs_cmp = filecmp.dircmp(dir1, dir2)
     if (
         len(dirs_cmp.left_only) > 0
@@ -37,7 +36,23 @@ def dir_trees_are_equal(dir1: Union[str, Path], dir2: Union[str, Path]) -> bool:
 
 
 def files_are_equal(path1: Union[str, Path], path2: Union[str, Path]) -> bool:
-    pass
+    """
+    Compare the content of two files.
+
+    Compare two incoming files. They are assumed equal if their contents
+    are the same.
+
+    Args:
+          path1: Path containing the first file to be compared.
+          path2: Path containing the second file to be compared.
+
+    Return:
+         It returns True if the two given files are equal and no errors
+            have arisen during the process. False otherwise.
+    """
+    path1 = Path(path1) if isinstance(path1, str) else path1
+    path2 = Path(path2) if isinstance(path2, str) else path2
+    return filecmp.cmp(path1, path2, shallow=False)
 
 
 def get_generated_files(path: Union[str, Path]) -> List[Path]:
@@ -82,4 +97,11 @@ def check_directories_exist(paths: List[Union[str, Path]]) -> bool:
     Returns:
         True if all the provided paths exist. False otherwise.
     """
-    pass
+    for path in paths:
+        path = Path(path) if isinstance(path, str) else path
+        cond1 = os.path.exists(path)
+        cond2 = os.path.isfile(path) or os.path.isdir(path)
+        cond3 = Path.exists(path)
+        if not (cond1 and cond2 and cond3):
+            print(f"The given path {path} is neither a file nor a directory.")
+        return cond1 and cond2 and cond3
