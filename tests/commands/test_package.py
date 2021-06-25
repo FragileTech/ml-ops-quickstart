@@ -28,7 +28,7 @@ package_conf = DictConfig(
             license="MIT",
             python_versions=["3.6", "3.7", "3.8", "3.9"],
             pyproject_extra="",
-            license_classifier="???"
+            license_classifier="???",
         ),
         "lint": dict(project_name="${package.project_name}"),
     }
@@ -62,7 +62,7 @@ package_conf_with_globals = DictConfig(
             license="${license.license}",
             python_versions=["3.6", "3.7", "3.8", "3.9"],
             pyproject_extra="",
-            license_classifier="???"
+            license_classifier="???",
         ),
         "lint": dict(
             project_name="${globals.project_name}",
