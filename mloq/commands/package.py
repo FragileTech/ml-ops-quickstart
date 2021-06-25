@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import click
-from omegaconf import DictConfig
+from omegaconf import DictConfig, OmegaConf
 
 from mloq.command import Command
 from mloq.files import pyproject_toml, setup_py
@@ -40,9 +40,10 @@ class PackageCMD(Command):
 
     def parse_config(self) -> DictConfig:
         conf = super(PackageCMD, self).parse_config()
-        conf.license.license_classifier = self.LICENSE_CLASSIFIERS[
-            conf.license.get("license", "proprietary")
-        ]
+        if OmegaConf.is_missing(conf.package, "license_classifier"):
+            conf.package.license_classifier = self.LICENSE_CLASSIFIERS[
+                conf.package.get("license", "proprietary")
+            ]
         return conf
 
     def interactive_config(self) -> DictConfig:
