@@ -5,7 +5,21 @@ from typing import NamedTuple, Optional, Union
 
 
 class File(NamedTuple):
-    """Generated project file."""
+    """
+    Generate project files.
+
+    This class defines templating files, which will be rendered according
+    to the user's configuration. Besides, File instances have additional
+    attributes used for specifying the destination of the generated file.
+
+    Attributes of this class:
+        name: Name of the templating file.
+        src: Location of the templating file.
+        dst: Name of the file generated from the templating file.
+        description: Short description of the current file.
+        is_static: Boolean value. If True, the templating file does not
+            admit render parameters. 
+    """
 
     name: str
     src: Path
