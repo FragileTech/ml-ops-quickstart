@@ -52,7 +52,7 @@ class CMDRecord:
     """
 
     def __init__(self, config: Optional[DictConfig] = None):
-        """Initialize a new instance of the Ledger class."""
+        """Initialize a new instance of the CMDRecord class."""
         self._files: Dict[Path, File] = {}
         self._directories: List[Path] = []
         self._config: DictConfig = DictConfig({}) if config is None else config
@@ -69,7 +69,7 @@ class CMDRecord:
 
     @property
     def directories(self) -> List[Path]:
-        """Contain the folders that will be created by mloq for storing the project's files. """
+        """Contain the folders that will be created by mloq for storing the project's files."""
         return self._directories
 
     def update_config(self, config: DictConfig) -> None:
