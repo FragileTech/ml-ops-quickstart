@@ -7,12 +7,12 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from omegaconf import DictConfig
 
 from mloq import _logger
-from mloq.files import File, read_file, TEMPLATES_PATH
+from mloq.files import DOCKER_PATH, File, read_file, TEMPLATES_PATH
 from mloq.record import Ledger
 
 
 jinja_env = Environment(
-    loader=FileSystemLoader([str(TEMPLATES_PATH)]),
+    loader=FileSystemLoader([str(TEMPLATES_PATH), str(DOCKER_PATH)]),
     autoescape=select_autoescape(["html", "xml"]),
     keep_trailing_newline=True,
 )

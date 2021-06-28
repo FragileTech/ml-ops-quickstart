@@ -66,12 +66,3 @@ docker-push:
 	docker tag ${DOCKER_ORG}/${DOCKER_TAG}:${VERSION} ${DOCKER_ORG}/${DOCKER_TAG}:latest
 	docker push ${DOCKER_ORG}/${DOCKER_TAG}:latest
 
-.PHONY: remove-dev-packages
-remove-dev-packages:
-	pip3 uninstall -y cython && \
-	apt-get remove -y cmake pkg-config flex bison curl libpng-dev \
-		libjpeg-turbo8-dev zlib1g-dev libhdf5-dev libopenblas-dev gfortran \
-		libfreetype6-dev libjpeg8-dev libffi-dev && \
-	apt-get autoremove -y && \
-	apt-get clean && \
-	rm -rf /var/lib/apt/lists/*

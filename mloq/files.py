@@ -39,6 +39,7 @@ def file(
 ASSETS_PATH = Path(__file__).parent / "assets"
 TEMPLATES_PATH = ASSETS_PATH / "templates"
 REQUIREMENTS_PATH = ASSETS_PATH / "requirements"
+DOCKER_PATH = ASSETS_PATH / "docker"
 
 # Common files
 mloq_yml = file(

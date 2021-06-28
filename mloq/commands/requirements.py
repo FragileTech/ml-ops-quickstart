@@ -1,6 +1,6 @@
 from pathlib import Path
 import tempfile
-from typing import Iterable, List
+from typing import Iterable, List, Union
 
 import click
 from omegaconf import DictConfig
@@ -112,22 +112,28 @@ class RequirementsCMD(Command):
             "    data-science: Common data science libraries such as numpy, pandas, sklearn...",
         )
         click.echo(
-            "    data-viz: Visualization libraries such as holoviews, ",
-            "bokeh, plotly, matplotlib...",
+            (
+                "    data-viz: Visualization libraries such as holoviews, ",
+                "bokeh, plotly, matplotlib...",
+            )
         )
         click.echo("    pytorch: Latest version of pytorch, torchvision and pytorch_lightning")
         click.echo("    tensorflow: ")  # , data-viz, torch, tensorflow}")
         return self.parse_config()
 
     @staticmethod
-    def _no_write_requirements(options: List[str]) -> bool:
-        if not options or None in options or "None" in options or "none" in options:
+    def requirements_is_empty(options: Union[List[str], str]) -> bool:
+        if not options:
+            return True
+        if isinstance(options, str):
+            options = [options]
+        if None in options or "None" in options or "none" in options:
             return True
         return False
 
     def record_files(self) -> None:
         reqs_value = self.record.config.requirements
-        if self._no_write_requirements(reqs_value):
+        if self.requirements_is_empty(reqs_value):
             return
         reqs_content = self.compose_requirements(reqs_value)
         with open(self._reqs_file.src, "w") as f:

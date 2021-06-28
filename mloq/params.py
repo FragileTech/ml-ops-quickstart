@@ -66,12 +66,14 @@ class ConfigParam:
         """
         config = config or {}
         value = self._value_from_env()
-        value = value if value is not None else self._value_from_config(config)
-        value = value if value is not None else default
+        value = (
+            value if (value is not None and value != "???") else self._value_from_config(config)
+        )
+        value = value if (value is not None and value != "???") else default
         if interactive:
             value = self._prompt(value, **kwargs)
-        if value is None and raise_error:
-            raise MissingConfigValue(f"Config value {self.name} is not defined.")
+        if (value is None or value == "???") and raise_error:
+            raise MissingConfigValue(f"Config value {self.name} is not defined")
         return value
 
     def _value_from_env(self):
@@ -93,7 +95,7 @@ class ConfigParam:
         def find_value(conf):
             for k in conf.keys():
                 if k == self.name and omegaconf.OmegaConf.is_missing(conf, k):
-                    return None
+                    return "???"
                 elif omegaconf.OmegaConf.is_missing(conf, k):
                     continue
                 elif k == self.name:

@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import NamedTuple, Tuple
 
-from omegaconf import DictConfig
+from omegaconf import DictConfig, OmegaConf
 
 from mloq.failure import MissingConfigValue
 from mloq.writer import CMDRecord
@@ -31,6 +31,7 @@ class Command:
         record: CMDRecord instance. Keeps track of files and directories
             that will be created by mloq.
     """
+
     name = ""
     files = tuple()
     CONFIG: NamedTuple = NamedTuple("Config", [])()
@@ -59,6 +60,10 @@ class Command:
     def directories(self) -> Tuple[Path]:
         """Contain path strings describing the target location of the generated files."""
         return tuple()
+
+    @property
+    def config(self) -> DictConfig:
+        return OmegaConf.select(self.record.config, self.name, throw_on_missing=True)
 
     def parse_config(self) -> DictConfig:
         """
