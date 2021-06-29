@@ -1,4 +1,5 @@
 from mloq.commands.ci import CiCMD
+from mloq.commands.docker import DockerCMD
 from mloq.commands.docs import DocsCMD
 from mloq.commands.globals import GlobalsCMD
 from mloq.commands.license import LicenseCMD

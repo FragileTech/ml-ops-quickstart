@@ -25,6 +25,7 @@ project:
   project_name: ${globals.project_name}
   owner: ${globals.owner}
   description: ${globals.description}
+  tests: true
 
 mlflow:
   disable: true
@@ -63,6 +64,7 @@ package:
   - '3.9'
   pyproject_extra: ""
   license_classifier: ???
+  pipenv: true
 
 requirements:
   - None
@@ -72,12 +74,12 @@ lint:
   docstring_checks: true
   pyproject_extra: ""
   project_name: ${globals.project_name}
+  makefile: true
 
 docker:
   disable: false
   cuda: ???
   cuda_image_type: "cudnn8-runtime-ubuntu20.04"
-  cuda_version: "11.2"
   python_version: "3.8"
   ubuntu_version: "20.04"
   base_image: "???"
@@ -88,6 +90,8 @@ docker:
   project_name: ${globals.project_name}
   docker_org: ${globals.owner}
   requirements: ${requirements}
+  makefile: true
+  extra: ""
 
 ci:
   disable: false

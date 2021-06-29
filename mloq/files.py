@@ -18,7 +18,7 @@ class File(NamedTuple):
         dst: Name of the file generated from the templating file.
         description: Short description of the current file.
         is_static: Boolean value. If True, the templating file does not
-            admit render parameters. 
+            admit render parameters.
     """
 
     name: str

@@ -1,23 +1,23 @@
 current_dir = $(shell pwd)
 
 PROJECT = {{project.project_name}}
-DOCKER_ORG = {{project.owner}}  # TODO: evaluate if this is the right way
+{% if project.tests %}n ?= auto{% endif %}
+{% if docker.makefile %}DOCKER_ORG = {{docker.docker_org}}
 DOCKER_TAG ?= ${PROJECT}
-VERSION ?= latest
-n ?= auto
+VERSION ?= latest{% endif %}
 
-.POSIX:
+{% if lint.makefile %}.POSIX:
 style:
 	black .
 	isort .
 
 .POSIX:
-check: style
-	!(grep -R /tmp /tests)
+check:
+	!(grep -R /tmp tests)
 	flakehell lint ${PROJECT}
 	pylint ${PROJECT}
-	black --check ${PROJECT}
-
+	black --check ${PROJECT}{% endif %}
+{% if project.tests %}
 .PHONY: test
 test:
 	find -name "*.pyc" -delete
@@ -26,8 +26,8 @@ test:
 .PHONY: test-codecov
 test-codecov:
 	find -name "*.pyc" -delete
-	pytest -n $n -s -o log_cli=true -o log_cli_level=info --cov=./ --cov-report=xml --cov-config=pyproject.toml
-
+	pytest -n $n -s -o log_cli=true -o log_cli_level=info --cov=./ --cov-report=xml --cov-config=pyproject.toml{% endif %}
+{% if package.pipenv %}
 .PHONY: pipenv-install
 pipenv-install:
 	rm -rf *.egg-info && rm -rf build && rm -rf __pycache__
@@ -41,8 +41,8 @@ pipenv-install:
 .PHONY: pipenv-test
 pipenv-test:
 	find -name "*.pyc" -delete
-	pipenv run pytest -s
-{% if project.docker %}
+	pipenv run pytest -s{% endif %}
+{% if docker.makefile %}
 .PHONY: docker-shell
 docker-shell:
 	docker run --rm --gpus all -v ${current_dir}:/${PROJECT} --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION} bash
@@ -66,12 +66,3 @@ docker-push:
 	docker tag ${DOCKER_ORG}/${DOCKER_TAG}:${VERSION} ${DOCKER_ORG}/${DOCKER_TAG}:latest
 	docker push ${DOCKER_ORG}/${DOCKER_TAG}:latest
 {% endif %}
-.PHONY: remove-dev-packages
-remove-dev-packages:
-	pip3 uninstall -y cython && \
-	apt-get remove -y cmake pkg-config flex bison curl libpng-dev \
-		libjpeg-turbo8-dev zlib1g-dev libhdf5-dev libopenblas-dev gfortran \
-		libfreetype6-dev libjpeg8-dev libffi-dev && \
-	apt-get autoremove -y && \
-	apt-get clean && \
-	rm -rf /var/lib/apt/lists/*

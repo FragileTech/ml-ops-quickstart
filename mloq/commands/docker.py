@@ -12,7 +12,9 @@ from mloq.params import BooleanParam, config_group, ConfigParam, MultiChoicePara
 
 dockerfile = file("Dockerfile", DOCKER_PATH, description="Docker container for the project")
 makefile_docker = file(
-    "Makefile.docker", DOCKER_PATH, description="Makefile for the Docker container setup"
+    "Makefile.docker",
+    DOCKER_PATH,
+    description="Makefile for the Docker container setup",
 )
 DOCKER_FILES = [dockerfile, makefile_docker]
 
@@ -66,7 +68,7 @@ class DockerCMD(Command):
             return self.config.cuda
         try:
             _ = self.config.requirements
-        except:
+        except Exception:
             self.config.requirements = []
         return self.require_cuda_from_requirements(self.config)
 
@@ -82,7 +84,7 @@ class DockerCMD(Command):
         return f"ubuntu:{self.config.ubuntu_version}"
 
     def parse_config(self) -> DictConfig:
-        self.config.docker_org = self.CONFIG.docker_org(self.config, self.interactive)
+        self.config.docker_org = self.CONFIG.docker_org(self.config, self.interactive).lower()
         self.config.python_version = self.CONFIG.python_version(self.config, self.interactive)
         self.config.requirements = self.CONFIG.requirements(self.config, self.interactive)
         cuda = self.CONFIG.cuda(self.config, self.interactive, default=self.requires_cuda())

@@ -115,7 +115,7 @@ class RequirementsCMD(Command):
             (
                 "    data-viz: Visualization libraries such as holoviews, ",
                 "bokeh, plotly, matplotlib...",
-            )
+            ),
         )
         click.echo("    pytorch: Latest version of pytorch, torchvision and pytorch_lightning")
         click.echo("    tensorflow: ")  # , data-viz, torch, tensorflow}")

@@ -1,10 +1,10 @@
 current_dir = $(shell pwd)
 
 PROJECT = mloq
+n ?= auto
 DOCKER_ORG = fragiletech
 DOCKER_TAG ?= ${PROJECT}
 VERSION ?= latest
-n ?= auto
 
 .POSIX:
 style:
@@ -12,8 +12,8 @@ style:
 	isort .
 
 .POSIX:
-check: style
-	#!(grep -R /tmp ${PROJECT}/tests)
+check:
+	!(grep -R /tmp tests)
 	flakehell lint ${PROJECT}
 	pylint ${PROJECT}
 	black --check ${PROJECT}
@@ -65,4 +65,3 @@ docker-push:
 	docker push ${DOCKER_ORG}/${DOCKER_TAG}:${VERSION}
 	docker tag ${DOCKER_ORG}/${DOCKER_TAG}:${VERSION} ${DOCKER_ORG}/${DOCKER_TAG}:latest
 	docker push ${DOCKER_ORG}/${DOCKER_TAG}:latest
-

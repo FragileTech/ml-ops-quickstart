@@ -95,6 +95,8 @@ jobs:
         diff .codecov.yml generated/.codecov.yml
         diff .gitignore generated/.gitignore
         diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
+        diff Dockerfile generated/Dockerfile
+        diff Makefile generated/Makefile
         rm generated/tests/test_main.py
 
     - name: Test with pytest
@@ -196,6 +198,8 @@ jobs:
           diff .codecov.yml generated/.codecov.yml
           diff .gitignore generated/.gitignore
           diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
+          diff Dockerfile generated/Dockerfile
+          diff Makefile generated/Makefile
           rm generated/tests/test_main.py
 
       - name: Test package

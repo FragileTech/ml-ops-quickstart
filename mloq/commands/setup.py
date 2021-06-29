@@ -11,6 +11,7 @@ from mloq.record import CMDRecord
 def _sub_commands():
     from mloq.commands import (
         CiCMD,
+        DockerCMD,
         DocsCMD,
         GlobalsCMD,
         LicenseCMD,
@@ -22,6 +23,7 @@ def _sub_commands():
 
     return (
         CiCMD,
+        DockerCMD,
         DocsCMD,
         GlobalsCMD,
         LicenseCMD,
