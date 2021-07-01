@@ -1,6 +1,8 @@
+"""This module defines the pipeline for running an mloq command, such as config loading, \
+template writing and interfacing with click."""
 from pathlib import Path
 import sys
-from typing import Callable
+from typing import Callable, Union
 from unittest.mock import patch
 
 import hydra
@@ -13,7 +15,20 @@ from mloq.record import CMDRecord
 from mloq.writer import Writer
 
 
-def load_config(config_file, hydra_args) -> DictConfig:
+def load_config(config_file: Union[Path, str], hydra_args: str) -> DictConfig:
+    """
+    Load the necessary configuration for running mloq from an mloq.yml file.
+
+    If no path to mloq.yml is provided it returns a template to be filled in \
+    using the interactive mode.
+
+    Args:
+        config_file: Path to the target mloq.yml file.
+        hydra_args: Arguments passed to hydra for composing the project configuration.
+
+    Returns:
+        DictConfig containing the project configuration.
+    """
     config_file = Path(config_file) if config_file else Path() / mloq_yml.dst
     config_file = (
         config_file
@@ -38,7 +53,24 @@ def load_config(config_file, hydra_args) -> DictConfig:
     return config
 
 
-def write_record(record, path, overwrite: bool = False, only_config: bool = False) -> None:
+def write_record(
+    record: CMDRecord,
+    path: Union[Path, str],
+    overwrite: bool = False,
+    only_config: bool = False,
+) -> None:
+    """
+    Write the contents of the provided record to the target path.
+
+    Args:
+        record: CMDRecord containing all the data to be written.
+        path: Target directory to write the data.
+        overwrite: If True overwrite existing files.
+        only_config: Do not write any file except mloq.yml
+
+    Returns:
+        None.
+    """
     if only_config:
         with open(Path(path) / mloq_yml.dst, "w") as f:
             OmegaConf.save(config=record.config, f=f)
@@ -48,7 +80,17 @@ def write_record(record, path, overwrite: bool = False, only_config: bool = Fals
 
 
 def run_command(cmd_cls, use_click: bool = True) -> Callable:
-    from mloq.cli import mloq_command
+    """
+    Run the provided Command class.
+
+    Args:
+        cmd_cls: Command to be executed.
+        use_click: If True run the function as a click cli command.
+
+    Returns:
+        A function that will run the for the target class as a mloq command.
+    """
+    from mloq.cli import mloq_click_command
 
     def _run_command(
         config_file: str,
@@ -70,6 +112,6 @@ def run_command(cmd_cls, use_click: bool = True) -> Callable:
         )
 
     if use_click:
-        _run_command = mloq_command(_run_command)
+        _run_command = mloq_click_command(_run_command)
     _run_command.__name__ = cmd_cls.name
     return _run_command

@@ -1,3 +1,5 @@
+"""The writer module defines the Writer class, which is in charge of creating the files \
+and directories specified in the CMDRecord."""
 import os
 from pathlib import Path
 from typing import Union

@@ -197,6 +197,7 @@ def is_empty(value: Union[str, list, tuple, set]) -> bool:
 
 
 def config_group(name, values):
+    """Create a namedtuple from a list of ConfigParams."""
     return NamedTuple(name, [(param.name, type(param)) for param in values])(*values)
 
 

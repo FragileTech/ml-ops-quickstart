@@ -12,4 +12,6 @@ class Failure(Exception):
 
 
 class MissingConfigValue(Failure):
+    """Raised when a parameter is not defined in the mloq DictConfig."""
+
     pass

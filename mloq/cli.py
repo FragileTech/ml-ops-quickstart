@@ -1,7 +1,7 @@
 """Command line interface for mloq."""
 import os
 from pathlib import Path
-from typing import Optional
+from typing import Callable, Optional
 
 import click
 
@@ -48,7 +48,8 @@ interactive_opt = click.option(
 hydra_args = click.argument("hydra_args", nargs=-1, type=click.UNPROCESSED)
 
 
-def mloq_command(func):
+def mloq_click_command(func):
+    """Wrap a command function to interface with click."""
     func = hydra_args(func)
     func = only_config_opt(func)
     func = interactive_opt(func)
@@ -60,9 +61,12 @@ def mloq_command(func):
 
 
 class MloqCLI(click.MultiCommand):
+    """Load the commands available at runtime from the files present in the command module."""
+
     command_folder = Path(__file__).parent / "commands"
 
     def list_commands(self, ctx):
+        """List the names of the mloq commands available."""
         rv = []
         for filename in os.listdir(self.command_folder):
             if filename.endswith(".py") and filename != "__init__.py":
@@ -70,7 +74,8 @@ class MloqCLI(click.MultiCommand):
         rv.sort()
         return rv
 
-    def get_command(self, ctx, name):
+    def get_command(self, ctx, name) -> Callable:
+        """Create the command callable corresponding to the provided command name."""
         ns = {}
         fn = os.path.join(self.command_folder, name + ".py")
         with open(fn) as f:
@@ -82,7 +87,7 @@ class MloqCLI(click.MultiCommand):
 
 
 @click.command(cls=MloqCLI)
-def cli():
+def cli():  # noqa: D103
     pass
 
 

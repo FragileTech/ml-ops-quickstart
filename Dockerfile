@@ -23,9 +23,7 @@ RUN cd mloq \
     && git config --global user.name "Whoever" \
     && git config --global user.email "whoever@fragile.tech"
 
-
 RUN make remove-dev-packages
-
 
 RUN mkdir /root/.jupyter && \
     echo 'c.NotebookApp.token = "'${JUPYTER_PASSWORD}'"' > /root/.jupyter/jupyter_notebook_config.py

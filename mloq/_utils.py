@@ -1,3 +1,4 @@
+"""This module contains some utilities that are not currently used."""
 import filecmp
 import os
 from pathlib import Path
@@ -11,7 +12,7 @@ from mloq.files import mloq_yml
 # TODO: Fix docs
 def dir_trees_are_equal(dir1: Union[str, Path], dir2: Union[str, Path]) -> bool:
     """
-    Compare two directories recursively. Files in each directory are
+    Compare two directories recursively. Files in each directory are \
     assumed to be equal if their names and contents are equal.
 
     @param dir1: First directory path

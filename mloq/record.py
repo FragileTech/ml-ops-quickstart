@@ -1,3 +1,5 @@
+"""This module contains the classes that keep track of the internal state of the\
+ application when running a Command."""
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Union
 
@@ -73,7 +75,7 @@ class CMDRecord:
         return self._directories
 
     def update_config(self, config: DictConfig) -> None:
-        """Updates the configuration dictionary according to the values entered by the user."""
+        """Update the configuration dictionary according to the values entered by the user."""
         self._config = config
 
     def register_file(
