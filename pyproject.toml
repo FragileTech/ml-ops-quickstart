@@ -77,11 +77,6 @@ pycodestyle = ["-D*"]
 pylint = ["-D*"]
 pyflakes = ["-F401", "-F811"]
 
-[tool.flakehell.exceptions."**/commands/*"]
-pycodestyle = ["-D*"]
-"flake8*" = ["-D*"]
-pylint = ["-D*"]
-
 [tool.pylint.master]
 ignore = 'tests'
 load-plugins =' pylint.extensions.docparams'

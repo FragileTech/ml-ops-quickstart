@@ -1,3 +1,4 @@
+"""Contains all the defined mloq Commands."""
 from mloq.commands.ci import CiCMD
 from mloq.commands.docker import DockerCMD
 from mloq.commands.docs import DocsCMD

@@ -1,3 +1,4 @@
+"""Mloq globals command implementation."""
 import click
 from omegaconf import DictConfig
 
@@ -18,6 +19,8 @@ _GLOBALS = [
 
 
 class GlobalsCMD(Command):
+    """Implement the functionality of the globals Command."""
+
     name = "globals"
     CONFIG = config_group("GLOBALS", _GLOBALS)
 
@@ -37,7 +40,3 @@ class GlobalsCMD(Command):
         default_url = f"https://github.com/{config.owner}/{config.project_name.replace(' ', '-')}"
         config.project_url = self.CONFIG.project_url(config, self.interactive, default=default_url)
         return self.record.config
-
-
-def cli(*args, **kwargs):
-    pass
