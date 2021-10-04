@@ -36,7 +36,7 @@ only_config_opt = click.option(
 )
 output_directory_arg = click.argument(
     "output_directory",
-    type=click.Path(exists=True, file_okay=False, dir_okay=True, resolve_path=True),
+    type=click.Path(exists=False, file_okay=False, dir_okay=True, resolve_path=True),
 )
 
 interactive_opt = click.option(
