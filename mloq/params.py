@@ -98,10 +98,18 @@ class ConfigParam:
                     return "???"
                 elif omegaconf.OmegaConf.is_missing(conf, k):
                     continue
+                elif isinstance(conf[k], (dict, DictConfig)):
+                    fetched = find_value(conf[k])
+                    # If the value is not found in the current nested dictionary
+                    # keep iterating recursively until al the nested dicts are exhausted
+                    if fetched is None:
+                        continue
+                    return fetched
                 elif k == self.name:
+                    # cannot fetch dict values but it works fetching single values when the target
+                    # value is named the same way as a command.
+                    # For example: {license: {license: 'MIT'}}
                     return conf[k]
-                elif isinstance(conf[k], dict):
-                    return find_value(conf[k])
 
         return find_value(config)
 

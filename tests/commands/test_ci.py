@@ -50,8 +50,9 @@ ci_conf_with_globals = DictConfig(
         },
         "package": dict(
             python_versions="3.8",
+            disable=False,
         ),
-        "docker": dict(docker_org="test_org"),
+        "docker": dict(docker_org="test_org", disable=False),
         "ci": dict(
             bot_name="test_bot_name",
             bot_email="test_bot_email",

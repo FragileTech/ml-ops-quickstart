@@ -44,7 +44,7 @@ git:
   project_url: ${globals.project_url}
 
 package:
-  disable: False
+  disable: false
   open_source: ${globals.open_source}
   project_name: ${globals.project_name}
   description: ${globals.description}

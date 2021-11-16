@@ -77,15 +77,16 @@ class Command:
             It returns an updated version of the 'config' attribute of \
             the 'record' instance.
         """
-        config = self.record.config
         for param in self.CONFIG:
             try:
-                value = param(config, self.interactive)
+                # Reads configuration value from the whole record, to you can reference values
+                # from other commands
+                value = param(self.record.config, self.interactive)
             except MissingConfigValue as e:
                 msg = f"Config value {param.name} not defined for {self.name} command."
                 raise MissingConfigValue(msg) from e
-
-            setattr(config, param.name, value)
+            # Write the record config only in the entry that is handled by the current command.
+            setattr(self.record.config[self.name], param.name, value)
         return self.record.config
 
     def interactive_config(self) -> DictConfig:

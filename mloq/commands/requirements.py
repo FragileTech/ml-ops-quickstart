@@ -67,7 +67,7 @@ class RequirementsCMD(Command):
     def __del__(self) -> None:
         """Remove the temporary directory when the instance is deleted."""
         self._temp_dir.cleanup()
-        return super(RequirementsCMD, self).__del__()
+        # return super(RequirementsCMD, self).__del__()
 
     @classmethod
     def get_aliased_requirements_file(cls, option: str) -> File:

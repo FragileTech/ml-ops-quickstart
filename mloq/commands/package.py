@@ -45,9 +45,8 @@ class PackageCMD(Command):
         """Update the configuration DictConfig with the Command parameters."""
         conf = super(PackageCMD, self).parse_config()
         if OmegaConf.is_missing(conf.package, "license_classifier"):
-            conf.package.license_classifier = self.LICENSE_CLASSIFIERS[
-                conf.package.get("license", "proprietary")
-            ]
+            license_name = conf.package.get("license", "proprietary")
+            conf.package.license_classifier = self.LICENSE_CLASSIFIERS[license_name]
         return conf
 
     def interactive_config(self) -> DictConfig:
