@@ -79,9 +79,13 @@ class Command:
         """
         for param in self.CONFIG:
             try:
-                # Reads configuration value from the whole record, to you can reference values
-                # from other commands
-                value = param(self.record.config, self.interactive)
+                # Infer the config value from the current command record.
+                value = param(self.record.config[self.name], self.interactive, raise_error=False)
+                # TODO: Figure out if checking the entire registered config makes sense.
+                # Reads configuration value from the whole record
+                # so you can infer values from other commands
+                if value is None or value == "???":
+                    value = param(self.record.config, self.interactive)
             except MissingConfigValue as e:
                 msg = f"Config value {param.name} not defined for {self.name} command."
                 raise MissingConfigValue(msg) from e

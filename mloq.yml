@@ -95,7 +95,7 @@ docker:
   jupyter: true
   jupyter_password: ${globals.project_name}
   project_name: ${globals.project_name}
-  docker_org: ${globals.owner}
+  docker_org: fragiletech #${globals.owner}
   requirements: ${requirements}
   extra: ""
   makefile: true

@@ -22,7 +22,6 @@ RUN cd {{docker.project_name}} \
     && git config --global init.defaultBranch master \
     && git config --global user.name "Whoever" \
     && git config --global user.email "whoever@fragile.tech"
-
 {{ docker.extra }}
 RUN make remove-dev-packages
 
