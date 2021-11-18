@@ -60,6 +60,8 @@ inline_quotes='"'
 import_order_style = "appnexus"
 application_package_names = ["{{lint.project_name}}"]
 application_import_names = ["{{lint.project_name}}"]
+# Fix AttributeError: 'Namespace' object has no attribute 'extended_default_ignore'
+extended_default_ignore=[]
 
 [tool.flakehell.plugins]
 "flake8*" = ["+*"{% if not lint.docstring_checks %}, "-D*"{% endif %}]

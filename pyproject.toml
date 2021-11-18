@@ -60,6 +60,8 @@ inline_quotes='"'
 import_order_style = "appnexus"
 application_package_names = ["mloq"]
 application_import_names = ["mloq"]
+# Fix AttributeError: 'Namespace' object has no attribute 'extended_default_ignore'
+extended_default_ignore=[]
 
 [tool.flakehell.plugins]
 "flake8*" = ["+*"]

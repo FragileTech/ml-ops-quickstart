@@ -8,4 +8,4 @@ from omegaconf import OmegaConf
 
 flogging.setup()
 _logger = logging.getLogger("mloq")
-OmegaConf.register_resolver("current_year", lambda: date.today().year)
+OmegaConf.register_new_resolver("current_year", lambda: date.today().year)

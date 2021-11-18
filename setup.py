@@ -29,12 +29,12 @@ setup(
     test_suite="tests",
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
     install_requires=[
-        "flogging>=0.0.8",
-        "jinja2>=2.0.0",
-        "click>=7.1.2,<8.0.0",
+        "flogging>=0.0.14",
+        "jinja2>=3.0.0",
+        "click>=8.0.0",
         "invoke>=1.4.1",
-        "hydra-core>=1.0,<1.1",
-        "pre-commit>=2.10.0",
+        "hydra-core>=1.1.1",
+        "pre-commit>=2.15.0",
     ],
     package_data={
         "": ["README.md"],
