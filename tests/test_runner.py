@@ -2,17 +2,18 @@ import filecmp
 import os
 import os.path
 from pathlib import Path
+import shutil
 import tempfile
 
 from omegaconf import DictConfig, OmegaConf
 import pytest
 
-from mloq.commands import CiCMD, DocsCMD, LicenseCMD, LintCMD, ProjectCMD, SetupCMD
+from mloq.commands import CiCMD, DockerCMD, DocsCMD, LicenseCMD, LintCMD, ProjectCMD, SetupCMD
 from mloq.files import mloq_yml, read_file
 from mloq.runner import load_config, run_command
 
 
-COMMANDS = []  # [DocsCMD, ProjectCMD, CiCMD, LintCMD, LicenseCMD, SetupCMD]
+COMMANDS = [CiCMD, DockerCMD, DocsCMD, SetupCMD]  # [ProjectCMD, LintCMD, LicenseCMD, SetupCMD]
 
 
 def generate_command_examples(commands):
@@ -103,5 +104,13 @@ class TestRunCommand:
             interactive=False,
             hydra_args="",
         )
-        assert dir_trees_are_equal(str(target_example_path), str(target_path))
+        # The setup command create a test folder and a Makefile that interfere with make test.
+        # Let's remove them so the project does not crash.
+        if cls == SetupCMD:
+            shutil.rmtree(target_path / "tests")
+            os.remove(target_path / "Makefile")
+        assert (
+            dir_trees_are_equal(str(target_example_path), str(target_path)),
+            set(os.listdir(target_path)) - set(os.listdir(target_example_path)),
+        )
         temp_dir.cleanup()

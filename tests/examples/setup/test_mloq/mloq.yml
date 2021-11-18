@@ -1,5 +1,5 @@
 globals:
-  project_name: mloqq
+  project_name: mloq_test_setup
   default_branch: master
   owner: FragileTech
   author: FragileTech
@@ -17,7 +17,7 @@ license:
   project_name: ${globals.project_name}
   email: ${globals.email}
   project_url: ${globals.project_url}
-  license_classifier: ""
+  license_classifier: "License :: OSI Approved :: MIT License"
 
 project:
   disable: false
@@ -27,6 +27,7 @@ project:
   owner: ${globals.owner}
   description: ${globals.description}
   project_url: ${globals.project_url}
+  tests: true
 
 mlflow:
   disable: true
@@ -64,25 +65,40 @@ package:
   - '3.8'
   - '3.9'
   pyproject_extra: ""
-  license_classifier: ""
+  license_classifier: "License :: OSI Approved :: MIT License"
+  pipenv: true
 
 requirements:
   - dogfood
 
 lint:
   disable: false
-  docstring_checks: false
+  docstring_checks: true
   pyproject_extra: |-
     [tool.flakehell.exceptions."**/assets/*"]
     pycodestyle = ["-*"]
     pyflakes = ["-*"]
     "flake8*" = ["-*"]
   project_name: ${globals.project_name}
+  makefile: true
 
 docker:
   disable: false
-  docker_image: fragiletech/ubuntu20.04-base-py38
-  docker_org: ${globals.owner}
+  cuda: ???
+  cuda_image_type: "cudnn8-runtime-ubuntu20.04"
+  cuda_version: "11.2"
+  python_version: "3.8"
+  ubuntu_version: "20.04"
+  base_image: "???"
+  test: true
+  lint: true
+  jupyter: true
+  jupyter_password: ${globals.project_name}
+  project_name: ${globals.project_name}
+  docker_org: fragiletech #${globals.owner}
+  requirements: ${requirements}
+  extra: ""
+  makefile: true
 
 ci:
   bot_name: fragile-bot
@@ -120,4 +136,6 @@ ci:
     diff .codecov.yml generated/.codecov.yml
     diff .gitignore generated/.gitignore
     diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
+    diff Dockerfile generated/Dockerfile
+    diff Makefile generated/Makefile
     rm generated/tests/test_main.py
