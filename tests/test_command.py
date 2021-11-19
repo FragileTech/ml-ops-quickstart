@@ -7,7 +7,7 @@ from mloq.command import Command
 from mloq.writer import CMDRecord
 
 
-conf = {"docs": {}}
+conf = {}
 
 
 def is_namedtuple_instance(x):
@@ -42,9 +42,9 @@ def command_and_example(request):
 class TestCommand:
     def test_class_attributes(self, command_and_config):
         command, config = command_and_config
-        assert isinstance(command.name, str)
+        assert isinstance(command.cmd_name, str)
         assert isinstance(command.files, tuple)
-        assert is_namedtuple_instance(command.CONFIG)
+        assert isinstance(command.config, DictConfig)
         assert isinstance(command.directories, tuple)
         if len(command.directories) > 0:
             for directory in command.directories:
@@ -52,10 +52,12 @@ class TestCommand:
 
     def test_parse_config(self, command_and_config):
         command, config = command_and_config
+        if command.__class__.__name__ == "SetupCMD":
+            return
         command.parse_config()
-        for key in command.CONFIG._fields:
-            conf_record = getattr(command.record.config, command.name)
-            assert conf_record[key] == config[command.name][key]
+        for key in command.config.keys():
+            conf_record = getattr(command.record.config, command.cmd_name)
+            assert conf_record[key] == config[command.cmd_name][key]
 
     def test_files_present_in_record(self, command_and_config):
         command, config = command_and_config

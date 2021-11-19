@@ -67,7 +67,9 @@ package:
   pipenv: true
 
 requirements:
-  - None
+  disable: false
+  requirements:
+    - None
 
 lint:
   disable: false

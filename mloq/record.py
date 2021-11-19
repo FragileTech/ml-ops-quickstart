@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Union
 
-from omegaconf import DictConfig
+from omegaconf import DictConfig, OmegaConf
 
 from mloq.files import File
 
@@ -76,7 +76,7 @@ class CMDRecord:
 
     def update_config(self, config: DictConfig) -> None:
         """Update the configuration dictionary according to the values entered by the user."""
-        self._config = config
+        self._config = OmegaConf.merge(self._config, config)
 
     def register_file(
         self,

@@ -5,6 +5,7 @@ import click
 from omegaconf import DictConfig
 
 from mloq.command import Command
+from mloq.config.param_patch import param
 from mloq.files import lint_req, pyproject_toml
 from mloq.params import BooleanParam, config_group, ConfigParam
 
@@ -12,7 +13,7 @@ from mloq.params import BooleanParam, config_group, ConfigParam
 PACKAGE_FILES = [pyproject_toml, lint_req]
 
 _LINT = [
-    BooleanParam("disable", "Disable package command?"),
+    # BooleanParam("disable", "Disable package command?"),
     BooleanParam("docstring_checks", "Disable package command?"),
     ConfigParam("pyproject_extra", "Additional pyproject.toml configuration"),
 ]
@@ -21,9 +22,14 @@ _LINT = [
 class LintCMD(Command):
     """Implement the functionality of the lint Command."""
 
-    name = "lint"
+    cmd_name = "lint"
     files = tuple(PACKAGE_FILES)
     CONFIG = config_group("LINT", _LINT)
+    disable = param.Boolean(default=None, doc="Disable lint command?")
+    docstring_checks = param.Boolean(True, doc="Apply docstring checks?")
+    pyproject_extra = param.String("", doc="Additional pyproject.toml configuration")
+    project_name = param.String(doc="Select project name")
+    makefile = param.Boolean(True, doc="Add check and style commands to makefile")
 
     def interactive_config(self) -> DictConfig:
         """Generate the configuration of the project interactively."""

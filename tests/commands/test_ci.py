@@ -19,10 +19,10 @@ ci_conf = {
         bot_email="test_bot_email",
         disable=False,
         vendor="test_vendor",
-        python_versions="3.8",
-        ubuntu_version="ubuntu-20.04",
+        python_versions=["3.8"],
+        # ci_ubuntu_version="ubuntu-20.04",
         ci_python_version="3.8",
-        ci_ubuntu_version="ubuntu-20.04",
+        ubuntu_version="ubuntu-20.04",
         ci_extra="",
         open_source=True,
         project_name="test_name",
@@ -49,7 +49,7 @@ ci_conf_with_globals = DictConfig(
             "project_url": "test_url",
         },
         "package": dict(
-            python_versions="3.8",
+            python_versions=["3.8"],
             disable=False,
         ),
         "docker": dict(docker_org="test_org", disable=False),
@@ -61,7 +61,7 @@ ci_conf_with_globals = DictConfig(
             python_versions="${package.python_versions}",
             ubuntu_version="ubuntu-20.04",
             ci_python_version="3.8",
-            ci_ubuntu_version="ubuntu-20.04",
+            # ci_ubuntu_version="ubuntu-20.04",
             ci_extra="",
             open_source="${globals.open_source}",
             project_name="${globals.project_name}",
@@ -122,7 +122,7 @@ def command_and_example(request):
 class TestCi:
     def test_name_is_correct(self, command_and_config):
         command, config = command_and_config
-        assert command.name == "ci"
+        assert command.cmd_name == "ci"
 
     def test_equivalent_configs(self, config_paths):
         path_conf_1, path_conf_2 = config_paths

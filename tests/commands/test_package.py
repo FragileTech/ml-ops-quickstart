@@ -126,7 +126,7 @@ def command_and_example(request):
 class TestPackage:
     def test_name_is_correct(self, command_and_config):
         command, config = command_and_config
-        assert command.name == "package"
+        assert command.cmd_name == "package"
 
     def test_equivalent_configs(self, config_paths):
         path_conf_1, path_conf_2 = config_paths

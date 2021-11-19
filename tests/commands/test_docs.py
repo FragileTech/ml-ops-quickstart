@@ -84,4 +84,4 @@ def command_and_example(request):
 class TestDocs:
     def test_name_is_correct(self, command_and_config):
         command, config = command_and_config
-        assert command.name == "docs"
+        assert command.cmd_name == "docs"

@@ -17,7 +17,6 @@ license:
   project_name: ${globals.project_name}
   email: ${globals.email}
   project_url: ${globals.project_url}
-  license_classifier: "License :: OSI Approved :: MIT License"
 
 project:
   disable: false
@@ -69,7 +68,9 @@ package:
   pipenv: true
 
 requirements:
-  - dogfood
+  disable: false
+  requirements:
+    - dogfood
 
 lint:
   disable: false

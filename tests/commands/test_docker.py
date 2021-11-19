@@ -23,7 +23,8 @@ docker_conf = {
         jupyter=True,
         jupyter_password="test_password",
         docker_org="testorg",
-        requirements="none",
+        requirements=[],
+        makefile=True,
     ),
 }
 
@@ -55,6 +56,7 @@ docker_conf_with_globals = DictConfig(
             jupyter_password="test_password",
             docker_org="testorg",
             requirements="${requirements}",
+            makefile=True,
         ),
     },
 )
