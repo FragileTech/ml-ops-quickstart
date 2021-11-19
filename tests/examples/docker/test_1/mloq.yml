@@ -28,7 +28,9 @@ package:
   license_classifier: ""
 
 requirements:
-  - None
+  disable: false
+  requirements:
+    - None
 
 
 docker:
@@ -45,7 +47,7 @@ docker:
   jupyter_password: ${globals.project_name}
   project_name: ${globals.project_name}
   docker_org: fragiletech #${globals.owner}
-  requirements: ${requirements}
+  requirements: ${requirements.requirements}
   extra: ""
   makefile: true
 

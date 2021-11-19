@@ -3,8 +3,10 @@ from pathlib import Path
 from typing import Tuple
 
 import click
+from omegaconf import MISSING
 
 from mloq.command import Command
+from mloq.config.param_patch import param
 from mloq.files import (
     codecov,
     gitignore,
@@ -34,7 +36,7 @@ PROJECT_FILES = [
 ]
 
 _PROJECT = [
-    BooleanParam("disable", "Disable project command?"),
+    # BooleanParam("disable", "Disable project command?"),
     BooleanParam("docker", "Does the project contains a docker container?"),
     ConfigParam("owner", "Github handle of the project owner"),
     ConfigParam("project_name", "Select project name"),
@@ -50,9 +52,17 @@ _PROJECT = [
 class ProjectCMD(Command):
     """Implement the functionality of the project Command."""
 
-    name = "project"
+    cmd_name = "project"
     files = tuple(PROJECT_FILES)
     CONFIG = config_group("PROJECT", _PROJECT)
+    disable = param.Boolean(default=False, doc="Disable project command?")
+    docker = param.Boolean(MISSING, doc="Does the project contains a docker container?")
+    project_name = param.String("${globals.project_name}", doc="Select project name")
+    owner = param.String("${globals.owner}", doc="Github handle of the project owner")
+    description = param.String("${globals.description}", doc="Short description of the project")
+    project_url = param.String("${globals.project_url}", doc="GitHub project url")
+    license = param.String("MIT", doc="Project license type")
+    tests = param.Boolean(True, doc="Add support for pytest")
 
     @property
     def directories(self) -> Tuple[Path]:

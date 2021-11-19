@@ -15,13 +15,23 @@ from mloq.runner import load_config, run_command
 
 COMMANDS = [CiCMD, DockerCMD, DocsCMD, SetupCMD]  # [ProjectCMD, LintCMD, LicenseCMD, SetupCMD]
 
+CMD_CLASS_TO_NAME = {
+    CiCMD: "ci",
+    DockerCMD: "docker",
+    DocsCMD: "docs",
+    SetupCMD: "setup",
+    ProjectCMD: "project",
+    LintCMD: "lint",
+    LicenseCMD: "license",
+}
+
 
 def generate_command_examples(commands):
     examples = []
     docs_test_examples = Path(__file__).parent / "examples"
     for cmd in commands:
-        for example in os.listdir(docs_test_examples / cmd.name):
-            examples.append((cmd, docs_test_examples / cmd.name / example))
+        for example in os.listdir(docs_test_examples / CMD_CLASS_TO_NAME[cmd]):
+            examples.append((cmd, docs_test_examples / CMD_CLASS_TO_NAME[cmd] / example))
     return examples
 
 
@@ -104,6 +114,7 @@ class TestRunCommand:
             interactive=False,
             hydra_args="",
         )
+
         # The setup command create a test folder and a Makefile that interfere with make test.
         # Let's remove them so the project does not crash.
         if cls == SetupCMD:

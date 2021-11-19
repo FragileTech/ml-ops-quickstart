@@ -3,12 +3,18 @@ from pathlib import Path
 from typing import Optional
 
 import click
-from omegaconf import DictConfig, OmegaConf
+from omegaconf import DictConfig, MISSING, OmegaConf
 
 from mloq.command import Command
-from mloq.commands.requirements import pytorch_req, RequirementsCMD, tensorflow_req
+from mloq.commands.requirements import (
+    pytorch_req,
+    REQUIREMENT_CHOICES,
+    RequirementsCMD,
+    tensorflow_req,
+)
+from mloq.config.param_patch import param
 from mloq.files import DOCKER_PATH, file
-from mloq.params import BooleanParam, config_group, ConfigParam, MultiChoiceParam
+from mloq.params import BooleanParam, ConfigParam, MultiChoiceParam
 
 
 dockerfile = file("Dockerfile", DOCKER_PATH, description="Docker container for the project")
@@ -20,7 +26,7 @@ makefile_docker = file(
 DOCKER_FILES = [dockerfile, makefile_docker]
 
 _DOCKER = [
-    BooleanParam("disable", "Disable docs command?"),
+    # BooleanParam("disable", "Disable docs command?"),
     BooleanParam("cuda", "Install CUDA?"),
     ConfigParam("cuda_image_type", "Type of cuda docker container"),
     ConfigParam("cuda_version", "CUDA version installed in the container"),
@@ -44,9 +50,29 @@ _DOCKER = [
 class DockerCMD(Command):
     """Implement the functionality of the docker Command."""
 
-    name = "docker"
+    cmd_name = "docker"
     files = tuple(DOCKER_FILES)
-    CONFIG = config_group("DOCKER", _DOCKER)
+    disable = param.Boolean(default=None, doc="Disable docker command?")
+    cuda = param.Boolean(None, doc="Install CUDA?")
+    cuda_image_type = param.String(MISSING, doc="Type of cuda docker container")
+    cuda_version = param.String("11.2", doc="CUDA version installed in the container")
+    ubuntu_version = param.String("20.04", doc="Ubuntu version of the base image")
+    project_name = param.String("${globals.project_name}", doc="Select project name")
+    docker_org = param.String("${globals.owner}", doc="Name of your Docker organization")
+    python_version = param.String("3.8", doc="Python version installed in the container")
+    base_image = param.String(MISSING, doc="Base Docker image used to build the container")
+    test = param.Boolean(True, doc="Install requirements-test.txt?")
+    lint = param.Boolean(True, doc="Install requirements-lint.txt?")
+    jupyter = param.Boolean(True, doc="Install a jupyter notebook server?")
+    jupyter_password = param.String(
+        "${docker.project_name}", doc="password for the Jupyter notebook server"
+    )
+    requirements = param.List(default=["none"], doc="Project requirements")
+    extra = param.String("", doc="Extra code to add to Dockerfile")
+    makefile = param.Boolean(True, doc="Add docker commands to makefile")
+    # requirements = param.ListSelector(
+    #    default="none", doc="Project requirements", objects=REQUIREMENT_CHOICES
+    # )
 
     @staticmethod
     def require_cuda_from_requirements(project_config: Optional[DictConfig] = None) -> bool:
@@ -68,7 +94,7 @@ class DockerCMD(Command):
 
     def requires_cuda(self) -> bool:
         """Return True if the Docker container requires CUDA."""
-        if not OmegaConf.is_missing(self.config, "cuda"):
+        if not OmegaConf.is_missing(self.config, "cuda") and self.cuda is not None:
             return self.config.cuda
         try:
             _ = self.config.requirements
@@ -89,6 +115,11 @@ class DockerCMD(Command):
         return f"ubuntu:{self.config.ubuntu_version}"
 
     def parse_config(self) -> DictConfig:
+        if self.cuda is None:
+            self.cuda = self.requires_cuda()
+        return super(DockerCMD, self).parse_config()
+
+    def _____parse_config(self) -> DictConfig:
         """Update the configuration DictConfig with the Command parameters."""
         self.config.docker_org = self.CONFIG.docker_org(self.config, self.interactive).lower()
         self.config.python_version = self.CONFIG.python_version(self.config, self.interactive)

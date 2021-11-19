@@ -2,17 +2,19 @@
 from pathlib import Path
 
 import click
-from omegaconf import DictConfig, OmegaConf
+from omegaconf import DictConfig, MISSING, OmegaConf
 
 from mloq.command import Command
+from mloq.commands.ci import PYTHON_VERSIONS
+from mloq.config.param_patch import param
 from mloq.files import pyproject_toml, setup_py
-from mloq.params import BooleanParam, config_group, ConfigParam, MultiChoiceParam
+from mloq.params import ConfigParam, MultiChoiceParam
 
 
 PACKAGE_FILES = [pyproject_toml, setup_py]
 
 _PACKAGE = [
-    BooleanParam("disable", "Disable package command?"),
+    # BooleanParam("disable", "Disable package command?"),
     ConfigParam("project_name", "Select project name"),
     ConfigParam("pyproject_extra", "Additional pyproject.toml configuration"),
     ConfigParam(
@@ -31,22 +33,38 @@ _PACKAGE = [
 class PackageCMD(Command):
     """Implement the functionality of the package Command."""
 
-    name = "package"
+    cmd_name = "package"
     files = tuple(PACKAGE_FILES)
-    CONFIG = config_group("PACKAGE", _PACKAGE)
     LICENSE_CLASSIFIERS = {
         "MIT": "License :: OSI Approved :: MIT License",
         "Apache-2.0": "License :: OSI Approved :: Apache Software License",
         "GPL-3.0": "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "proprietary": "License :: Other/Proprietary License",
     }
+    disable = param.Boolean(default=None, doc="Disable package command?")
+    pyproject_extra = param.String("", doc="Additional pyproject.toml configuration")
+    project_name = param.String("${globals.project_name}", doc="Select project name")
+    license = param.String("MIT", doc="Project license type")
+    license_classifier = param.String(MISSING, doc="License classifier in setup.py")
+    open_source = param.Boolean(MISSING, doc="Is the project Open Source?")
+    description = param.String("${globals.description}", doc="Short description of the project")
+    default_branch = param.String(doc="Default branch of the project")
+    project_url = param.String("${globals.project_url}", doc="GitHub project url")
+    owner = param.String("${ci.author}", doc="Github handle of the project owner")
+    author = param.String(doc="Author(s) of the project")
+    email = param.String(doc="Owner contact email")
+    python_versions = param.ListSelector(
+        default=PYTHON_VERSIONS, doc="Supported python versions", objects=PYTHON_VERSIONS
+    )
+    pipenv = param.Boolean(False, doc="Add pipenv support to the project configuration")
 
     def parse_config(self) -> DictConfig:
         """Update the configuration DictConfig with the Command parameters."""
         conf = super(PackageCMD, self).parse_config()
         if OmegaConf.is_missing(conf.package, "license_classifier"):
-            license_name = conf.package.get("license", "proprietary")
-            conf.package.license_classifier = self.LICENSE_CLASSIFIERS[license_name]
+            conf.package.license_classifier = self.LICENSE_CLASSIFIERS[
+                conf.package.get("license", "proprietary")
+            ]
         return conf
 
     def interactive_config(self) -> DictConfig:

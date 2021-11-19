@@ -17,7 +17,6 @@ license:
   project_name: ${globals.project_name}
   project_url: ${globals.project_url}
   email: ${globals.email}
-  license_classifier: 
 
 project:
   disable: false

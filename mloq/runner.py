@@ -113,5 +113,5 @@ def run_command(cmd_cls, use_click: bool = True) -> Callable:
 
     if use_click:
         _run_command = mloq_click_command(_run_command)
-    _run_command.__name__ = cmd_cls.name
+    _run_command.__name__ = cmd_cls.cmd_name
     return _run_command

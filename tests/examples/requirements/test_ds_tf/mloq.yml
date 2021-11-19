@@ -61,9 +61,11 @@ package:
   pyproject_extra: ""
 
 requirements:
-  - tensorflow
-  - data-science
-  - dataviz
+  disable: false
+  requirements:
+    - tensorflow
+    - data-science
+    - dataviz
 
 lint:
   disable: false

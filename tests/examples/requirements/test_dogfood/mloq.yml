@@ -61,7 +61,9 @@ package:
   pyproject_extra: ""
 
 requirements:
-  - dogfood
+  disable: false
+  requirements:
+    - dogfood
 
 lint:
   disable: false

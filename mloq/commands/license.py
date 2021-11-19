@@ -2,17 +2,18 @@
 from pathlib import Path
 
 import click
-from omegaconf import DictConfig
+from omegaconf import DictConfig, MISSING
 
 from mloq.command import Command
+from mloq.config.param_patch import param
 from mloq.files import code_of_conduct, contributing, dco, LICENSES
-from mloq.params import BooleanParam, config_group, ConfigParam
+from mloq.params import BooleanParam, ConfigParam
 
 
 OPEN_SOURCE_FILES = [dco, contributing, code_of_conduct]
 
 _LICENSE = [
-    BooleanParam("disable", "Disable license command?"),
+    # BooleanParam("disable", "Disable license command?"),
     BooleanParam("open_source", "Is the project Open Source?"),
     ConfigParam(
         "license",
@@ -27,10 +28,17 @@ _LICENSE = [
 class LicenseCMD(Command):
     """Implement the functionality of the license Command."""
 
-    name = "license"
+    cmd_name = "license"
     files = tuple([file for file in LICENSES.values()] + OPEN_SOURCE_FILES)
-    config = config_group("LICENSE", _LICENSE)
     LICENSES = LICENSES
+    disable = param.Boolean(default=None, doc="Disable license command?")
+    open_source = param.Boolean(MISSING, doc="Is the project Open Source?")
+    license = param.String("MIT", doc="Project license type")
+    copyright_year = param.Integer("${current_year:}", doc="Year when the project started")
+    copyright_holder = param.String("${globals.owner}", doc="Copyright holder")
+    project_name = param.String(doc="Select project name")
+    project_url = param.String("${globals.project_url}", doc="GitHub project url")
+    email = param.String("${globals.email}", doc="Owner contact email")
 
     def interactive_config(self) -> DictConfig:
         """Generate the configuration of the project interactively."""
