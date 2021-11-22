@@ -30,7 +30,7 @@ only_config_opt = click.option(
     "-c/ ",
     default=False,
     show_default=True,
-    help="Value indicating whether to not generate all the files except mloq.yml.",
+    help="Value indicating whether to not generate all the files except mloq.yaml.",
 )
 output_directory_arg = click.argument(
     "output_directory",

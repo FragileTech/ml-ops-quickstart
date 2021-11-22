@@ -41,7 +41,7 @@ class RequirementsCMD(Command):
     files = tuple(REQUIREMENTS_FILES)
     disable = param.Boolean(default=None, doc="Disable requirements command?")
     requirements = param.ListSelector(
-        default=["none"], doc="Project requirements", objects=REQUIREMENT_CHOICES
+        default=["none"], doc="Project requirements", objects=REQUIREMENT_CHOICES,
     )
     REQUIREMENTS_ALIASES = {
         data_science_req: ["data-science", "datascience", "ds"],
@@ -73,7 +73,6 @@ class RequirementsCMD(Command):
     def __del__(self) -> None:
         """Remove the temporary directory when the instance is deleted."""
         self._temp_dir.cleanup()
-        return super(RequirementsCMD, self).__del__()
 
     @classmethod
     def get_aliased_requirements_file(cls, option: str) -> File:

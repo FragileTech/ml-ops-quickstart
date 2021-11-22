@@ -1,5 +1,5 @@
 globals:
-  project_name: mloq
+  project_name: mloqq
   default_branch: master
   owner: FragileTech
   author: FragileTech
@@ -14,9 +14,6 @@ license:
   copyright_year: 2020
   copyright_holder: ${globals.owner}
   open_source: ${globals.open_source}
-  project_name: ${globals.project_name}
-  email: ${globals.email}
-  project_url: ${globals.project_url}
 
 project:
   disable: false
@@ -25,8 +22,6 @@ project:
   project_name: ${globals.project_name}
   owner: ${globals.owner}
   description: ${globals.description}
-  project_url: ${globals.project_url}
-  tests: true
 
 mlflow:
   disable: true
@@ -64,42 +59,27 @@ package:
   - '3.8'
   - '3.9'
   pyproject_extra: ""
-  license_classifier: "License :: OSI Approved :: MIT License"
-  pipenv: true
 
 requirements:
   disable: false
   requirements:
-    - dogfood
+    - tensorflow
+    - data-science
+    - dataviz
 
 lint:
   disable: false
-  docstring_checks: false
+  docstring_checks: true
   pyproject_extra: |-
     [tool.flakehell.exceptions."**/assets/*"]
     pycodestyle = ["-*"]
     pyflakes = ["-*"]
     "flake8*" = ["-*"]
-  project_name: ${globals.project_name}
-  makefile: true
 
 docker:
   disable: false
-  cuda: ???
-  cuda_image_type: "cudnn8-runtime-ubuntu20.04"
-  cuda_version: "11.2"
-  python_version: "3.8"
-  ubuntu_version: "20.04"
-  base_image: "???"
-  test: true
-  lint: true
-  jupyter: true
-  jupyter_password: ${globals.project_name}
-  project_name: ${globals.project_name}
+  docker_image: fragiletech/ubuntu20.04-base-py38
   docker_org: ${globals.owner}
-  requirements: ${requirements.requirements}
-  extra: ""
-  makefile: true
 
 ci:
   bot_name: fragile-bot
@@ -123,7 +103,7 @@ ci:
     git config --global user.email "bot@fragile.tech"
     git config --global init.defaultBranch master
     mkdir generated
-    mloq setup generated -f mloq.yml
+    mloq setup generated -f mloq.yaml
     diff .github/workflows/push.yml generated/.github/workflows/push.yml
     diff requirements.txt generated/requirements.txt
     diff requirements-lint.txt generated/requirements-lint.txt
@@ -133,10 +113,10 @@ ci:
     diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
     diff CONTRIBUTING.md generated/CONTRIBUTING.md
     diff LICENSE generated/LICENSE
+    diff Makefile generated/Makefile
     diff .pre-commit-config.yaml generated/.pre-commit-config.yaml
+    diff Dockerfile generated/Dockerfile
     diff .codecov.yml generated/.codecov.yml
     diff .gitignore generated/.gitignore
     diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
-    diff Dockerfile generated/Dockerfile
-    diff Makefile generated/Makefile
-    rm generated/tests/test_main.py
+    rm generated/mloq/tests/test_main.py

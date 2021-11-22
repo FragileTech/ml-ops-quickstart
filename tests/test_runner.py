@@ -82,12 +82,12 @@ class TestLoadConfig:
         temp_dir = tempfile.TemporaryDirectory()
         with open(Path(temp_dir.name) / mloq_yml.dst, "w") as f:
             f.write(read_file(mloq_yml))
-        # Load configuration providing a directory containing an mloq.yml file
+        # Load configuration providing a directory containing an mloq.yaml file
         config = load_config(temp_dir.name, [])
         assert isinstance(config, DictConfig)
         example = OmegaConf.load(mloq_yml.src)
         assert config == example
-        # Load configuration providing the path to the target mloq.yml file
+        # Load configuration providing the path to the target mloq.yaml file
         config = load_config(Path(temp_dir.name) / mloq_yml.dst, [])
         assert isinstance(config, DictConfig)
         example = OmegaConf.load(mloq_yml.src)
@@ -101,7 +101,7 @@ class TestRunCommand:
             return
         cls, example_dir = command_example
         _run_cmd = run_command(cls, use_click=False)
-        config_file = Path(example_dir) / "mloq.yml"
+        config_file = Path(example_dir) / mloq_yml.dst
         target_example_path = Path(example_dir) / "target"
         temp_dir = tempfile.TemporaryDirectory()
         target_path = Path(temp_dir.name) / "target"

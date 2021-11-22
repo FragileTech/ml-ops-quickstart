@@ -1,5 +1,5 @@
 globals:
-  project_name: mloq
+  project_name: mloq_test_setup
   default_branch: master
   owner: FragileTech
   author: FragileTech
@@ -74,7 +74,7 @@ requirements:
 
 lint:
   disable: false
-  docstring_checks: false
+  docstring_checks: true
   pyproject_extra: |-
     [tool.flakehell.exceptions."**/assets/*"]
     pycodestyle = ["-*"]
@@ -96,7 +96,7 @@ docker:
   jupyter: true
   jupyter_password: ${globals.project_name}
   project_name: ${globals.project_name}
-  docker_org: ${globals.owner}
+  docker_org: fragiletech #${globals.owner}
   requirements: ${requirements.requirements}
   extra: ""
   makefile: true
@@ -123,7 +123,7 @@ ci:
     git config --global user.email "bot@fragile.tech"
     git config --global init.defaultBranch master
     mkdir generated
-    mloq setup generated -f mloq.yml
+    mloq setup generated -f mloq.yaml
     diff .github/workflows/push.yml generated/.github/workflows/push.yml
     diff requirements.txt generated/requirements.txt
     diff requirements-lint.txt generated/requirements-lint.txt
@@ -138,4 +138,5 @@ ci:
     diff .gitignore generated/.gitignore
     diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
     diff Dockerfile generated/Dockerfile
+    diff Makefile generated/Makefile
     rm generated/tests/test_main.py

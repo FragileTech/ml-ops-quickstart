@@ -61,13 +61,13 @@ class TestLedger:
         assert (Path(file.dst), file.description) == ledger._files[0]
 
     def test_register_description_str(self, ledger):
-        file, description = "example/mloq.yml", "test_description"
+        file, description = f"example/{mloq_yml.dst}", "test_description"
         ledger.register(file, description=description)
         assert (str(Path(file)), description) in ledger.files
         assert (Path(file), description) == ledger._files[0]
 
     def test_register_description_file(self, ledger, file):
-        description = "example/mloq.yml", "test_description"
+        description = f"example/{mloq_yml.dst}", "test_description"
         ledger.register(file, description=description)
         assert (str(Path(file.dst)), description) in ledger.files
         assert (Path(file.dst), description) == ledger._files[0]

@@ -37,8 +37,6 @@ def _sub_commands():
 
 SUB_COMMANDS = _sub_commands()
 
-# _SETUP = list(set([param for cmd in SUB_COMMANDS for param in cmd.CONFIG]))
-
 
 class SetupCMD(CommandMixin):
     """Implement the functionality of the setup Command."""

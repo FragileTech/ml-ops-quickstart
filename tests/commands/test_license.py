@@ -95,8 +95,8 @@ def config_paths(request):
     temp_path = tempfile.TemporaryDirectory()
     conf_1 = DictConfig(c1)
     conf_2 = DictConfig(c2)
-    filepath_1 = Path(temp_path.name) / "mloq1.yml"
-    filepath_2 = Path(temp_path.name) / "mloq2.yml"
+    filepath_1 = Path(temp_path.name) / "mloq1.yaml"
+    filepath_2 = Path(temp_path.name) / "mloq2.yaml"
     with open(filepath_1, "w") as f:
         OmegaConf.save(conf_1, f)
     with open(filepath_2, "w") as f:

@@ -20,7 +20,7 @@ class PromptParam:
 
     It allows to parse a configuration value from different sources in the following order:
         1. Environment variable named as MLOQ_PARAM_NAME
-        2. Values defined in mloq.yml
+        2. Values defined in mloq.yaml
         3. Interactive promp from CLI (Optional)
     """
 
@@ -29,7 +29,7 @@ class PromptParam:
         Initialize a ConfigParam.
 
         Args:
-            name: Name of the parameter (as defined in mloq.yml).
+            name: Name of the parameter (as defined in mloq.yaml).
             text: Text that will be prompted in the CLI when using interactive mode.
             **kwargs: Passed to click.prompt when running in interactive mode.
         """
@@ -67,16 +67,15 @@ class PromptParam:
         Return the value of the parameter parsing it from the different input sources available.
 
         Args:
-            interactive: Prompt the user to input the value from CLI if it's not defined \
+            interactive: Prompt the user to input the value from CLI if it's not defined
                         in config or as en environment variable.
             default: Default value displayed in the interactive mode.
-            **kwargs: Passed to click.prompt in interactive mode. Overrides the \
+            **kwargs: Passed to click.prompt in interactive mode. Overrides the
                       values defined in __init__
 
         Returns:
             Value of the parameter.
         """
-
         value = default if default is not None else self.value
         value = self._prompt(value, **kwargs)
         return value
@@ -97,7 +96,7 @@ class MultiChoicePrompt(PromptParam):
 
     It allows to parse a configuration value from different sources in the following order:
         1. Environment variable named as MLOQ_PARAM_NAME
-        2. Values defined in mloq.yml
+        2. Values defined in mloq.yaml
         3. Interactive promp from CLI (Optional)
     """
 
@@ -112,7 +111,7 @@ class MultiChoicePrompt(PromptParam):
         Initialize a ConfigParam.
 
         Args:
-            name: Name of the parameter (as defined in mloq.yml).
+            name: Name of the parameter (as defined in mloq.yaml).
             choices: Contains all the available values for the parameter.
             text: Text that will be prompted in the CLI when using interactive mode.
             **kwargs: Passed to click.prompt when running in interactive mode.
@@ -145,7 +144,7 @@ class StringPrompt(PromptParam):
         Initialize a ConfigParam.
 
         Args:
-            name: Name of the parameter (as defined in mloq.yml).
+            name: Name of the parameter (as defined in mloq.yaml).
             choices: Contains all the available values for the parameter.
             text: Text that will be prompted in the CLI when using interactive mode.
             **kwargs: Passed to click.prompt when running in interactive mode.
@@ -165,7 +164,7 @@ class IntPrompt(PromptParam):
         Initialize a ConfigParam.
 
         Args:
-            name: Name of the parameter (as defined in mloq.yml).
+            name: Name of the parameter (as defined in mloq.yaml).
             choices: Contains all the available values for the parameter.
             text: Text that will be prompted in the CLI when using interactive mode.
             **kwargs: Passed to click.prompt when running in interactive mode.
@@ -185,7 +184,7 @@ class FloatPrompt(PromptParam):
         Initialize a ConfigParam.
 
         Args:
-            name: Name of the parameter (as defined in mloq.yml).
+            name: Name of the parameter (as defined in mloq.yaml).
             choices: Contains all the available values for the parameter.
             text: Text that will be prompted in the CLI when using interactive mode.
             **kwargs: Passed to click.prompt when running in interactive mode.
@@ -200,7 +199,7 @@ class BooleanPrompt(PromptParam):
 
     It allows to parse a configuration value from different sources in the following order:
         1. Environment variable named as MLOQ_PARAM_NAME
-        2. Values defined in mloq.yml
+        2. Values defined in mloq.yaml
         3. Interactive promp from CLI (Optional)
     """
 

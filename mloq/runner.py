@@ -17,13 +17,13 @@ from mloq.writer import Writer
 
 def load_config(config_file: Union[Path, str], hydra_args: str) -> DictConfig:
     """
-    Load the necessary configuration for running mloq from an mloq.yml file.
+    Load the necessary configuration for running mloq from an mloq.yaml file.
 
-    If no path to mloq.yml is provided it returns a template to be filled in \
+    If no path to mloq.yaml is provided it returns a template to be filled in \
     using the interactive mode.
 
     Args:
-        config_file: Path to the target mloq.yml file.
+        config_file: Path to the target mloq.yaml file.
         hydra_args: Arguments passed to hydra for composing the project configuration.
 
     Returns:
@@ -40,7 +40,7 @@ def load_config(config_file: Union[Path, str], hydra_args: str) -> DictConfig:
         hydra_args = ["--config-dir", str(config_file.parent)] + list(hydra_args)
         config = DictConfig({})
 
-        @hydra.main(config_name=config_file.name)
+        @hydra.main(config_path=".", config_name=config_file.name)
         def load_config(loaded_config: DictConfig):
             nonlocal config
             config = loaded_config
@@ -48,7 +48,7 @@ def load_config(config_file: Union[Path, str], hydra_args: str) -> DictConfig:
         with patch("sys.argv", [sys.argv[0]] + list(hydra_args)):
             load_config()
     else:
-        _logger.info("No mloq.yml file provided. Creating a new configuration")
+        _logger.info("No mloq.yaml file provided. Creating a new configuration")
         config = OmegaConf.load(mloq_yml.src)
     return config
 
@@ -66,7 +66,7 @@ def write_record(
         record: CMDRecord containing all the data to be written.
         path: Target directory to write the data.
         overwrite: If True overwrite existing files.
-        only_config: Do not write any file except mloq.yml
+        only_config: Do not write any file except mloq.yaml
 
     Returns:
         None.
