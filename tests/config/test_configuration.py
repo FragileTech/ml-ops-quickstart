@@ -6,12 +6,7 @@ import param
 import pytest
 
 from mloq.config.configuration import Config, DictConfig, is_interpolation
-from tests.config.fixtures import (
-    configurable,
-    ConfigurableTest,
-    interpolated,
-    interpolated_params,
-)
+from tests.config.fixtures import configurable, ConfigurableTest, interpolated, interpolated_params
 
 
 def interpolation_is_consistent(

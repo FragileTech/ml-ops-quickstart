@@ -10,6 +10,8 @@ from mloq.writer import CMDRecord
 
 
 class CommandMixin:
+    """Class containing the interface for defining an MLOQ Command."""
+
     files: tuple = tuple()
     cmd_name = "command"
 

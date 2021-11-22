@@ -29,7 +29,9 @@ class CiCMD(Command):
     bot_email = param.String(doc="Bot account email")
     ci_python_version = param.String(doc="Primary Python version in GitHub Actions")
     python_versions = param.ListSelector(
-        default=PYTHON_VERSIONS, doc="Supported python versions", objects=PYTHON_VERSIONS,
+        default=PYTHON_VERSIONS,
+        doc="Supported python versions",
+        objects=PYTHON_VERSIONS,
     )
     ci_extra = param.String(
         doc="Additional script in GitHub Actions before running the main tests",
