@@ -90,7 +90,7 @@ docker:
   cuda_version: "11.2"
   python_version: "3.8"
   ubuntu_version: "20.04"
-  base_image: "???"
+  base_image: "ubuntu:20.04"  # Replace with ??? when bug is fixed
   test: true
   lint: true
   jupyter: true

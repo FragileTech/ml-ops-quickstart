@@ -118,6 +118,8 @@ class DockerCMD(Command):
         """Update the configuration dictionary from the data entered by the user."""
         if self.cuda is None:
             self.cuda = self.requires_cuda()
+        # FIXME: Auto inference of base image is broken (when base_image is missing)
+        self.base_image = self.get_base_image()
         return super(DockerCMD, self).parse_config()
 
     def _____parse_config(self) -> DictConfig:
