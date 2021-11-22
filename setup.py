@@ -34,6 +34,7 @@ setup(
         "click>=8.0.0",
         "invoke>=1.4.1",
         "hydra-core>=1.1.1",
+        "param>=1.11.0",
         "pre-commit>=2.15.0",
     ],
     package_data={
