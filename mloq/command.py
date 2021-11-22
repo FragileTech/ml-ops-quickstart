@@ -1,14 +1,11 @@
 """This module defines the base Command class used for defining mloq commands."""
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Tuple
 
 from omegaconf import DictConfig
-import param
 
 from mloq.config.configuration import as_resolved_dict
 from mloq.config.prompt import Promptable
-
-# from mloq.failure import MissingConfigValue
 from mloq.writer import CMDRecord
 
 
@@ -46,11 +43,11 @@ class CommandMixin:
         """
         Update the configuration dictionary from the data entered by the user.
 
-        Given the basic configuration skeleton (contained in mloq.yml), \
+        Given the basic configuration skeleton (contained in mloq.yaml), \
         this method updates the values of those parameters (included in \
         CONFIG object) that are related to the selected command. Incoming \
         values are introduced either interactively or via a custom user's \
-        mloq.yml file.
+        mloq.yaml file.
 
         Returns:
             It returns an updated version of the 'config' attribute of \

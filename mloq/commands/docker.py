@@ -65,13 +65,13 @@ class DockerCMD(Command):
     lint = param.Boolean(True, doc="Install requirements-lint.txt?")
     jupyter = param.Boolean(True, doc="Install a jupyter notebook server?")
     jupyter_password = param.String(
-        "${docker.project_name}", doc="password for the Jupyter notebook server"
+        "${docker.project_name}", doc="password for the Jupyter notebook server",
     )
     requirements = param.List(default=["none"], doc="Project requirements")
     extra = param.String("", doc="Extra code to add to Dockerfile")
     makefile = param.Boolean(True, doc="Add docker commands to makefile")
-    # requirements = param.ListSelector(
-    #    default="none", doc="Project requirements", objects=REQUIREMENT_CHOICES
+    #requirements = param.ListSelector(
+    #    default="none", doc="Project requirements", objects=REQUIREMENT_CHOICES,
     # )
 
     @staticmethod

@@ -5,14 +5,8 @@ from omegaconf import MISSING, OmegaConf
 import param
 import pytest
 
-from mloq.config.configuration import (
-    as_resolved_dict,
-    Config,
-    Configurable,
-    DictConfig,
-    is_interpolation,
-)
-from mloq.config.test.fixtures import (
+from mloq.config.configuration import Config, DictConfig, is_interpolation
+from tests.config.fixtures import (
     configurable,
     ConfigurableTest,
     interpolated,
@@ -133,9 +127,10 @@ class TestConfig:
         for k in configurable.config.keys():
             param_val = getattr(configurable, k)
             to_ptype_self = configurable.conf.to_param_type(k)
-            assert (
-                param_val == to_ptype_self
-            ), f"key: {k}, conf: {configurable.config} interps {configurable.conf.interpolations} MIAU {configurable.number}"
+            assert param_val == to_ptype_self, (
+                f"key: {k}, conf: {configurable.config} interps {configurable.conf.interpolations}"
+                f" number {configurable.number}"
+            )
 
             if configurable.conf.is_interpolation(k):
                 unresolved = OmegaConf.to_container(configurable.config, resolve=False)

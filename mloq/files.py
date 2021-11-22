@@ -57,7 +57,7 @@ DOCKER_PATH = ASSETS_PATH / "docker"
 
 # Common files
 mloq_yml = file(
-    "mloq.yml",
+    "mloq.yaml",
     TEMPLATES_PATH,
     "mloq configuration, you can safely remove it if you don't plan to upgrade",
     is_static=True,

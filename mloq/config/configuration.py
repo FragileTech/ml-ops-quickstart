@@ -396,10 +396,13 @@ class Configurable(param.Parameterized):
         **kwargs,
     ):
         interp_kwargs = resolve_as_dict(self, kwargs)
-        # print(self, cfg_node, "\n", kwargs, "\n", interp_kwargs)
         super(Configurable, self).__init__(**interp_kwargs)
         self.__conf = Config(
-            self, config, cfg_node=cfg_node, throw_on_missing=throw_on_missing, **kwargs
+            self,
+            config,
+            cfg_node=cfg_node,
+            throw_on_missing=throw_on_missing,
+            **kwargs,
         )
 
     @property
