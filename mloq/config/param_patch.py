@@ -1,3 +1,4 @@
+"""Patch param to allow omegaconf Missing values and interpolation strings."""
 from omegaconf import MISSING
 import param as param_
 
@@ -6,6 +7,7 @@ __DEFAULT_MARK = "__DEFAULT_MARK__"
 
 
 def __init__patched(self, default=__DEFAULT_MARK, **kwargs):
+    """Handle missing values and interpolations trings when initializing a param.Parameter."""
     from mloq.config.configuration import is_interpolation
 
     is_missing = default == MISSING
@@ -22,6 +24,7 @@ def __init__patched(self, default=__DEFAULT_MARK, **kwargs):
 
 
 def _create_param__(item):
+    """Patch the target param.Parameter to support missing values and interpolations strings."""
     base = getattr(param_, item)
     patched_class = type(
         item,
@@ -38,14 +41,18 @@ PATCHED_PARAMETERS = {"String", "Integer", "Number", "Tuple", "Dict", "List", "L
 
 
 class __ParamPatcher:
+    """Patch the param package to handle missing values and interpolation strings."""
+
     PATCHED_PARAMETERS = PATCHED_PARAMETERS
 
     def __getattr__(self, item):
+        """Patch the parameters included in PATCHED_PARAMETERS."""
         if item in PATCHED_PARAMETERS:
             return _create_param__(item)
         return getattr(param_, item)
 
     def __setattr__(self, key, value):
+        """Read only monkeypatching."""
         raise NotImplementedError
 
 

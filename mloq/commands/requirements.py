@@ -41,7 +41,9 @@ class RequirementsCMD(Command):
     files = tuple(REQUIREMENTS_FILES)
     disable = param.Boolean(default=None, doc="Disable requirements command?")
     requirements = param.ListSelector(
-        default=["none"], doc="Project requirements", objects=REQUIREMENT_CHOICES,
+        default=["none"],
+        doc="Project requirements",
+        objects=REQUIREMENT_CHOICES,
     )
     REQUIREMENTS_ALIASES = {
         data_science_req: ["data-science", "datascience", "ds"],

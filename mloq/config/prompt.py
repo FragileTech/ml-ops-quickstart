@@ -43,14 +43,17 @@ class PromptParam:
 
     @property
     def param(self) -> param.Parameter:
+        """Get the param.Parameter object corresponding to the current configuration parameter."""
         return getattr(self._target.param, self.name)
 
     @property
     def value(self) -> Any:
+        """Return the value of the configuration parameter."""
         return getattr(self._target, self.name)
 
     @property
     def config(self) -> Any:
+        """Return the value of the parameter as defined in its config DictConfig."""
         if self.name not in self._target.config:
             raise MissingConfigValue(f"Config value {self.name} is not defined in config")
         elif OmegaConf.is_missing(self._target.config, self.name):
@@ -134,6 +137,15 @@ class MultiChoicePrompt(PromptParam):
 
 
 class StringPrompt(PromptParam):
+    """
+    Define a configuration parameter that can take a string value.
+
+    It allows to parse a configuration value from different sources in the following order:
+        1. Environment variable named as MLOQ_PARAM_NAME
+        2. Values defined in mloq.yaml
+        3. Interactive promp from CLI (Optional)
+    """
+
     def __init__(
         self,
         name: str,
@@ -154,6 +166,15 @@ class StringPrompt(PromptParam):
 
 
 class IntPrompt(PromptParam):
+    """
+    Define a configuration parameter that can take an integer value.
+
+    It allows to parse a configuration value from different sources in the following order:
+        1. Environment variable named as MLOQ_PARAM_NAME
+        2. Values defined in mloq.yaml
+        3. Interactive promp from CLI (Optional)
+    """
+
     def __init__(
         self,
         name: str,
@@ -174,6 +195,15 @@ class IntPrompt(PromptParam):
 
 
 class FloatPrompt(PromptParam):
+    """
+    Define a configuration parameter that can take a floating point value.
+
+    It allows to parse a configuration value from different sources in the following order:
+        1. Environment variable named as MLOQ_PARAM_NAME
+        2. Values defined in mloq.yaml
+        3. Interactive promp from CLI (Optional)
+    """
+
     def __init__(
         self,
         name: str,
@@ -225,15 +255,24 @@ PARAM_TO_PROMPT = {
 
 
 class Prompt:
-    def __init__(self, target: Configurable):
+    """
+    Manage all the functionality needed to display a cli prompt.
+
+    It allows to interactively define the values of the different parameters of a class.
+    """
+
+    def __init__(self, target: "Promptable"):
+        """Initialize a Prompt."""
         self._target = target
         self._prompts = {}
         self._init_prompts()
 
     def __call__(self, key: str, inplace: bool = False, **kwargs) -> Any:
+        """Display the a prompt to interactively define the parameter values of target."""
         return self.prompt(key=key, inplace=inplace, **kwargs)
 
     def _init_prompts(self) -> None:
+        """Initialize the prompts corresponding to the target Promptable parameters."""
         self._prompts = {}
         conf: DictConfig = self._target.config
         param_ = self._target.param
@@ -246,6 +285,7 @@ class Prompt:
                 self._prompts[name] = prompt_cls(name, self._target, default=default)
 
     def prompt(self, key: str, inplace: bool = False, **kwargs) -> Any:
+        """Display the a prompt to interactively define the parameter values of target."""
         val = self._prompts[key](**kwargs)
         if inplace:
             setattr(self._target, key, val)
@@ -253,6 +293,12 @@ class Prompt:
             return val
 
     def prompt_all(self, inplace: bool = False, **kwargs) -> Dict[str, Any]:
+        """
+        Prompt all the target's parameters.
+
+        Return a dictionary containing the provided values.
+        """
+
         def param_precedence(x):
             val = getattr(self._target.param, x).precedence
             return (1e100 if val is None else val), x
@@ -262,6 +308,14 @@ class Prompt:
 
 
 class Promptable(Configurable):
+    """
+    Configurable class that allows to define the parameter values interactively using CLI prompts.
+
+    It contains a prompt attribute in charge of managing the prompting functionality for the
+    param.Parameters defined.
+    """
+
     def __init__(self, **kwargs):
+        """Initialize a Promptable."""
         super(Promptable, self).__init__(**kwargs)
         self.prompt = Prompt(self)

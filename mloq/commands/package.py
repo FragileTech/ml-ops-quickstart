@@ -54,7 +54,9 @@ class PackageCMD(Command):
     author = param.String(doc="Author(s) of the project")
     email = param.String(doc="Owner contact email")
     python_versions = param.ListSelector(
-        default=PYTHON_VERSIONS, doc="Supported python versions", objects=PYTHON_VERSIONS,
+        default=PYTHON_VERSIONS,
+        doc="Supported python versions",
+        objects=PYTHON_VERSIONS,
     )
     pipenv = param.Boolean(False, doc="Add pipenv support to the project configuration")
 

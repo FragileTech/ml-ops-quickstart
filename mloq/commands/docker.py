@@ -6,9 +6,8 @@ import click
 from omegaconf import DictConfig, MISSING, OmegaConf
 
 from mloq.command import Command
-from mloq.commands.requirements import (
+from mloq.commands.requirements import (  # REQUIREMENT_CHOICES,
     pytorch_req,
-    REQUIREMENT_CHOICES,
     RequirementsCMD,
     tensorflow_req,
 )
@@ -65,12 +64,13 @@ class DockerCMD(Command):
     lint = param.Boolean(True, doc="Install requirements-lint.txt?")
     jupyter = param.Boolean(True, doc="Install a jupyter notebook server?")
     jupyter_password = param.String(
-        "${docker.project_name}", doc="password for the Jupyter notebook server",
+        "${docker.project_name}",
+        doc="password for the Jupyter notebook server",
     )
     requirements = param.List(default=["none"], doc="Project requirements")
     extra = param.String("", doc="Extra code to add to Dockerfile")
     makefile = param.Boolean(True, doc="Add docker commands to makefile")
-    #requirements = param.ListSelector(
+    # requirements = param.ListSelector(
     #    default="none", doc="Project requirements", objects=REQUIREMENT_CHOICES,
     # )
 
@@ -115,6 +115,7 @@ class DockerCMD(Command):
         return f"ubuntu:{self.config.ubuntu_version}"
 
     def parse_config(self) -> DictConfig:
+        """Update the configuration dictionary from the data entered by the user."""
         if self.cuda is None:
             self.cuda = self.requires_cuda()
         return super(DockerCMD, self).parse_config()
