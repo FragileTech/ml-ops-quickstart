@@ -57,7 +57,7 @@ class TestCommand:
         command.parse_config()
         for key in command.config.keys():
             conf_record = getattr(command.record.config, command.cmd_name)
-            assert conf_record[key] == config[command.cmd_name][key]
+            assert conf_record[key] == config[command.cmd_name][key], key
 
     def test_files_present_in_record(self, command_and_config):
         command, config = command_and_config
