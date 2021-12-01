@@ -6,7 +6,7 @@ from typing import NamedTuple, Optional, Union
 
 class File(NamedTuple):
     """
-    Generate project files.
+    Generates project files.
 
     This class defines templating files, which will be rendered according
     to the user's configuration. Besides, File instances have additional
@@ -276,7 +276,6 @@ REQUIREMENTS_FILES = [
     data_science_req,
     test_req,
 ]
-
 
 ALL_FILES = ROOT_PATH_FILES + WORKFLOW_FILES + PYTHON_FILES + [mloq_yml] + DOCS_FILES
 
