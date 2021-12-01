@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from omegaconf import DictConfig
+from omegaconf import DictConfig, OmegaConf
 import pytest
 
 from mloq.commands.docker import DOCKER_FILES, DockerCMD
@@ -92,3 +92,18 @@ def command_and_example(request):
     record = CMDRecord(config)
     command = command_cls(record=record)
     return command, example
+
+
+class TestDockerCMD:
+    def test_name_is_correct(self, command_and_config):
+        command, config = command_and_config
+        assert command.cmd_name == "docker"
+
+    def test_parse_cfg_base_image(self, command_and_config):
+        command, config = command_and_config
+
+        # assert command.conf.is_missing("base_image"), config.docker
+        command.parse_config()
+        assert command.base_image is not None
+        assert command.record.config.docker.base_image is not None
+        assert command.base_image == command.get_base_image()

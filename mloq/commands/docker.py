@@ -82,7 +82,11 @@ class DockerCMD(Command):
 
     def get_base_image(self):
         """Return the name of the base image for the project Docker container."""
-        if not OmegaConf.is_missing(self.config, "base_image"):
+        # Check value is not missing and it is not None due to a bad interpolation resolution
+        if (
+            not OmegaConf.is_missing(self.config, "base_image")
+            and self.config.base_image is not None
+        ):
             return self.config.base_image
         elif self.config.cuda:
             cuda_image = (
@@ -94,6 +98,7 @@ class DockerCMD(Command):
 
     def parse_config(self) -> DictConfig:
         """Update the configuration dictionary from the data entered by the user."""
+        super(DockerCMD, self).parse_config()
         if self.cuda is None:
             self.cuda = self.requires_cuda()
         self.base_image = self.get_base_image()
