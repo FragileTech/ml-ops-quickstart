@@ -2,7 +2,6 @@
 from pathlib import Path
 from typing import Tuple
 
-import click
 from omegaconf import MISSING
 
 from mloq.command import Command
@@ -19,7 +18,6 @@ from mloq.files import (
     test_req,
     version,
 )
-from mloq.params import BooleanParam, config_group, ConfigParam
 
 
 PROJECT_FILES = [
@@ -35,26 +33,12 @@ PROJECT_FILES = [
     pre_commit_hook,
 ]
 
-_PROJECT = [
-    # BooleanParam("disable", "Disable project command?"),
-    BooleanParam("docker", "Does the project contains a docker container?"),
-    ConfigParam("owner", "Github handle of the project owner"),
-    ConfigParam("project_name", "Select project name"),
-    ConfigParam("description", "Short description of the project"),
-    ConfigParam(
-        "license",
-        "Project license type",
-        type=click.Choice(["MIT", "Apache-2.0", "GPL-3.0", "None"], case_sensitive=False),
-    ),
-]
-
 
 class ProjectCMD(Command):
     """Implement the functionality of the project Command."""
 
     cmd_name = "project"
     files = tuple(PROJECT_FILES)
-    CONFIG = config_group("PROJECT", _PROJECT)
     disable = param.Boolean(default=False, doc="Disable project command?")
     docker = param.Boolean(MISSING, doc="Does the project contains a docker container?")
     project_name = param.String("${globals.project_name}", doc="Select project name")

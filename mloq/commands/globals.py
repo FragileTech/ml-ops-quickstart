@@ -6,21 +6,6 @@ import param
 from mloq.command import Command
 
 
-# from mloq.params import BooleanParam, ConfigParam
-
-
-"""_GLOBALS = [
-    ConfigParam("project_name", "Select project name"),
-    ConfigParam("description", "Short description of the project"),
-    ConfigParam("author", "Author(s) of the project"),
-    ConfigParam("owner", "Github handle of the project owner"),
-    ConfigParam("email", "Owner contact email"),
-    BooleanParam("open_source", "Is the project Open Source?"),
-    ConfigParam("project_url", "GitHub project url"),
-    ConfigParam("default_branch", "Default branch of the project"),
-]"""
-
-
 class GlobalsCMD(Command):
     """Implement the functionality of the globals Command."""
 

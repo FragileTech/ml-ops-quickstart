@@ -17,19 +17,10 @@ from mloq.files import (
     requirements,
     tensorflow_req,
 )
-from mloq.params import MultiChoiceParam
 from mloq.record import CMDRecord
 
 
 REQUIREMENTS_FILES = [pytorch_req, data_science_req, data_viz_req, tensorflow_req]
-
-_REQUIREMENTS = [
-    MultiChoiceParam(
-        "requirements",
-        text="Project requirements",
-        choices=["data-science", "data-viz", "torch", "tensorflow", "none"],
-    ),
-]
 
 REQUIREMENT_CHOICES = ["data-science", "data-viz", "torch", "tensorflow", "none", "dogfood"]
 
@@ -62,6 +53,8 @@ class RequirementsCMD(Command):
         """
         super(RequirementsCMD, self).__init__(record=record, interactive=interactive)
         self._temp_dir = tempfile.TemporaryDirectory()
+        # File objects work referencing files present in the system. We create a requirements.txt
+        # temporary file to be consistent with that behavior.
         reqs_src = Path(self._temp_dir.name) / "requirements.txt"
         self._reqs_file = File(
             name=requirements.name,

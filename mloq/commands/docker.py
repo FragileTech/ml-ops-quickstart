@@ -13,7 +13,6 @@ from mloq.commands.requirements import (  # REQUIREMENT_CHOICES,
 )
 from mloq.config.param_patch import param
 from mloq.files import DOCKER_PATH, file
-from mloq.params import BooleanParam, ConfigParam, MultiChoiceParam
 
 
 dockerfile = file("Dockerfile", DOCKER_PATH, description="Docker container for the project")
@@ -23,27 +22,6 @@ makefile_docker = file(
     description="Makefile for the Docker container setup",
 )
 DOCKER_FILES = [dockerfile, makefile_docker]
-
-_DOCKER = [
-    # BooleanParam("disable", "Disable docs command?"),
-    BooleanParam("cuda", "Install CUDA?"),
-    ConfigParam("cuda_image_type", "Type of cuda docker container"),
-    ConfigParam("cuda_version", "CUDA version installed in the container"),
-    ConfigParam("ubuntu_version", "Ubuntu version of the base image"),
-    ConfigParam("project_name", "Select project name"),
-    ConfigParam("docker_org", "Name of your Docker organization"),
-    ConfigParam("python_version", "Python version installed in the container"),
-    ConfigParam("base_image", "Base Docker image used to build the container"),
-    BooleanParam("test", "Install requirements-test.txt?"),
-    BooleanParam("lint", "Install requirements-lint.txt?"),
-    BooleanParam("jupyter", "Install a jupyter notebook server?"),
-    BooleanParam("jupyter_password", "password for the Jupyter notebook server"),
-    MultiChoiceParam(
-        "requirements",
-        text="Project requirements",
-        choices=["data-science", "data-viz", "torch", "tensorflow", "none"],
-    ),
-]
 
 
 class DockerCMD(Command):
@@ -118,32 +96,8 @@ class DockerCMD(Command):
         """Update the configuration dictionary from the data entered by the user."""
         if self.cuda is None:
             self.cuda = self.requires_cuda()
-        # FIXME: Auto inference of base image is broken (when base_image is missing)
         self.base_image = self.get_base_image()
         return super(DockerCMD, self).parse_config()
-
-    def _____parse_config(self) -> DictConfig:
-        """Update the configuration DictConfig with the Command parameters."""
-        self.config.docker_org = self.CONFIG.docker_org(self.config, self.interactive).lower()
-        self.config.python_version = self.CONFIG.python_version(self.config, self.interactive)
-        self.config.requirements = self.CONFIG.requirements(self.config, self.interactive)
-        cuda = self.CONFIG.cuda(self.config, self.interactive, default=self.requires_cuda())
-        self.config.cuda = cuda
-        self.config.cuda_image_type = self.CONFIG.cuda_image_type(self.config, self.interactive)
-        self.config.cuda_version = self.CONFIG.cuda_version(self.config, self.interactive)
-        self.config.ubuntu_version = self.CONFIG.ubuntu_version(self.config, self.interactive)
-        base_image = self.get_base_image()
-        self.config.base_image = self.CONFIG.base_image(
-            self.config,
-            self.interactive,
-            default=base_image,
-        )
-        self.config.test = self.CONFIG.test(self.config, self.interactive)
-        self.config.lint = self.CONFIG.lint(self.config, self.interactive)
-        self.config.jupyter = self.CONFIG.jupyter(self.config, self.interactive)
-        self.config.jupyter_password = self.CONFIG.jupyter_password(self.config, self.interactive)
-        self.config.project_name = self.CONFIG.project_name(self.config, self.interactive)
-        return self.record.config
 
     def interactive_config(self) -> DictConfig:
         """Generate the configuration of the project interactively."""

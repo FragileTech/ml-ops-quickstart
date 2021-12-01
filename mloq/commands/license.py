@@ -7,22 +7,9 @@ from omegaconf import DictConfig, MISSING
 from mloq.command import Command
 from mloq.config.param_patch import param
 from mloq.files import code_of_conduct, contributing, dco, LICENSES
-from mloq.params import BooleanParam, ConfigParam
 
 
 OPEN_SOURCE_FILES = [dco, contributing, code_of_conduct]
-
-_LICENSE = [
-    # BooleanParam("disable", "Disable license command?"),
-    BooleanParam("open_source", "Is the project Open Source?"),
-    ConfigParam(
-        "license",
-        "Project license type",
-        type=click.Choice(["MIT", "Apache-2.0", "GPL-3.0", "None"], case_sensitive=False),
-    ),
-    ConfigParam("copyright_year", "Year when the project started"),
-    ConfigParam("copyright_holder", "Copyright holder"),
-]
 
 
 class LicenseCMD(Command):

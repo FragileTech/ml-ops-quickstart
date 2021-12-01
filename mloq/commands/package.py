@@ -8,26 +8,9 @@ from mloq.command import Command
 from mloq.commands.ci import PYTHON_VERSIONS
 from mloq.config.param_patch import param
 from mloq.files import pyproject_toml, setup_py
-from mloq.params import ConfigParam, MultiChoiceParam
 
 
 PACKAGE_FILES = [pyproject_toml, setup_py]
-
-_PACKAGE = [
-    # BooleanParam("disable", "Disable package command?"),
-    ConfigParam("project_name", "Select project name"),
-    ConfigParam("pyproject_extra", "Additional pyproject.toml configuration"),
-    ConfigParam(
-        "license",
-        "Project license type",
-        type=click.Choice(["MIT", "Apache-2.0", "GPL-3.0", "None"], case_sensitive=False),
-    ),
-    MultiChoiceParam(
-        "python_versions",
-        text="Supported python versions",
-        choices=["3.6", "3.7", "3.8", "3.9"],
-    ),
-]
 
 
 class PackageCMD(Command):
