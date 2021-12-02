@@ -91,7 +91,7 @@ docker:
   jupyter_password: ${globals.project_name}
   project_name: ${globals.project_name}
   docker_org: ${globals.owner}
-  requirements: ${requirements}
+  requirements: ${requirements.requirements}
   makefile: true
   extra: ""
 
