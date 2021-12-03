@@ -15,7 +15,7 @@ class Writer:
     """
     Write all the files specified on the provided CMDRecord.
 
-    This class fulfills rendered templates according to the provided
+    This class fills in rendered templates according to the provided
     configuration and generates the resulting file on the specified
     folder.
 

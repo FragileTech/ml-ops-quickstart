@@ -1,4 +1,4 @@
-"""This module defines the pipeline for running an mloq command, such as config loading, \
+"""This module defines the pipeline for running a mloq command, such as config loading, \
 template writing and interfacing with click."""
 from pathlib import Path
 import sys
@@ -17,9 +17,9 @@ from mloq.writer import Writer
 
 def load_config(config_file: Union[Path, str], hydra_args: str) -> DictConfig:
     """
-    Load the necessary configuration for running mloq from an mloq.yaml file.
+    Load the necessary configuration for running mloq from a mloq.yaml file.
 
-    If no path to mloq.yaml is provided it returns a template to be filled in \
+    If no path to mloq.yaml is provided, it returns a template to be filled in
     using the interactive mode.
 
     Args:
@@ -62,6 +62,9 @@ def write_record(
     """
     Write the contents of the provided record to the target path.
 
+    The writing process is performed by :class: `Writer`, class that fills
+    in rendered templates according to the given configuration.
+
     Args:
         record: CMDRecord containing all the data to be written.
         path: Target directory to write the data.
@@ -81,14 +84,14 @@ def write_record(
 
 def run_command(cmd_cls, use_click: bool = True) -> Callable:
     """
-    Run the provided Command class.
+    Run the given Command class.
 
     Args:
         cmd_cls: Command to be executed.
-        use_click: If True run the function as a click cli command.
+        use_click: If True run the function as a "cli" command.
 
     Returns:
-        A function that will run the for the target class as a mloq command.
+        A function that will run the target class as a mloq command.
     """
     from mloq.cli import mloq_click_command
 

@@ -54,7 +54,7 @@ class CMDRecord:
         that `mloq` will create.
 
     This class is initialized from a configuration dictionary. The dictionary
-    can be either an :clasS:`omegaconf.DictConfig` or an empty dictionary.
+    can be either an :class:`omegaconf.DictConfig` or an empty dictionary.
     """
 
     def __init__(
@@ -73,7 +73,7 @@ class CMDRecord:
                 be created. Values are File elements referencing the current
                 file.
             directories: List that stores the directories that will be generated
-                by the mloq command according to the user's configuration.
+                by the mloq according to the user's configuration.
         """
         self._files = {} if files is None else files
         self._directories: List[Path] = [] if directories is None else directories
@@ -115,7 +115,7 @@ class CMDRecord:
         return self._directories
 
     def update_config(self, config: DictConfig) -> None:
-        """Update the configuration dictionary according to the values entered by the user."""
+        """Update the configuration attribute according to the values entered by the user."""
         self._config = OmegaConf.merge(self._config, config)
 
     def register_file(
@@ -125,7 +125,7 @@ class CMDRecord:
         description: Optional[str] = None,
     ) -> None:
         """
-        Append a new requested file to the 'files' container.
+        Append a new file to the 'files' container.
 
         Keys are Path strings describing the location where the file will
         be created. Values are File objects containing the information
@@ -144,5 +144,5 @@ class CMDRecord:
         self.files[Path(path) / file.dst] = file
 
     def register_directory(self, path: Union[Path, str]) -> None:
-        """Append a new requested directory path to the 'directories' container."""
+        """Append a new directory path to the 'directories' container."""
         self.directories.append(Path(path))
