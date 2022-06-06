@@ -1,4 +1,4 @@
-sphinx==3.5.1
+sphinx==5.0.1
 linkify-it-py==1.0.1
 myst-parser==0.13.5
 ruyaml==0.19.2
