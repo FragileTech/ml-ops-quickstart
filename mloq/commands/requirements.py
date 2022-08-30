@@ -22,7 +22,7 @@ from mloq.record import CMDRecord
 
 REQUIREMENTS_FILES = [pytorch_req, data_science_req, data_viz_req, tensorflow_req]
 
-REQUIREMENT_CHOICES = ["data-science", "data-viz", "torch", "tensorflow", "none", "dogfood"]
+REQUIREMENT_CHOICES = ["data-science", "data-viz", "torch", "tensorflow", "none", "dogfood", "None"]
 
 
 class RequirementsCMD(Command):

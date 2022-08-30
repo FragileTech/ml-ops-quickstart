@@ -17,7 +17,7 @@ RUN cd {{docker.project_name}} \
     {% if docker.lint %}&& pip3 install -r requirements-lint.txt  \{% endif %}
     {% if docker.test %}&& pip3 install -r requirements-test.txt  \{% endif %}
     && pip3 install -r requirements.txt  \
-    {% if docker.jupyter %}&& pip3 install ipython jupyter \{% endif %}
+    {% if docker.jupyter %}&& pip install ipython jupyter \{% endif %}
     && pip3 install -e . \
     && git config --global init.defaultBranch master \
     && git config --global user.name "Whoever" \
