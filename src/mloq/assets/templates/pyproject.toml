@@ -19,6 +19,7 @@ exclude = '''
   | buck-out
   | build
   | dist
+  | venv
 )/
 '''
 # isort orders and lints imports
