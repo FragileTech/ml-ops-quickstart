@@ -10,4 +10,4 @@ coverage:
         threshold: 0%
         informational: true
         paths:
-        - {{ project.project_name }}
+        - src/{{ project.project_name }}
