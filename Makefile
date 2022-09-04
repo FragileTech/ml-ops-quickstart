@@ -45,11 +45,11 @@ pipenv-test:
 
 .PHONY: docker-shell
 docker-shell:
-	docker run --rm --gpus all -v ${current_dir}:/${PROJECT} --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION} bash
+	docker run --rm -v ${current_dir}:/${PROJECT} --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION} bash
 
 .PHONY: docker-notebook
 docker-notebook:
-	docker run --rm --gpus all -v ${current_dir}:/${PROJECT} --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION}
+	docker run --rm -v ${current_dir}:/${PROJECT} --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION}
 
 .PHONY: docker-build
 docker-build:
