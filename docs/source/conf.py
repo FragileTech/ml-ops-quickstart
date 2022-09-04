@@ -71,7 +71,7 @@ suppress_warnings = ["image.nonlocal_uri"]
 autodoc_typehints = "description"
 # Autoapi settings
 autoapi_type = "python"
-autoapi_dirs = ["../../mloq"]
+autoapi_dirs = ["../../src/mloq"]
 autoapi_add_toctree_entry = True
 # Make use of custom templates
 autoapi_template_dir = "_autoapi_templates"

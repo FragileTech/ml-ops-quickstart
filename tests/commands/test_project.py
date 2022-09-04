@@ -70,7 +70,7 @@ def command_and_config(request):
 
 
 def example_files():
-    project_path = Path("test_project")
+    project_path = Path("src") / "test_project"
     module_desc = "Python package header for the project module"
     test_desc = "Python package header for the test module"
     module_init = File(

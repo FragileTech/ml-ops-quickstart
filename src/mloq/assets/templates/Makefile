@@ -1,6 +1,6 @@
 current_dir = $(shell pwd)
 
-PROJECT = src/{{project.project_name}}
+PROJECT = {{project.project_name}}
 {% if project.tests %}n ?= auto{% endif %}
 {% if docker.makefile %}DOCKER_ORG = {{docker.docker_org}}
 DOCKER_TAG ?= ${PROJECT}
@@ -14,9 +14,9 @@ style:
 .POSIX:
 check:
 	!(grep -R /tmp tests)
-	flakehell lint ${PROJECT}
-	pylint ${PROJECT}
-	black --check ${PROJECT}{% endif %}
+	flakehell lint src/${PROJECT}
+	pylint src/${PROJECT}
+	black --check src/${PROJECT}{% endif %}
 {% if project.tests %}
 .PHONY: test
 test:

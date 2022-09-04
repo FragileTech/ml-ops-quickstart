@@ -1,6 +1,6 @@
 current_dir = $(shell pwd)
 
-PROJECT = src/mloq
+PROJECT = mloq
 n ?= auto
 DOCKER_ORG = fragiletech
 DOCKER_TAG ?= ${PROJECT}
@@ -14,9 +14,9 @@ style:
 .POSIX:
 check:
 	!(grep -R /tmp tests)
-	flakehell lint ${PROJECT}
-	pylint ${PROJECT}
-	black --check ${PROJECT}
+	flakehell lint src/${PROJECT}
+	pylint src/${PROJECT}
+	black --check src/${PROJECT}
 
 .PHONY: test
 test:

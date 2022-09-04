@@ -11,7 +11,7 @@ on:
 env:
   PROJECT_NAME: {{ci.project_name}}
   PROJECT_DIR: src/{{ci.project_name.replace("-", "_")}}
-  VERSION_FILE: {{ci.project_name.replace("-", "_")}}/version.py
+  VERSION_FILE: src/{{ci.project_name.replace("-", "_")}}/version.py
   DEFAULT_BRANCH: {{ci.default_branch}}
   BOT_NAME: {{ci.bot_name}}
   BOT_EMAIL: {{ci.bot_email}}

@@ -11,7 +11,7 @@ on:
 env:
   PROJECT_NAME: mloq
   PROJECT_DIR: src/mloq
-  VERSION_FILE: mloq/version.py
+  VERSION_FILE: src/mloq/version.py
   DEFAULT_BRANCH: master
   BOT_NAME: fragile-bot
   BOT_EMAIL: bot@fragile.tech
