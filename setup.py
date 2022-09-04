@@ -7,7 +7,7 @@ from setuptools import find_packages, setup
 
 version = SourceFileLoader(
     "mloq.version",
-    str(Path(__file__).parent / "mloq" / "version.py"),
+    str(Path(__file__).parent / "src" / "mloq" / "version.py"),
 ).load_module()
 
 with open(Path(__file__).with_name("README.md"), encoding="utf-8") as f:
@@ -18,7 +18,8 @@ setup(
     description="Package for initializing ML projects following ML Ops best practices.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    packages=find_packages(),
+    packages=find_packages("src"),
+    package_dir={"": "src"},
     version=version.__version__,
     license="MIT",
     author="FragileTech",
@@ -26,21 +27,21 @@ setup(
     url="https://github.com/FragileTech/ml-ops-quickstart",
     download_url="https://github.com/FragileTech/ml-ops-quickstart/releases",
     keywords=["Machine learning", "artificial intelligence"],
+    test_suite="tests",
     tests_require=["pytest>=5.3.5", "hypothesis>=5.6.0"],
     install_requires=[
-        "flogging>=0.0.8",
-        "jinja2>=2.0.0",
-        "click>=7.1.2,<8.0.0",
+        "flogging>=0.0.14",
+        "jinja2>=3.0.0",
+        "click>=8.0.0",
         "invoke>=1.4.1",
-        "hydra-core>=1.0,<1.1",
-        "pre-commit>=2.10.0",
+        "hydra-core>=1.1.1",
+        "param>=1.11.0",
+        "pre-commit>=2.15.0",
+        "typing-extensions>=4.0.0",
     ],
     package_data={
         "": ["README.md"],
-        "mloq": [
-            "assets/**/*",
-            "assets/**/.*",
-        ],
+        "mloq": ["assets/**/*", "assets/**/.*", "tests/**/*", "tests/**/.*"],
     },
     include_package_data=True,
     classifiers=[
@@ -57,6 +58,6 @@ setup(
     ],
     entry_points="""
             [console_scripts]
-            mloq=mloq.cli.main:cli
+            mloq=mloq.cli:cli
         """,
 )

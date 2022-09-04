@@ -1,0 +1,259 @@
+name: Push
+
+on:
+  push:
+    branches:
+      - {{ci.default_branch}}
+  pull_request:
+    branches:
+      - {{ci.default_branch}}
+
+env:
+  PROJECT_NAME: {{ci.project_name}}
+  PROJECT_DIR: src/{{ci.project_name.replace("-", "_")}}
+  VERSION_FILE: src/{{ci.project_name.replace("-", "_")}}/version.py
+  DEFAULT_BRANCH: {{ci.default_branch}}
+  BOT_NAME: {{ci.bot_name}}
+  BOT_EMAIL: {{ci.bot_email}}
+  DOCKER_ORG: {{ci.docker_org}}
+  PIP_CACHE: |
+    ~/.cache/pip
+    ~/.local/bin
+    ~/.local/lib/python3.*/site-packages
+
+jobs:
+  style-check:
+    name: Style check
+    if: "!contains(github.event.head_commit.message, 'Bump version')"
+    runs-on: {{ ci.ubuntu_version }}
+    steps:
+    - name: actions/checkout
+      uses: actions/checkout@v2
+    - name: Set up Python {{ ci.ci_python_version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: "{{ ci.ci_python_version }}"
+    - name: actions/cache
+      uses: actions/cache@v2
+      with:
+        path: ${{'{{'}} env.PIP_CACHE {{'}}'}}
+        key: {{ ci.ubuntu_version }}-pip-lint-${{'{{'}} hashFiles('requirements-lint.txt') {{'}}'}}
+        restore-keys: {{ ci.ubuntu_version }}-pip-lint-
+    - name: Install lint dependencies
+      run: |
+        set -x
+        pip install -r requirements-lint.txt
+
+    - name: Run style check and linter
+      run: |
+        set -x
+        make check
+
+  pytest:
+    name: Run Pytest
+    runs-on: {{ ci.ubuntu_version }}
+    if: "!contains(github.event.head_commit.message, 'Bump version')"
+    strategy:
+      matrix:
+        python-version: {{ ci.python_versions }}
+    steps:
+    - name: actions/checkout
+      uses: actions/checkout@v2
+    - name: Set up Python ${{"{{"}} matrix.python-version {{"}}"}}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{"{{"}} matrix.python-version {{"}}"}}
+    - name: actions/cache
+      uses: actions/cache@v2
+      with:
+        path: ${{'{{'}} env.PIP_CACHE {{'}}'}}
+        key: {{ ci.ubuntu_version }}-pip-test-${{"{{"}} matrix.python-version {{"}}"}}-${{'{{'}} hashFiles('requirements.txt', 'requirements-test.txt') {{'}}'}}
+        restore-keys: {{ ci.ubuntu_version }}-pip-test-
+    - name: Install test and package dependencies
+      run: |
+        set -x
+        pip install -r requirements-test.txt -r requirements.txt
+        pip install .{% if ci.ci_extra %}
+    - name: Additional setup
+      run: |
+        set -x
+        {{ ci.ci_extra | indent(8) }}{% endif %}
+
+    - name: Test with pytest
+      run: |
+        set -x
+        make test-codecov
+
+    - name: Upload coverage report
+      if: ${{"{{"}} matrix.python-version=='{{ ci.ci_python_version }}' {{"}}"}}
+      uses: codecov/codecov-action@v1
+{% if ci.docker %}
+  test-docker:
+    name: Test Docker container
+    runs-on: {{ ci.ubuntu_version }}
+    if: "!contains(github.event.head_commit.message, 'Bump version')"
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build container
+      run: |
+        set -x
+        make docker-build
+    - name: Run tests
+      run: |
+        set -x
+        make docker-test
+{% endif %}
+  build-test-package:
+    name: Build and test the package
+    needs: style-check
+    runs-on: {{ ci.ubuntu_version }}
+    if: "!contains(github.event.head_commit.message, 'Bump version')"
+    steps:
+      - name: actions/checkout
+        uses: actions/checkout@v2
+      - name: Set up Python {{ ci.ci_python_version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: {{ ci.ci_python_version }}
+      - name: actions/cache
+        uses: actions/cache@v2
+        with:
+          path: ${{'{{'}} env.PIP_CACHE {{'}}'}}
+          key: {{ ci.ubuntu_version }}-pip-test-{{ ci.ci_python_version }}-${{'{{'}} hashFiles('requirements.txt', 'requirements-test.txt') {{'}}'}}
+          restore-keys: {{ ci.ubuntu_version }}-pip-test-
+      - name: Install dependencies
+        run: |
+          set -x
+          python -m pip install -U pip
+          python -m pip install -U setuptools twine wheel bump2version
+
+      - name: Create unique version for test.pypi
+        run: |
+          set -x
+          current_version=$(grep __version__ $VERSION_FILE | cut -d\" -f2)
+          ts=$(date +%s)
+          new_version="$current_version$ts"
+          bumpversion --current-version $current_version --new-version $new_version patch $VERSION_FILE
+
+      - name: Build package
+        run: |
+          set -x
+          python setup.py --version
+          python setup.py bdist_wheel sdist --format=gztar
+          twine check dist/*
+
+      - name: Publish package to TestPyPI
+        env:
+          TEST_PYPI_PASS: ${{'{{'}} secrets.TEST_PYPI_PASS {{'}}'}}
+        if: "'$TEST_PYPI_PASS' != ''"
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{'{{'}} secrets.TEST_PYPI_PASS {{'}}'}}
+          repository_url: https://test.pypi.org/legacy/
+          skip_existing: true
+
+      - name: Install dependencies
+        run: |
+          set -x
+          python -m pip install dist/*.whl -r requirements-test.txt{% if ci.ci_extra %}
+      - name: Additional setup
+        run: |
+          set -x
+          {{ ci.ci_extra | indent(10) }}{% endif %}
+
+      - name: Test package
+        run: |
+          set -x
+          rm -rf $PROJECT_DIR
+          make test
+
+  bump-version:
+    name: Bump package version
+    env:
+      BOT_AUTH_TOKEN: ${{'{{'}} secrets.BOT_AUTH_TOKEN {{'}}'}}
+    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{ci.default_branch}}' && '$BOT_AUTH_TOKEN' != ''"
+    runs-on: {{ ci.ubuntu_version }}
+    needs:
+      - pytest
+      - build-test-package{% if ci.docker %}
+      - test-docker{% endif %}
+    steps:
+      - name: actions/checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          fetch-depth: 100
+      - name: current_version
+        run: |
+          set -x
+          echo "current_version=$(grep __version__ $VERSION_FILE | cut -d\" -f2)" >> $GITHUB_ENV
+          echo "version_file=$VERSION_FILE" >> $GITHUB_ENV
+          echo 'bot_name="${BOT_NAME}"' >> $GITHUB_ENV
+          echo 'bot_email="${BOT_EMAIL}"' >> $GITHUB_ENV
+      - name: FragileTech/bump-version
+        uses: FragileTech/bump-version@main
+        with:
+          current_version: "${{'{{'}} env.current_version {{'}}'}}"
+          files: "${{'{{'}} env.version_file {{'}}'}}"
+          commit_name: "${{'{{'}} env.bot_name {{'}}'}}"
+          commit_email: "${{'{{'}} env.bot_email {{'}}'}}"
+          login: "${{'{{'}} env.bot_name {{'}}'}}"
+          token: "${{'{{'}} secrets.BOT_AUTH_TOKEN {{'}}'}}"
+{% if ci.docker %}
+  push-docker:
+    name: Push Docker container
+    runs-on: {{ ci.ubuntu_version }}
+    env:
+      DOCKERHUB_PASS: ${{'{{'}} secrets.DOCKERHUB_PASS {{'}}'}}
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{ci.default_branch}}' && '$DOCKERHUB_PASS' != ''"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to DockerHub
+        run: |
+          set -x
+          docker login -u "${{'{{'}} secrets.DOCKERHUB_LOGIN {{'}}'}}" -p "${{'{{'}} secrets.DOCKERHUB_PASS {{'}}'}}" docker.io
+
+      - name: Build container
+        run: |
+          set -x
+          CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
+          make docker-build VERSION=$CONTAINER_VERSION PROJECT=$PROJECT_NAME DOCKER_ORG=$DOCKER_ORG
+      - name: Push images
+
+        run: |
+          set -x
+          CONTAINER_VERSION=v$(grep __version__ $VERSION_FILE | cut -d\" -f2)
+          make docker-push VERSION=$CONTAINER_VERSION PROJECT=$PROJECT_NAME DOCKER_ORG=$DOCKER_ORG
+{% endif %}
+  release-package:
+    name: Release PyPI package
+    env:
+      PYPI_PASS: ${{'{{'}} secrets.PYPI_PASS {{'}}'}}
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/{{ci.default_branch}}'  && '$PYPI_PASS' != ''"
+    runs-on: {{ ci.ubuntu_version }}
+    steps:
+      - name: actions/checkout
+        uses: actions/checkout@v2
+      - name: Set up Python {{ ci.ci_python_version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: {{ ci.ci_python_version }}
+      - name: Install dependencies
+        run: |
+          set -x
+          python -m pip install -U pip
+          python -m pip install -U setuptools twine wheel
+
+      - name: Build package
+        run: |
+          set -x
+          python setup.py --version
+          python setup.py bdist_wheel sdist --format=gztar
+          twine check dist/*
+
+      - name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{"{{"}} secrets.PYPI_PASS {{"}}"}}

@@ -10,8 +10,8 @@ on:
 
 env:
   PROJECT_NAME: mloq
-  PROJECT_DIR: mloq
-  VERSION_FILE: mloq/version.py
+  PROJECT_DIR: src/mloq
+  VERSION_FILE: src/mloq/version.py
   DEFAULT_BRANCH: master
   BOT_NAME: fragile-bot
   BOT_EMAIL: bot@fragile.tech
@@ -81,7 +81,7 @@ jobs:
         git config --global user.email "bot@fragile.tech"
         git config --global init.defaultBranch master
         mkdir generated
-        mloq setup generated -f mloq.yml
+        mloq setup generated -f mloq.yaml
         diff .github/workflows/push.yml generated/.github/workflows/push.yml
         diff requirements.txt generated/requirements.txt
         diff requirements-lint.txt generated/requirements-lint.txt
@@ -91,13 +91,13 @@ jobs:
         diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
         diff CONTRIBUTING.md generated/CONTRIBUTING.md
         diff LICENSE generated/LICENSE
-        diff Makefile generated/Makefile
         diff .pre-commit-config.yaml generated/.pre-commit-config.yaml
-        diff Dockerfile generated/Dockerfile
         diff .codecov.yml generated/.codecov.yml
         diff .gitignore generated/.gitignore
         diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
-        rm generated/mloq/tests/test_main.py
+        diff Dockerfile generated/Dockerfile
+        diff Makefile generated/Makefile
+        rm generated/tests/test_main.py
 
     - name: Test with pytest
       run: |
@@ -126,7 +126,7 @@ jobs:
   build-test-package:
     name: Build and test the package
     needs: style-check
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     if: "!contains(github.event.head_commit.message, 'Bump version')"
     steps:
       - name: actions/checkout
@@ -184,7 +184,7 @@ jobs:
           git config --global user.email "bot@fragile.tech"
           git config --global init.defaultBranch master
           mkdir generated
-          mloq setup generated -f mloq.yml
+          mloq setup generated -f mloq.yaml
           diff .github/workflows/push.yml generated/.github/workflows/push.yml
           diff requirements.txt generated/requirements.txt
           diff requirements-lint.txt generated/requirements-lint.txt
@@ -194,18 +194,17 @@ jobs:
           diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
           diff CONTRIBUTING.md generated/CONTRIBUTING.md
           diff LICENSE generated/LICENSE
-          diff Makefile generated/Makefile
           diff .pre-commit-config.yaml generated/.pre-commit-config.yaml
-          diff Dockerfile generated/Dockerfile
           diff .codecov.yml generated/.codecov.yml
           diff .gitignore generated/.gitignore
           diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
-          rm generated/mloq/tests/test_main.py
+          diff Dockerfile generated/Dockerfile
+          diff Makefile generated/Makefile
+          rm generated/tests/test_main.py
 
       - name: Test package
         run: |
           set -x
-          mv $PROJECT_DIR/tests ./tests
           rm -rf $PROJECT_DIR
           make test
 
@@ -272,7 +271,7 @@ jobs:
     env:
       PYPI_PASS: ${{ secrets.PYPI_PASS }}
     if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master'  && '$PYPI_PASS' != ''"
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: actions/checkout
         uses: actions/checkout@v2

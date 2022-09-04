@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 # black is the tool to format the source code
 [tool.black]
 line-length = 99
-target-version = ['py36', 'py37', 'py38']
+target-version = ['py37', 'py38', 'py39']
 include = '\.pyi?$'
 exclude = '''
 /(
@@ -19,6 +19,7 @@ exclude = '''
   | buck-out
   | build
   | dist
+  | venv
 )/
 '''
 # isort orders and lints imports
@@ -38,14 +39,14 @@ honor_noqa = true
 # Code coverage config
 [tool.coverage.run]
 branch = true
-source = ["mloq"]
+source = ["src/mloq"]
 
 [tool.coverage.report]
 exclude_lines =["no cover",
     'raise NotImplementedError',
     'if __name__ == "__main__":']
 ignore_errors = true
-omit = ["mloq/tests/*"]
+omit = ["tests/*"]
 
 # Flakehell config
 [tool.flakehell]
@@ -60,6 +61,8 @@ inline_quotes='"'
 import_order_style = "appnexus"
 application_package_names = ["mloq"]
 application_import_names = ["mloq"]
+# Fix AttributeError: 'Namespace' object has no attribute 'extended_default_ignore'
+extended_default_ignore=[]
 
 [tool.flakehell.plugins]
 "flake8*" = ["+*"]

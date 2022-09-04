@@ -1,0 +1,141 @@
+globals:
+  project_name: mloq
+  default_branch: master
+  owner: FragileTech
+  author: FragileTech
+  email: guillem@fragile.tech
+  description: Package for initializing ML projects following ML Ops best practices.
+  open_source: true
+  project_url: https://github.com/FragileTech/ml-ops-quickstart
+
+license:
+  disable: false
+  license: MIT
+  copyright_year: 2020
+  copyright_holder: ${globals.owner}
+  open_source: ${globals.open_source}
+  project_name: ${globals.project_name}
+  email: ${globals.email}
+  project_url: ${globals.project_url}
+
+project:
+  disable: false
+  docker: false  # FIXME: depends on docker command
+  license: ${license.license}  # FIXME: depends on docker command
+  project_name: ${globals.project_name}
+  owner: ${globals.owner}
+  description: ${globals.description}
+  project_url: ${globals.project_url}
+  tests: true
+
+mlflow:
+  disable: true
+
+docs:
+  disable: false
+  project_name: ${globals.project_name}
+  description: ${globals.description}
+  author: ${globals.author}
+  copyright_holder: ${license.copyright_holder}
+  copyright_year: ${license.copyright_year}
+
+git:
+  disable: true
+  git_init: false
+  git_push: false
+  git_message: Generate project files with mloq
+  default_branch: ${globals.default_branch}
+  project_url: ${globals.project_url}
+
+package:
+  disable: False
+  open_source: ${globals.open_source}
+  project_name: ${globals.project_name}
+  description: ${globals.description}
+  default_branch: ${globals.default_branch}
+  project_url: ${globals.project_url}
+  owner: ${globals.owner}
+  author: ${globals.author}
+  email: ${globals.email}
+  license: ${license.license}
+  python_versions:
+  - '3.7'
+  - '3.8'
+  - '3.9'
+  pyproject_extra: ""
+  license_classifier: "License :: OSI Approved :: MIT License"
+  pipenv: true
+
+requirements:
+  disable: false
+  requirements:
+    - dogfood
+
+lint:
+  disable: false
+  docstring_checks: true
+  pyproject_extra: |-
+    [tool.flakehell.exceptions."**/assets/*"]
+    pycodestyle = ["-*"]
+    pyflakes = ["-*"]
+    "flake8*" = ["-*"]
+  project_name: ${globals.project_name}
+  makefile: true
+
+docker:
+  disable: false
+  cuda: True
+  cuda_image_type: "cudnn8-runtime"
+  cuda_version: "11.6.0"
+  python_version: "3.8"
+  ubuntu_version: "20.04"
+  base_image: "???"
+  test: true
+  lint: true
+  jupyter: true
+  jupyter_password: ${globals.project_name}
+  project_name: ${globals.project_name}
+  docker_org: fragiletech #${globals.owner}
+  requirements: ${requirements.requirements}
+  extra: ""
+  makefile: true
+
+ci:
+  bot_name: fragile-bot
+  bot_email: bot@fragile.tech
+  disable: false
+  vendor: github
+  ci_python_version: '3.8'
+  ubuntu_version: ubuntu-20.04
+  open_source: ${globals.open_source}
+  project_name: ${globals.project_name}
+  default_branch: ${globals.default_branch}
+  owner: ${globals.owner}
+  author: ${globals.author}
+  email: ${globals.email}
+  project_url: ${globals.project_url}
+  docker_org: fragiletech
+  docker: true
+  python_versions: ${package.python_versions}
+  ci_extra: |-
+    git config --global user.name "Bot"
+    git config --global user.email "bot@fragile.tech"
+    git config --global init.defaultBranch master
+    mkdir generated
+    mloq setup generated -f mloq.yaml
+    diff .github/workflows/push.yml generated/.github/workflows/push.yml
+    diff requirements.txt generated/requirements.txt
+    diff requirements-lint.txt generated/requirements-lint.txt
+    diff requirements-test.txt generated/requirements-test.txt
+    diff pyproject.toml generated/pyproject.toml
+    diff DCO.md generated/DCO.md
+    diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
+    diff CONTRIBUTING.md generated/CONTRIBUTING.md
+    diff LICENSE generated/LICENSE
+    diff .pre-commit-config.yaml generated/.pre-commit-config.yaml
+    diff .codecov.yml generated/.codecov.yml
+    diff .gitignore generated/.gitignore
+    diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
+    diff Dockerfile generated/Dockerfile
+    diff Makefile generated/Makefile
+    rm generated/tests/test_main.py

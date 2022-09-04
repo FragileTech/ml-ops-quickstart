@@ -1,0 +1,97 @@
+globals:
+  project_name: test_license
+  default_branch: master
+  owner: tester
+  author: tester-docs
+  email: test_docs@mail.com
+  description: test docs command
+  open_source: true
+  project_url: "http://example_url/docs_test"
+
+license:
+  disable: false
+  license: MIT
+  copyright_year: ${current_year:}
+  copyright_holder: ${globals.owner}
+  open_source: ${globals.open_source}
+  project_name: ${globals.project_name}
+  project_url: ${globals.project_url}
+  email: ${globals.email}
+
+project:
+  disable: false
+  docker: false  # FIXME: depends on docker command
+  license: ${license.license}  # FIXME: depends on docker command
+  project_name: ${globals.project_name}
+  owner: ${globals.owner}
+  description: ${globals.description}
+
+
+mlflow:
+  disable: true
+
+docs:
+  disable: false
+  project_name: ${globals.project_name}
+  description: ${globals.description}
+  author: ${globals.author}
+  copyright_holder: ${license.copyright_holder}
+  copyright_year: ${license.copyright_year}
+
+git:
+  disable: true
+  git_init: false
+  git_push: false
+  git_message: Generate project files with mloq
+  default_branch: ${globals.default_branch}
+  project_url: ${globals.project_url}
+
+package:
+  disable: False
+  open_source: ${globals.open_source}
+  project_name: ${globals.project_name}
+  description: ${globals.description}
+  default_branch: ${globals.default_branch}
+  project_url: ${globals.project_url}
+  owner: ${globals.owner}
+  author: ${globals.author}
+  email: ${globals.email}
+  license: ${license.license}
+  requirements:
+    - None
+  python_versions:
+  - '3.6'
+  - '3.7'
+  - '3.8'
+  - '3.9'
+  pyproject_extra: ""
+
+lint:
+  disable: false
+  docstring_checks: true
+  pyproject_extra: ""
+  project_name: ${globals.project_name}
+
+docker:
+  disable: false
+  docker_image: fragiletech/ubuntu20.04-base-py38
+  docker_org: ${globals.owner}
+
+ci:
+  bot_name: my_bot
+  bot_email: my_bot_email
+  python_versions: ${package.python_versions}
+  disable: false
+  vendor: github
+  ci_python_version: '3.8'
+  ubuntu_version: ubuntu-20.04
+  ci_extra: ""
+  open_source: ${globals.open_source}
+  project_name: ${globals.project_name}
+  default_branch: ${globals.default_branch}
+  owner: ${globals.owner}
+  author: ${globals.author}
+  email: ${globals.email}
+  project_url: ${globals.project_url}
+  docker_org: my_org
+  docker: true
