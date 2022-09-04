@@ -1,5 +1,5 @@
 globals:
-  project_name: mloq_test_setup
+  project_name: mloq
   default_branch: master
   owner: FragileTech
   author: FragileTech
@@ -59,7 +59,6 @@ package:
   email: ${globals.email}
   license: ${license.license}
   python_versions:
-  - '3.6'
   - '3.7'
   - '3.8'
   - '3.9'
@@ -85,9 +84,9 @@ lint:
 
 docker:
   disable: false
-  cuda: ???
-  cuda_image_type: "cudnn8-runtime-ubuntu20.04"
-  cuda_version: "11.2"
+  cuda: True
+  cuda_image_type: "cudnn8-runtime"
+  cuda_version: "11.6.0"
   python_version: "3.8"
   ubuntu_version: "20.04"
   base_image: "???"

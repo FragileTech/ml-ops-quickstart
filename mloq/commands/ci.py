@@ -12,7 +12,7 @@ from mloq.files import push_python_wkf
 
 WORKFLOW_FILES = [push_python_wkf]
 
-PYTHON_VERSIONS = ["3.6", "3.7", "3.8", "3.9"]
+PYTHON_VERSIONS = ["3.6", "3.7", "3.8", "3.9", "3.10"]
 
 
 class CiCMD(Command):

@@ -1,6 +1,6 @@
 current_dir = $(shell pwd)
 
-PROJECT = {{project.project_name}}
+PROJECT = src/{{project.project_name}}
 {% if project.tests %}n ?= auto{% endif %}
 {% if docker.makefile %}DOCKER_ORG = {{docker.docker_org}}
 DOCKER_TAG ?= ${PROJECT}

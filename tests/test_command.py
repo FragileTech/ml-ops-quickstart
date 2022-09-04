@@ -72,7 +72,7 @@ class TestCommand:
             assert f.dst in file_dsts
 
     def test_record_directories(self, command_and_config):
-        command, config = command_and_config
+        command, _ = command_and_config
         command.record_directories()
         for directory in command.directories:
             assert directory in command.record.directories
@@ -80,7 +80,7 @@ class TestCommand:
             assert directory in command.directories
 
     def test_run(self, command_and_config):
-        command, config = command_and_config
+        command, _ = command_and_config
         record = command.run()
         for directory in command.directories:
             assert directory in record.directories
