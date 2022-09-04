@@ -17,7 +17,7 @@ RUN cd mloq \
     && pip3 install -r requirements-lint.txt  \
     && pip3 install -r requirements-test.txt  \
     && pip3 install -r requirements.txt  \
-    && pip install ipython jupyter \
+    && pip3 install ipython jupyter \
     && pip3 install -e . \
     && git config --global init.defaultBranch master \
     && git config --global user.name "Whoever" \
