@@ -38,7 +38,7 @@ honor_noqa = true
 # Code coverage config
 [tool.coverage.run]
 branch = true
-source = ["{{lint.project_name}}"]
+source = ["src/{{lint.project_name}}"]
 
 [tool.coverage.report]
 exclude_lines =["no cover",

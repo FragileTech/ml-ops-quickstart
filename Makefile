@@ -1,6 +1,6 @@
 current_dir = $(shell pwd)
 
-PROJECT = mloq
+PROJECT = src/mloq
 n ?= auto
 DOCKER_ORG = fragiletech
 DOCKER_TAG ?= ${PROJECT}

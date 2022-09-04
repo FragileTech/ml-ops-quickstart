@@ -7,7 +7,7 @@ from setuptools import find_packages, setup
 
 version = SourceFileLoader(
     "mloq.version",
-    str(Path(__file__).parent / "mloq" / "version.py"),
+    str(Path(__file__).parent / "src" / "mloq" / "version.py"),
 ).load_module()
 
 with open(Path(__file__).with_name("README.md"), encoding="utf-8") as f:
@@ -18,7 +18,8 @@ setup(
     description="Package for initializing ML projects following ML Ops best practices.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    packages=find_packages(),
+    packages=find_packages("src"),
+    package_dir={"": "src"},
     version=version.__version__,
     license="MIT",
     author="FragileTech",

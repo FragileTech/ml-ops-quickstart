@@ -10,7 +10,7 @@ on:
 
 env:
   PROJECT_NAME: mloq
-  PROJECT_DIR: mloq
+  PROJECT_DIR: src/mloq
   VERSION_FILE: mloq/version.py
   DEFAULT_BRANCH: master
   BOT_NAME: fragile-bot
