@@ -1,6 +1,9 @@
-click==8.0.1
+click==8.0.3
 flogging==0.0.14
-hydra-core==1.0.6
-invoke==1.5.0
-jinja2==3.0.1
-pre-commit==2.13.0
+hydra-core==1.2.0
+invoke==1.6.0
+jinja2==3.0.3
+omegaconf==2.1.1
+param==1.12.0
+pre-commit==2.15.0
+typing-extensions==4.0.0
