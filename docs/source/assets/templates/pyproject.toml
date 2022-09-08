@@ -1,6 +1,66 @@
+[tool.poetry]
+name = "{{ package.project_name }}"
+version = "0.0.0"
+description = "{{ package.description }}"
+authors = [
+    "{{ package.author }}",
+]
+maintainers = ["{{ package.author }}"]
+license = "{{ package.license }}"
+readme = "README.md"
+
+packages = [
+    { include = "{{ package.project_name }}", from = "src" }
+]
+include = [
+    { path = "tests", format = "sdist" }
+]
+
+homepage = "{{ package.project_url}}"
+repository = "{{ package.project_url}}"
+documentation = "{{ package.project_url}}"
+
+keywords = ["Machine learning", "artificial intelligence", "{{ package.project_name }}"]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+
+[tool.poetry.build]
+generate-setup-file = false
+
+# Requirements
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.1"
+pytest-cov = "^3.0"
+psutil= "^5.8"
+pytest-xdist = "^2.5"
+pre-commit = "^2.6"
+pytest-rerunfailures= "^10.2"
+
+[tool.poetry.group.lint.dependencies]
+colorama = "^0.4"
+flake8 = "^3.9"
+flake8-bugbear = "^21.9"
+flake8-docstrings = "^1.6"
+flake8-import-order = "^0.18"
+flake8-quotes = "^3.3"
+flake8-commas = "^2.1"
+isort = "^5.10"
+pylint = "^2.11"
+pydocstyle = "^6.1"
+pycodestyle = "^2.7"
+flakehell = "^0.9"
+black = "^22.8"
+pre-commit = "^2.15"
+
 [build-system]
-requires = ["setuptools >= 50.3.2", "wheel >= 0.29.0"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 # black is the tool to format the source code
 [tool.black]
