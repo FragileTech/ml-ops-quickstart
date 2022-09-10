@@ -16,7 +16,6 @@ package_conf = DictConfig(
     {
         "package": dict(
             disable=False,
-            open_source=True,
             project_name="test_package",
             description="configuration for package tests",
             default_branch="test_branch_package",
@@ -50,7 +49,6 @@ package_conf_with_globals = DictConfig(
         ),
         "package": dict(
             disable=False,
-            open_source="${globals.open_source}",
             project_name="${globals.project_name}",
             description="${globals.description}",
             default_branch="${globals.default_branch}",

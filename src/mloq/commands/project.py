@@ -2,8 +2,6 @@
 from pathlib import Path
 from typing import Tuple
 
-from omegaconf import MISSING
-
 from mloq.command import Command
 from mloq.config.param_patch import param
 from mloq.files import ASSETS_PATH, file, makefile
@@ -87,6 +85,14 @@ PROJECT_FILES = [
     contributing,
 ]
 
+# TODO: select which files are created in config
+# package folders: __init__, __main__, version
+# contributing
+# codecov
+# gitignore
+# makefile
+# pre commit
+
 
 class ProjectCMD(Command):
     """Implement the functionality of the project Command."""
@@ -94,7 +100,6 @@ class ProjectCMD(Command):
     cmd_name = "project"
     files = tuple(PROJECT_FILES)
     disable = param.Boolean(default=False, doc="Disable project command?")
-    docker = param.Boolean(MISSING, doc="Does the project contains a docker container?")
     project_name = param.String("${globals.project_name}", doc="Select project name")
     owner = param.String("${globals.owner}", doc="Github handle of the project owner")
     description = param.String("${globals.description}", doc="Short description of the project")

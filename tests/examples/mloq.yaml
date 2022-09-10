@@ -19,7 +19,6 @@ license:
 
 project:
   disable: false
-  docker: false  # FIXME: depends on docker command
   license: ${license.license}  # FIXME: depends on docker command
   project_name: ${globals.project_name}
   owner: ${globals.owner}
@@ -50,7 +49,6 @@ git:
 
 package:
   disable: False
-  open_source: ${globals.open_source}
   project_name: ${globals.project_name}
   description: ${globals.description}
   default_branch: ${globals.default_branch}

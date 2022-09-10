@@ -37,7 +37,6 @@ class PackageCMD(Command):
     project_name = param.String("${globals.project_name}", doc="Select project name")
     license = param.String("MIT", doc="Project license type")
     license_classifier = param.String(MISSING, doc="License classifier in setup.py")
-    open_source = param.Boolean(MISSING, doc="Is the project Open Source?")
     description = param.String("${globals.description}", doc="Short description of the project")
     default_branch = param.String(doc="Default branch of the project")
     project_url = param.String("${globals.project_url}", doc="GitHub project url")

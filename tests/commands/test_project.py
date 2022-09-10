@@ -28,7 +28,6 @@ project_conf = {
         description="test description",
         owner="test_owner",
         license="MIT",
-        docker=True,
     ),
 }
 
@@ -51,7 +50,6 @@ project_conf_with_globals = DictConfig(
             description="${globals.description}",
             owner="${globals.owner}",
             license="${license.license}",
-            docker=False,
         ),
     },
 )

@@ -1,16 +1,17 @@
 globals:
   project_name: ???
-  default_branch: master
+  default_branch: main
   owner: ???
   author: ???
   email: ???
   description: ???
   open_source: ???
   project_url: ???
+  license: "proprietary"
 
 license:
   disable: false
-  license: ???
+  license: ${globals.license}
   copyright_year: ${current_year:}
   copyright_holder: ${globals.owner}
   project_name: ${globals.project_name}
@@ -19,15 +20,11 @@ license:
 
 project:
   disable: false
-  docker: false
-  license: ${license.license}
+  license: ${globals.license}
   project_name: ${globals.project_name}
   owner: ${globals.owner}
   description: ${globals.description}
   tests: true
-
-mlflow:
-  disable: true
 
 docs:
   disable: false
@@ -47,7 +44,6 @@ git:
 
 package:
   disable: False
-  open_source: ${globals.open_source}
   project_name: ${globals.project_name}
   description: ${globals.description}
   default_branch: ${globals.default_branch}

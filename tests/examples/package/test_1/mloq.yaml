@@ -48,7 +48,6 @@ git:
 
 package:
   disable: False
-  open_source: ${globals.open_source}
   project_name: ${globals.project_name}
   description: ${globals.description}
   default_branch: ${globals.default_branch}
