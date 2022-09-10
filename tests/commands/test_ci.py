@@ -5,8 +5,7 @@ import tempfile
 from omegaconf import DictConfig, OmegaConf
 import pytest
 
-from mloq.commands.ci import CiCMD
-from mloq.files import push_python_wkf
+from mloq.commands.ci import CiCMD, push_python_wkf
 from mloq.runner import run_command
 from mloq.writer import CMDRecord
 from tests import TestCommand  # noqa: F401

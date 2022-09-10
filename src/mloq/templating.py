@@ -1,5 +1,6 @@
 """This module defines common functionality for rendering and writing File templates."""
 from datetime import datetime
+import os
 from pathlib import Path
 from typing import Any, Mapping, Union
 
@@ -7,12 +8,13 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from omegaconf import DictConfig
 
 from mloq import _logger
-from mloq.files import DOCKER_PATH, File, read_file, TEMPLATES_PATH
+from mloq.files import ASSETS_PATH, File, read_file
 from mloq.record import Ledger
 
 
 jinja_env = Environment(
-    loader=FileSystemLoader([str(TEMPLATES_PATH), str(DOCKER_PATH)]),
+    loader=FileSystemLoader([str(ASSETS_PATH / x) for x in os.listdir(ASSETS_PATH)]),
+    # loader=PackageLoader("mloq", "assets"),
     autoescape=select_autoescape(["html", "xml"]),
     keep_trailing_newline=True,
 )

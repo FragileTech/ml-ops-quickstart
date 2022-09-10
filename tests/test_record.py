@@ -3,7 +3,8 @@ from pathlib import Path
 from omegaconf import DictConfig
 import pytest
 
-from mloq.files import File, mloq_yml, setup_py
+from mloq.commands.package import setup_py
+from mloq.files import File, mloq_yml
 from mloq.record import CMDRecord, Ledger
 from tests.commands.test_docs import docs_conf, docs_conf_with_globals
 

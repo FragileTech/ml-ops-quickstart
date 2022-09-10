@@ -13,7 +13,6 @@ license:
   license: MIT
   copyright_year: ${current_year:}
   copyright_holder: ${globals.owner}
-  open_source: ${globals.open_source}
   project_name: ${globals.project_name}
   project_url: ${globals.project_url}
   email: ${globals.email}

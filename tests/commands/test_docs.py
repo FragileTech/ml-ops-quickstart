@@ -3,19 +3,28 @@ from pathlib import Path
 from omegaconf import DictConfig
 import pytest
 
-from mloq.commands.docs import DocsCMD
-from mloq.files import conf_py, docs_req, index_md, make_bat_docs, makefile_docs
+from mloq.commands.docs import (
+    conf_py,
+    deploy_docs,
+    docs_req,
+    DocsCMD,
+    index_md,
+    make_bat_docs,
+    makefile_docs,
+)
 from mloq.writer import CMDRecord
 
 
 docs_conf = {
     "docs": dict(
         disable=False,
+        deploy_docs=True,
         project_name="test_project",
         description="test description",
         author="test_author",
         copyright_holder="test_copyright_holder",
         copyright_year="1990",
+        default_branch="test_branch",
     ),
 }
 
@@ -34,6 +43,7 @@ docs_conf_with_globals = DictConfig(
         "license": {"copyright_holder": "test_holder", "copyright_year": 1990},
         "docs": dict(
             disable=False,
+            deploy_docs=True,
             project_name="${globals.project_name}",
             description="${globals.description}",
             author="${globals.author}",
@@ -53,7 +63,7 @@ def command_and_config(request):
     return command, config
 
 
-def example_files():
+def example_files(deploy_docs=True):
     docs_path = Path("docs")
     source_path = docs_path / "source"
     example = {
@@ -63,6 +73,8 @@ def example_files():
         docs_path / make_bat_docs.dst: make_bat_docs,
         docs_path / docs_req.dst: docs_req,
     }
+    if deploy_docs:
+        example[Path(".github") / "workflows"] = deploy_docs
     return example
 
 

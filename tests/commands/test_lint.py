@@ -5,8 +5,7 @@ import tempfile
 from omegaconf import DictConfig, OmegaConf
 import pytest
 
-from mloq.commands.lint import LintCMD
-from mloq.files import lint_req, pyproject_toml
+from mloq.commands.lint import lint_req, LintCMD, pyproject_toml
 from mloq.runner import run_command
 from mloq.writer import CMDRecord
 from tests import TestCommand  # noqa: F401

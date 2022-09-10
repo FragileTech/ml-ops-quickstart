@@ -1,0 +1,50 @@
+name: Pages
+on:
+  push:
+    branches:
+    - {{docs.default_branch}}
+
+env:
+  NOTEBOOKS_SRC_DIR: "../notebooks"
+  NOTEBOOKS_BUILD_DIR: "./source/notebooks"
+  PIP_CACHE: |
+    ~/.cache/pip
+    ~/.local/bin
+    ~/.local/lib/python3.*/site-packages
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v2
+      with:
+        python-version: "3.8"
+    - uses: actions/checkout@master
+      with:
+        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+    - name: actions/cache
+      uses: actions/cache@v2
+      with:
+        path: ${{'{{'}} env.PIP_CACHE {{'}}'}}
+        key: ubuntu-20.04-pip-docs-${{'{{'}} hashFiles('requirements.txt') {{'}}'}}
+        restore-keys: ubuntu-20.04-pip-docs-
+    - name: Install package and dependencies
+      run: |
+        set -x
+        pip install -r requirements.txt
+        pip install .
+        if [ -e "${NOTEBOOKS_SRC_DIR}" ] && [ -e "${NOTEBOOKS_BUILD_DIR}" ]; then \
+          echo "${NOTEBOOKS_BUILD_DIR} Updating notebook folder."; \
+          rm -rf "${NOTEBOOKS_BUILD_DIR}"; \
+          cp -r "${NOTEBOOKS_SRC_DIR}"  "${NOTEBOOKS_BUILD_DIR}"; \
+        fi
+    - name: Build and Commit
+      uses: sphinx-notes/pages@v2
+      with:
+        documentation_path: ./docs/source
+        requirements_path: ./docs/requirements-docs.txt
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{'{{'}} secrets.GITHUB_TOKEN {{'}}'}}
+        branch: gh-pages

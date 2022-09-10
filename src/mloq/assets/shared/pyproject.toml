@@ -1,3 +1,4 @@
+{% if package %}
 [tool.poetry]
 name = "{{ package.project_name }}"
 version = "0.0.0"
@@ -28,7 +29,7 @@ classifiers = [
 ]
 
 [tool.poetry.build]
-generate-setup-file = false
+generate-setup-file = true
 
 # Requirements
 [tool.poetry.dependencies]
@@ -60,7 +61,7 @@ pre-commit = "^2.15"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+build-backend = "poetry.core.masonry.api"{% endif %}
 
 # black is the tool to format the source code
 [tool.black]

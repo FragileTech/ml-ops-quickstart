@@ -3,20 +3,20 @@ from pathlib import Path
 from omegaconf import DictConfig
 import pytest
 
-from mloq.commands.project import ProjectCMD
-from mloq.files import (
+from mloq.commands.project import (
     codecov,
-    File,
     gitignore,
     init,
     main,
     makefile,
     pre_commit_hook,
+    ProjectCMD,
     readme,
     test_main,
     test_req,
     version,
 )
+from mloq.files import File
 from mloq.writer import CMDRecord
 from tests.test_command import TestCommand
 

@@ -8,18 +8,65 @@ from omegaconf import DictConfig
 
 from mloq.command import Command
 from mloq.config.param_patch import param
-from mloq.files import (
-    data_science_req,
-    data_viz_req,
-    dogfood_req,
-    File,
-    pytorch_req,
-    requirements,
-    tensorflow_req,
-)
+from mloq.files import ASSETS_PATH, File, file
 from mloq.record import CMDRecord
 
 
+# Requirements files
+REQUIREMENTS_PATH = ASSETS_PATH / "requirements"
+requirements = file(
+    "requirements.txt",
+    REQUIREMENTS_PATH,
+    "list of exact versions of the packages on which your project depends",
+    is_static=True,
+)
+data_science_req = file(
+    "data-science.txt",
+    REQUIREMENTS_PATH,
+    "list of commonly used data science libraries",
+)
+data_viz_req = file(
+    "data-visualization.txt",
+    REQUIREMENTS_PATH,
+    "list of commonly used visualization libraries",
+    is_static=True,
+)
+pytorch_req = file(
+    "pytorch.txt",
+    REQUIREMENTS_PATH,
+    "Pytorch deep learning libraries",
+    is_static=True,
+)
+tensorflow_req = file(
+    "tensorflow.txt",
+    REQUIREMENTS_PATH,
+    "Tensorflow deep learning libraries",
+    is_static=True,
+)
+lint_req = file(
+    "requirements-lint.txt",
+    REQUIREMENTS_PATH,
+    "list of exact versions of the packages used to check your code style",
+    is_static=True,
+)
+test_req = file(
+    "requirements-test.txt",
+    REQUIREMENTS_PATH,
+    "list of exact versions of the packages needed to run your test suite",
+    is_static=True,
+)
+dogfood_req = file(
+    "dogfood.txt",
+    REQUIREMENTS_PATH,
+    "list of mock requirements for testing purposes",
+    is_static=True,
+)
+docs_req = file(
+    "requirements-docs.txt",
+    REQUIREMENTS_PATH,
+    "list of exact versions of the packages needed to build your documentation",
+    is_static=True,
+)
 REQUIREMENTS_FILES = [pytorch_req, data_science_req, data_viz_req, tensorflow_req]
 
 REQUIREMENT_CHOICES = [
@@ -80,9 +127,9 @@ class RequirementsCMD(Command):
     @classmethod
     def get_aliased_requirements_file(cls, option: str) -> File:
         """Get requirement file from aliased name."""
-        for file, valid_alias in cls.REQUIREMENTS_ALIASES.items():
+        for _file, valid_alias in cls.REQUIREMENTS_ALIASES.items():
             if option in valid_alias:
-                return file
+                return _file
         if option == "dogfood":
             return dogfood_req
         raise KeyError(
