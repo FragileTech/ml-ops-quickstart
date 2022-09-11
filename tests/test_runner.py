@@ -35,7 +35,12 @@ def generate_command_examples(commands):
     return examples
 
 
-@pytest.fixture(scope="function", params=generate_command_examples(COMMANDS))
+def id_func(example):
+    command, folder = example
+    return f"{command.cmd_name}-{folder.name}"
+
+
+@pytest.fixture(scope="function", params=generate_command_examples(COMMANDS), ids=id_func)
 def command_example(request):
     return request.param
 

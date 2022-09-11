@@ -53,10 +53,12 @@ project_conf_with_globals = DictConfig(
         ),
     },
 )
+fixture_ids = ["project-conf-cmd", "project-conf-globals"]
 
 
 @pytest.fixture(
     params=[(ProjectCMD, project_conf), (ProjectCMD, project_conf_with_globals)],
+    ids=fixture_ids,
     scope="function",
 )
 def command_and_config(request):
@@ -107,7 +109,7 @@ cmd_examples_param = [
 ]
 
 
-@pytest.fixture(params=cmd_examples_param, scope="function")
+@pytest.fixture(params=cmd_examples_param, scope="function", ids=fixture_ids)
 def command_and_example(request):
     command_cls, conf_dict, example = request.param
     config = DictConfig(conf_dict)

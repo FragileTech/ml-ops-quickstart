@@ -41,7 +41,7 @@ lint_conf_with_globals = DictConfig(
         ),
     },
 )
-
+fixture_ids = ["lint-conf-cmd", "lint-conf-globals"]
 
 example_files = {
     Path() / pyproject_toml.dst: pyproject_toml,
@@ -65,7 +65,11 @@ def config_paths(request):
     temp_path.cleanup()
 
 
-@pytest.fixture(params=[(LintCMD, lint_conf), (LintCMD, lint_conf_with_globals)], scope="function")
+@pytest.fixture(
+    params=[(LintCMD, lint_conf), (LintCMD, lint_conf_with_globals)],
+    scope="function",
+    ids=fixture_ids,
+)
 def command_and_config(request):
     command_cls, conf_dict = request.param
     config = DictConfig(conf_dict)
@@ -77,6 +81,7 @@ def command_and_config(request):
 @pytest.fixture(
     params=[(LintCMD, lint_conf, example_files), (LintCMD, lint_conf_with_globals, example_files)],
     scope="function",
+    ids=fixture_ids,
 )
 def command_and_example(request):
     command_cls, conf_dict, example = request.param

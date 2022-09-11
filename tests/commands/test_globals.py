@@ -21,7 +21,7 @@ globals_conf = DictConfig(
 )
 
 
-@pytest.fixture(params=[(GlobalsCMD, globals_conf)], scope="function")
+@pytest.fixture(params=[(GlobalsCMD, globals_conf)], scope="function", ids=["globals-conf-cmd"])
 def command_and_config(request):
     command_cls, conf_dict = request.param
     config = DictConfig(conf_dict)

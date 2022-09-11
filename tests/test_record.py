@@ -28,9 +28,10 @@ def files():
 
 
 config_examples = [None, DictConfig({}), DictConfig(docs_conf), DictConfig(docs_conf_with_globals)]
+config_ids = ["config-is-None", "empty-dict", "docs-conf", "docs-conf-with-globals"]
 
 
-@pytest.fixture(params=config_examples, scope="function")
+@pytest.fixture(params=config_examples, scope="function", ids=config_ids)
 def record(request):
     return CMDRecord(request.param)
 

@@ -82,6 +82,8 @@ example_files = {
 
 example_files_empty = {Path() / dco.dst: dco}
 
+fixture_ids = ["license-conf-cmd", "license-conf-globals", "license-proprietary"]
+
 
 @pytest.fixture(params=[(license_conf, license_conf_with_globals)])
 def config_paths(request):
@@ -103,7 +105,9 @@ def config_paths(request):
     params=[
         (LicenseCMD, license_conf),
         (LicenseCMD, license_conf_with_globals),
+        (LicenseCMD, license_proprietary),
     ],
+    ids=fixture_ids,
     scope="function",
 )
 def command_and_config(request):
@@ -120,6 +124,7 @@ def command_and_config(request):
         (LicenseCMD, license_conf_with_globals, example_files),
         (LicenseCMD, license_proprietary, example_files_empty),
     ],
+    ids=fixture_ids,
     scope="function",
 )
 def command_and_example(request):

@@ -67,7 +67,7 @@ package_conf_with_globals = DictConfig(
     }
 )
 
-
+fixture_ids = ["package-conf-cmd", "package-conf-globals"]
 example_files = {
     Path() / pyproject_toml.dst: pyproject_toml,
     Path() / setup_py.dst: setup_py,
@@ -95,6 +95,7 @@ def config_paths(request):
         (PackageCMD, package_conf),
         (PackageCMD, package_conf_with_globals),
     ],
+    ids=fixture_ids,
     scope="function",
 )
 def command_and_config(request):
@@ -110,6 +111,7 @@ def command_and_config(request):
         (PackageCMD, package_conf, example_files),
         (PackageCMD, package_conf_with_globals, example_files),
     ],
+    ids=fixture_ids,
     scope="function",
 )
 def command_and_example(request):
