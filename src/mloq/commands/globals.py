@@ -19,6 +19,7 @@ class GlobalsCMD(Command):
     project_url = param.String("???", doc="GitHub project url")
     default_branch = param.String(doc="Default branch of the project")
     license = param.String("MIT", doc="Project license type")
+    use_poetry = param.Boolean(True, doc="Use poetry to manage dependencies?")
 
     def interactive_config(self) -> DictConfig:
         """Generate the configuration of the project interactively."""

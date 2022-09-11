@@ -1,12 +1,13 @@
 globals:
   project_name: ???
-  default_branch: main
   owner: ???
   author: ???
   email: ???
   description: ???
   open_source: ???
   project_url: ???
+  default_branch: main
+  use_poetry: False
   license: "proprietary"
 
 license:
@@ -51,7 +52,8 @@ package:
   owner: ${globals.owner}
   author: ${globals.author}
   email: ${globals.email}
-  license: ${license.license}
+  license: ${globals.license}
+  use_poetry: ${globals.use_poetry}
   python_versions:
   - '3.7'
   - '3.8'

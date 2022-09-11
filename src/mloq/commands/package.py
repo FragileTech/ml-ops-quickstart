@@ -48,7 +48,7 @@ class PackageCMD(Command):
         doc="Supported python versions",
         objects=PYTHON_VERSIONS,
     )
-    pipenv = param.Boolean(False, doc="Add pipenv support to the project configuration")
+    use_poetry = param.Boolean("${globals.use_poetry}", doc="Add pipenv support to the project configuration")
 
     def parse_config(self) -> DictConfig:
         """Update the configuration DictConfig with the Command parameters."""
