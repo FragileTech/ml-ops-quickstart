@@ -4,6 +4,7 @@ myst-parser==0.18.0
 myst-nb==0.16.0
 ruyaml==0.19.2
 sphinx-autoapi==1.9.0
+pydata-sphinx-theme==0.8.1
 sphinxcontrib-mermaid==0.7.1
 sphinx_book_theme==0.3.3
 jupyter-cache==0.5.0
