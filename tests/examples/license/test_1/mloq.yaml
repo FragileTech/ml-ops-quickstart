@@ -7,6 +7,8 @@ globals:
   description: test docs command
   open_source: true
   project_url: "http://example_url/docs_test"
+  license: "MIT"
+  use_poetry: true
 
 license:
   disable: false

@@ -74,30 +74,30 @@ jobs:
         set -x
         pip install -r requirements-test.txt -r requirements.txt
         pip install .
-    # - name: Additional setup
-    #   run: |
-    #     set -x
-    #     git config --global user.name "Bot"
-    #     git config --global user.email "bot@fragile.tech"
-    #     git config --global init.defaultBranch master
-    #     mkdir generated
-    #     mloq setup generated -f mloq.yaml
-    #     diff .github/workflows/push.yml generated/.github/workflows/push.yml
-    #     diff requirements.txt generated/requirements.txt
-    #     diff requirements-lint.txt generated/requirements-lint.txt
-    #     diff requirements-test.txt generated/requirements-test.txt
-    #     diff pyproject.toml generated/pyproject.toml
-    #     diff DCO.md generated/DCO.md
-    #     diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
-    #     diff CONTRIBUTING.md generated/CONTRIBUTING.md
-    #     diff LICENSE generated/LICENSE
-    #     diff .pre-commit-config.yaml generated/.pre-commit-config.yaml
-    #     diff .codecov.yml generated/.codecov.yml
-    #     diff .gitignore generated/.gitignore
-    #     diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
-    #     diff Dockerfile generated/Dockerfile
-    #     diff Makefile generated/Makefile
-    #     rm generated/tests/test_main.py
+    - name: Additional setup
+      run: |
+        set -x
+        git config --global user.name "Bot"
+        git config --global user.email "bot@fragile.tech"
+        git config --global init.defaultBranch master
+        mkdir generated
+        mloq setup generated -f mloq.yaml
+        diff .github/workflows/push.yml generated/.github/workflows/push.yml
+        diff requirements.txt generated/requirements.txt
+        diff requirements-lint.txt generated/requirements-lint.txt
+        diff requirements-test.txt generated/requirements-test.txt
+        diff pyproject.toml generated/pyproject.toml
+        diff DCO.md generated/DCO.md
+        diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
+        diff CONTRIBUTING.md generated/CONTRIBUTING.md
+        diff LICENSE generated/LICENSE
+        diff .pre-commit-config.yaml generated/.pre-commit-config.yaml
+        diff .codecov.yml generated/.codecov.yml
+        diff .gitignore generated/.gitignore
+        diff WHAT_MLOQ_GENERATED.md generated/WHAT_MLOQ_GENERATED.md
+        diff Dockerfile generated/Dockerfile
+        diff Makefile generated/Makefile
+        rm generated/tests/test_main.py
 
     - name: Test with pytest
       run: |

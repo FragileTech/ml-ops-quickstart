@@ -7,6 +7,8 @@ globals:
   description: Package for initializing ML projects following ML Ops best practices.
   open_source: true
   project_url: https://github.com/FragileTech/ml-ops-quickstart
+  license: "MIT"
+  use_poetry: true
 
 license:
   disable: false

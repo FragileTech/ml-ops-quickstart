@@ -83,6 +83,7 @@ PROJECT_FILES = [
     test_req,
     pre_commit_hook,
     contributing,
+    code_of_conduct,
 ]
 
 # TODO: select which files are created in config
@@ -126,6 +127,15 @@ class ProjectCMD(Command):
         description = "Python package header for the test module"
         self.record.register_file(file=init, path=Path("tests"), description=description)
         self.record.register_file(file=test_main, path=Path("tests"))
-        root_files = [readme, makefile, test_req, pre_commit_hook, codecov, gitignore]
+        root_files = [
+            readme,
+            makefile,
+            test_req,
+            pre_commit_hook,
+            codecov,
+            gitignore,
+            code_of_conduct,
+            contributing,
+        ]
         for _file in root_files:
             self.record.register_file(file=_file, path=Path())

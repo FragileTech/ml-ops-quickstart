@@ -16,10 +16,11 @@
 * `__init__.py` - Python package header for the test module
 * `__main__.py` - Python package executable entry point
 * `conf.py` - configuration file for sphinx and doc plugins
+* `deploy-docs.yml` - workflow for deploying the documentation to GitHub pages
 * `index.md` - configuration file for sphinx and doc plugins
 * `make.bat` - common make commands for building the documentation
 * `push.yml` - GitHub Actions continuous integration workflow file
-* `pyproject.toml` - configuration of various development tools: linters, formatters
+* `pyproject.toml` - configuration of various development tools: linters, formatters, packaging
 * `requirements-docs.txt` - list of exact versions of the packages needed to build your documentation
 * `requirements-lint.txt` - list of exact versions of the packages used to check your code style
 * `requirements-test.txt` - list of exact versions of the packages needed to run your test suite

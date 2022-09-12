@@ -27,6 +27,7 @@ package_conf = DictConfig(
             python_versions=["3.6", "3.7", "3.8", "3.9"],
             pyproject_extra="",
             license_classifier="???",
+            use_poetry=True,
         ),
         "lint": dict(project_name="${package.project_name}"),
     }
@@ -43,6 +44,8 @@ package_conf_with_globals = DictConfig(
             "description": "configuration for package tests",
             "open_source": True,
             "project_url": "test_url",
+            "license": "MIT",
+            "use_poetry": True,
         },
         "license": dict(
             license="MIT",

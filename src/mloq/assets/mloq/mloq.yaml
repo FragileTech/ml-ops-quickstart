@@ -60,7 +60,6 @@ package:
   - '3.9'
   pyproject_extra: ""
   license_classifier: ???
-  pipenv: true
 
 requirements:
   disable: false

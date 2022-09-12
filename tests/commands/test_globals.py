@@ -16,6 +16,8 @@ globals_conf = DictConfig(
             "description": "test_description",
             "open_source": True,
             "project_url": "???",
+            "use_poetry": False,
+            "license": "MIT",
         },
     },
 )

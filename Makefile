@@ -28,21 +28,6 @@ test-codecov:
 	find -name "*.pyc" -delete
 	pytest -n $n -s -o log_cli=true -o log_cli_level=info --cov=./ --cov-report=xml --cov-config=pyproject.toml
 
-.PHONY: pipenv-install
-pipenv-install:
-	rm -rf *.egg-info && rm -rf build && rm -rf __pycache__
-	rm -f Pipfile && rm -f Pipfile.lock
-	pipenv install --dev -r requirements-test.txt
-	pipenv install --pre --dev -r requirements-lint.txt
-	pipenv install -r requirements.txt
-	pipenv install -e .
-	pipenv lock
-
-.PHONY: pipenv-test
-pipenv-test:
-	find -name "*.pyc" -delete
-	pipenv run pytest -s
-
 .PHONY: docker-shell
 docker-shell:
 	docker run --rm -v ${current_dir}:/${PROJECT} --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION} bash

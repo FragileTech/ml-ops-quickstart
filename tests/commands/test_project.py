@@ -4,7 +4,9 @@ from omegaconf import DictConfig
 import pytest
 
 from mloq.commands.project import (
+    code_of_conduct,
     codecov,
+    contributing,
     gitignore,
     init,
     main,
@@ -94,6 +96,8 @@ def example_files():
         Path() / pre_commit_hook.dst: pre_commit_hook,
         Path() / codecov.dst: codecov,
         Path() / gitignore.dst: gitignore,
+        Path() / code_of_conduct.dst: code_of_conduct,
+        Path() / contributing.dst: contributing,
         project_path / version.dst: version,
         project_path / init.dst: module_init,
         project_path / main.dst: main,

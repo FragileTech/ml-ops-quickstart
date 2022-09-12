@@ -48,15 +48,19 @@ class PackageCMD(Command):
         doc="Supported python versions",
         objects=PYTHON_VERSIONS,
     )
-    use_poetry = param.Boolean("${globals.use_poetry}", doc="Add pipenv support to the project configuration")
+    use_poetry = param.Boolean(
+        "${globals.use_poetry}",
+        doc="Use poetry to manage dependencies",
+    )
 
     def parse_config(self) -> DictConfig:
         """Update the configuration DictConfig with the Command parameters."""
         conf = super(PackageCMD, self).parse_config()
         if OmegaConf.is_missing(conf.package, "license_classifier"):
-            conf.package.license_classifier = self.LICENSE_CLASSIFIERS[
-                conf.package.get("license", "proprietary")
-            ]
+            conf.package.license_classifier = self.LICENSE_CLASSIFIERS.get(
+                conf.package.get("license", "proprietary"),
+                "",
+            )
         return conf
 
     def interactive_config(self) -> DictConfig:
