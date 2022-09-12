@@ -12,15 +12,23 @@
 #
 import os
 import sys
-
+from pathlib import Path
+from ruamel.yaml import load as yaml_load, Loader
 
 sys.path.insert(0, os.path.abspath("../../"))
 sys.setrecursionlimit(1500)
 
+def read_template() -> dict:
+    """Load the project configuration from the target path."""
+    template_path = Path(__file__).parent / "_static" / "mloq.yml"
+    with open(template_path, "r") as config:
+        params = yaml_load(config.read(), Loader)
+    return params
+
 # -- Project information -----------------------------------------------------
-project = "mloq"
-copyright = "2020, FragileTech"
-author = "FragileTech"
+project = "MLOQ"
+copyright = "2020-2022, FragileTech"
+author = "Guillem Duran, Vadim Markovtsev"
 
 # The short X.Y version
 from mloq.version import __version__
@@ -134,7 +142,7 @@ myst_enable_extensions = [
     "smartquotes",
     "substitution",
 ]
-
+# myst_substitutions = read_template()
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
