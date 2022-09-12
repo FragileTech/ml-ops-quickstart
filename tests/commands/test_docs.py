@@ -15,6 +15,7 @@ from mloq.commands.docs import (
 from mloq.writer import CMDRecord
 
 
+dummy_project_url = "https://test.com"
 docs_conf = {
     "docs": dict(
         disable=False,
@@ -25,6 +26,7 @@ docs_conf = {
         copyright_holder="test_copyright_holder",
         copyright_year="1990",
         default_branch="test_branch",
+        project_url=dummy_project_url,
     ),
 }
 
@@ -38,7 +40,7 @@ docs_conf_with_globals = DictConfig(
             "email": "test_email",
             "description": "test_description",
             "open_source": True,
-            "project_url": "???",
+            "project_url": dummy_project_url,
         },
         "license": {"copyright_holder": "test_holder", "copyright_year": 1990},
         "docs": dict(

@@ -7,6 +7,9 @@ SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = source
 BUILDDIR      = build
+NOTEBOOKS_SRC_DIR  = ../notebooks
+NOTEBOOKS_BUILD_DIR  = ./source/notebooks
+
 
 # Put it first so that "make" without argument is like "make help".
 help:
@@ -23,15 +26,15 @@ help:
 server:
 	python3 -m http.server --directory  build/html/
 
-.PHONY: assets
-assets:
-	rm -rf build
-	rm -rf ./source/assets
-	mkdir source/assets
-	cp -r ../mloq/assets source
+#	rm -rf source/notebooks
+#	cp -r ../notebooks ./source/notebooks
 
 .PHONY: test
 test:
-	make assets
+	if [ -e "${NOTEBOOKS_SRC_DIR}" ] && [ -e "${NOTEBOOKS_BUILD_DIR}" ]; then \
+		echo "${NOTEBOOKS_BUILD_DIR} Updating notebook folder."; \
+		rm -rf "${NOTEBOOKS_BUILD_DIR}"; \
+		cp -r "${NOTEBOOKS_SRC_DIR}"  "${NOTEBOOKS_BUILD_DIR}"; \
+	fi
 	make html
 	make server
