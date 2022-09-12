@@ -23,14 +23,14 @@ def _sub_commands():
     )
 
     return (
-        CiCMD,
-        DockerCMD,
-        DocsCMD,
         GlobalsCMD,
+        ProjectCMD,
+        PackageCMD,
         LicenseCMD,
         LintCMD,
-        PackageCMD,
-        ProjectCMD,
+        CiCMD,
+        DocsCMD,
+        DockerCMD,
         RequirementsCMD,
     )
 
@@ -77,7 +77,9 @@ class SetupCMD(CommandMixin):
     def interactive_config(self) -> DictConfig:
         """Generate the configuration of the project interactively."""
         click.echo("Provide the values to generate the project configuration.")
-        return self.parse_config()
+        for cmd in self.sub_commands:
+            cmd.interactive_config()
+        return self.record.config
 
     def parse_config(self) -> DictConfig:
         """Update the configuration DictConfig with the Command parameters."""
