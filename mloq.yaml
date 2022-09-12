@@ -7,29 +7,26 @@ globals:
   description: Package for initializing ML projects following ML Ops best practices.
   open_source: true
   project_url: https://github.com/FragileTech/ml-ops-quickstart
+  license: "MIT"
+  use_poetry: false
 
 license:
   disable: false
   license: MIT
   copyright_year: 2020
   copyright_holder: ${globals.owner}
-  open_source: ${globals.open_source}
   project_name: ${globals.project_name}
   email: ${globals.email}
   project_url: ${globals.project_url}
 
 project:
   disable: false
-  docker: false  # FIXME: depends on docker command
   license: ${license.license}  # FIXME: depends on docker command
   project_name: ${globals.project_name}
   owner: ${globals.owner}
   description: ${globals.description}
   project_url: ${globals.project_url}
   tests: true
-
-mlflow:
-  disable: true
 
 docs:
   disable: false
@@ -38,6 +35,8 @@ docs:
   author: ${globals.author}
   copyright_holder: ${license.copyright_holder}
   copyright_year: ${license.copyright_year}
+  default_branch: ${globals.default_branch}
+  deploy_docs: true
 
 git:
   disable: true
@@ -49,7 +48,6 @@ git:
 
 package:
   disable: False
-  open_source: ${globals.open_source}
   project_name: ${globals.project_name}
   description: ${globals.description}
   default_branch: ${globals.default_branch}
@@ -57,7 +55,8 @@ package:
   owner: ${globals.owner}
   author: ${globals.author}
   email: ${globals.email}
-  license: ${license.license}
+  license: ${globals.license}
+  use_poetry: ${globals.use_poetry}
   python_versions:
   - '3.6'
   - '3.7'
@@ -65,7 +64,6 @@ package:
   - '3.9'
   pyproject_extra: ""
   license_classifier: "License :: OSI Approved :: MIT License"
-  pipenv: true
 
 requirements:
   disable: false
@@ -85,7 +83,7 @@ lint:
 
 docker:
   disable: false
-  cuda: ???
+  cuda: "???"
   cuda_image_type: "cudnn8-runtime"
   cuda_version: "11.2"
   python_version: "3.8"
@@ -98,8 +96,8 @@ docker:
   project_name: ${globals.project_name}
   docker_org: fragiletech #${globals.owner}
   requirements: ${requirements.requirements}
-  extra: ""
   makefile: true
+  extra: ""
 
 ci:
   bot_name: fragile-bot

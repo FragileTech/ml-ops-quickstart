@@ -16,12 +16,14 @@ globals_conf = DictConfig(
             "description": "test_description",
             "open_source": True,
             "project_url": "???",
+            "use_poetry": False,
+            "license": "MIT",
         },
     },
 )
 
 
-@pytest.fixture(params=[(GlobalsCMD, globals_conf)], scope="function")
+@pytest.fixture(params=[(GlobalsCMD, globals_conf)], scope="function", ids=["globals-conf-cmd"])
 def command_and_config(request):
     command_cls, conf_dict = request.param
     config = DictConfig(conf_dict)

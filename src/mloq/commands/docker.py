@@ -12,14 +12,16 @@ from mloq.commands.requirements import (  # REQUIREMENT_CHOICES,
     tensorflow_req,
 )
 from mloq.config.param_patch import param
-from mloq.files import DOCKER_PATH, file
+from mloq.files import ASSETS_PATH, file
 
 
-dockerfile = file("Dockerfile", DOCKER_PATH, description="Docker container for the project")
+DOCKER_ASSETS_PATH = ASSETS_PATH / "docker"
+dockerfile = file("Dockerfile", DOCKER_ASSETS_PATH, description="Docker container for the project")
 makefile_docker = file(
     "Makefile.docker",
-    DOCKER_PATH,
+    DOCKER_ASSETS_PATH,
     description="Makefile for the Docker container setup",
+    is_static=True,
 )
 DOCKER_FILES = [dockerfile, makefile_docker]
 

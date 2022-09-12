@@ -60,7 +60,7 @@ class TestCommand:
             assert conf_record[key] == config[command.cmd_name][key], key
 
     def test_files_present_in_record(self, command_and_config):
-        command, config = command_and_config
+        command, _ = command_and_config
         command.record_files()
 
         file_names = [f.name for f in command.files]

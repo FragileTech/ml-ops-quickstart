@@ -5,8 +5,7 @@ import tempfile
 from omegaconf import DictConfig, OmegaConf
 import pytest
 
-from mloq.commands.license import LicenseCMD
-from mloq.files import code_of_conduct, contributing, dco, LICENSES
+from mloq.commands.license import dco, LicenseCMD, LICENSES
 from mloq.runner import run_command
 from mloq.writer import CMDRecord
 from tests import TestCommand  # noqa: F401
@@ -20,7 +19,6 @@ license_conf = DictConfig(
             license="Apache-2.0",
             copyright_year=1991,
             copyright_holder="test_owner",
-            open_source=True,
             project_name="test_name",
             project_url="test_url",
             email="test_email",
@@ -45,7 +43,6 @@ license_conf_with_globals = DictConfig(
             license="Apache-2.0",
             copyright_year=1991,
             copyright_holder="${globals.owner}",
-            open_source="${globals.open_source}",
             project_name="${globals.project_name}",
             project_url="${globals.project_url}",
             email="${globals.email}",
@@ -53,7 +50,7 @@ license_conf_with_globals = DictConfig(
     },
 )
 
-license_non_open_source = DictConfig(
+license_proprietary = DictConfig(
     {
         "globals": {
             "project_name": "test_name",
@@ -67,10 +64,9 @@ license_non_open_source = DictConfig(
         },
         "license": dict(
             disable=False,
-            license="Apache-2.0",  # to test that the license is not added
+            license="proprietary",  # to test that the license is not added
             copyright_year=1991,
             copyright_holder="${globals.owner}",
-            open_source="${globals.open_source}",
             project_name="${globals.project_name}",
             project_url="${globals.project_url}",
             email="${globals.email}",
@@ -80,13 +76,13 @@ license_non_open_source = DictConfig(
 
 
 example_files = {
-    Path() / code_of_conduct.dst: code_of_conduct,
-    Path() / contributing.dst: contributing,
     Path() / dco.dst: dco,
     Path() / LICENSES[license_conf.license.license].dst: LICENSES[license_conf.license.license],
 }
 
-example_files_empty = {}
+example_files_empty = {Path() / dco.dst: dco}
+
+fixture_ids = ["license-conf-cmd", "license-conf-globals", "license-proprietary"]
 
 
 @pytest.fixture(params=[(license_conf, license_conf_with_globals)])
@@ -109,7 +105,9 @@ def config_paths(request):
     params=[
         (LicenseCMD, license_conf),
         (LicenseCMD, license_conf_with_globals),
+        (LicenseCMD, license_proprietary),
     ],
+    ids=fixture_ids,
     scope="function",
 )
 def command_and_config(request):
@@ -124,8 +122,9 @@ def command_and_config(request):
     params=[
         (LicenseCMD, license_conf, example_files),
         (LicenseCMD, license_conf_with_globals, example_files),
-        (LicenseCMD, license_non_open_source, example_files_empty),
+        (LicenseCMD, license_proprietary, example_files_empty),
     ],
+    ids=fixture_ids,
     scope="function",
 )
 def command_and_example(request):

@@ -157,24 +157,33 @@ missing_both_same = {
 }
 
 basic_params = [{}, defaults, defaults_with_config]
+basic_params_id = ["empty-dict", "defaults", "defaults-with-config"]
 
 missing_params = [missing_no_conf, missing_only_conf, missing_both_same, missing_both_different]
+missing_params_ids = [
+    "missing-no-conf",
+    "missing-only-conf",
+    "missing-both-same",
+    "missing-both-different",
+]
 
 interpolated_params = [interp_no_conf, interp_only_conf, interpolated_both]
+interpolated_params_ids = ["interp-no-conf", "interp-only-conf", "interp-both"]
 
 configurable_params = basic_params + interpolated_params + missing_params
+configurable_params_ids = basic_params_id + interpolated_params_ids + missing_params_ids
 
 
-@pytest.fixture(scope="function", params=tuple(configurable_params))
+@pytest.fixture(scope="function", params=tuple(configurable_params), ids=configurable_params_ids)
 def configurable(request):
     return ConfigurableTest(**request.param)
 
 
-@pytest.fixture(scope="function", params=tuple(interpolated_params))
+@pytest.fixture(scope="function", params=tuple(interpolated_params), ids=interpolated_params_ids)
 def interpolated(request):
     return ConfigurableTest(**request.param)
 
 
-@pytest.fixture(scope="function", params=tuple(missing_params))
+@pytest.fixture(scope="function", params=tuple(missing_params), ids=missing_params_ids)
 def missing(request):
     return ConfigurableTest(**request.param)

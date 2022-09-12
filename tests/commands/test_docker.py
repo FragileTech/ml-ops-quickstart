@@ -61,10 +61,13 @@ docker_conf_with_globals = DictConfig(
     },
 )
 
+fixture_ids = ["docker-conf-cmd", "docker-conf-globals"]
+
 
 @pytest.fixture(
     params=[(DockerCMD, docker_conf), (DockerCMD, docker_conf_with_globals)],
     scope="function",
+    ids=fixture_ids,
 )
 def command_and_config(request):
     command_cls, conf_dict = request.param
@@ -85,7 +88,7 @@ cmd_examples_param = [
 ]
 
 
-@pytest.fixture(params=cmd_examples_param, scope="function")
+@pytest.fixture(params=cmd_examples_param, scope="function", ids=fixture_ids)
 def command_and_example(request):
     command_cls, conf_dict, example = request.param
     config = DictConfig(conf_dict)

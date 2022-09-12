@@ -7,6 +7,8 @@ globals:
   description: test project command
   open_source: true
   project_url: "http://example_url/project_test"
+  license: "MIT"
+  use_poetry: true
 
 license:
   disable: false
@@ -17,7 +19,6 @@ license:
 
 project:
   disable: false
-  docker: false  # FIXME: depends on docker command
   license: ${license.license}  # FIXME: depends on docker command
   project_name: ${globals.project_name}
   owner: {globals.owner}

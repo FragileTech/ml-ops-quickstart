@@ -34,6 +34,8 @@ docs:
   author: ${globals.author}
   copyright_holder: ${license.copyright_holder}
   copyright_year: ${license.copyright_year}
+  default_branch: ${globals.default_branch}
+  deploy_docs: true
 
 git:
   disable: true

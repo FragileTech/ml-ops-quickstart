@@ -5,8 +5,7 @@ import tempfile
 from omegaconf import DictConfig, OmegaConf
 import pytest
 
-from mloq.commands.package import PackageCMD
-from mloq.files import pyproject_toml, setup_py
+from mloq.commands.package import PackageCMD, pyproject_toml, setup_py
 from mloq.runner import run_command
 from mloq.writer import CMDRecord
 from tests import TestCommand  # noqa: F401
@@ -17,7 +16,6 @@ package_conf = DictConfig(
     {
         "package": dict(
             disable=False,
-            open_source=True,
             project_name="test_package",
             description="configuration for package tests",
             default_branch="test_branch_package",
@@ -29,6 +27,7 @@ package_conf = DictConfig(
             python_versions=["3.6", "3.7", "3.8", "3.9"],
             pyproject_extra="",
             license_classifier="???",
+            use_poetry=True,
         ),
         "lint": dict(project_name="${package.project_name}"),
     }
@@ -45,13 +44,14 @@ package_conf_with_globals = DictConfig(
             "description": "configuration for package tests",
             "open_source": True,
             "project_url": "test_url",
+            "license": "MIT",
+            "use_poetry": True,
         },
         "license": dict(
             license="MIT",
         ),
         "package": dict(
             disable=False,
-            open_source="${globals.open_source}",
             project_name="${globals.project_name}",
             description="${globals.description}",
             default_branch="${globals.default_branch}",
@@ -70,7 +70,7 @@ package_conf_with_globals = DictConfig(
     }
 )
 
-
+fixture_ids = ["package-conf-cmd", "package-conf-globals"]
 example_files = {
     Path() / pyproject_toml.dst: pyproject_toml,
     Path() / setup_py.dst: setup_py,
@@ -98,6 +98,7 @@ def config_paths(request):
         (PackageCMD, package_conf),
         (PackageCMD, package_conf_with_globals),
     ],
+    ids=fixture_ids,
     scope="function",
 )
 def command_and_config(request):
@@ -113,6 +114,7 @@ def command_and_config(request):
         (PackageCMD, package_conf, example_files),
         (PackageCMD, package_conf_with_globals, example_files),
     ],
+    ids=fixture_ids,
     scope="function",
 )
 def command_and_example(request):

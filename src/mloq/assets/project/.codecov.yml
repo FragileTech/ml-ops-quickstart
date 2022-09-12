@@ -10,4 +10,4 @@ coverage:
         threshold: 0%
         informational: true
         paths:
-        - src/mloq
+        - src/{{ project.project_name }}

@@ -3,7 +3,8 @@ from pathlib import Path
 from omegaconf import DictConfig
 import pytest
 
-from mloq.files import File, mloq_yml, setup_py
+from mloq.commands.package import setup_py
+from mloq.files import File, mloq_yml
 from mloq.record import CMDRecord, Ledger
 from tests.commands.test_docs import docs_conf, docs_conf_with_globals
 
@@ -27,9 +28,10 @@ def files():
 
 
 config_examples = [None, DictConfig({}), DictConfig(docs_conf), DictConfig(docs_conf_with_globals)]
+config_ids = ["config-is-None", "empty-dict", "docs-conf", "docs-conf-with-globals"]
 
 
-@pytest.fixture(params=config_examples, scope="function")
+@pytest.fixture(params=config_examples, scope="function", ids=config_ids)
 def record(request):
     return CMDRecord(request.param)
 

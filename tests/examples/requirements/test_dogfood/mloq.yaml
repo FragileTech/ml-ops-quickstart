@@ -17,7 +17,6 @@ license:
 
 project:
   disable: false
-  docker: false  # FIXME: depends on docker command
   license: ${license.license}  # FIXME: depends on docker command
   project_name: ${globals.project_name}
   owner: ${globals.owner}

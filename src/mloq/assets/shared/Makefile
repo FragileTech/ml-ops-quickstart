@@ -1,12 +1,12 @@
 current_dir = $(shell pwd)
 
-PROJECT = mloq
-n ?= auto
-DOCKER_ORG = fragiletech
+PROJECT = {{project.project_name}}
+{% if project.tests %}n ?= auto{% endif %}
+{% if docker.makefile %}DOCKER_ORG = {{docker.docker_org}}
 DOCKER_TAG ?= ${PROJECT}
-VERSION ?= latest
+VERSION ?= latest{% endif %}
 
-.POSIX:
+{% if lint.makefile %}.POSIX:
 style:
 	black .
 	isort .
@@ -16,8 +16,8 @@ check:
 	!(grep -R /tmp tests)
 	flakehell lint src/${PROJECT}
 	pylint src/${PROJECT}
-	black --check src/${PROJECT}
-
+	black --check src/${PROJECT}{% endif %}
+{% if project.tests %}
 .PHONY: test
 test:
 	find -name "*.pyc" -delete
@@ -26,15 +26,15 @@ test:
 .PHONY: test-codecov
 test-codecov:
 	find -name "*.pyc" -delete
-	pytest -n $n -s -o log_cli=true -o log_cli_level=info --cov=./ --cov-report=xml --cov-config=pyproject.toml
-
+	pytest -n $n -s -o log_cli=true -o log_cli_level=info --cov=./ --cov-report=xml --cov-config=pyproject.toml{% endif %}
+{% if docker.makefile %}
 .PHONY: docker-shell
 docker-shell:
-	docker run --rm -v ${current_dir}:/${PROJECT} --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION} bash
+	docker run --rm {% if docker.cuda %}--gpus all {% endif %}-v ${current_dir}:/${PROJECT} --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION} bash
 
 .PHONY: docker-notebook
 docker-notebook:
-	docker run --rm -v ${current_dir}:/${PROJECT} --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION}
+	docker run --rm {% if docker.cuda %}--gpus all {% endif %}-v ${current_dir}:/${PROJECT} --network host -w /${PROJECT} -it ${DOCKER_ORG}/${PROJECT}:${VERSION}
 
 .PHONY: docker-build
 docker-build:
@@ -50,3 +50,4 @@ docker-push:
 	docker push ${DOCKER_ORG}/${DOCKER_TAG}:${VERSION}
 	docker tag ${DOCKER_ORG}/${DOCKER_TAG}:${VERSION} ${DOCKER_ORG}/${DOCKER_TAG}:latest
 	docker push ${DOCKER_ORG}/${DOCKER_TAG}:latest
+{% endif %}

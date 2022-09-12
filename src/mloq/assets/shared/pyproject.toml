@@ -1,0 +1,162 @@
+{% if package and package.use_poetry %}
+[tool.poetry]
+name = "{{ package.project_name }}"
+version = "0.0.0"
+description = "{{ package.description }}"
+authors = [
+    "{{ package.author }}",
+]
+maintainers = ["{{ package.author }}"]
+license = "{{ package.license }}"
+readme = "README.md"
+
+packages = [
+    { include = "{{ package.project_name }}", from = "src" }
+]
+include = [
+    { path = "tests", format = "sdist" }
+]
+
+homepage = "{{ package.project_url}}"
+repository = "{{ package.project_url}}"
+documentation = "{{ package.project_url}}"
+
+keywords = ["Machine learning", "artificial intelligence", "{{ package.project_name }}"]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+
+[tool.poetry.build]
+generate-setup-file = true
+
+# Requirements
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.1"
+pytest-cov = "^3.0"
+psutil= "^5.8"
+pytest-xdist = "^2.5"
+pre-commit = "^2.6"
+pytest-rerunfailures= "^10.2"
+{% if lint and "pyproject.toml" not in lint.ignore_files and lint.add_requirements%}
+[tool.poetry.group.lint.dependencies]
+colorama = "^0.4"
+flake8 = "^3.9"
+flake8-bugbear = "^21.9"
+flake8-docstrings = "^1.6"
+flake8-import-order = "^0.18"
+flake8-quotes = "^3.3"
+flake8-commas = "^2.1"
+isort = "^5.10"
+pylint = "^2.11"
+pydocstyle = "^6.1"
+pycodestyle = "^2.7"
+flakehell = "^0.9"
+black = "^22.8"
+pre-commit = "^2.15"
+{% endif %}
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+{% elif package %}[build-system]
+requires = ["setuptools >= 50.3.2", "wheel >= 0.29.0"]
+build-backend = "setuptools.build_meta"
+{% endif %}
+{% if lint and "pyproject.toml" not in lint.ignore_files %}# black is the tool to format the source code
+[tool.black]
+line-length = 99
+target-version = ['py37', 'py38', 'py39']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | venv
+)/
+'''
+# isort orders and lints imports
+[tool.isort]
+profile = "black"
+line_length = 99
+multi_line_output = 3
+order_by_type = false
+force_alphabetical_sort_within_sections = true
+force_sort_within_sections = true
+combine_as_imports = true
+include_trailing_comma = true
+color_output = true
+lines_after_imports = 2
+honor_noqa = true
+{% endif %}
+# Code coverage config
+[tool.coverage.run]
+branch = true
+source = ["src/{{lint.project_name}}"]
+
+[tool.coverage.report]
+exclude_lines =["no cover",
+    'raise NotImplementedError',
+    'if __name__ == "__main__":']
+ignore_errors = true
+omit = ["tests/*"]
+
+# Flakehell config
+[tool.flakehell]
+# optionally inherit from remote config (or local if you want)
+base = "https://raw.githubusercontent.com/life4/flakehell/master/pyproject.toml"
+# specify any flake8 options. For example, exclude "example.py":
+exclude = [".git", "docs", ".ipynb*", "*.ipynb", ".pytest_cache"]
+format = "grouped" # make output nice
+max_line_length = 99 # show line of source code in output
+show_source = true
+inline_quotes='"'
+import_order_style = "appnexus"
+application_package_names = ["{{lint.project_name}}"]
+application_import_names = ["{{lint.project_name}}"]
+# Fix AttributeError: 'Namespace' object has no attribute 'extended_default_ignore'
+extended_default_ignore=[]
+
+[tool.flakehell.plugins]
+"flake8*" = ["+*"{% if not lint.docstring_checks %}, "-D*"{% endif %}]
+pylint = ["+*"{% if not lint.docstring_checks %}, "-D*"{% endif %}]
+pyflakes = ["+*"]
+pycodestyle = ["+*" , "-D100", "-D104", "-D301", "-W503", "-W504"]
+
+[tool.flakehell.exceptions."**/__init__.py"]{% if not lint.docstring_checks %}
+"flake8*" = ["-D*"]
+pylint = ["-D*"]{% endif %}
+pyflakes = ["-F401"]
+
+# No docs in the tests. No unused imports (otherwise pytest fixtures raise errors).
+[tool.flakehell.exceptions."**/tests/*"]
+pycodestyle = ["-D*"]
+"flake8*" = ["-D*"]
+pylint = ["-D*"]
+pyflakes = ["-F401", "-F811"]
+
+[tool.pylint.master]
+ignore = 'tests'
+load-plugins =' pylint.extensions.docparams'
+
+[tool.pylint.messages_control]
+disable = 'all,'
+enable = """,
+         missing-param-doc,
+         differing-param-doc,
+         differing-type-doc,
+         missing-return-doc,
+         """
+
+{{ lint.pyproject_extra }}

@@ -7,12 +7,18 @@ from omegaconf import DictConfig
 import param
 
 from mloq.command import Command
-from mloq.files import push_python_wkf
+from mloq.commands.package import DEFAULT_PYTHON_VERSIONS, PYTHON_VERSIONS
+from mloq.files import ASSETS_PATH, file
 
+
+CI_ASSETS_PATH = ASSETS_PATH / "ci"
+push_python_wkf = file(
+    "push.yml",
+    CI_ASSETS_PATH,
+    "GitHub Actions continuous integration workflow file",
+)
 
 WORKFLOW_FILES = [push_python_wkf]
-
-PYTHON_VERSIONS = ["3.6", "3.7", "3.8", "3.9", "3.10"]
 
 
 class CiCMD(Command):
@@ -29,7 +35,7 @@ class CiCMD(Command):
     bot_email = param.String(doc="Bot account email")
     ci_python_version = param.String(doc="Primary Python version in GitHub Actions")
     python_versions = param.ListSelector(
-        default=PYTHON_VERSIONS,
+        default=DEFAULT_PYTHON_VERSIONS,
         doc="Supported python versions",
         objects=PYTHON_VERSIONS,
     )

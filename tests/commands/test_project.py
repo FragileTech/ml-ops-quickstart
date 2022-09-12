@@ -3,20 +3,22 @@ from pathlib import Path
 from omegaconf import DictConfig
 import pytest
 
-from mloq.commands.project import ProjectCMD
-from mloq.files import (
+from mloq.commands.project import (
+    code_of_conduct,
     codecov,
-    File,
+    contributing,
     gitignore,
     init,
     main,
     makefile,
     pre_commit_hook,
+    ProjectCMD,
     readme,
     test_main,
     test_req,
     version,
 )
+from mloq.files import File
 from mloq.writer import CMDRecord
 from tests.test_command import TestCommand
 
@@ -28,7 +30,6 @@ project_conf = {
         description="test description",
         owner="test_owner",
         license="MIT",
-        docker=True,
     ),
 }
 
@@ -51,14 +52,15 @@ project_conf_with_globals = DictConfig(
             description="${globals.description}",
             owner="${globals.owner}",
             license="${license.license}",
-            docker=False,
         ),
     },
 )
+fixture_ids = ["project-conf-cmd", "project-conf-globals"]
 
 
 @pytest.fixture(
     params=[(ProjectCMD, project_conf), (ProjectCMD, project_conf_with_globals)],
+    ids=fixture_ids,
     scope="function",
 )
 def command_and_config(request):
@@ -94,6 +96,8 @@ def example_files():
         Path() / pre_commit_hook.dst: pre_commit_hook,
         Path() / codecov.dst: codecov,
         Path() / gitignore.dst: gitignore,
+        Path() / code_of_conduct.dst: code_of_conduct,
+        Path() / contributing.dst: contributing,
         project_path / version.dst: version,
         project_path / init.dst: module_init,
         project_path / main.dst: main,
@@ -109,7 +113,7 @@ cmd_examples_param = [
 ]
 
 
-@pytest.fixture(params=cmd_examples_param, scope="function")
+@pytest.fixture(params=cmd_examples_param, scope="function", ids=fixture_ids)
 def command_and_example(request):
     command_cls, conf_dict, example = request.param
     config = DictConfig(conf_dict)

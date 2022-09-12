@@ -5,8 +5,7 @@ import tempfile
 from omegaconf import DictConfig, OmegaConf
 import pytest
 
-from mloq.commands.ci import CiCMD
-from mloq.files import push_python_wkf
+from mloq.commands.ci import CiCMD, push_python_wkf
 from mloq.runner import run_command
 from mloq.writer import CMDRecord
 from tests import TestCommand  # noqa: F401
@@ -93,7 +92,14 @@ def config_paths(request):
     temp_path.cleanup()
 
 
-@pytest.fixture(params=[(CiCMD, ci_conf), (CiCMD, ci_conf_with_globals)], scope="function")
+fixture_ids = ["ci-conf-cmd", "ci-conf-globals"]
+
+
+@pytest.fixture(
+    params=[(CiCMD, ci_conf), (CiCMD, ci_conf_with_globals)],
+    scope="function",
+    ids=fixture_ids,
+)
 def command_and_config(request):
     command_cls, conf_dict = request.param
     config = DictConfig(conf_dict)
@@ -110,6 +116,7 @@ example_files = {
 @pytest.fixture(
     params=[(CiCMD, ci_conf, example_files), (CiCMD, ci_conf_with_globals, example_files)],
     scope="function",
+    ids=fixture_ids,
 )
 def command_and_example(request):
     command_cls, conf_dict, example = request.param

@@ -7,20 +7,20 @@ globals:
   description: Package for initializing ML projects following ML Ops best practices.
   open_source: true
   project_url: https://github.com/FragileTech/ml-ops-quickstart
+  license: "MIT"
+  use_poetry: true
 
 license:
   disable: false
   license: MIT
   copyright_year: 2020
   copyright_holder: ${globals.owner}
-  open_source: ${globals.open_source}
   project_name: ${globals.project_name}
   email: ${globals.email}
   project_url: ${globals.project_url}
 
 project:
   disable: false
-  docker: false  # FIXME: depends on docker command
   license: ${license.license}  # FIXME: depends on docker command
   project_name: ${globals.project_name}
   owner: ${globals.owner}
@@ -38,6 +38,8 @@ docs:
   author: ${globals.author}
   copyright_holder: ${license.copyright_holder}
   copyright_year: ${license.copyright_year}
+  default_branch: ${globals.default_branch}
+  deploy_docs: true
 
 git:
   disable: true
@@ -49,7 +51,6 @@ git:
 
 package:
   disable: False
-  open_source: ${globals.open_source}
   project_name: ${globals.project_name}
   description: ${globals.description}
   default_branch: ${globals.default_branch}
@@ -65,7 +66,6 @@ package:
   - '3.9'
   pyproject_extra: ""
   license_classifier: "License :: OSI Approved :: MIT License"
-  pipenv: true
 
 requirements:
   disable: false
