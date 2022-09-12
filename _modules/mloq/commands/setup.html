@@ -571,14 +571,14 @@ title="Source repository"
     <span class="p">)</span>
 
     <span class="k">return</span> <span class="p">(</span>
-        <span class="n">CiCMD</span><span class="p">,</span>
-        <span class="n">DockerCMD</span><span class="p">,</span>
-        <span class="n">DocsCMD</span><span class="p">,</span>
         <span class="n">GlobalsCMD</span><span class="p">,</span>
+        <span class="n">ProjectCMD</span><span class="p">,</span>
+        <span class="n">PackageCMD</span><span class="p">,</span>
         <span class="n">LicenseCMD</span><span class="p">,</span>
         <span class="n">LintCMD</span><span class="p">,</span>
-        <span class="n">PackageCMD</span><span class="p">,</span>
-        <span class="n">ProjectCMD</span><span class="p">,</span>
+        <span class="n">CiCMD</span><span class="p">,</span>
+        <span class="n">DocsCMD</span><span class="p">,</span>
+        <span class="n">DockerCMD</span><span class="p">,</span>
         <span class="n">RequirementsCMD</span><span class="p">,</span>
     <span class="p">)</span></div>
 
@@ -625,7 +625,9 @@ title="Source repository"
 <div class="viewcode-block" id="SetupCMD.interactive_config"><a class="viewcode-back" href="../../../autoapi/mloq/commands/setup/index.html#mloq.commands.SetupCMD.interactive_config">[docs]</a>    <span class="k">def</span> <span class="nf">interactive_config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DictConfig</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Generate the configuration of the project interactively.&quot;&quot;&quot;</span>
         <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s2">&quot;Provide the values to generate the project configuration.&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="p">()</span></div>
+        <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_commands</span><span class="p">:</span>
+            <span class="n">cmd</span><span class="o">.</span><span class="n">interactive_config</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">record</span><span class="o">.</span><span class="n">config</span></div>
 
 <div class="viewcode-block" id="SetupCMD.parse_config"><a class="viewcode-back" href="../../../autoapi/mloq/commands/setup/index.html#mloq.commands.SetupCMD.parse_config">[docs]</a>    <span class="k">def</span> <span class="nf">parse_config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DictConfig</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Update the configuration DictConfig with the Command parameters.&quot;&quot;&quot;</span>
