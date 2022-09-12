@@ -1,9 +1,15 @@
-comment: false
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: default
+  require_changes: true  # if true: only post the comment if coverage changes
+
+github_checks:
+  annotations: true
+
 ignore:
 - tests
 coverage:
   status:
-    patch: off
     project:
       default:
         target: auto

@@ -86,7 +86,7 @@ jobs:
 
     - name: Upload coverage report
       if: ${{"{{"}} matrix.python-version=='{{ ci.ci_python_version }}' {{"}}"}}
-      uses: codecov/codecov-action@v1
+      uses: codecov/codecov-action@v3
 {% if ci.docker %}
   test-docker:
     name: Test Docker container
