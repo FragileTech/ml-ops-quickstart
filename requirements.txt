@@ -1,5 +1,5 @@
 click==8.0.3
-flogging==0.0.14
+flogging==0.0.21
 hydra-core==1.1.1
 invoke==1.6.0
 jinja2==3.0.3
