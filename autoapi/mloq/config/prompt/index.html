@@ -1,0 +1,1352 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>mloq.config.prompt</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="mloq.__main__" href="../../__main__/index.html" />
+    <link rel="prev" title="mloq.config.param_patch" href="../param_patch/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../../index.html">
+      
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../index.html">
+                    Welcome to ML Ops Quickstart
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Welcome to MLOQ
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../markdown/welcome.html">
+   About ML Ops Quickstart
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  How to
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../markdown/usage.html">
+   Command line interface
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Features
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../markdown/features.html">
+   Repository files
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MLOQ Library
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../markdown/library.html">
+   License
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../../index.html">
+   API reference
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="../../index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       mloq
+      </span>
+     </code>
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../commands/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.commands
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/ci/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.ci
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/docker/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.docker
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/docs/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.docs
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/globals/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.globals
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/license/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.license
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/lint/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.lint
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/package/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.package
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/project/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.project
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/requirements/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.requirements
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/setup/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.setup
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 current active has-children">
+      <a class="reference internal" href="../index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.config
+        </span>
+       </code>
+      </a>
+      <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <label for="toctree-checkbox-4">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul class="current">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../configuration/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.configuration
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../custom_click/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.custom_click
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../param_patch/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.param_patch
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4 current active">
+        <a class="current reference internal" href="#">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.prompt
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../__main__/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.__main__
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../_utils/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq._utils
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../cli/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.cli
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../command/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.command
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../custom_click/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.custom_click
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../failure/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.failure
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../files/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.files
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../git/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.git
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../record/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.record
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../runner/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.runner
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../templating/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.templating
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../version/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.version
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../writer/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.writer
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/FragileTech/ml-ops-quickstart"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/FragileTech/ml-ops-quickstart/edit/gh-pages/docs/autoapi/mloq/config/prompt/index.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../../_sources/autoapi/mloq/config/prompt/index.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-contents">
+   Module Contents
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classes">
+     Classes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#attributes">
+     Attributes
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.Choices">
+       Choices
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.PromptParam">
+       PromptParam
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.PromptParam.param">
+         param
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.PromptParam.value">
+         value
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.PromptParam.config">
+         config
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.PromptParam.__call__">
+         __call__
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.PromptParam._prompt">
+         _prompt
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.MultiChoicePrompt">
+       MultiChoicePrompt
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.MultiChoicePrompt._prompt">
+         _prompt
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.MultiChoicePrompt._parse_string">
+         _parse_string
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.StringPrompt">
+       StringPrompt
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.IntPrompt">
+       IntPrompt
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.FloatPrompt">
+       FloatPrompt
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.BooleanPrompt">
+       BooleanPrompt
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.BooleanPrompt._prompt">
+         _prompt
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.PARAM_TO_PROMPT">
+       PARAM_TO_PROMPT
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.Prompt">
+       Prompt
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.Prompt.__call__">
+         __call__
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.Prompt._init_prompts">
+         _init_prompts
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.Prompt.prompt">
+         prompt
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.Prompt.prompt_all">
+         prompt_all
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.Promptable">
+       Promptable
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>mloq.config.prompt</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-contents">
+   Module Contents
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classes">
+     Classes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#attributes">
+     Attributes
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.Choices">
+       Choices
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.PromptParam">
+       PromptParam
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.PromptParam.param">
+         param
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.PromptParam.value">
+         value
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.PromptParam.config">
+         config
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.PromptParam.__call__">
+         __call__
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.PromptParam._prompt">
+         _prompt
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.MultiChoicePrompt">
+       MultiChoicePrompt
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.MultiChoicePrompt._prompt">
+         _prompt
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.MultiChoicePrompt._parse_string">
+         _parse_string
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.StringPrompt">
+       StringPrompt
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.IntPrompt">
+       IntPrompt
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.FloatPrompt">
+       FloatPrompt
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.BooleanPrompt">
+       BooleanPrompt
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.BooleanPrompt._prompt">
+         _prompt
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.PARAM_TO_PROMPT">
+       PARAM_TO_PROMPT
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.Prompt">
+       Prompt
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.Prompt.__call__">
+         __call__
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.Prompt._init_prompts">
+         _init_prompts
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.Prompt.prompt">
+         prompt
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.prompt.Prompt.prompt_all">
+         prompt_all
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.prompt.Promptable">
+       Promptable
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="module-mloq.config.prompt">
+<span id="mloq-config-prompt"></span><h1><a class="reference internal" href="#module-mloq.config.prompt" title="mloq.config.prompt"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.config.prompt</span></code></a><a class="headerlink" href="#module-mloq.config.prompt" title="Permalink to this headline">#</a></h1>
+<p>This file contains the logic defining all the parameters needed to set up a project with mloq.</p>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">#</a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">#</a></h3>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.prompt.PromptParam" title="mloq.config.prompt.PromptParam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PromptParam</span></code></a></p></td>
+<td><p>Defines a configuration parameter.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.config.prompt.MultiChoicePrompt" title="mloq.config.prompt.MultiChoicePrompt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MultiChoicePrompt</span></code></a></p></td>
+<td><p>Define a configuration parameter that can take multiple values     from a pre-defined set of values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.prompt.StringPrompt" title="mloq.config.prompt.StringPrompt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StringPrompt</span></code></a></p></td>
+<td><p>Define a configuration parameter that can take a string value.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.config.prompt.IntPrompt" title="mloq.config.prompt.IntPrompt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IntPrompt</span></code></a></p></td>
+<td><p>Define a configuration parameter that can take an integer value.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.prompt.FloatPrompt" title="mloq.config.prompt.FloatPrompt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FloatPrompt</span></code></a></p></td>
+<td><p>Define a configuration parameter that can take a floating point value.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.config.prompt.BooleanPrompt" title="mloq.config.prompt.BooleanPrompt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BooleanPrompt</span></code></a></p></td>
+<td><p>Defines a boolean configuration parameter.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.prompt.Prompt" title="mloq.config.prompt.Prompt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Prompt</span></code></a></p></td>
+<td><p>Manage all the functionality needed to display a cli prompt.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.config.prompt.Promptable" title="mloq.config.prompt.Promptable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Promptable</span></code></a></p></td>
+<td><p>Configurable class that allows to define the parameter values interactively using CLI prompts.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">#</a></h3>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.prompt.Choices" title="mloq.config.prompt.Choices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Choices</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.config.prompt.PARAM_TO_PROMPT" title="mloq.config.prompt.PARAM_TO_PROMPT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PARAM_TO_PROMPT</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.config.prompt.Choices">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.prompt.</span></span><span class="sig-name descname"><span class="pre">Choices</span></span><a class="headerlink" href="#mloq.config.prompt.Choices" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mloq.config.prompt.PromptParam">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mloq.config.prompt.</span></span><span class="sig-name descname"><span class="pre">PromptParam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#PromptParam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.PromptParam" title="Permalink to this definition">#</a></dt>
+<dd><p>Defines a configuration parameter.</p>
+<dl class="simple">
+<dt>It allows to parse a configuration value from different sources in the following order:</dt><dd><ol class="arabic simple">
+<li><p>Environment variable named as MLOQ_PARAM_NAME</p></li>
+<li><p>Values defined in mloq.yaml</p></li>
+<li><p>Interactive promp from CLI (Optional)</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>target</strong> (<a class="reference internal" href="../configuration/index.html#mloq.config.configuration.Configurable" title="mloq.config.configuration.Configurable"><em>mloq.config.configuration.Configurable</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.prompt.PromptParam.param">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">param</span></span><a class="headerlink" href="#mloq.config.prompt.PromptParam.param" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the param.Parameter object corresponding to the current configuration parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>param.Parameter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.prompt.PromptParam.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#mloq.config.prompt.PromptParam.value" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the value of the configuration parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.prompt.PromptParam.config">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#mloq.config.prompt.PromptParam.config" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the value of the parameter as defined in its config DictConfig.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.prompt.PromptParam.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interactive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#PromptParam.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.PromptParam.__call__" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the value of the parameter parsing it from the different input sources available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interactive</strong> (<em>bool</em>) – Prompt the user to input the value from CLI if it’s not defined
+in config or as en environment variable.</p></li>
+<li><p><strong>default</strong> (<em>Optional</em><em>[</em><em>Any</em><em>]</em>) – Default value displayed in the interactive mode.</p></li>
+<li><p><strong>**kwargs</strong> – Passed to click.prompt in interactive mode. Overrides the
+values defined in __init__</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Value of the parameter.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.prompt.PromptParam._prompt">
+<span class="sig-name descname"><span class="pre">_prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#PromptParam._prompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.PromptParam._prompt" title="Permalink to this definition">#</a></dt>
+<dd><p>Prompt user for value.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mloq.config.prompt.MultiChoicePrompt">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mloq.config.prompt.</span></span><span class="sig-name descname"><span class="pre">MultiChoicePrompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#MultiChoicePrompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.MultiChoicePrompt" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mloq.config.prompt.PromptParam" title="mloq.config.prompt.PromptParam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PromptParam</span></code></a></p>
+<p>Define a configuration parameter that can take multiple values     from a pre-defined set of values.</p>
+<dl class="simple">
+<dt>It allows to parse a configuration value from different sources in the following order:</dt><dd><ol class="arabic simple">
+<li><p>Environment variable named as MLOQ_PARAM_NAME</p></li>
+<li><p>Values defined in mloq.yaml</p></li>
+<li><p>Interactive promp from CLI (Optional)</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>target</strong> (<a class="reference internal" href="../configuration/index.html#mloq.config.configuration.Configurable" title="mloq.config.configuration.Configurable"><em>mloq.config.configuration.Configurable</em></a>) – </p></li>
+<li><p><strong>choices</strong> (<em>Optional</em><em>[</em><em>Choices</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.prompt.MultiChoicePrompt._prompt">
+<span class="sig-name descname"><span class="pre">_prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#MultiChoicePrompt._prompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.MultiChoicePrompt._prompt" title="Permalink to this definition">#</a></dt>
+<dd><p>Transform the parsed string from the CLI into a list of selected values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.prompt.MultiChoicePrompt._parse_string">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_parse_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#MultiChoicePrompt._parse_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.MultiChoicePrompt._parse_string" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mloq.config.prompt.StringPrompt">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mloq.config.prompt.</span></span><span class="sig-name descname"><span class="pre">StringPrompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#StringPrompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.StringPrompt" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mloq.config.prompt.PromptParam" title="mloq.config.prompt.PromptParam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PromptParam</span></code></a></p>
+<p>Define a configuration parameter that can take a string value.</p>
+<dl class="simple">
+<dt>It allows to parse a configuration value from different sources in the following order:</dt><dd><ol class="arabic simple">
+<li><p>Environment variable named as MLOQ_PARAM_NAME</p></li>
+<li><p>Values defined in mloq.yaml</p></li>
+<li><p>Interactive promp from CLI (Optional)</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>target</strong> (<a class="reference internal" href="../configuration/index.html#mloq.config.configuration.Configurable" title="mloq.config.configuration.Configurable"><em>mloq.config.configuration.Configurable</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mloq.config.prompt.IntPrompt">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mloq.config.prompt.</span></span><span class="sig-name descname"><span class="pre">IntPrompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#IntPrompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.IntPrompt" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mloq.config.prompt.PromptParam" title="mloq.config.prompt.PromptParam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PromptParam</span></code></a></p>
+<p>Define a configuration parameter that can take an integer value.</p>
+<dl class="simple">
+<dt>It allows to parse a configuration value from different sources in the following order:</dt><dd><ol class="arabic simple">
+<li><p>Environment variable named as MLOQ_PARAM_NAME</p></li>
+<li><p>Values defined in mloq.yaml</p></li>
+<li><p>Interactive promp from CLI (Optional)</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>target</strong> (<a class="reference internal" href="../configuration/index.html#mloq.config.configuration.Configurable" title="mloq.config.configuration.Configurable"><em>mloq.config.configuration.Configurable</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mloq.config.prompt.FloatPrompt">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mloq.config.prompt.</span></span><span class="sig-name descname"><span class="pre">FloatPrompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#FloatPrompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.FloatPrompt" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mloq.config.prompt.PromptParam" title="mloq.config.prompt.PromptParam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PromptParam</span></code></a></p>
+<p>Define a configuration parameter that can take a floating point value.</p>
+<dl class="simple">
+<dt>It allows to parse a configuration value from different sources in the following order:</dt><dd><ol class="arabic simple">
+<li><p>Environment variable named as MLOQ_PARAM_NAME</p></li>
+<li><p>Values defined in mloq.yaml</p></li>
+<li><p>Interactive promp from CLI (Optional)</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>target</strong> (<a class="reference internal" href="../configuration/index.html#mloq.config.configuration.Configurable" title="mloq.config.configuration.Configurable"><em>mloq.config.configuration.Configurable</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mloq.config.prompt.BooleanPrompt">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mloq.config.prompt.</span></span><span class="sig-name descname"><span class="pre">BooleanPrompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#BooleanPrompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.BooleanPrompt" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mloq.config.prompt.PromptParam" title="mloq.config.prompt.PromptParam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PromptParam</span></code></a></p>
+<p>Defines a boolean configuration parameter.</p>
+<dl class="simple">
+<dt>It allows to parse a configuration value from different sources in the following order:</dt><dd><ol class="arabic simple">
+<li><p>Environment variable named as MLOQ_PARAM_NAME</p></li>
+<li><p>Values defined in mloq.yaml</p></li>
+<li><p>Interactive promp from CLI (Optional)</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>target</strong> (<a class="reference internal" href="../configuration/index.html#mloq.config.configuration.Configurable" title="mloq.config.configuration.Configurable"><em>mloq.config.configuration.Configurable</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.prompt.BooleanPrompt._prompt">
+<span class="sig-name descname"><span class="pre">_prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#BooleanPrompt._prompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.BooleanPrompt._prompt" title="Permalink to this definition">#</a></dt>
+<dd><p>Prompt user for value.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.config.prompt.PARAM_TO_PROMPT">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.prompt.</span></span><span class="sig-name descname"><span class="pre">PARAM_TO_PROMPT</span></span><a class="headerlink" href="#mloq.config.prompt.PARAM_TO_PROMPT" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mloq.config.prompt.Prompt">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mloq.config.prompt.</span></span><span class="sig-name descname"><span class="pre">Prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#Prompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.Prompt" title="Permalink to this definition">#</a></dt>
+<dd><p>Manage all the functionality needed to display a cli prompt.</p>
+<p>It allows to interactively define the values of the different parameters of a class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target</strong> (<a class="reference internal" href="#mloq.config.prompt.Promptable" title="mloq.config.prompt.Promptable"><em>Promptable</em></a>) – </p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.prompt.Prompt.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#Prompt.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.Prompt.__call__" title="Permalink to this definition">#</a></dt>
+<dd><p>Display the a prompt to interactively define the parameter values of target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>str</em>) – </p></li>
+<li><p><strong>inplace</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.prompt.Prompt._init_prompts">
+<span class="sig-name descname"><span class="pre">_init_prompts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#Prompt._init_prompts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.Prompt._init_prompts" title="Permalink to this definition">#</a></dt>
+<dd><p>Initialize the prompts corresponding to the target Promptable parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.prompt.Prompt.prompt">
+<span class="sig-name descname"><span class="pre">prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#Prompt.prompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.Prompt.prompt" title="Permalink to this definition">#</a></dt>
+<dd><p>Display the a prompt to interactively define the parameter values of target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>str</em>) – </p></li>
+<li><p><strong>inplace</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.prompt.Prompt.prompt_all">
+<span class="sig-name descname"><span class="pre">prompt_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#Prompt.prompt_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.Prompt.prompt_all" title="Permalink to this definition">#</a></dt>
+<dd><p>Prompt all the target’s parameters.</p>
+<p>Return a dictionary containing the provided values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>inplace</strong> (<em>bool</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mloq.config.prompt.Promptable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mloq.config.prompt.</span></span><span class="sig-name descname"><span class="pre">Promptable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/prompt.html#Promptable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.prompt.Promptable" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../configuration/index.html#mloq.config.configuration.Configurable" title="mloq.config.configuration.Configurable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mloq.config.configuration.Configurable</span></code></a></p>
+<p>Configurable class that allows to define the parameter values interactively using CLI prompts.</p>
+<p>It contains a prompt attribute in charge of managing the prompting functionality for the
+param.Parameters defined.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../param_patch/index.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.config.param_patch</span></code></p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../../__main__/index.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.__main__</span></code></p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Guillem Duran, Vadim Markovtsev<br/>
+  
+      &copy; Copyright 2020-2022, FragileTech.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

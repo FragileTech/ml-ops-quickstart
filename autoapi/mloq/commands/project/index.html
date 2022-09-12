@@ -1,0 +1,1214 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>mloq.commands.project</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="mloq.commands.requirements" href="../requirements/index.html" />
+    <link rel="prev" title="mloq.commands.package" href="../package/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../../index.html">
+      
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../index.html">
+                    Welcome to ML Ops Quickstart
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Welcome to MLOQ
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../markdown/welcome.html">
+   About ML Ops Quickstart
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  How to
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../markdown/usage.html">
+   Command line interface
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Features
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../markdown/features.html">
+   Repository files
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MLOQ Library
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../markdown/library.html">
+   License
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../../index.html">
+   API reference
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="../../index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       mloq
+      </span>
+     </code>
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3 current active has-children">
+      <a class="reference internal" href="../index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.commands
+        </span>
+       </code>
+      </a>
+      <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul class="current">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../ci/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.ci
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../docker/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.docker
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../docs/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.docs
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../globals/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.globals
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../license/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.license
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../lint/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.lint
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../package/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.package
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4 current active">
+        <a class="current reference internal" href="#">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.project
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../requirements/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.requirements
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.setup
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../config/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.config
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <label for="toctree-checkbox-4">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../config/configuration/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.configuration
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../config/custom_click/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.custom_click
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../config/param_patch/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.param_patch
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../config/prompt/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.prompt
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../__main__/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.__main__
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../_utils/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq._utils
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../cli/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.cli
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../command/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.command
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../custom_click/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.custom_click
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../failure/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.failure
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../files/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.files
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../git/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.git
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../record/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.record
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../runner/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.runner
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../templating/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.templating
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../version/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.version
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../writer/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.writer
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/FragileTech/ml-ops-quickstart"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/FragileTech/ml-ops-quickstart/edit/gh-pages/docs/autoapi/mloq/commands/project/index.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../../_sources/autoapi/mloq/commands/project/index.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-contents">
+   Module Contents
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classes">
+     Classes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#attributes">
+     Attributes
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.PROJECT_ASSETS_PATH">
+       PROJECT_ASSETS_PATH
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.readme">
+       readme
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.gitignore">
+       gitignore
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.pre_commit_hook">
+       pre_commit_hook
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.init">
+       init
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.main">
+       main
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.test_main">
+       test_main
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.test_req">
+       test_req
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.version">
+       version
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.code_of_conduct">
+       code_of_conduct
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.codecov">
+       codecov
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.contributing">
+       contributing
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.PROJECT_FILES">
+       PROJECT_FILES
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD">
+       ProjectCMD
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.cmd_name">
+         cmd_name
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.files">
+         files
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.disable">
+         disable
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.project_name">
+         project_name
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.owner">
+         owner
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.description">
+         description
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.project_url">
+         project_url
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.license">
+         license
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.tests">
+         tests
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.directories">
+         directories
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.record_files">
+         record_files
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>mloq.commands.project</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-contents">
+   Module Contents
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classes">
+     Classes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#attributes">
+     Attributes
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.PROJECT_ASSETS_PATH">
+       PROJECT_ASSETS_PATH
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.readme">
+       readme
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.gitignore">
+       gitignore
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.pre_commit_hook">
+       pre_commit_hook
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.init">
+       init
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.main">
+       main
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.test_main">
+       test_main
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.test_req">
+       test_req
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.version">
+       version
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.code_of_conduct">
+       code_of_conduct
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.codecov">
+       codecov
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.contributing">
+       contributing
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.PROJECT_FILES">
+       PROJECT_FILES
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD">
+       ProjectCMD
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.cmd_name">
+         cmd_name
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.files">
+         files
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.disable">
+         disable
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.project_name">
+         project_name
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.owner">
+         owner
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.description">
+         description
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.project_url">
+         project_url
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.license">
+         license
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.tests">
+         tests
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.directories">
+         directories
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.commands.project.ProjectCMD.record_files">
+         record_files
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="module-mloq.commands.project">
+<span id="mloq-commands-project"></span><h1><a class="reference internal" href="#module-mloq.commands.project" title="mloq.commands.project"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.commands.project</span></code></a><a class="headerlink" href="#module-mloq.commands.project" title="Permalink to this headline">#</a></h1>
+<p>Mloq project command implementation.</p>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">#</a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">#</a></h3>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.commands.project.ProjectCMD" title="mloq.commands.project.ProjectCMD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ProjectCMD</span></code></a></p></td>
+<td><p>Implement the functionality of the project Command.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">#</a></h3>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.commands.project.PROJECT_ASSETS_PATH" title="mloq.commands.project.PROJECT_ASSETS_PATH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PROJECT_ASSETS_PATH</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.commands.project.readme" title="mloq.commands.project.readme"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readme</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.commands.project.gitignore" title="mloq.commands.project.gitignore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gitignore</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.commands.project.pre_commit_hook" title="mloq.commands.project.pre_commit_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pre_commit_hook</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.commands.project.init" title="mloq.commands.project.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.commands.project.main" title="mloq.commands.project.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.commands.project.test_main" title="mloq.commands.project.test_main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_main</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.commands.project.test_req" title="mloq.commands.project.test_req"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_req</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.commands.project.version" title="mloq.commands.project.version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">version</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.commands.project.code_of_conduct" title="mloq.commands.project.code_of_conduct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">code_of_conduct</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.commands.project.codecov" title="mloq.commands.project.codecov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">codecov</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.commands.project.contributing" title="mloq.commands.project.contributing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">contributing</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.commands.project.PROJECT_FILES" title="mloq.commands.project.PROJECT_FILES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PROJECT_FILES</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.commands.project.PROJECT_ASSETS_PATH">
+<span class="sig-prename descclassname"><span class="pre">mloq.commands.project.</span></span><span class="sig-name descname"><span class="pre">PROJECT_ASSETS_PATH</span></span><a class="headerlink" href="#mloq.commands.project.PROJECT_ASSETS_PATH" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.commands.project.readme">
+<span class="sig-prename descclassname"><span class="pre">mloq.commands.project.</span></span><span class="sig-name descname"><span class="pre">readme</span></span><a class="headerlink" href="#mloq.commands.project.readme" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.commands.project.gitignore">
+<span class="sig-prename descclassname"><span class="pre">mloq.commands.project.</span></span><span class="sig-name descname"><span class="pre">gitignore</span></span><a class="headerlink" href="#mloq.commands.project.gitignore" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.commands.project.pre_commit_hook">
+<span class="sig-prename descclassname"><span class="pre">mloq.commands.project.</span></span><span class="sig-name descname"><span class="pre">pre_commit_hook</span></span><a class="headerlink" href="#mloq.commands.project.pre_commit_hook" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.commands.project.init">
+<span class="sig-prename descclassname"><span class="pre">mloq.commands.project.</span></span><span class="sig-name descname"><span class="pre">init</span></span><a class="headerlink" href="#mloq.commands.project.init" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.commands.project.main">
+<span class="sig-prename descclassname"><span class="pre">mloq.commands.project.</span></span><span class="sig-name descname"><span class="pre">main</span></span><a class="headerlink" href="#mloq.commands.project.main" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.commands.project.test_main">
+<span class="sig-prename descclassname"><span class="pre">mloq.commands.project.</span></span><span class="sig-name descname"><span class="pre">test_main</span></span><a class="headerlink" href="#mloq.commands.project.test_main" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.commands.project.test_req">
+<span class="sig-prename descclassname"><span class="pre">mloq.commands.project.</span></span><span class="sig-name descname"><span class="pre">test_req</span></span><a class="headerlink" href="#mloq.commands.project.test_req" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.commands.project.version">
+<span class="sig-prename descclassname"><span class="pre">mloq.commands.project.</span></span><span class="sig-name descname"><span class="pre">version</span></span><a class="headerlink" href="#mloq.commands.project.version" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.commands.project.code_of_conduct">
+<span class="sig-prename descclassname"><span class="pre">mloq.commands.project.</span></span><span class="sig-name descname"><span class="pre">code_of_conduct</span></span><a class="headerlink" href="#mloq.commands.project.code_of_conduct" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.commands.project.codecov">
+<span class="sig-prename descclassname"><span class="pre">mloq.commands.project.</span></span><span class="sig-name descname"><span class="pre">codecov</span></span><a class="headerlink" href="#mloq.commands.project.codecov" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.commands.project.contributing">
+<span class="sig-prename descclassname"><span class="pre">mloq.commands.project.</span></span><span class="sig-name descname"><span class="pre">contributing</span></span><a class="headerlink" href="#mloq.commands.project.contributing" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.commands.project.PROJECT_FILES">
+<span class="sig-prename descclassname"><span class="pre">mloq.commands.project.</span></span><span class="sig-name descname"><span class="pre">PROJECT_FILES</span></span><a class="headerlink" href="#mloq.commands.project.PROJECT_FILES" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mloq.commands.project.ProjectCMD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mloq.commands.project.</span></span><span class="sig-name descname"><span class="pre">ProjectCMD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interactive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/commands/project.html#ProjectCMD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.commands.project.ProjectCMD" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../command/index.html#mloq.command.Command" title="mloq.command.Command"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mloq.command.Command</span></code></a></p>
+<p>Implement the functionality of the project Command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> (<em>mloq.writer.CMDRecord</em>) – </p></li>
+<li><p><strong>interactive</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mloq.commands.project.ProjectCMD.cmd_name">
+<span class="sig-name descname"><span class="pre">cmd_name</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">project</span></em><a class="headerlink" href="#mloq.commands.project.ProjectCMD.cmd_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mloq.commands.project.ProjectCMD.files">
+<span class="sig-name descname"><span class="pre">files</span></span><a class="headerlink" href="#mloq.commands.project.ProjectCMD.files" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mloq.commands.project.ProjectCMD.disable">
+<span class="sig-name descname"><span class="pre">disable</span></span><a class="headerlink" href="#mloq.commands.project.ProjectCMD.disable" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mloq.commands.project.ProjectCMD.project_name">
+<span class="sig-name descname"><span class="pre">project_name</span></span><a class="headerlink" href="#mloq.commands.project.ProjectCMD.project_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mloq.commands.project.ProjectCMD.owner">
+<span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#mloq.commands.project.ProjectCMD.owner" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mloq.commands.project.ProjectCMD.description">
+<span class="sig-name descname"><span class="pre">description</span></span><a class="headerlink" href="#mloq.commands.project.ProjectCMD.description" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mloq.commands.project.ProjectCMD.project_url">
+<span class="sig-name descname"><span class="pre">project_url</span></span><a class="headerlink" href="#mloq.commands.project.ProjectCMD.project_url" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mloq.commands.project.ProjectCMD.license">
+<span class="sig-name descname"><span class="pre">license</span></span><a class="headerlink" href="#mloq.commands.project.ProjectCMD.license" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mloq.commands.project.ProjectCMD.tests">
+<span class="sig-name descname"><span class="pre">tests</span></span><a class="headerlink" href="#mloq.commands.project.ProjectCMD.tests" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.commands.project.ProjectCMD.directories">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">directories</span></span><a class="headerlink" href="#mloq.commands.project.ProjectCMD.directories" title="Permalink to this definition">#</a></dt>
+<dd><p>Tuple containing Paths objects representing the directories created by the command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple[pathlib.Path]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.commands.project.ProjectCMD.record_files">
+<span class="sig-name descname"><span class="pre">record_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/commands/project.html#ProjectCMD.record_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.commands.project.ProjectCMD.record_files" title="Permalink to this definition">#</a></dt>
+<dd><p>Register the files that will be generated by mloq.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../package/index.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.commands.package</span></code></p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../requirements/index.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.commands.requirements</span></code></p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Guillem Duran, Vadim Markovtsev<br/>
+  
+      &copy; Copyright 2020-2022, FragileTech.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

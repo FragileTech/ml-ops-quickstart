@@ -1,0 +1,50 @@
+:py:mod:`mloq`
+==============
+
+.. py:module:: mloq
+
+.. autoapi-nested-parse::
+
+   Package for initializing ML projects following ML Ops best practices.
+
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   commands/index.rst
+   config/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   __main__/index.rst
+   _utils/index.rst
+   cli/index.rst
+   command/index.rst
+   custom_click/index.rst
+   failure/index.rst
+   files/index.rst
+   git/index.rst
+   record/index.rst
+   runner/index.rst
+   templating/index.rst
+   version/index.rst
+   writer/index.rst
+
+
+Package Contents
+----------------
+
+.. py:data:: _logger
+   
+
+   
+

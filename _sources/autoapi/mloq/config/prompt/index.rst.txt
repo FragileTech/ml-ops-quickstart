@@ -1,0 +1,209 @@
+:py:mod:`mloq.config.prompt`
+============================
+
+.. py:module:: mloq.config.prompt
+
+.. autoapi-nested-parse::
+
+   This file contains the logic defining all the parameters needed to set up a project with mloq.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   mloq.config.prompt.PromptParam
+   mloq.config.prompt.MultiChoicePrompt
+   mloq.config.prompt.StringPrompt
+   mloq.config.prompt.IntPrompt
+   mloq.config.prompt.FloatPrompt
+   mloq.config.prompt.BooleanPrompt
+   mloq.config.prompt.Prompt
+   mloq.config.prompt.Promptable
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   mloq.config.prompt.Choices
+   mloq.config.prompt.PARAM_TO_PROMPT
+
+
+.. py:data:: Choices
+   
+
+   
+
+.. py:class:: PromptParam(name, target, **kwargs)
+
+   Defines a configuration parameter.
+
+   It allows to parse a configuration value from different sources in the following order:
+       1. Environment variable named as MLOQ_PARAM_NAME
+       2. Values defined in mloq.yaml
+       3. Interactive promp from CLI (Optional)
+
+   .. py:method:: param()
+      :property:
+
+      Get the param.Parameter object corresponding to the current configuration parameter.
+
+
+   .. py:method:: value()
+      :property:
+
+      Return the value of the configuration parameter.
+
+
+   .. py:method:: config()
+      :property:
+
+      Return the value of the parameter as defined in its config DictConfig.
+
+
+   .. py:method:: __call__(interactive = False, default = None, **kwargs)
+
+      Return the value of the parameter parsing it from the different input sources available.
+
+      :param interactive: Prompt the user to input the value from CLI if it's not defined
+                          in config or as en environment variable.
+      :param default: Default value displayed in the interactive mode.
+      :param \*\*kwargs: Passed to click.prompt in interactive mode. Overrides the
+                         values defined in __init__
+
+      :returns: Value of the parameter.
+
+
+   .. py:method:: _prompt(value, **kwargs)
+
+      Prompt user for value.
+
+
+
+.. py:class:: MultiChoicePrompt(name, target, choices = None, **kwargs)
+
+   Bases: :py:obj:`PromptParam`
+
+   Define a configuration parameter that can take multiple values     from a pre-defined set of values.
+
+   It allows to parse a configuration value from different sources in the following order:
+       1. Environment variable named as MLOQ_PARAM_NAME
+       2. Values defined in mloq.yaml
+       3. Interactive promp from CLI (Optional)
+
+   .. py:method:: _prompt(value, **kwargs)
+
+      Transform the parsed string from the CLI into a list of selected values.
+
+
+   .. py:method:: _parse_string(value)
+      :staticmethod:
+
+
+
+.. py:class:: StringPrompt(name, target, **kwargs)
+
+   Bases: :py:obj:`PromptParam`
+
+   Define a configuration parameter that can take a string value.
+
+   It allows to parse a configuration value from different sources in the following order:
+       1. Environment variable named as MLOQ_PARAM_NAME
+       2. Values defined in mloq.yaml
+       3. Interactive promp from CLI (Optional)
+
+
+.. py:class:: IntPrompt(name, target, **kwargs)
+
+   Bases: :py:obj:`PromptParam`
+
+   Define a configuration parameter that can take an integer value.
+
+   It allows to parse a configuration value from different sources in the following order:
+       1. Environment variable named as MLOQ_PARAM_NAME
+       2. Values defined in mloq.yaml
+       3. Interactive promp from CLI (Optional)
+
+
+.. py:class:: FloatPrompt(name, target, **kwargs)
+
+   Bases: :py:obj:`PromptParam`
+
+   Define a configuration parameter that can take a floating point value.
+
+   It allows to parse a configuration value from different sources in the following order:
+       1. Environment variable named as MLOQ_PARAM_NAME
+       2. Values defined in mloq.yaml
+       3. Interactive promp from CLI (Optional)
+
+
+.. py:class:: BooleanPrompt(name, target, **kwargs)
+
+   Bases: :py:obj:`PromptParam`
+
+   Defines a boolean configuration parameter.
+
+   It allows to parse a configuration value from different sources in the following order:
+       1. Environment variable named as MLOQ_PARAM_NAME
+       2. Values defined in mloq.yaml
+       3. Interactive promp from CLI (Optional)
+
+   .. py:method:: _prompt(value, **kwargs)
+
+      Prompt user for value.
+
+
+
+.. py:data:: PARAM_TO_PROMPT
+   
+
+   
+
+.. py:class:: Prompt(target)
+
+   Manage all the functionality needed to display a cli prompt.
+
+   It allows to interactively define the values of the different parameters of a class.
+
+   .. py:method:: __call__(key, inplace = False, **kwargs)
+
+      Display the a prompt to interactively define the parameter values of target.
+
+
+   .. py:method:: _init_prompts()
+
+      Initialize the prompts corresponding to the target Promptable parameters.
+
+
+   .. py:method:: prompt(key, inplace = False, **kwargs)
+
+      Display the a prompt to interactively define the parameter values of target.
+
+
+   .. py:method:: prompt_all(inplace = False, **kwargs)
+
+      Prompt all the target's parameters.
+
+      Return a dictionary containing the provided values.
+
+
+
+.. py:class:: Promptable(**kwargs)
+
+   Bases: :py:obj:`mloq.config.configuration.Configurable`
+
+   Configurable class that allows to define the parameter values interactively using CLI prompts.
+
+   It contains a prompt attribute in charge of managing the prompting functionality for the
+   param.Parameters defined.
+
+

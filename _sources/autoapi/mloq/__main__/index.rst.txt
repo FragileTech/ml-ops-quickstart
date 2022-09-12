@@ -1,0 +1,11 @@
+:py:mod:`mloq.__main__`
+=======================
+
+.. py:module:: mloq.__main__
+
+.. autoapi-nested-parse::
+
+   Command line interface for mloq.
+
+
+

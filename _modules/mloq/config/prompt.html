@@ -1,0 +1,904 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mloq.config.prompt</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../index.html">
+                    Welcome to ML Ops Quickstart
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Welcome to MLOQ
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../markdown/welcome.html">
+   About ML Ops Quickstart
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  How to
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../markdown/usage.html">
+   Command line interface
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Features
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../markdown/features.html">
+   Repository files
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MLOQ Library
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../markdown/library.html">
+   License
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../autoapi/index.html">
+   API reference
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../autoapi/mloq/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       mloq
+      </span>
+     </code>
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../autoapi/mloq/commands/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.commands
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/ci/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.ci
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/docker/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.docker
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/docs/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.docs
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/globals/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.globals
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/license/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.license
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/lint/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.lint
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/package/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.package
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/project/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.project
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/requirements/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.requirements
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/setup/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.setup
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../autoapi/mloq/config/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.config
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <label for="toctree-checkbox-4">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/config/configuration/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.configuration
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/config/custom_click/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.custom_click
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/config/param_patch/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.param_patch
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/config/prompt/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.prompt
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/__main__/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.__main__
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/_utils/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq._utils
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/cli/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.cli
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/command/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.command
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/custom_click/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.custom_click
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/failure/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.failure
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/files/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.files
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/git/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.git
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/record/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.record
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/runner/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.runner
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/templating/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.templating
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/version/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.version
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/writer/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.writer
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/FragileTech/ml-ops-quickstart"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for mloq.config.prompt</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This file contains the logic defining all the parameters needed to \</span>
+<span class="sd">set up a project with mloq.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">click</span>
+<span class="kn">from</span> <span class="nn">omegaconf</span> <span class="kn">import</span> <span class="n">DictConfig</span><span class="p">,</span> <span class="n">MISSING</span><span class="p">,</span> <span class="n">OmegaConf</span>
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">mloq.config.configuration</span> <span class="kn">import</span> <span class="n">as_resolved_dict</span><span class="p">,</span> <span class="n">Configurable</span>
+<span class="kn">from</span> <span class="nn">mloq.config.custom_click</span> <span class="kn">import</span> <span class="n">confirm</span><span class="p">,</span> <span class="n">prompt</span>
+<span class="kn">from</span> <span class="nn">mloq.failure</span> <span class="kn">import</span> <span class="n">MissingConfigValue</span>
+
+
+<span class="n">Choices</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+
+
+<div class="viewcode-block" id="PromptParam"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.PromptParam">[docs]</a><span class="k">class</span> <span class="nc">PromptParam</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Defines a configuration parameter.</span>
+
+<span class="sd">    It allows to parse a configuration value from different sources in the following order:</span>
+<span class="sd">        1. Environment variable named as MLOQ_PARAM_NAME</span>
+<span class="sd">        2. Values defined in mloq.yaml</span>
+<span class="sd">        3. Interactive promp from CLI (Optional)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Configurable</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a ConfigParam.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name: Name of the parameter (as defined in mloq.yaml).</span>
+<span class="sd">            text: Text that will be prompted in the CLI when using interactive mode.</span>
+<span class="sd">            **kwargs: Passed to click.prompt when running in interactive mode.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="n">target</span>
+        <span class="n">prompt_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">doc</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">doc</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prompt_text</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&gt; </span><span class="si">{</span><span class="n">prompt_text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s2">&quot;bright_magenta&quot;</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prompt_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prompt_kwargs</span><span class="p">[</span><span class="s2">&quot;show_default&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;show_default&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prompt_kwargs</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">param</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the param.Parameter object corresponding to the current configuration parameter.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="o">.</span><span class="n">param</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the value of the configuration parameter.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the value of the parameter as defined in its config DictConfig.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="o">.</span><span class="n">config</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MissingConfigValue</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Config value </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> is not defined in config&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">is_missing</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">MISSING</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+
+<div class="viewcode-block" id="PromptParam.__call__"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.PromptParam.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the value of the parameter parsing it from the different input sources available.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            interactive: Prompt the user to input the value from CLI if it&#39;s not defined</span>
+<span class="sd">                        in config or as en environment variable.</span>
+<span class="sd">            default: Default value displayed in the interactive mode.</span>
+<span class="sd">            **kwargs: Passed to click.prompt in interactive mode. Overrides the</span>
+<span class="sd">                      values defined in __init__</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Value of the parameter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">default</span> <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prompt</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="PromptParam._prompt"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.PromptParam._prompt">[docs]</a>    <span class="k">def</span> <span class="nf">_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Prompt user for value.&quot;&quot;&quot;</span>
+        <span class="n">_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prompt_kwargs</span><span class="p">)</span>
+        <span class="n">_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_kwargs</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">prompt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prompt_text</span><span class="p">,</span> <span class="o">**</span><span class="n">_kwargs</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="MultiChoicePrompt"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.MultiChoicePrompt">[docs]</a><span class="k">class</span> <span class="nc">MultiChoicePrompt</span><span class="p">(</span><span class="n">PromptParam</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Define a configuration parameter that can take multiple values \</span>
+<span class="sd">    from a pre-defined set of values.</span>
+
+<span class="sd">    It allows to parse a configuration value from different sources in the following order:</span>
+<span class="sd">        1. Environment variable named as MLOQ_PARAM_NAME</span>
+<span class="sd">        2. Values defined in mloq.yaml</span>
+<span class="sd">        3. Interactive promp from CLI (Optional)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">target</span><span class="p">:</span> <span class="n">Configurable</span><span class="p">,</span>
+        <span class="n">choices</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Choices</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a ConfigParam.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name: Name of the parameter (as defined in mloq.yaml).</span>
+<span class="sd">            choices: Contains all the available values for the parameter.</span>
+<span class="sd">            text: Text that will be prompted in the CLI when using interactive mode.</span>
+<span class="sd">            **kwargs: Passed to click.prompt when running in interactive mode.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MultiChoicePrompt</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">choices</span> <span class="o">=</span> <span class="n">choices</span>  <span class="c1"># TODO: use this to validate user input.</span>
+
+<div class="viewcode-block" id="MultiChoicePrompt._prompt"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.MultiChoicePrompt._prompt">[docs]</a>    <span class="k">def</span> <span class="nf">_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Transform the parsed string from the CLI into a list of selected values.&quot;&quot;&quot;</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">MultiChoicePrompt</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_prompt</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_string</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">val</span></div>
+
+<div class="viewcode-block" id="MultiChoicePrompt._parse_string"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.MultiChoicePrompt._parse_string">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_parse_string</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="k">def</span> <span class="nf">filter_str</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;[&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">filter_str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span></div></div>
+
+
+<div class="viewcode-block" id="StringPrompt"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.StringPrompt">[docs]</a><span class="k">class</span> <span class="nc">StringPrompt</span><span class="p">(</span><span class="n">PromptParam</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Define a configuration parameter that can take a string value.</span>
+
+<span class="sd">    It allows to parse a configuration value from different sources in the following order:</span>
+<span class="sd">        1. Environment variable named as MLOQ_PARAM_NAME</span>
+<span class="sd">        2. Values defined in mloq.yaml</span>
+<span class="sd">        3. Interactive promp from CLI (Optional)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">target</span><span class="p">:</span> <span class="n">Configurable</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a ConfigParam.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name: Name of the parameter (as defined in mloq.yaml).</span>
+<span class="sd">            choices: Contains all the available values for the parameter.</span>
+<span class="sd">            text: Text that will be prompted in the CLI when using interactive mode.</span>
+<span class="sd">            **kwargs: Passed to click.prompt when running in interactive mode.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">StringPrompt</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="IntPrompt"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.IntPrompt">[docs]</a><span class="k">class</span> <span class="nc">IntPrompt</span><span class="p">(</span><span class="n">PromptParam</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Define a configuration parameter that can take an integer value.</span>
+
+<span class="sd">    It allows to parse a configuration value from different sources in the following order:</span>
+<span class="sd">        1. Environment variable named as MLOQ_PARAM_NAME</span>
+<span class="sd">        2. Values defined in mloq.yaml</span>
+<span class="sd">        3. Interactive promp from CLI (Optional)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">target</span><span class="p">:</span> <span class="n">Configurable</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a ConfigParam.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name: Name of the parameter (as defined in mloq.yaml).</span>
+<span class="sd">            choices: Contains all the available values for the parameter.</span>
+<span class="sd">            text: Text that will be prompted in the CLI when using interactive mode.</span>
+<span class="sd">            **kwargs: Passed to click.prompt when running in interactive mode.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">IntPrompt</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FloatPrompt"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.FloatPrompt">[docs]</a><span class="k">class</span> <span class="nc">FloatPrompt</span><span class="p">(</span><span class="n">PromptParam</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Define a configuration parameter that can take a floating point value.</span>
+
+<span class="sd">    It allows to parse a configuration value from different sources in the following order:</span>
+<span class="sd">        1. Environment variable named as MLOQ_PARAM_NAME</span>
+<span class="sd">        2. Values defined in mloq.yaml</span>
+<span class="sd">        3. Interactive promp from CLI (Optional)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">target</span><span class="p">:</span> <span class="n">Configurable</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a ConfigParam.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name: Name of the parameter (as defined in mloq.yaml).</span>
+<span class="sd">            choices: Contains all the available values for the parameter.</span>
+<span class="sd">            text: Text that will be prompted in the CLI when using interactive mode.</span>
+<span class="sd">            **kwargs: Passed to click.prompt when running in interactive mode.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FloatPrompt</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BooleanPrompt"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.BooleanPrompt">[docs]</a><span class="k">class</span> <span class="nc">BooleanPrompt</span><span class="p">(</span><span class="n">PromptParam</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Defines a boolean configuration parameter.</span>
+
+<span class="sd">    It allows to parse a configuration value from different sources in the following order:</span>
+<span class="sd">        1. Environment variable named as MLOQ_PARAM_NAME</span>
+<span class="sd">        2. Values defined in mloq.yaml</span>
+<span class="sd">        3. Interactive promp from CLI (Optional)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BooleanPrompt._prompt"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.BooleanPrompt._prompt">[docs]</a>    <span class="k">def</span> <span class="nf">_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Prompt user for value.&quot;&quot;&quot;</span>
+        <span class="n">_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prompt_kwargs</span><span class="p">)</span>
+        <span class="n">_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;type&quot;</span> <span class="ow">in</span> <span class="n">_kwargs</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">_kwargs</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_kwargs</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">confirm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prompt_text</span><span class="p">,</span> <span class="o">**</span><span class="n">_kwargs</span><span class="p">)</span></div></div>
+
+
+<span class="n">PARAM_TO_PROMPT</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">:</span> <span class="n">BooleanPrompt</span><span class="p">,</span>
+    <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">:</span> <span class="n">IntPrompt</span><span class="p">,</span>
+    <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">:</span> <span class="n">FloatPrompt</span><span class="p">,</span>
+    <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">:</span> <span class="n">StringPrompt</span><span class="p">,</span>
+    <span class="n">param</span><span class="o">.</span><span class="n">ListSelector</span><span class="p">:</span> <span class="n">MultiChoicePrompt</span><span class="p">,</span>
+    <span class="c1"># TODO: MultiChoice, Choice</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="Prompt"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.Prompt">[docs]</a><span class="k">class</span> <span class="nc">Prompt</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manage all the functionality needed to display a cli prompt.</span>
+
+<span class="sd">    It allows to interactively define the values of the different parameters of a class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="s2">&quot;Promptable&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize a Prompt.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prompts</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_prompts</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Prompt.__call__"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.Prompt.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Display the a prompt to interactively define the parameter values of target.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">prompt</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="n">inplace</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Prompt._init_prompts"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.Prompt._init_prompts">[docs]</a>    <span class="k">def</span> <span class="nf">_init_prompts</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the prompts corresponding to the target Promptable parameters.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prompts</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">conf</span><span class="p">:</span> <span class="n">DictConfig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="o">.</span><span class="n">config</span>
+        <span class="n">param_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="o">.</span><span class="n">param</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">as_resolved_dict</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">param_inst</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">param_</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">type_</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">param_inst</span><span class="p">)</span>
+            <span class="n">prompt_cls</span> <span class="o">=</span> <span class="n">PARAM_TO_PROMPT</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">type_</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">prompt_cls</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">default</span> <span class="o">=</span> <span class="n">value</span> <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">MISSING</span> <span class="k">else</span> <span class="n">param_inst</span><span class="o">.</span><span class="n">default</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_prompts</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">prompt_cls</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Prompt.prompt"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.Prompt.prompt">[docs]</a>    <span class="k">def</span> <span class="nf">prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Display the a prompt to interactively define the parameter values of target.&quot;&quot;&quot;</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prompts</span><span class="p">[</span><span class="n">key</span><span class="p">](</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">val</span></div>
+
+<div class="viewcode-block" id="Prompt.prompt_all"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.Prompt.prompt_all">[docs]</a>    <span class="k">def</span> <span class="nf">prompt_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prompt all the target&#39;s parameters.</span>
+
+<span class="sd">        Return a dictionary containing the provided values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">param_precedence</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="o">.</span><span class="n">param</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">precedence</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mf">1e100</span> <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">val</span><span class="p">),</span> <span class="n">x</span>
+
+        <span class="n">sorted_keys</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prompts</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="n">param_precedence</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">prompt</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="n">inplace</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">sorted_keys</span><span class="p">}</span></div></div>
+
+
+<div class="viewcode-block" id="Promptable"><a class="viewcode-back" href="../../../autoapi/mloq/config/prompt/index.html#mloq.config.prompt.Promptable">[docs]</a><span class="k">class</span> <span class="nc">Promptable</span><span class="p">(</span><span class="n">Configurable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Configurable class that allows to define the parameter values interactively using CLI prompts.</span>
+
+<span class="sd">    It contains a prompt attribute in charge of managing the prompting functionality for the</span>
+<span class="sd">    param.Parameters defined.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize a Promptable.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Promptable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prompt</span> <span class="o">=</span> <span class="n">Prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Guillem Duran, Vadim Markovtsev<br/>
+  
+      &copy; Copyright 2020-2022, FragileTech.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

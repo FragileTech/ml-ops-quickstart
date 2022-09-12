@@ -1,0 +1,112 @@
+:py:mod:`mloq.cli`
+==================
+
+.. py:module:: mloq.cli
+
+.. autoapi-nested-parse::
+
+   Command line interface for mloq.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   mloq.cli.MloqCLI
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   mloq.cli.mloq_click_command
+   mloq.cli.cli
+   mloq.cli.welcome_message
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   mloq.cli.overwrite_opt
+   mloq.cli.config_file_opt
+   mloq.cli.only_config_opt
+   mloq.cli.output_directory_arg
+   mloq.cli.interactive_opt
+   mloq.cli.hydra_args
+
+
+.. py:data:: overwrite_opt
+   
+
+   
+
+.. py:data:: config_file_opt
+   
+
+   
+
+.. py:data:: only_config_opt
+   
+
+   
+
+.. py:data:: output_directory_arg
+   
+
+   
+
+.. py:data:: interactive_opt
+   
+
+   
+
+.. py:data:: hydra_args
+   
+
+   
+
+.. py:function:: mloq_click_command(func)
+
+   Wrap a command function to interface with click.
+
+
+.. py:class:: MloqCLI(name = None, invoke_without_command = False, no_args_is_help = None, subcommand_metavar = None, chain = False, result_callback = None, **attrs)
+
+   Bases: :py:obj:`click.MultiCommand`
+
+   Load the commands available at runtime from the files present in the command module.
+
+   .. py:attribute:: command_folder
+      
+
+      
+
+   .. py:method:: list_commands(ctx)
+
+      List the names of the mloq commands available.
+
+
+   .. py:method:: get_command(ctx, name)
+
+      Create the command callable corresponding to the provided command name.
+
+
+
+.. py:function:: cli()
+
+
+.. py:function:: welcome_message(extra = False, string = None)
+
+   Welcome message to be displayed during interactive setup.
+
+

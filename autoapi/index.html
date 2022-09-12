@@ -1,0 +1,826 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>API reference</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="mloq" href="mloq/index.html" />
+    <link rel="prev" title="License" href="../markdown/library.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Welcome to ML Ops Quickstart
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Welcome to MLOQ
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../markdown/welcome.html">
+   About ML Ops Quickstart
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  How to
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../markdown/usage.html">
+   Command line interface
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Features
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../markdown/features.html">
+   Repository files
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MLOQ Library
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../markdown/library.html">
+   License
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
+   API reference
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="mloq/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       mloq
+      </span>
+     </code>
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="mloq/commands/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.commands
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="mloq/commands/ci/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.ci
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="mloq/commands/docker/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.docker
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="mloq/commands/docs/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.docs
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="mloq/commands/globals/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.globals
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="mloq/commands/license/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.license
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="mloq/commands/lint/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.lint
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="mloq/commands/package/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.package
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="mloq/commands/project/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.project
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="mloq/commands/requirements/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.requirements
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="mloq/commands/setup/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.setup
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="mloq/config/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.config
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <label for="toctree-checkbox-4">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="mloq/config/configuration/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.configuration
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="mloq/config/custom_click/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.custom_click
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="mloq/config/param_patch/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.param_patch
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="mloq/config/prompt/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.prompt
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="mloq/__main__/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.__main__
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="mloq/_utils/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq._utils
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="mloq/cli/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.cli
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="mloq/command/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.command
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="mloq/custom_click/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.custom_click
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="mloq/failure/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.failure
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="mloq/files/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.files
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="mloq/git/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.git
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="mloq/record/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.record
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="mloq/runner/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.runner
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="mloq/templating/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.templating
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="mloq/version/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.version
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="mloq/writer/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.writer
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/FragileTech/ml-ops-quickstart"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/FragileTech/ml-ops-quickstart/edit/gh-pages/docs/autoapi/index.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/autoapi/index.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>API reference</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="api-reference">
+<h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">#</a></h1>
+<p>This page holds mloq API documentation, which might be helpful for final
+users or developers to create their own mloq-based utilities. Among the
+different sub-packages and modules, we might differentiate two big categories:
+core utilities and high-level ones.</p>
+<ul class="simple">
+<li><p><strong>Core API:</strong> This routines are located within the <cite>mloq.api</cite> that show the different features of the library can be accessed programmatically.</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="mloq/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mloq/index.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mloq/commands/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.commands</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mloq/commands/index.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="mloq/commands/ci/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.commands.ci</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/commands/docker/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.commands.docker</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/commands/docs/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.commands.docs</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/commands/globals/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.commands.globals</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/commands/license/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.commands.license</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/commands/lint/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.commands.lint</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/commands/package/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.commands.package</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/commands/project/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.commands.project</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/commands/requirements/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.commands.requirements</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/commands/setup/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.commands.setup</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="mloq/commands/index.html#package-contents">Package Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="mloq/commands/index.html#classes">Classes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mloq/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.config</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mloq/config/index.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="mloq/config/configuration/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.config.configuration</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/config/custom_click/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.config.custom_click</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/config/param_patch/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.config.param_patch</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/config/prompt/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.config.prompt</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mloq/index.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mloq/__main__/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.__main__</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mloq/_utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq._utils</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mloq/_utils/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="mloq/_utils/index.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mloq/cli/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.cli</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mloq/cli/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="mloq/cli/index.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/cli/index.html#functions">Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/cli/index.html#attributes">Attributes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mloq/command/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.command</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mloq/command/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="mloq/command/index.html#classes">Classes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mloq/custom_click/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.custom_click</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mloq/custom_click/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="mloq/custom_click/index.html#functions">Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/custom_click/index.html#attributes">Attributes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mloq/failure/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.failure</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mloq/failure/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="mloq/failure/index.html#mloq.failure.Failure">Failure</a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/failure/index.html#mloq.failure.MissingConfigValue">MissingConfigValue</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mloq/files/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.files</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mloq/files/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="mloq/files/index.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/files/index.html#functions">Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/files/index.html#attributes">Attributes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mloq/git/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.git</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mloq/git/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="mloq/git/index.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mloq/record/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.record</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mloq/record/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="mloq/record/index.html#classes">Classes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mloq/runner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.runner</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mloq/runner/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="mloq/runner/index.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mloq/templating/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.templating</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mloq/templating/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="mloq/templating/index.html#functions">Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="mloq/templating/index.html#attributes">Attributes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mloq/version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.version</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mloq/version/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="mloq/version/index.html#mloq.version.__version__">__version__</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mloq/writer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.writer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mloq/writer/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="mloq/writer/index.html#classes">Classes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mloq/index.html#package-contents">Package Contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mloq/index.html#mloq._logger">_logger</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../markdown/library.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">License</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="mloq/index.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq</span></code></p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Guillem Duran, Vadim Markovtsev<br/>
+  
+      &copy; Copyright 2020-2022, FragileTech.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

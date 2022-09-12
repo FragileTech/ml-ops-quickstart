@@ -1,0 +1,96 @@
+:py:mod:`mloq.commands.globals`
+===============================
+
+.. py:module:: mloq.commands.globals
+
+.. autoapi-nested-parse::
+
+   Mloq globals command implementation.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   mloq.commands.globals.GlobalsCMD
+
+
+
+
+.. py:class:: GlobalsCMD(record, interactive = False, **kwargs)
+
+   Bases: :py:obj:`mloq.command.Command`
+
+   Implement the functionality of the globals Command.
+
+   .. py:attribute:: cmd_name
+      :annotation: = globals
+
+      
+
+   .. py:attribute:: project_name
+      
+
+      
+
+   .. py:attribute:: description
+      
+
+      
+
+   .. py:attribute:: author
+      
+
+      
+
+   .. py:attribute:: owner
+      
+
+      
+
+   .. py:attribute:: email
+      
+
+      
+
+   .. py:attribute:: open_source
+      
+
+      
+
+   .. py:attribute:: project_url
+      
+
+      
+
+   .. py:attribute:: default_branch
+      
+
+      
+
+   .. py:attribute:: license
+      
+
+      
+
+   .. py:attribute:: use_poetry
+      
+
+      
+
+   .. py:method:: interactive_config()
+
+      Generate the configuration of the project interactively.
+
+
+   .. py:method:: parse_config()
+
+      Generate the configuration of the project via a configuration file.
+
+
+

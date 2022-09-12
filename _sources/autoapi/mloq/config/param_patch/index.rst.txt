@@ -1,0 +1,89 @@
+:py:mod:`mloq.config.param_patch`
+=================================
+
+.. py:module:: mloq.config.param_patch
+
+.. autoapi-nested-parse::
+
+   Patch param to allow omegaconf Missing values and interpolation strings.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   mloq.config.param_patch.__ParamPatcher
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   mloq.config.param_patch.__init__patched
+   mloq.config.param_patch._create_param__
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   mloq.config.param_patch.__DEFAULT_MARK
+   mloq.config.param_patch.PATCHED_PARAMETERS
+   mloq.config.param_patch.param
+
+
+.. py:data:: __DEFAULT_MARK
+   :annotation: = __DEFAULT_MARK__
+
+   
+
+.. py:function:: __init__patched(self, default=__DEFAULT_MARK, **kwargs)
+
+   Handle missing values and interpolations trings when initializing a param.Parameter.
+
+
+.. py:function:: _create_param__(item)
+
+   Patch the target param.Parameter to support missing values and interpolations strings.
+
+
+.. py:data:: PATCHED_PARAMETERS
+   
+
+   
+
+.. py:class:: __ParamPatcher
+
+   Patch the param package to handle missing values and interpolation strings.
+
+   .. py:attribute:: PATCHED_PARAMETERS
+      
+
+      
+
+   .. py:method:: __getattr__(item)
+
+      Patch the parameters included in PATCHED_PARAMETERS.
+
+
+   .. py:method:: __setattr__(key, value)
+      :abstractmethod:
+
+      Read only monkeypatching.
+
+
+
+.. py:data:: param
+   
+
+   
+

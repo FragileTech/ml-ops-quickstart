@@ -1,0 +1,154 @@
+:py:mod:`mloq.files`
+====================
+
+.. py:module:: mloq.files
+
+.. autoapi-nested-parse::
+
+   This module defines all the different assets accessible from mloq.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   mloq.files.File
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   mloq.files.file
+   mloq.files.read_file
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   mloq.files.ASSETS_PATH
+   mloq.files.SHARED_ASSETS_PATH
+   mloq.files.MLOQ_ASSETS_PATH
+   mloq.files.REQUIREMENTS_PATH
+   mloq.files.mloq_yml
+   mloq.files.what_mloq_generated
+   mloq.files.requirements
+   mloq.files.dogfood_req
+   mloq.files.makefile
+   mloq.files.pyproject_toml
+
+
+.. py:class:: File
+
+   Bases: :py:obj:`NamedTuple`
+
+   Generates project files.
+
+   This class defines templating files, which will be rendered according
+   to the user's configuration. Besides, File instances have additional
+   attributes used for specifying the destination of the generated file.
+
+   Attributes of this class:
+       name: Name of the templating file.
+       src: Location of the templating file.
+       dst: Name of the file generated from the templating file.
+       description: Short description of the current file.
+       is_static: Boolean value. If True, the templating file does not
+           admit render parameters.
+
+   .. py:attribute:: name
+      :annotation: :str
+
+      
+
+   .. py:attribute:: src
+      :annotation: :pathlib.Path
+
+      
+
+   .. py:attribute:: dst
+      :annotation: :pathlib.Path
+
+      
+
+   .. py:attribute:: description
+      :annotation: :str
+
+      
+
+   .. py:attribute:: is_static
+      :annotation: :bool
+
+      
+
+
+.. py:function:: file(name, path, description = None, dst = None, is_static = False)
+
+   Define a new asset as a File namedtuple.
+
+
+.. py:data:: ASSETS_PATH
+   
+
+   
+
+.. py:data:: SHARED_ASSETS_PATH
+   
+
+   
+
+.. py:data:: MLOQ_ASSETS_PATH
+   
+
+   
+
+.. py:data:: REQUIREMENTS_PATH
+   
+
+   
+
+.. py:data:: mloq_yml
+   
+
+   
+
+.. py:data:: what_mloq_generated
+   
+
+   
+
+.. py:data:: requirements
+   
+
+   
+
+.. py:data:: dogfood_req
+   
+
+   
+
+.. py:data:: makefile
+   
+
+   
+
+.. py:data:: pyproject_toml
+   
+
+   
+
+.. py:function:: read_file(file)
+
+   Return and string with the content of the provided file.
+
+

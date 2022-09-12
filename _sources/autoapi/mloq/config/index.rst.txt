@@ -1,0 +1,18 @@
+:py:mod:`mloq.config`
+=====================
+
+.. py:module:: mloq.config
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   configuration/index.rst
+   custom_click/index.rst
+   param_patch/index.rst
+   prompt/index.rst
+
+

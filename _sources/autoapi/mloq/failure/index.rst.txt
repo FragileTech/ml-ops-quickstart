@@ -1,0 +1,33 @@
+:py:mod:`mloq.failure`
+======================
+
+.. py:module:: mloq.failure
+
+.. autoapi-nested-parse::
+
+   Define Failure - the exception to raise when we break.
+
+
+
+Module Contents
+---------------
+
+.. py:exception:: Failure
+
+   Bases: :py:obj:`Exception`
+
+   Raised when a project setup critical error happens.
+
+   .. py:method:: __str__()
+
+      Delegate __str__ to the underlying cause if it exists.
+
+
+
+.. py:exception:: MissingConfigValue
+
+   Bases: :py:obj:`Failure`
+
+   Raised when a parameter is not defined in the mloq DictConfig.
+
+

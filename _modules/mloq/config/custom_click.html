@@ -1,0 +1,771 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mloq.config.custom_click</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../index.html">
+                    Welcome to ML Ops Quickstart
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Welcome to MLOQ
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../markdown/welcome.html">
+   About ML Ops Quickstart
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  How to
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../markdown/usage.html">
+   Command line interface
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Features
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../markdown/features.html">
+   Repository files
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MLOQ Library
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../markdown/library.html">
+   License
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../autoapi/index.html">
+   API reference
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../autoapi/mloq/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       mloq
+      </span>
+     </code>
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../autoapi/mloq/commands/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.commands
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/ci/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.ci
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/docker/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.docker
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/docs/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.docs
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/globals/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.globals
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/license/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.license
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/lint/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.lint
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/package/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.package
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/project/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.project
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/requirements/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.requirements
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/commands/setup/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.setup
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../autoapi/mloq/config/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.config
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <label for="toctree-checkbox-4">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/config/configuration/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.configuration
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/config/custom_click/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.custom_click
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/config/param_patch/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.param_patch
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/mloq/config/prompt/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.prompt
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/__main__/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.__main__
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/_utils/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq._utils
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/cli/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.cli
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/command/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.command
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/custom_click/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.custom_click
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/failure/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.failure
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/files/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.files
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/git/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.git
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/record/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.record
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/runner/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.runner
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/templating/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.templating
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/version/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.version
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/mloq/writer/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.writer
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/FragileTech/ml-ops-quickstart"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for mloq.config.custom_click</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This is mostly a copy paste from \</span>
+<span class="sd">https://github.com/pallets/click/blob/2fc486c880eda9fdb746ed8baa49416acab9ea6d/src/click/termui.py</span>
+
+<span class="sd">Modified to allow prompt input that has a different color than the prompt text, while keeping</span>
+<span class="sd">the color of the default prompt values the same as the prompt text color.</span>
+<span class="sd">&quot;&quot;&quot;</span>  <span class="c1"># noqa: D400</span>
+<span class="kn">import</span> <span class="nn">io</span>
+
+<span class="kn">from</span> <span class="nn">click.exceptions</span> <span class="kn">import</span> <span class="n">Abort</span><span class="p">,</span> <span class="n">UsageError</span>
+<span class="kn">from</span> <span class="nn">click.types</span> <span class="kn">import</span> <span class="n">Choice</span><span class="p">,</span> <span class="n">convert_type</span>
+<span class="kn">from</span> <span class="nn">click.utils</span> <span class="kn">import</span> <span class="n">echo</span><span class="p">,</span> <span class="n">LazyFile</span>
+
+
+<span class="c1"># The prompt functions to use.  The doc tools currently overwrite these</span>
+<span class="c1"># functions to customize how they work.</span>
+<span class="n">visible_prompt_func</span> <span class="o">=</span> <span class="nb">input</span>
+
+<span class="n">_ansi_reset_all</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span>
+
+
+<div class="viewcode-block" id="hidden_prompt_func"><a class="viewcode-back" href="../../../autoapi/mloq/config/custom_click/index.html#mloq.config.custom_click.hidden_prompt_func">[docs]</a><span class="k">def</span> <span class="nf">hidden_prompt_func</span><span class="p">(</span><span class="n">prompt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Input hidden text from the user.&quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">getpass</span>
+
+    <span class="k">return</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_build_prompt"><a class="viewcode-back" href="../../../autoapi/mloq/config/custom_click/index.html#mloq.config.custom_click._build_prompt">[docs]</a><span class="k">def</span> <span class="nf">_build_prompt</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">show_default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show_choices</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">prompt_</span> <span class="o">=</span> <span class="n">text</span>
+    <span class="k">if</span> <span class="nb">type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">show_choices</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">Choice</span><span class="p">):</span>
+        <span class="n">prompt_</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; (</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="o">.</span><span class="n">choices</span><span class="p">))</span><span class="si">}</span><span class="s2">)&quot;</span>
+    <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">show_default</span><span class="p">:</span>
+        <span class="n">prompt_</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prompt_</span><span class="si">}</span><span class="s2"> [</span><span class="si">{</span><span class="n">_format_default</span><span class="p">(</span><span class="n">default</span><span class="p">)</span><span class="si">}</span><span class="s2">]&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prompt_</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+
+<div class="viewcode-block" id="_format_default"><a class="viewcode-back" href="../../../autoapi/mloq/config/custom_click/index.html#mloq.config.custom_click._format_default">[docs]</a><span class="k">def</span> <span class="nf">_format_default</span><span class="p">(</span><span class="n">default</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">IOBase</span><span class="p">,</span> <span class="n">LazyFile</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">default</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="k">return</span> <span class="n">default</span></div>
+
+
+<div class="viewcode-block" id="prompt"><a class="viewcode-back" href="../../../autoapi/mloq/config/custom_click/index.html#mloq.config.custom_click.prompt">[docs]</a><span class="k">def</span> <span class="nf">prompt</span><span class="p">(</span>
+    <span class="n">text</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">hide_input</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">confirmation_prompt</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">value_proc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">prompt_suffix</span><span class="o">=</span><span class="s2">&quot;: &quot;</span><span class="p">,</span>
+    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">err</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">show_choices</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Prompts a user for input.  This is a convenience function that can \</span>
+<span class="sd">    be used to prompt a user for input later.</span>
+
+<span class="sd">    If the user aborts the input by sending a interrupt signal, this</span>
+<span class="sd">    function will catch it and raise a :exc:`Abort` exception.</span>
+
+<span class="sd">    .. versionadded:: 7.0</span>
+<span class="sd">       Added the show_choices parameter.</span>
+
+<span class="sd">    .. versionadded:: 6.0</span>
+<span class="sd">       Added unicode support for cmd.exe on Windows.</span>
+
+<span class="sd">    .. versionadded:: 4.0</span>
+<span class="sd">       Added the `err` parameter.</span>
+
+<span class="sd">    :param text: the text to show for the prompt.</span>
+<span class="sd">    :param default: the default value to use if no input happens.  If this</span>
+<span class="sd">                    is not given it will prompt until it&#39;s aborted.</span>
+<span class="sd">    :param hide_input: if this is set to true then the input value will</span>
+<span class="sd">                       be hidden.</span>
+<span class="sd">    :param confirmation_prompt: asks for confirmation for the value.</span>
+<span class="sd">    :param type: the type to use to check the value against.</span>
+<span class="sd">    :param value_proc: if this parameter is provided it&#39;s a function that</span>
+<span class="sd">                       is invoked instead of the type conversion to</span>
+<span class="sd">                       convert a value.</span>
+<span class="sd">    :param prompt_suffix: a suffix that should be added to the prompt.</span>
+<span class="sd">    :param show_default: shows or hides the default value in the prompt.</span>
+<span class="sd">    :param err: if set to true the file defaults to ``stderr`` instead of</span>
+<span class="sd">                ``stdout``, the same as with echo.</span>
+<span class="sd">    :param show_choices: Show or hide choices if the passed type is a Choice.</span>
+<span class="sd">                         For example if type is a Choice of either day or week,</span>
+<span class="sd">                         show_choices is true and text is &quot;Group by&quot; then the</span>
+<span class="sd">                         prompt will be &quot;Group by (day, week): &quot;.</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">prompt_func</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">hidden_prompt_func</span> <span class="k">if</span> <span class="n">hide_input</span> <span class="k">else</span> <span class="n">visible_prompt_func</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Write the prompt separately so that we get nice</span>
+            <span class="c1"># coloring through colorama on Windows</span>
+            <span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">text</span><span class="si">}{</span><span class="n">_ansi_reset_all</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">nl</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">err</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">KeyboardInterrupt</span><span class="p">,</span> <span class="ne">EOFError</span><span class="p">):</span>
+            <span class="c1"># getpass doesn&#39;t print a newline if the user aborts input with ^C.</span>
+            <span class="c1"># Allegedly this behavior is inherited from getpass(3).</span>
+            <span class="c1"># A doc bug has been filed at https://bugs.python.org/issue24711</span>
+            <span class="k">if</span> <span class="n">hide_input</span><span class="p">:</span>
+                <span class="n">echo</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">err</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">Abort</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">value_proc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">value_proc</span> <span class="o">=</span> <span class="n">convert_type</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+
+    <span class="n">prompt_</span> <span class="o">=</span> <span class="n">_build_prompt</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">prompt_suffix</span><span class="p">,</span> <span class="n">show_default</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="n">show_choices</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">prompt_func</span><span class="p">(</span><span class="n">prompt_</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">elif</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">default</span>
+                <span class="k">break</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">value_proc</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">UsageError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">hide_input</span><span class="p">:</span>
+                <span class="n">echo</span><span class="p">(</span><span class="s2">&quot;Error: the value you entered was invalid&quot;</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">err</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">err</span><span class="p">)</span>  <span class="c1"># noqa: B306</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">confirmation_prompt</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">value2</span> <span class="o">=</span> <span class="n">prompt_func</span><span class="p">(</span><span class="s2">&quot;Repeat for confirmation: &quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value2</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="n">value2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="n">echo</span><span class="p">(</span><span class="s2">&quot;Error: the two entered values do not match&quot;</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">err</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="confirm"><a class="viewcode-back" href="../../../autoapi/mloq/config/custom_click/index.html#mloq.config.custom_click.confirm">[docs]</a><span class="k">def</span> <span class="nf">confirm</span><span class="p">(</span>
+    <span class="n">text</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">abort</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">prompt_suffix</span><span class="o">=</span><span class="s2">&quot;: &quot;</span><span class="p">,</span>
+    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">err</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Prompts for confirmation (yes/no question).</span>
+
+<span class="sd">    If the user aborts the input by sending a interrupt signal this</span>
+<span class="sd">    function will catch it and raise a :exc:`Abort` exception.</span>
+
+<span class="sd">    .. versionadded:: 4.0</span>
+<span class="sd">       Added the `err` parameter.</span>
+
+<span class="sd">    :param text: the question to ask.</span>
+<span class="sd">    :param default: the default for the prompt.</span>
+<span class="sd">    :param abort: if this is set to `True` a negative answer aborts the</span>
+<span class="sd">                  exception by raising :exc:`Abort`.</span>
+<span class="sd">    :param prompt_suffix: a suffix that should be added to the prompt.</span>
+<span class="sd">    :param show_default: shows or hides the default value in the prompt.</span>
+<span class="sd">    :param err: if set to true the file defaults to ``stderr`` instead of</span>
+<span class="sd">                ``stdout``, the same as with echo.</span>
+<span class="sd">    :return: User&#39;s decision.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">prompt_</span> <span class="o">=</span> <span class="n">_build_prompt</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">prompt_suffix</span><span class="p">,</span> <span class="n">show_default</span><span class="p">,</span> <span class="s2">&quot;Y/n&quot;</span> <span class="k">if</span> <span class="n">default</span> <span class="k">else</span> <span class="s2">&quot;y/N&quot;</span><span class="p">)</span>
+    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Write the prompt separately so that we get nice</span>
+            <span class="c1"># coloring through colorama on Windows</span>
+            <span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prompt_</span><span class="si">}{</span><span class="n">_ansi_reset_all</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">nl</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">err</span><span class="p">)</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">visible_prompt_func</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">KeyboardInterrupt</span><span class="p">,</span> <span class="ne">EOFError</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">Abort</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;yes&quot;</span><span class="p">):</span>
+            <span class="n">rv</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="s2">&quot;no&quot;</span><span class="p">):</span>
+            <span class="n">rv</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">rv</span> <span class="o">=</span> <span class="n">default</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">echo</span><span class="p">(</span><span class="s2">&quot;Error: invalid input&quot;</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">err</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="k">break</span>
+    <span class="k">if</span> <span class="n">abort</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">rv</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">Abort</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">rv</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Guillem Duran, Vadim Markovtsev<br/>
+  
+      &copy; Copyright 2020-2022, FragileTech.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

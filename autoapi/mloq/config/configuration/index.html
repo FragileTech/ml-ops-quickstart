@@ -1,0 +1,1959 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>mloq.config.configuration</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="mloq.config.custom_click" href="../custom_click/index.html" />
+    <link rel="prev" title="mloq.config" href="../index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../../index.html">
+      
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../index.html">
+                    Welcome to ML Ops Quickstart
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Welcome to MLOQ
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../markdown/welcome.html">
+   About ML Ops Quickstart
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  How to
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../markdown/usage.html">
+   Command line interface
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Features
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../markdown/features.html">
+   Repository files
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MLOQ Library
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../markdown/library.html">
+   License
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../../index.html">
+   API reference
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="../../index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       mloq
+      </span>
+     </code>
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../commands/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.commands
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/ci/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.ci
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/docker/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.docker
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/docs/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.docs
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/globals/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.globals
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/license/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.license
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/lint/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.lint
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/package/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.package
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/project/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.project
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/requirements/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.requirements
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../commands/setup/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.commands.setup
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 current active has-children">
+      <a class="reference internal" href="../index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.config
+        </span>
+       </code>
+      </a>
+      <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <label for="toctree-checkbox-4">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul class="current">
+       <li class="toctree-l4 current active">
+        <a class="current reference internal" href="#">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.configuration
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../custom_click/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.custom_click
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../param_patch/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.param_patch
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../prompt/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           mloq.config.prompt
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../__main__/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.__main__
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../_utils/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq._utils
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../cli/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.cli
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../command/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.command
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../custom_click/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.custom_click
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../failure/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.failure
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../files/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.files
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../git/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.git
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../record/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.record
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../runner/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.runner
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../templating/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.templating
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../version/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.version
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../writer/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         mloq.writer
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/FragileTech/ml-ops-quickstart"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/FragileTech/ml-ops-quickstart/edit/gh-pages/docs/autoapi/mloq/config/configuration/index.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../../_sources/autoapi/mloq/config/configuration/index.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-contents">
+   Module Contents
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classes">
+     Classes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functions">
+     Functions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#attributes">
+     Attributes
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.DClassField">
+       DClassField
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.Dataclass">
+       Dataclass
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Dataclass.__dataclass_fields__">
+         __dataclass_fields__
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.ConfigValue">
+       ConfigValue
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.ConfigurationDict">
+       ConfigurationDict
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.PythonType">
+       PythonType
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.ParamType">
+       ParamType
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.DataClassDict">
+       DataClassDict
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.DictConfig">
+       DictConfig
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.PARAM_TO_TYPE">
+       PARAM_TO_TYPE
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.param_to_dataclass_dict">
+       param_to_dataclass_dict
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.param_to_dataclass">
+       param_to_dataclass
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.param_to_omegaconf">
+       param_to_omegaconf
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.is_interpolation">
+       is_interpolation
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.to_param_type">
+       to_param_type
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.to_config">
+       to_config
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.resolve_as_dict">
+       resolve_as_dict
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.safe_select">
+       safe_select
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.as_resolved_dict">
+       as_resolved_dict
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface">
+       OmegaConfInterface
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface.config">
+         config
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface.interpolations">
+         interpolations
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface.missing">
+         missing
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface._resolve_inplace">
+         _resolve_inplace
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface.resolve">
+         resolve
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface.is_missing">
+         is_missing
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface.is_interpolation">
+         is_interpolation
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface.select">
+         select
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.BaseConfig">
+       BaseConfig
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.BaseConfig.__getitem__">
+         __getitem__
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.BaseConfig.__setitem__">
+         __setitem__
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.BaseConfig.to_container">
+         to_container
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.BaseConfig._resolve_node">
+         _resolve_node
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.BaseConfig._setup_config">
+         _setup_config
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.Config">
+       Config
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Config.params">
+         params
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Config.resolve">
+         resolve
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Config.to_param_type">
+         to_param_type
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Config.dataclass_dict">
+         dataclass_dict
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Config.to_dataclass">
+         to_dataclass
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Config.to_dictconfig">
+         to_dictconfig
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Config.sync">
+         sync
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Config._setup_config">
+         _setup_config
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.CONF_ATTRS">
+       CONF_ATTRS
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.Configurable">
+       Configurable
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Configurable.config">
+         config
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Configurable.conf">
+         conf
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Configurable.__setattr__">
+         __setattr__
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Configurable.__getattr__">
+         __getattr__
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>mloq.config.configuration</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-contents">
+   Module Contents
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classes">
+     Classes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functions">
+     Functions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#attributes">
+     Attributes
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.DClassField">
+       DClassField
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.Dataclass">
+       Dataclass
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Dataclass.__dataclass_fields__">
+         __dataclass_fields__
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.ConfigValue">
+       ConfigValue
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.ConfigurationDict">
+       ConfigurationDict
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.PythonType">
+       PythonType
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.ParamType">
+       ParamType
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.DataClassDict">
+       DataClassDict
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.DictConfig">
+       DictConfig
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.PARAM_TO_TYPE">
+       PARAM_TO_TYPE
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.param_to_dataclass_dict">
+       param_to_dataclass_dict
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.param_to_dataclass">
+       param_to_dataclass
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.param_to_omegaconf">
+       param_to_omegaconf
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.is_interpolation">
+       is_interpolation
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.to_param_type">
+       to_param_type
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.to_config">
+       to_config
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.resolve_as_dict">
+       resolve_as_dict
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.safe_select">
+       safe_select
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.as_resolved_dict">
+       as_resolved_dict
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface">
+       OmegaConfInterface
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface.config">
+         config
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface.interpolations">
+         interpolations
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface.missing">
+         missing
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface._resolve_inplace">
+         _resolve_inplace
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface.resolve">
+         resolve
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface.is_missing">
+         is_missing
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface.is_interpolation">
+         is_interpolation
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.OmegaConfInterface.select">
+         select
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.BaseConfig">
+       BaseConfig
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.BaseConfig.__getitem__">
+         __getitem__
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.BaseConfig.__setitem__">
+         __setitem__
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.BaseConfig.to_container">
+         to_container
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.BaseConfig._resolve_node">
+         _resolve_node
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.BaseConfig._setup_config">
+         _setup_config
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.Config">
+       Config
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Config.params">
+         params
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Config.resolve">
+         resolve
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Config.to_param_type">
+         to_param_type
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Config.dataclass_dict">
+         dataclass_dict
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Config.to_dataclass">
+         to_dataclass
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Config.to_dictconfig">
+         to_dictconfig
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Config.sync">
+         sync
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Config._setup_config">
+         _setup_config
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.CONF_ATTRS">
+       CONF_ATTRS
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mloq.config.configuration.Configurable">
+       Configurable
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Configurable.config">
+         config
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Configurable.conf">
+         conf
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Configurable.__setattr__">
+         __setattr__
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#mloq.config.configuration.Configurable.__getattr__">
+         __getattr__
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="module-mloq.config.configuration">
+<span id="mloq-config-configuration"></span><h1><a class="reference internal" href="#module-mloq.config.configuration" title="mloq.config.configuration"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.config.configuration</span></code></a><a class="headerlink" href="#module-mloq.config.configuration" title="Permalink to this headline">#</a></h1>
+<p>This module defines the Configurable class and associated logic.</p>
+<p>The Configurable class extends the param.Parameterizable class to keep track of
+the class parameters using an omegaconf.DictConfig.</p>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">#</a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">#</a></h3>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.configuration.Dataclass" title="mloq.config.configuration.Dataclass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataclass</span></code></a></p></td>
+<td><p>Type hinting to defined a dataclass as a typing Protocol.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.config.configuration.DictConfig" title="mloq.config.configuration.DictConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictConfig</span></code></a></p></td>
+<td><p>param.Parameter that defines a DictConfig object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.configuration.OmegaConfInterface" title="mloq.config.configuration.OmegaConfInterface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OmegaConfInterface</span></code></a></p></td>
+<td><p>Common functionality to work with configurations.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.config.configuration.BaseConfig" title="mloq.config.configuration.BaseConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseConfig</span></code></a></p></td>
+<td><p>Manages getters and setters to access the target's configuration values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.configuration.Config" title="mloq.config.configuration.Config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Config</span></code></a></p></td>
+<td><p>Config handles the <cite>.conf</cite> attribute of a Configurable class.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.config.configuration.Configurable" title="mloq.config.configuration.Configurable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Configurable</span></code></a></p></td>
+<td><p>A Configurable class is an extension of param.Parameterized that allows to handle parameters     with missing values and omegaconf interpolation strings.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">#</a></h3>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.configuration.param_to_dataclass_dict" title="mloq.config.configuration.param_to_dataclass_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">param_to_dataclass_dict</span></code></a>(obj)</p></td>
+<td><p>Create a dictionary that can be used to initialize a dataclass containing the parameters     of the target param.Parameterized class.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.config.configuration.param_to_dataclass" title="mloq.config.configuration.param_to_dataclass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">param_to_dataclass</span></code></a>(obj)</p></td>
+<td><p>Create a dataclass equivalent to the target param.Parameterized target.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.configuration.param_to_omegaconf" title="mloq.config.configuration.param_to_omegaconf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">param_to_omegaconf</span></code></a>(obj)</p></td>
+<td><p>Transform a param.Parameterized class into an OmegaConf structured configuration.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.config.configuration.is_interpolation" title="mloq.config.configuration.is_interpolation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_interpolation</span></code></a>(s)</p></td>
+<td><p>Return True if the provided string is an OmegaConf interpolation string.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.configuration.to_param_type" title="mloq.config.configuration.to_param_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_param_type</span></code></a>(obj, config, key)</p></td>
+<td><p>Transform the provided attribute of the target param.Parameterized object     into the appropriate type so it can be stored in a configuration file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.config.configuration.to_config" title="mloq.config.configuration.to_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_config</span></code></a>(config, **kwargs)</p></td>
+<td><p>Transform the provided object into an omegaconf.DictConfig.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.configuration.resolve_as_dict" title="mloq.config.configuration.resolve_as_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolve_as_dict</span></code></a>(obj, config, **kwargs)</p></td>
+<td><p>Transform the provided object into a dictionary resolving all its interpolations.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.config.configuration.safe_select" title="mloq.config.configuration.safe_select"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_select</span></code></a>(cfg, key[, default])</p></td>
+<td><p>Access safely the target value of the provided cfg DictConfig.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.configuration.as_resolved_dict" title="mloq.config.configuration.as_resolved_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_resolved_dict</span></code></a>(cfg)</p></td>
+<td><p>Return a dictionary containing the resolved values for the provided DictConfig.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">#</a></h3>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.configuration.DClassField" title="mloq.config.configuration.DClassField"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DClassField</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.config.configuration.ConfigValue" title="mloq.config.configuration.ConfigValue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConfigValue</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.configuration.ConfigurationDict" title="mloq.config.configuration.ConfigurationDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConfigurationDict</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.config.configuration.PythonType" title="mloq.config.configuration.PythonType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PythonType</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.configuration.ParamType" title="mloq.config.configuration.ParamType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ParamType</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.config.configuration.DataClassDict" title="mloq.config.configuration.DataClassDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataClassDict</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mloq.config.configuration.PARAM_TO_TYPE" title="mloq.config.configuration.PARAM_TO_TYPE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PARAM_TO_TYPE</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mloq.config.configuration.CONF_ATTRS" title="mloq.config.configuration.CONF_ATTRS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CONF_ATTRS</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.config.configuration.DClassField">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">DClassField</span></span><a class="headerlink" href="#mloq.config.configuration.DClassField" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mloq.config.configuration.Dataclass">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">Dataclass</span></span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#Dataclass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.Dataclass" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">typing_extensions.Protocol</span></code></p>
+<p>Type hinting to defined a dataclass as a typing Protocol.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mloq.config.configuration.Dataclass.__dataclass_fields__">
+<span class="sig-name descname"><span class="pre">__dataclass_fields__</span></span><em class="property"><span class="w"> </span><span class="pre">:Dict</span></em><a class="headerlink" href="#mloq.config.configuration.Dataclass.__dataclass_fields__" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.config.configuration.ConfigValue">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">ConfigValue</span></span><a class="headerlink" href="#mloq.config.configuration.ConfigValue" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.config.configuration.ConfigurationDict">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">ConfigurationDict</span></span><a class="headerlink" href="#mloq.config.configuration.ConfigurationDict" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.config.configuration.PythonType">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">PythonType</span></span><a class="headerlink" href="#mloq.config.configuration.PythonType" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.config.configuration.ParamType">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">ParamType</span></span><a class="headerlink" href="#mloq.config.configuration.ParamType" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.config.configuration.DataClassDict">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">DataClassDict</span></span><a class="headerlink" href="#mloq.config.configuration.DataClassDict" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mloq.config.configuration.DictConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">DictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instantiate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#DictConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.DictConfig" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">mloq.config.param_patch.param.ClassSelector</span></code></p>
+<p>param.Parameter that defines a DictConfig object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>default</strong> (<em>Optional</em><em>[</em><em>omegaconf.DictConfig</em><em>]</em>) – </p></li>
+<li><p><strong>doc</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>instantiate</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>per_instance</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.config.configuration.PARAM_TO_TYPE">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">PARAM_TO_TYPE</span></span><a class="headerlink" href="#mloq.config.configuration.PARAM_TO_TYPE" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mloq.config.configuration.param_to_dataclass_dict">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">param_to_dataclass_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#param_to_dataclass_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.param_to_dataclass_dict" title="Permalink to this definition">#</a></dt>
+<dd><p>Create a dictionary that can be used to initialize a dataclass containing the parameters     of the target param.Parameterized class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> (<em>Union</em><em>[</em><em>mloq.config.param_patch.param.Parameterized</em><em>, </em><em>Any</em><em>]</em>) – Class or instance of a param.Parameterized class.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dict containing the fields required to define a dataclass with the obj parameters.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Dict[str, Tuple[type, DClassField]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mloq.config.configuration.param_to_dataclass">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">param_to_dataclass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#param_to_dataclass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.param_to_dataclass" title="Permalink to this definition">#</a></dt>
+<dd><p>Create a dataclass equivalent to the target param.Parameterized target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> (<em>Union</em><em>[</em><em>mloq.config.param_patch.param.Parameterized</em><em>, </em><em>Any</em><em>]</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mloq.config.configuration.param_to_omegaconf">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">param_to_omegaconf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#param_to_omegaconf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.param_to_omegaconf" title="Permalink to this definition">#</a></dt>
+<dd><p>Transform a param.Parameterized class into an OmegaConf structured configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> (<em>Union</em><em>[</em><em>mloq.config.param_patch.param.Parameterized</em><em>, </em><em>Any</em><em>]</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>omegaconf.DictConfig</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mloq.config.configuration.is_interpolation">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">is_interpolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#is_interpolation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.is_interpolation" title="Permalink to this definition">#</a></dt>
+<dd><p>Return True if the provided string is an OmegaConf interpolation string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s</strong> (<em>str</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mloq.config.configuration.to_param_type">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">to_param_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#to_param_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.to_param_type" title="Permalink to this definition">#</a></dt>
+<dd><p>Transform the provided attribute of the target param.Parameterized object     into the appropriate type so it can be stored in a configuration file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<em>mloq.config.param_patch.param.Parameterized</em>) – </p></li>
+<li><p><strong>config</strong> (<a class="reference internal" href="#mloq.config.configuration.DictConfig" title="mloq.config.configuration.DictConfig"><em>DictConfig</em></a>) – </p></li>
+<li><p><strong>key</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mloq.config.configuration.to_config">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">to_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#to_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.to_config" title="Permalink to this definition">#</a></dt>
+<dd><p>Transform the provided object into an omegaconf.DictConfig.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> (<em>Union</em><em>[</em><em>omegaconf.DictConfig</em><em>, </em><em>ConfigurationDict</em><em>, </em><a class="reference internal" href="#mloq.config.configuration.Dataclass" title="mloq.config.configuration.Dataclass"><em>Dataclass</em></a><em>, </em><em>mloq.config.param_patch.param.Parameterized</em><em>, </em><em>None</em><em>]</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>omegaconf.DictConfig</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mloq.config.configuration.resolve_as_dict">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">resolve_as_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#resolve_as_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.resolve_as_dict" title="Permalink to this definition">#</a></dt>
+<dd><p>Transform the provided object into a dictionary resolving all its interpolations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> (<em>Union</em><em>[</em><em>omegaconf.DictConfig</em><em>, </em><em>ConfigurationDict</em><em>, </em><a class="reference internal" href="#mloq.config.configuration.Dataclass" title="mloq.config.configuration.Dataclass"><em>Dataclass</em></a><em>, </em><em>mloq.config.param_patch.param.Parameterized</em><em>]</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>ConfigurationDict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mloq.config.configuration.safe_select">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">safe_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#safe_select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.safe_select" title="Permalink to this definition">#</a></dt>
+<dd><p>Access safely the target value of the provided cfg DictConfig.</p>
+<p>Return  MISSING if the value cannot be resolved or it’s missing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfg</strong> (<a class="reference internal" href="#mloq.config.configuration.DictConfig" title="mloq.config.configuration.DictConfig"><em>DictConfig</em></a>) – </p></li>
+<li><p><strong>key</strong> (<em>str</em>) – </p></li>
+<li><p><strong>default</strong> (<em>Any</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mloq.config.configuration.as_resolved_dict">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">as_resolved_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#as_resolved_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.as_resolved_dict" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a dictionary containing the resolved values for the provided DictConfig.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cfg</strong> (<a class="reference internal" href="#mloq.config.configuration.DictConfig" title="mloq.config.configuration.DictConfig"><em>DictConfig</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>ConfigurationDict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mloq.config.configuration.OmegaConfInterface">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">OmegaConfInterface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#OmegaConfInterface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.OmegaConfInterface" title="Permalink to this definition">#</a></dt>
+<dd><p>Common functionality to work with configurations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<a class="reference internal" href="#mloq.config.configuration.Configurable" title="mloq.config.configuration.Configurable"><em>Configurable</em></a>) – </p></li>
+<li><p><strong>allow_missing</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.OmegaConfInterface.config">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#mloq.config.configuration.OmegaConfInterface.config" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a DictConfig containing the target configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>omegaconf.DictConfig</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.OmegaConfInterface.interpolations">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">interpolations</span></span><a class="headerlink" href="#mloq.config.configuration.OmegaConfInterface.interpolations" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a dictionary containing the interpolations of the target configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ConfigurationDict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.OmegaConfInterface.missing">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">missing</span></span><a class="headerlink" href="#mloq.config.configuration.OmegaConfInterface.missing" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a list containing the names of the configuration that are MISSING.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[Union[str, int, enum.Enum, float, bool]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.OmegaConfInterface._resolve_inplace">
+<span class="sig-name descname"><span class="pre">_resolve_inplace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#OmegaConfInterface._resolve_inplace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.OmegaConfInterface._resolve_inplace" title="Permalink to this definition">#</a></dt>
+<dd><p>Resolve and update the target attribute if it’s an interpolation string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.OmegaConfInterface.resolve">
+<span class="sig-name descname"><span class="pre">resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#OmegaConfInterface.resolve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.OmegaConfInterface.resolve" title="Permalink to this definition">#</a></dt>
+<dd><p>Resolve the target attribute if it is an interpolation string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name of the target’s attribute to be resolved.</p></li>
+<li><p><strong>inplace</strong> (<em>bool</em>) – If True, update the configuration value replacing the
+interpolation string with the resolved value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Resolved value of the target attribute.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[omegaconf.Container, ConfigValue, None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.OmegaConfInterface.is_missing">
+<span class="sig-name descname"><span class="pre">is_missing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#OmegaConfInterface.is_missing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.OmegaConfInterface.is_missing" title="Permalink to this definition">#</a></dt>
+<dd><p>Return True if the key target’s attribute is Missing, otherwise return False.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.OmegaConfInterface.is_interpolation">
+<span class="sig-name descname"><span class="pre">is_interpolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#OmegaConfInterface.is_interpolation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.OmegaConfInterface.is_interpolation" title="Permalink to this definition">#</a></dt>
+<dd><p>Check if the key target’s attribute is an interpolation string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.OmegaConfInterface.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#OmegaConfInterface.select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.OmegaConfInterface.select" title="Permalink to this definition">#</a></dt>
+<dd><p>Select the key target’s attribute.</p>
+<p>Return MISSING if key corresponds to a missing value, or an
+interpolation that resolves to a missing value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mloq.config.configuration.BaseConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">BaseConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfg_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#BaseConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.BaseConfig" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mloq.config.configuration.OmegaConfInterface" title="mloq.config.configuration.OmegaConfInterface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OmegaConfInterface</span></code></a></p>
+<p>Manages getters and setters to access the target’s configuration values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<a class="reference internal" href="#mloq.config.configuration.Configurable" title="mloq.config.configuration.Configurable"><em>Configurable</em></a>) – </p></li>
+<li><p><strong>config</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>ConfigurationDict</em><em>, </em><em>omegaconf.DictConfig</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>cfg_node</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>allow_missing</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.BaseConfig.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#BaseConfig.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.BaseConfig.__getitem__" title="Permalink to this definition">#</a></dt>
+<dd><p>Access the target config value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> (<em>str</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.BaseConfig.__setitem__">
+<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#BaseConfig.__setitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.BaseConfig.__setitem__" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the target config value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.BaseConfig.to_container">
+<span class="sig-name descname"><span class="pre">to_container</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolve</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#BaseConfig.to_container"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.BaseConfig.to_container" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a container containing the target’s configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resolve</strong> (<em>bool</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>omegaconf.Container</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.BaseConfig._resolve_node">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_resolve_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfg_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#BaseConfig._resolve_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.BaseConfig._resolve_node" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a DictConfig containing the resolved configuration values defined in kwargs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kwargs</strong> (<em>dict</em>) – </p></li>
+<li><p><strong>config</strong> (<em>Optional</em><em>[</em><em>omegaconf.DictConfig</em><em>]</em>) – </p></li>
+<li><p><strong>cfg_node</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>omegaconf.DictConfig</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.BaseConfig._setup_config">
+<span class="sig-name descname"><span class="pre">_setup_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfg_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#BaseConfig._setup_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.BaseConfig._setup_config" title="Permalink to this definition">#</a></dt>
+<dd><p>Initialize and validate the structured config of target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>ConfigurationDict</em><em>, </em><em>omegaconf.DictConfig</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>cfg_node</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mloq.config.configuration.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">Config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfg_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.Config" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mloq.config.configuration.BaseConfig" title="mloq.config.configuration.BaseConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseConfig</span></code></a></p>
+<p>Config handles the <cite>.conf</cite> attribute of a Configurable class.</p>
+<p>It is analogous to <cite>.param</cite> for param.Parameterized classes.
+This class implements all the logic to access and update the config attribute
+of a Configurable class, which returns a DictConfig instance that
+is automatically update when the parameters of the class change.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<a class="reference internal" href="#mloq.config.configuration.Configurable" title="mloq.config.configuration.Configurable"><em>Configurable</em></a>) – </p></li>
+<li><p><strong>config</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>ConfigurationDict</em><em>, </em><em>omegaconf.DictConfig</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>cfg_node</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>allow_missing</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.Config.params">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">params</span></span><a class="headerlink" href="#mloq.config.configuration.Config.params" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the param.Parameter dictionary of the target configurable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Dict[str, mloq.config.param_patch.param.Parameter]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.Config.resolve">
+<span class="sig-name descname"><span class="pre">resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#Config.resolve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.Config.resolve" title="Permalink to this definition">#</a></dt>
+<dd><p>Resolve the key attribute of the target Configurable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>inplace</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[omegaconf.Container, ConfigValue, None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.Config.to_param_type">
+<span class="sig-name descname"><span class="pre">to_param_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#Config.to_param_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.Config.to_param_type" title="Permalink to this definition">#</a></dt>
+<dd><p>Transform the value of the key target’s parameter to a DictConfig compatible type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.Config.dataclass_dict">
+<span class="sig-name descname"><span class="pre">dataclass_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ignore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#Config.dataclass_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.Config.dataclass_dict" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a dictionary to create a dataclass with the target’s parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ignore</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>list</em><em>, </em><em>set</em><em>, </em><em>tuple</em><em>, </em><em>str</em><em>]</em><em>]</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>DataClassDict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.Config.to_dataclass">
+<span class="sig-name descname"><span class="pre">to_dataclass</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#Config.to_dataclass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.Config.to_dataclass" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a dataclass describing the parameter values of the target Configurable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.Config.to_dictconfig">
+<span class="sig-name descname"><span class="pre">to_dictconfig</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#Config.to_dictconfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.Config.to_dictconfig" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a structured DictConfig containing the parameters of the target Configurable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mloq.config.configuration.DictConfig" title="mloq.config.configuration.DictConfig">DictConfig</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.Config.sync">
+<span class="sig-name descname"><span class="pre">sync</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#Config.sync"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.Config.sync" title="Permalink to this definition">#</a></dt>
+<dd><p>Ensure the parameter values of the target class have the right type.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.Config._setup_config">
+<span class="sig-name descname"><span class="pre">_setup_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfg_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#Config._setup_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.Config._setup_config" title="Permalink to this definition">#</a></dt>
+<dd><p>Initialize and validate the structured config of target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>ConfigurationDict</em><em>, </em><a class="reference internal" href="#mloq.config.configuration.DictConfig" title="mloq.config.configuration.DictConfig"><em>DictConfig</em></a><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>cfg_node</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mloq.config.configuration.CONF_ATTRS">
+<span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">CONF_ATTRS</span></span><a class="headerlink" href="#mloq.config.configuration.CONF_ATTRS" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mloq.config.configuration.Configurable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mloq.config.configuration.</span></span><span class="sig-name descname"><span class="pre">Configurable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">throw_on_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfg_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#Configurable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.Configurable" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">mloq.config.param_patch.param.Parameterized</span></code></p>
+<p>A Configurable class is an extension of param.Parameterized that allows to handle parameters     with missing values and omegaconf interpolation strings.</p>
+<p>It add a config attribute containing an omegaconf.DictConfig that contains the values of the
+class param.Parameters.</p>
+<p>It also provides a <cite>conf</cite> attribute that allows to access omegaconf functionality
+for managing configurations in a similar fashion as the <cite>param</cite> attribute allows to access
+param.Parameter functionality.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>ConfigurationDict</em><em>, </em><a class="reference internal" href="#mloq.config.configuration.DictConfig" title="mloq.config.configuration.DictConfig"><em>DictConfig</em></a><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>throw_on_missing</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>cfg_node</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mloq.config.configuration.Configurable.config">
+<span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#mloq.config.configuration.Configurable.config" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.Configurable.conf">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">conf</span></span><a class="headerlink" href="#mloq.config.configuration.Configurable.conf" title="Permalink to this definition">#</a></dt>
+<dd><p>Access the Config instance that tracks and manages the values in the class config.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mloq.config.configuration.Config" title="mloq.config.configuration.Config">Config</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.Configurable.__setattr__">
+<span class="sig-name descname"><span class="pre">__setattr__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#Configurable.__setattr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.Configurable.__setattr__" title="Permalink to this definition">#</a></dt>
+<dd><p>Update the config values when setting a parameter.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mloq.config.configuration.Configurable.__getattr__">
+<span class="sig-name descname"><span class="pre">__getattr__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/mloq/config/configuration.html#Configurable.__getattr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mloq.config.configuration.Configurable.__getattr__" title="Permalink to this definition">#</a></dt>
+<dd><p>Add support for MISSING values when accessing the parameter values.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../index.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.config</span></code></p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../custom_click/index.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mloq.config.custom_click</span></code></p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Guillem Duran, Vadim Markovtsev<br/>
+  
+      &copy; Copyright 2020-2022, FragileTech.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

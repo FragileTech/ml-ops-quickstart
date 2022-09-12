@@ -1,0 +1,64 @@
+:py:mod:`mloq.templating`
+=========================
+
+.. py:module:: mloq.templating
+
+.. autoapi-nested-parse::
+
+   This module defines common functionality for rendering and writing File templates.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   mloq.templating.render_template
+   mloq.templating.write_template
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   mloq.templating.jinja_env
+
+
+.. py:data:: jinja_env
+   
+
+   
+
+.. py:function:: render_template(file, kwargs)
+
+   Render a jinja template with the provided parameter dict.
+
+   :param file: File object representing the jinja template that will be rendered.
+   :param kwargs: Dictionary containing the parameters key and corresponding values
+                  that will be used to render the template.
+
+   :returns: String containing the rendered template.
+
+
+.. py:function:: write_template(file, config, path, ledger, overwrite = False)
+
+   Create new file containing the rendered template found in source_path.
+
+   :param file: File object representing the jinja template that will be rendered.
+   :param config: OmegaConf dictionary containing the parameters key and corresponding values
+                  that will be used to render the templates.
+   :param path: Absolute path to the folder where the file will be written.
+   :param ledger: Book keeper to keep track of the generated files.
+   :param overwrite: If False, copy the file if it does not already exists in the
+                     target path. If True, overwrite the target file if it is already present.
+
+   :returns: None.
+
+

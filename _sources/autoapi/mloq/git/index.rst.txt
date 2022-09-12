@@ -1,0 +1,33 @@
+:py:mod:`mloq.git`
+==================
+
+.. py:module:: mloq.git
+
+.. autoapi-nested-parse::
+
+   Setup Git repository for the project.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   mloq.git.setup_git
+   mloq.git._git_cmd
+
+
+
+.. py:function:: setup_git(path, config)
+
+   Initialize a Git repository over the generated files.
+
+
+.. py:function:: _git_cmd(git_dir, *parts)
+
+

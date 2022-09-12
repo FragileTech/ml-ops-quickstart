@@ -1,0 +1,351 @@
+:py:mod:`mloq.config.configuration`
+===================================
+
+.. py:module:: mloq.config.configuration
+
+.. autoapi-nested-parse::
+
+   This module defines the Configurable class and associated logic.
+
+   The Configurable class extends the param.Parameterizable class to keep track of
+   the class parameters using an omegaconf.DictConfig.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   mloq.config.configuration.Dataclass
+   mloq.config.configuration.DictConfig
+   mloq.config.configuration.OmegaConfInterface
+   mloq.config.configuration.BaseConfig
+   mloq.config.configuration.Config
+   mloq.config.configuration.Configurable
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   mloq.config.configuration.param_to_dataclass_dict
+   mloq.config.configuration.param_to_dataclass
+   mloq.config.configuration.param_to_omegaconf
+   mloq.config.configuration.is_interpolation
+   mloq.config.configuration.to_param_type
+   mloq.config.configuration.to_config
+   mloq.config.configuration.resolve_as_dict
+   mloq.config.configuration.safe_select
+   mloq.config.configuration.as_resolved_dict
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   mloq.config.configuration.DClassField
+   mloq.config.configuration.ConfigValue
+   mloq.config.configuration.ConfigurationDict
+   mloq.config.configuration.PythonType
+   mloq.config.configuration.ParamType
+   mloq.config.configuration.DataClassDict
+   mloq.config.configuration.PARAM_TO_TYPE
+   mloq.config.configuration.CONF_ATTRS
+
+
+.. py:data:: DClassField
+   
+
+   
+
+.. py:class:: Dataclass
+
+   Bases: :py:obj:`typing_extensions.Protocol`
+
+   Type hinting to defined a dataclass as a typing Protocol.
+
+   .. py:attribute:: __dataclass_fields__
+      :annotation: :Dict
+
+      
+
+
+.. py:data:: ConfigValue
+   
+
+   
+
+.. py:data:: ConfigurationDict
+   
+
+   
+
+.. py:data:: PythonType
+   
+
+   
+
+.. py:data:: ParamType
+   
+
+   
+
+.. py:data:: DataClassDict
+   
+
+   
+
+.. py:class:: DictConfig(default = None, doc = None, instantiate = True, per_instance = True, **kwargs)
+
+   Bases: :py:obj:`mloq.config.param_patch.param.ClassSelector`
+
+   param.Parameter that defines a DictConfig object.
+
+
+.. py:data:: PARAM_TO_TYPE
+   
+
+   
+
+.. py:function:: param_to_dataclass_dict(obj)
+
+   Create a dictionary that can be used to initialize a dataclass containing the parameters     of the target param.Parameterized class.
+
+   :param obj: Class or instance of a param.Parameterized class.
+
+   :returns: dict containing the fields required to define a dataclass with the obj parameters.
+
+
+.. py:function:: param_to_dataclass(obj)
+
+   Create a dataclass equivalent to the target param.Parameterized target.
+
+
+.. py:function:: param_to_omegaconf(obj)
+
+   Transform a param.Parameterized class into an OmegaConf structured configuration.
+
+
+.. py:function:: is_interpolation(s)
+
+   Return True if the provided string is an OmegaConf interpolation string.
+
+
+.. py:function:: to_param_type(obj, config, key)
+
+   Transform the provided attribute of the target param.Parameterized object     into the appropriate type so it can be stored in a configuration file.
+
+
+.. py:function:: to_config(config, **kwargs)
+
+   Transform the provided object into an omegaconf.DictConfig.
+
+
+.. py:function:: resolve_as_dict(obj, config, **kwargs)
+
+   Transform the provided object into a dictionary resolving all its interpolations.
+
+
+.. py:function:: safe_select(cfg, key, default = None)
+
+   Access safely the target value of the provided cfg DictConfig.
+
+   Return  MISSING if the value cannot be resolved or it's missing.
+
+
+.. py:function:: as_resolved_dict(cfg)
+
+   Return a dictionary containing the resolved values for the provided DictConfig.
+
+
+.. py:class:: OmegaConfInterface(target, allow_missing = False)
+
+   Common functionality to work with configurations.
+
+   .. py:method:: config()
+      :property:
+
+      Return a DictConfig containing the target configuration.
+
+
+   .. py:method:: interpolations()
+      :property:
+
+      Return a dictionary containing the interpolations of the target configuration.
+
+
+   .. py:method:: missing()
+      :property:
+
+      Return a list containing the names of the configuration that are MISSING.
+
+
+   .. py:method:: _resolve_inplace(key = None)
+
+      Resolve and update the target attribute if it's an interpolation string.
+
+
+   .. py:method:: resolve(key = None, inplace = False)
+
+      Resolve the target attribute if it is an interpolation string.
+
+      :param key: Name of the target's attribute to be resolved.
+      :param inplace: If True, update the configuration value replacing the
+                      interpolation string with the resolved value.
+
+      :returns: Resolved value of the target attribute.
+
+
+   .. py:method:: is_missing(key)
+
+      Return True if the key target's attribute is Missing, otherwise return False.
+
+
+   .. py:method:: is_interpolation(key)
+
+      Check if the key target's attribute is an interpolation string.
+
+
+   .. py:method:: select(key, default=None)
+
+      Select the key target's attribute.
+
+      Return MISSING if key corresponds to a missing value, or an
+      interpolation that resolves to a missing value.
+
+
+
+.. py:class:: BaseConfig(target, config = None, cfg_node = None, allow_missing = False, **kwargs)
+
+   Bases: :py:obj:`OmegaConfInterface`
+
+   Manages getters and setters to access the target's configuration values.
+
+   .. py:method:: __getitem__(item)
+
+      Access the target config value.
+
+
+   .. py:method:: __setitem__(key, value)
+
+      Set the target config value.
+
+
+   .. py:method:: to_container(resolve = False, **kwargs)
+
+      Return a container containing the target's configuration.
+
+
+   .. py:method:: _resolve_node(kwargs, config = None, cfg_node = None)
+      :staticmethod:
+
+      Return a DictConfig containing the resolved configuration values defined in kwargs.
+
+
+   .. py:method:: _setup_config(config = None, cfg_node = None, **kwargs)
+
+      Initialize and validate the structured config of target.
+
+
+
+.. py:class:: Config(target, config = None, cfg_node = None, allow_missing = False, **kwargs)
+
+   Bases: :py:obj:`BaseConfig`
+
+   Config handles the `.conf` attribute of a Configurable class.
+
+   It is analogous to `.param` for param.Parameterized classes.
+   This class implements all the logic to access and update the config attribute
+   of a Configurable class, which returns a DictConfig instance that
+   is automatically update when the parameters of the class change.
+
+   .. py:method:: params()
+      :property:
+
+      Return the param.Parameter dictionary of the target configurable.
+
+
+   .. py:method:: resolve(key = None, inplace = False)
+
+      Resolve the key attribute of the target Configurable.
+
+
+   .. py:method:: to_param_type(key)
+
+      Transform the value of the key target's parameter to a DictConfig compatible type.
+
+
+   .. py:method:: dataclass_dict(ignore = None)
+
+      Return a dictionary to create a dataclass with the target's parameters.
+
+
+   .. py:method:: to_dataclass()
+
+      Return a dataclass describing the parameter values of the target Configurable.
+
+
+   .. py:method:: to_dictconfig()
+
+      Return a structured DictConfig containing the parameters of the target Configurable.
+
+
+   .. py:method:: sync()
+
+      Ensure the parameter values of the target class have the right type.
+
+
+   .. py:method:: _setup_config(config = None, cfg_node = None, **kwargs)
+
+      Initialize and validate the structured config of target.
+
+
+
+.. py:data:: CONF_ATTRS
+   
+
+   
+
+.. py:class:: Configurable(config = None, throw_on_missing = True, cfg_node = None, **kwargs)
+
+   Bases: :py:obj:`mloq.config.param_patch.param.Parameterized`
+
+   A Configurable class is an extension of param.Parameterized that allows to handle parameters     with missing values and omegaconf interpolation strings.
+
+   It add a config attribute containing an omegaconf.DictConfig that contains the values of the
+   class param.Parameters.
+
+   It also provides a `conf` attribute that allows to access omegaconf functionality
+   for managing configurations in a similar fashion as the `param` attribute allows to access
+   param.Parameter functionality.
+
+   .. py:attribute:: config
+      
+
+      
+
+   .. py:method:: conf()
+      :property:
+
+      Access the Config instance that tracks and manages the values in the class config.
+
+
+   .. py:method:: __setattr__(key, value)
+
+      Update the config values when setting a parameter.
+
+
+   .. py:method:: __getattr__(item)
+
+      Add support for MISSING values when accessing the parameter values.
+
+
+
