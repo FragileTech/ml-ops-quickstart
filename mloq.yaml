@@ -36,6 +36,7 @@ docs:
   copyright_holder: ${license.copyright_holder}
   copyright_year: ${license.copyright_year}
   default_branch: ${globals.default_branch}
+  project_url: ${globals.project_url}
   deploy_docs: true
 
 git:

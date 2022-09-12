@@ -64,6 +64,7 @@ class DocsCMD(Command):
     copyright_holder = param.String("${docs.author}", doc="Copyright holder")
     deploy_docs = param.Boolean(True, doc="Deploy docs to GitHub Pages?")
     default_branch = param.String("${globals.default_branch}", doc="Branch used to build the docs")
+    project_url = param.String("${globals.project_url}", doc="GitHub project url")
     files = tuple(DOCS_FILES)
 
     @property
