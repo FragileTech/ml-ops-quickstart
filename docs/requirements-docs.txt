@@ -1,7 +1,7 @@
 sphinx==4.5.0
 linkify-it-py==2.0.0
 myst-parser==0.18.0
-myst-nb==0.16.0
+myst-nb==0.17.1
 ruyaml==0.19.2
 sphinx-autoapi==1.9.0
 pydata-sphinx-theme==0.8.1
