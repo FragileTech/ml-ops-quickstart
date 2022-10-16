@@ -69,7 +69,7 @@ build-backend = "setuptools.build_meta"
 # Code coverage config
 [tool.coverage.run]
 branch = true
-# source = ["src/{{lint.project_name}}"]
+source = ["src/{{lint.project_name}}"]
 
 [tool.coverage.report]
 exclude_lines =["no cover",
