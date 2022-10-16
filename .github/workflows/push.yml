@@ -55,7 +55,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, 'Bump version')"
     strategy:
       matrix:
-        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+        python-version: ['3.6', '3.7', '3.8', '3.9']
     steps:
     - name: actions/checkout
       uses: actions/checkout@v2
@@ -86,7 +86,7 @@ jobs:
         diff requirements.txt generated/requirements.txt
         diff requirements-lint.txt generated/requirements-lint.txt
         diff requirements-test.txt generated/requirements-test.txt
-        diff pyproject.toml generated/pyproject.toml
+        #diff pyproject.toml generated/pyproject.toml
         diff DCO.md generated/DCO.md
         diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
         diff CONTRIBUTING.md generated/CONTRIBUTING.md
@@ -189,7 +189,7 @@ jobs:
           diff requirements.txt generated/requirements.txt
           diff requirements-lint.txt generated/requirements-lint.txt
           diff requirements-test.txt generated/requirements-test.txt
-          diff pyproject.toml generated/pyproject.toml
+          #diff pyproject.toml generated/pyproject.toml
           diff DCO.md generated/DCO.md
           diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
           diff CONTRIBUTING.md generated/CONTRIBUTING.md

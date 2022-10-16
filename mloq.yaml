@@ -65,7 +65,6 @@ package:
   - '3.7'
   - '3.8'
   - '3.9'
-  - '3.10'
   pyproject_extra: ""
   license_classifier: "License :: OSI Approved :: MIT License"
 
@@ -134,7 +133,7 @@ ci:
     diff requirements.txt generated/requirements.txt
     diff requirements-lint.txt generated/requirements-lint.txt
     diff requirements-test.txt generated/requirements-test.txt
-    diff pyproject.toml generated/pyproject.toml
+    #diff pyproject.toml generated/pyproject.toml
     diff DCO.md generated/DCO.md
     diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
     diff CONTRIBUTING.md generated/CONTRIBUTING.md
