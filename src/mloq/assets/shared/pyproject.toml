@@ -33,7 +33,7 @@ generate-setup-file = true
 
 # Requirements
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^{{ package.main_python_version}}"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.1"
@@ -66,7 +66,19 @@ build-backend = "poetry.core.masonry.api"
 requires = ["setuptools >= 50.3.2", "wheel >= 0.29.0"]
 build-backend = "setuptools.build_meta"
 {% endif %}
-{% if lint and "pyproject.toml" not in lint.ignore_files %}# black is the tool to format the source code
+# Code coverage config
+[tool.coverage.run]
+branch = true
+# source = ["src/{{lint.project_name}}"]
+
+[tool.coverage.report]
+exclude_lines =["no cover",
+    'raise NotImplementedError',
+    'if __name__ == "__main__":']
+ignore_errors = true
+omit = ["tests/*"]
+{% if lint and "pyproject.toml" not in lint.ignore_files %}{% if lint.black %} 
+# black is the tool to format the source code
 [tool.black]
 line-length = 99
 target-version = ['py37', 'py38', 'py39']
@@ -85,7 +97,7 @@ exclude = '''
   | dist
   | venv
 )/
-'''
+'''{% endif %}{% if lint.isort %}
 # isort orders and lints imports
 [tool.isort]
 profile = "black"
@@ -100,19 +112,7 @@ color_output = true
 lines_after_imports = 2
 honor_noqa = true
 {% endif %}
-# Code coverage config
-[tool.coverage.run]
-branch = true
-source = ["src/{{lint.project_name}}"]
-
-[tool.coverage.report]
-exclude_lines =["no cover",
-    'raise NotImplementedError',
-    'if __name__ == "__main__":']
-ignore_errors = true
-omit = ["tests/*"]
-
-# Flakehell config
+{% if lint.linters %}# Flakehell config
 [tool.flakehell]
 # optionally inherit from remote config (or local if you want)
 base = "https://raw.githubusercontent.com/life4/flakehell/master/pyproject.toml"
@@ -158,5 +158,6 @@ enable = """,
          differing-type-doc,
          missing-return-doc,
          """
-
+{% endif %}
 {{ lint.pyproject_extra }}
+{% endif %}

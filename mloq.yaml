@@ -9,6 +9,7 @@ globals:
   project_url: https://github.com/FragileTech/ml-ops-quickstart
   license: "MIT"
   use_poetry: false
+  main_python_version: "3.8"
 
 license:
   disable: false
@@ -58,6 +59,7 @@ package:
   email: ${globals.email}
   license: ${globals.license}
   use_poetry: ${globals.use_poetry}
+  main_python_version: ${globals.main_python_version}
   python_versions:
   - '3.6'
   - '3.7'
@@ -73,6 +75,10 @@ requirements:
 
 lint:
   disable: false
+  black: True
+  isort: True
+  linters: True
+  poetry_requirements: True
   docstring_checks: true
   pyproject_extra: |-
     [tool.flakehell.exceptions."**/assets/*"]
@@ -127,7 +133,7 @@ ci:
     diff requirements.txt generated/requirements.txt
     diff requirements-lint.txt generated/requirements-lint.txt
     diff requirements-test.txt generated/requirements-test.txt
-    diff pyproject.toml generated/pyproject.toml
+    #diff pyproject.toml generated/pyproject.toml
     diff DCO.md generated/DCO.md
     diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
     diff CONTRIBUTING.md generated/CONTRIBUTING.md

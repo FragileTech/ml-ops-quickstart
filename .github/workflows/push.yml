@@ -86,7 +86,7 @@ jobs:
         diff requirements.txt generated/requirements.txt
         diff requirements-lint.txt generated/requirements-lint.txt
         diff requirements-test.txt generated/requirements-test.txt
-        diff pyproject.toml generated/pyproject.toml
+        #diff pyproject.toml generated/pyproject.toml
         diff DCO.md generated/DCO.md
         diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
         diff CONTRIBUTING.md generated/CONTRIBUTING.md
@@ -189,7 +189,7 @@ jobs:
           diff requirements.txt generated/requirements.txt
           diff requirements-lint.txt generated/requirements-lint.txt
           diff requirements-test.txt generated/requirements-test.txt
-          diff pyproject.toml generated/pyproject.toml
+          #diff pyproject.toml generated/pyproject.toml
           diff DCO.md generated/DCO.md
           diff CODE_OF_CONDUCT.md generated/CODE_OF_CONDUCT.md
           diff CONTRIBUTING.md generated/CONTRIBUTING.md
