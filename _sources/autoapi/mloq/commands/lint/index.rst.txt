@@ -62,6 +62,21 @@ Attributes
 
       
 
+   .. py:attribute:: black
+      
+
+      
+
+   .. py:attribute:: isort
+      
+
+      
+
+   .. py:attribute:: linters
+      
+
+      
+
    .. py:attribute:: docstring_checks
       
 

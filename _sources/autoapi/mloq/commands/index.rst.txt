@@ -434,6 +434,11 @@ Classes
 
       
 
+   .. py:attribute:: main_python_version
+      
+
+      
+
    .. py:method:: interactive_config()
 
       Generate the configuration of the project interactively.
@@ -529,6 +534,21 @@ Classes
       
 
    .. py:attribute:: disable
+      
+
+      
+
+   .. py:attribute:: black
+      
+
+      
+
+   .. py:attribute:: isort
+      
+
+      
+
+   .. py:attribute:: linters
       
 
       
@@ -646,6 +666,11 @@ Classes
       
 
    .. py:attribute:: email
+      
+
+      
+
+   .. py:attribute:: main_python_version
       
 
       

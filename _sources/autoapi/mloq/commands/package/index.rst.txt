@@ -135,6 +135,11 @@ Attributes
 
       
 
+   .. py:attribute:: main_python_version
+      
+
+      
+
    .. py:attribute:: python_versions
       
 

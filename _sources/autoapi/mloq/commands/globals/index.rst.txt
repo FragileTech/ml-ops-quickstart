@@ -83,6 +83,11 @@ Classes
 
       
 
+   .. py:attribute:: main_python_version
+      
+
+      
+
    .. py:method:: interactive_config()
 
       Generate the configuration of the project interactively.
