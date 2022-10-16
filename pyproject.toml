@@ -39,7 +39,7 @@ honor_noqa = true
 # Code coverage config
 [tool.coverage.run]
 branch = true
-# source = ["src/mloq"]
+source = ["src/mloq"]
 
 [tool.coverage.report]
 exclude_lines =["no cover",

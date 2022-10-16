@@ -26,7 +26,7 @@ test:
 .PHONY: test-codecov
 test-codecov:
 	find -name "*.pyc" -delete
-	pytest -n $n -s -o log_cli=true -o log_cli_level=info --cov=. --cov-report=xml --cov-config=pyproject.toml{% endif %}
+	pytest -n $n -s -o log_cli=true -o log_cli_level=info --cov=./src/{{project.project_name}} --cov-report=xml --cov-config=pyproject.toml{% endif %}
 {% if docker.makefile %}
 .PHONY: docker-shell
 docker-shell:
