@@ -24,6 +24,9 @@ class LintCMD(Command):
     cmd_name = "lint"
     files = tuple(LINT_FILES)
     disable = param.Boolean(default=None, doc="Disable lint command?")
+    black = param.Boolean(True, doc="Use black for code formatting?")
+    isort = param.Boolean(True, doc="Use isort for sorting imports automatically?")
+    linters = param.Boolean(True, doc="Configure code linters?")
     docstring_checks = param.Boolean(True, doc="Apply docstring checks?")
     pyproject_extra = param.String("", doc="Additional pyproject.toml configuration")
     project_name = param.String("${globals.project_name}", doc="Select project name")

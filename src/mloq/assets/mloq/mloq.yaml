@@ -9,6 +9,7 @@ globals:
   default_branch: main
   use_poetry: False
   license: "proprietary"
+  main_python_version: "3.8"
 
 license:
   disable: false
@@ -54,10 +55,12 @@ package:
   email: ${globals.email}
   license: ${globals.license}
   use_poetry: ${globals.use_poetry}
+  main_python_version: ${globals.main_python_version}
   python_versions:
   - '3.7'
   - '3.8'
   - '3.9'
+  - '3.10'
   pyproject_extra: ""
   license_classifier: ???
 
@@ -71,6 +74,10 @@ lint:
   docstring_checks: true
   pyproject_extra: ""
   project_name: ${globals.project_name}
+  black: True
+  isort: True
+  linters: True
+  poetry_requirements: True
   makefile: true
 
 docker:

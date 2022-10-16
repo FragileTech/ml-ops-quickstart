@@ -40,9 +40,13 @@ class PackageCMD(Command):
     description = param.String("${globals.description}", doc="Short description of the project")
     default_branch = param.String(doc="Default branch of the project")
     project_url = param.String("${globals.project_url}", doc="GitHub project url")
-    owner = param.String("${ci.author}", doc="Github handle of the project owner")
+    owner = param.String("${globals.owner}", doc="Github handle of the project owner")
     author = param.String(doc="Author(s) of the project")
     email = param.String(doc="Owner contact email")
+    main_python_version = param.String(
+        "${globals.main_python_version}",
+        doc="Python version for CI, Poetry and Docker",
+    )
     python_versions = param.ListSelector(
         default=DEFAULT_PYTHON_VERSIONS,
         doc="Supported python versions",

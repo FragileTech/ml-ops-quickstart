@@ -11,12 +11,15 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
-import sys
 from pathlib import Path
+import sys
+
 from ruamel.yaml import load as yaml_load, Loader
+
 
 sys.path.insert(0, os.path.abspath("../../"))
 sys.setrecursionlimit(1500)
+
 
 def read_template() -> dict:
     """Load the project configuration from the target path."""
@@ -24,6 +27,7 @@ def read_template() -> dict:
     with open(template_path, "r") as config:
         params = yaml_load(config.read(), Loader)
     return params
+
 
 # -- Project information -----------------------------------------------------
 project = "MLOQ"
@@ -47,7 +51,7 @@ master_doc = "index"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    #"sphinx.ext.autodoc",
+    # "sphinx.ext.autodoc",
     "autoapi.extension",
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
