@@ -97,7 +97,8 @@ exclude = '''
   | dist
   | venv
 )/
-'''{% endif %}{% if lint.isort %}# isort orders and lints imports
+'''{% endif %}{% if lint.isort %}
+# isort orders and lints imports
 [tool.isort]
 profile = "black"
 line_length = 99
