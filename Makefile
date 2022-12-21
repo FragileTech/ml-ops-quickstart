@@ -20,12 +20,12 @@ check:
 
 .PHONY: test
 test:
-	find -name "*.pyc" -delete
+	find . -name "*.pyc" -delete
 	pytest -n $n -s -o log_cli=true -o log_cli_level=info
 
 .PHONY: test-codecov
 test-codecov:
-	find -name "*.pyc" -delete
+	find . -name "*.pyc" -delete
 	pytest -n $n -s -o log_cli=true -o log_cli_level=info --cov=./src/mloq --cov-report=xml --cov-config=pyproject.toml
 
 .PHONY: docker-shell
@@ -42,7 +42,7 @@ docker-build:
 
 .PHONY: docker-test
 docker-test:
-	find -name "*.pyc" -delete
+	find . -name "*.pyc" -delete
 	docker run --rm --network host -w /${PROJECT} --entrypoint python3 ${DOCKER_ORG}/${PROJECT}:${VERSION} -m pytest -n $n -s -o log_cli=true -o log_cli_level=info
 
 .PHONY: docker-push
