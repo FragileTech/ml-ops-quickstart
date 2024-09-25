@@ -30,6 +30,7 @@ dependencies = [
     "hydra-core",
     "param",
     "pre-commit",
+    "mypy>=1.11.2",
 ]
 
 [project.scripts]
@@ -77,12 +78,11 @@ universal = true
 [tool.rye.scripts]
 style = { chain = ["ruff check --fix-only  --unsafe-fixes tests src", "ruff format tests src"] }
 check = { chain = ["ruff check --diff tests src", "ruff format --diff tests src"]}  #,"mypy src tests" ] }
-test = { chain = ["test:doctest", "test:parallel", "test:singlecore"] }
-codecov = { chain = ["codecov:singlecore", "codecov:parallel"] }
+test = { chain = ["test:doctest", "test:parallel"] }
+codecov =  { cmd = "pytest -n auto -s -o log_cli=true -o log_cli_level=info --cov=./ --cov-report=xml --cov-config=pyproject.toml tests" }
 "test:parallel" = { cmd = "pytest -n auto -s -o log_cli=true -o log_cli_level=info tests" }
-"test:singlecore" = { cmd = "pytest -s -o log_cli=true -o log_cli_level=info tests/control/test_classic_control.py" }
+"test:singlecore" = { cmd = "pytest -s -o log_cli=true -o log_cli_level=info tests" }
 "test:doctest" = { cmd = "pytest --doctest-modules -n 0 -s -o log_cli=true -o log_cli_level=info src" }
-"codecov:parallel" = { cmd = "pytest -n auto -s -o log_cli=true -o log_cli_level=info --cov=./ --cov-report=xml --cov-config=pyproject.toml tests" }
 docs = {chain = ["build-docs", "serve-docs"]}
 build-docs = { cmd = "sphinx-build -b html docs/source docs/build"}
 serve-docs = { cmd = "python3 -m http.server --directory docs/build" }
