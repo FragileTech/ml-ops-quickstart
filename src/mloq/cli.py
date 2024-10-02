@@ -1,104 +1,34 @@
-"""Command line interface for mloq."""
-import os
-from pathlib import Path
-from typing import Callable, Optional
+"""Module that contains the command line app.
+
+Why does this file exist, and why not put this in __main__?
+
+  You might be tempted to import things from __main__ later, but that will cause
+  problems: the code will get executed twice:
+
+  - When you run `python -mmloq` python will execute
+    ``__main__.py`` as a script. That means there will not be any
+    ``mloq.__main__`` in ``sys.modules``.
+  - When you import __main__ it will get executed again (as a module) because
+    there"s no ``mloq.__main__`` in ``sys.modules``.
+
+  Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
+"""
 
 import click
 
-from mloq.runner import run_command
-from mloq.version import __version__
+from .core import compute
 
 
-overwrite_opt = click.option(
-    "--overwrite/--no-overwrite",
-    "-o/ ",
-    default=False,
-    show_default=True,
-    help="Value indicating whether to overwrite existing files.",
-)
-config_file_opt = click.option(
-    "--filename",
-    "-f",
-    "config_file",
-    default=None,
-    show_default=True,
-    help="Name of the repository config file",
-    type=click.Path(exists=True, file_okay=True, dir_okay=True, resolve_path=True),
-)
-only_config_opt = click.option(
-    "--only-config/--everything",
-    "-c/ ",
-    default=False,
-    show_default=True,
-    help="Value indicating whether to not generate all the files except mloq.yaml.",
-)
-output_directory_arg = click.argument(
-    "output_directory",
-    type=click.Path(exists=True, file_okay=False, dir_okay=True, resolve_path=True),
-)
+@click.command()
+@click.argument("names", nargs=-1)
+def run(names):
+    """Print the result of the computation.
 
-interactive_opt = click.option(
-    "--interactive/--no-interactive",
-    "-i/ ",
-    default=False,
-    show_default=True,
-    help="If True the configuration values will be defined interactively on the command line.",
-)
+    Args:
+        names (list): List of arguments.
 
-hydra_args = click.argument("hydra_args", nargs=-1, type=click.UNPROCESSED)
+    Returns:
+        int: A return code.
 
-
-def mloq_click_command(func):
-    """Wrap a command function to interface with click."""
-    func = hydra_args(func)
-    func = only_config_opt(func)
-    func = interactive_opt(func)
-    func = overwrite_opt(func)
-    func = output_directory_arg(func)
-    func = config_file_opt(func)
-    func = click.command(context_settings=dict(ignore_unknown_options=True))(func)
-    return func
-
-
-class MloqCLI(click.MultiCommand):
-    """Load the commands available at runtime from the files present in the command module."""
-
-    command_folder = Path(__file__).parent / "commands"
-
-    def list_commands(self, ctx):
-        """List the names of the mloq commands available."""
-        rv = []
-        for filename in os.listdir(self.command_folder):
-            if filename.endswith(".py") and filename != "__init__.py":
-                rv.append(filename[:-3])
-        rv.sort()
-        return rv
-
-    def get_command(self, ctx, name) -> Callable:
-        """Create the command callable corresponding to the provided command name."""
-        ns = {}
-        fn = os.path.join(self.command_folder, name + ".py")
-        with open(fn) as f:
-            code = compile(f.read(), fn, "exec")
-            eval(code, ns, ns)
-        command_class = ns[f"{name.capitalize()}CMD"]
-        # TODO: handle exit codes if needed
-        return run_command(command_class)
-
-
-@click.command(cls=MloqCLI)
-def cli():  # noqa: D103
-    pass
-
-
-def welcome_message(extra: bool = False, string: Optional[str] = None):
-    """Welcome message to be displayed during interactive setup."""
-    click.echo(f"Welcome to the MLOQ {__version__} interactive setup utility.")
-    if extra:
-        click.echo(f"{string}")
-    click.echo()
-    click.echo(
-        "Please enter values for the following settings (just press Enter "
-        "to accept a default value, if one is given in brackets).",
-    )
-    click.echo()
+    """
+    click.echo(compute(names))

@@ -1,63 +1,97 @@
-# ML Ops Quickstart
-[![Documentation Status](https://readthedocs.org/projects/mloq/badge/?version=latest)](https://mloq.readthedocs.io/en/latest/?badge=latest)
-[![Code coverage](https://codecov.io/github/fragiletech/ml-ops-quickstart/coverage.svg)](https://codecov.io/github/fragiletech/ml-ops-quickstart)
-[![PyPI package](https://badgen.net/pypi/v/mloq)](https://pypi.org/project/mloq/)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
-[![license: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
+========
+Overview
+========
 
-ML Ops Quickstart is a tool for initializing Machine Learning projects following ML Ops best practices.
+.. start-badges
 
-Setting up new repositories is a time-consuming task that involves creating different files and 
-configuring tools such as linters, docker containers and continuous integration pipelines. 
-The goal of `mloq` is to simplify that process, so you can start writing code as fast as possible.
+.. list-table::
+    :stub-columns: 1
 
-`mloq` generates customized templates for Python projects with focus on Maching Learning. An example of 
-the generated templates can be found in [mloq-template](https://github.com/FragileTech/mloq-template).
+    * - docs
+      - |docs|
+    * - tests
+      - |github-actions| |codecov|
+    * - package
+      - |version| |wheel| |supported-versions| |supported-implementations| |commits-since|
+.. |docs| image:: https://readthedocs.org/projects/ml-ops-quickstart/badge/?style=flat
+    :target: https://readthedocs.org/projects/ml-ops-quickstart/
+    :alt: Documentation Status
 
-## [1.](#Index) Installation
+.. |github-actions| image:: https://github.com/FragileTech/ml-ops-quickstart/actions/workflows/github-actions.yml/badge.svg
+    :alt: GitHub Actions Build Status
+    :target: https://github.com/FragileTech/ml-ops-quickstart/actions
 
-`mloq` is tested on Ubuntu 18.04+, and supports Python 3.6+.
+.. |codecov| image:: https://codecov.io/gh/FragileTech/ml-ops-quickstart/branch/main/graphs/badge.svg?branch=main
+    :alt: Coverage Status
+    :target: https://app.codecov.io/github/FragileTech/ml-ops-quickstart
 
-### Install from pypi
-```bash
-pip install mloq
-```
-### Install from source
-```bash
-git clone https://github.com/FragileTech/ml-ops-quickstart.git
-cd ml-ops-quickstart
-pip install -e .
-```
+.. |version| image:: https://img.shields.io/pypi/v/mloq.svg
+    :alt: PyPI Package latest release
+    :target: https://pypi.org/project/mloq
 
-## [2.](#Index) Usage
-### [2.1](#Index) Command line interface
+.. |wheel| image:: https://img.shields.io/pypi/wheel/mloq.svg
+    :alt: PyPI Wheel
+    :target: https://pypi.org/project/mloq
 
-Options:
-* `--file` `-f`: Name of the configuration file. If `file` it's a directory it will load the `mloq.yml` file present in it.
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/mloq.svg
+    :alt: Supported versions
+    :target: https://pypi.org/project/mloq
 
-* `--overwrite` `-o`: Rewrite files that already exist in the target project.
-* `--interactive` `-i`: Missing configuration data can be defined interactively from the CLI.
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/mloq.svg
+    :alt: Supported implementations
+    :target: https://pypi.org/project/mloq
 
-#### Usage examples
-Arguments:
-* `OUTPUT_DIRECTORY`: Path to the target project.
+.. |commits-since| image:: https://img.shields.io/github/commits-since/FragileTech/ml-ops-quickstart/v0.1.0.svg
+    :alt: Commits since latest release
+    :target: https://github.com/FragileTech/ml-ops-quickstart/compare/v0.1.0...main
 
-To set up a new repository from scratch interactively in the curren working directory:
-```bash
-mloq setup -i .
-```
 
-To load a `mloq.yml` configuration file from the current repository, and initialize the directory `example`, and 
-overwrite all existing files with no interactivity:
-```bash
-mloq setup -f . -o example
-```
 
-![ci python](docs/images/mloq_setup.png)
+.. end-badges
 
-## [5.](#Index) License
-ML Ops Quickstart is released under the [MIT](LICENSE) license.
+Automate project creation following ML best practices.
 
-## [6.](#Index) Contributing
+* Free software: MIT license
 
-Contributions are very welcome! Please check the [contributing guidelines](CONTRIBUTING.md) before opening a pull request.
+Installation
+============
+
+::
+
+    pip install mloq
+
+You can also install the in-development version with::
+
+    pip install https://github.com/FragileTech/ml-ops-quickstart/archive/main.zip
+
+
+Documentation
+=============
+
+
+https://ml-ops-quickstart.readthedocs.io/
+
+
+Development
+===========
+
+To run all the tests run::
+
+    tox
+
+Note, to combine the coverage data from all the tox environments run:
+
+.. list-table::
+    :widths: 10 90
+    :stub-columns: 1
+
+    - - Windows
+      - ::
+
+            set PYTEST_ADDOPTS=--cov-append
+            tox
+
+    - - Other
+      - ::
+
+            PYTEST_ADDOPTS=--cov-append tox
