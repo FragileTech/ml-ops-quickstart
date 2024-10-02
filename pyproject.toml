@@ -44,8 +44,8 @@ dynamic = ["version"]
 # direct dependencies of this package, installed when users `pip install ml-ops-quickstart` later.
 dependencies = [
     "flogging",
-    "pre-commit",
-    "click",
+    "hydraclick",
+    "cookiecutter",
 ]  # ToDo: Modify according to your needs!
 [project.urls]
 # important URLs for this project
