@@ -4,6 +4,6 @@ hydra-core==1.1.1
 invoke==1.6.0
 jinja2==3.0.3
 omegaconf==2.1.1
-param==1.12.0
+param==2.1.1
 pre-commit==2.15.0
 typing-extensions==4.0.0
