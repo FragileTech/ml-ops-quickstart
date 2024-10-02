@@ -304,7 +304,7 @@ omit = ["tests/*"]
 [tool.hatch.envs.default]
 installer = "uv"
 python = "3.10"
-post-install-commands = ["pre-commit install"]
+post-install-commands = [] #"pre-commit install"]
 dependencies = []
 # Test environment with test-only dependencies
 [tool.hatch.envs.test]
