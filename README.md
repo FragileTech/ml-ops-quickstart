@@ -95,3 +95,8 @@ Note, to combine the coverage data from all the tox environments run:
       - ::
 
             PYTEST_ADDOPTS=--cov-append tox
+
+
+I need you to re-write the following document into markdown. Given that I need to copy-paste it as a raw document, please do the following:
+- Write the answer inside a single ```makdown ```  block.
+- Inside that block please replace any  \`\`\` with \'\'\'
