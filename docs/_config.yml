@@ -110,5 +110,6 @@ sphinx:
     napoleon_numpy_docstring  : false
     autodoc_typehints         : "description"
     autoapi_add_toctree_entry : true
-    version                   : 0.1.0  # The version of the book
-    release                   : 0.1.0  # The release of the book
+    imgmath_latex             : /usr/bin/latex
+    version                   : "0.1.0"  # The version of the book
+    release                   : "0.1.0"  # The release of the book

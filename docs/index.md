@@ -1,4 +1,5 @@
-# Welcome to ML Ops Quickstart Jupyter Book
+```{include} source/project/README.md
+```
 
 This is the main documentation page for **ML Ops Quickstart**.
 

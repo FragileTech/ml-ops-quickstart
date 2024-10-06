@@ -1,6 +1,0 @@
-[submodule "templates/mlops"]
-	path = templates/mlops
-	url = https://github.com/FragileTech/mloq-cookiecutter.git
-[submodule "mloq-template"]
-	path = mloq-template
-	url = https://github.com/FragileTech/mloq-template.git

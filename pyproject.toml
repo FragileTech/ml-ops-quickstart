@@ -44,8 +44,8 @@ dynamic = ["version"]
 # direct dependencies of this package, installed when users `pip install ml-ops-quickstart` later.
 dependencies = [
     "flogging",
-    "hydraclick",
-    "cookiecutter",
+    "pre-commit",
+    "click",
 ]  # ToDo: Modify according to your needs!
 [project.urls]
 # important URLs for this project
@@ -110,6 +110,7 @@ docs = { cmd = "hatch run docs:docs" }
 build-docs = { cmd = "hatch run docs:build"}
 sphinx = { cmd = "hatch run docs:sphinx" }
 serve-docs = { cmd = "hatch run docs:serve" }
+all = {chain= ["lint", "build-docs", "test"]}
 
 [tool.ruff]
 # Assume Python 3.10
@@ -260,7 +261,7 @@ enable = """,
 # To disable a specific warning --> action:message:category:module:line
 filterwarnings = ["ignore::UserWarning", 'ignore::DeprecationWarning']
 addopts = "--ignore=scripts --doctest-continue-on-failure"
-
+python_files = ["test_*.py", "tests.py", "test.py"]
 # Code coverage config
 [tool.coverage.run]
 branch = true
@@ -304,7 +305,7 @@ omit = ["tests/*"]
 [tool.hatch.envs.default]
 installer = "uv"
 python = "3.10"
-post-install-commands = [] #"pre-commit install"]
+post-install-commands = ["pre-commit install"]
 dependencies = []
 # Test environment with test-only dependencies
 [tool.hatch.envs.test]
@@ -312,7 +313,7 @@ description = "Run tests and coverage"
 features = ["test"]
 [tool.hatch.envs.test.scripts]
 run_pytest = "pytest -s -o log_cli=true -o log_cli_level=info {args}"
-doctest = "run_pytest --doctest-modules -n 0 {args:src}"
+doctest = "run_pytest --doctest-modules --doctest-glob=\\*.md -n 0 {args:src}"
 test = ["doctest", "run_pytest {args:tests}"]
 cov = "run_pytest -n auto --cov-report=term-missing --cov-config=pyproject.toml --cov=src/mloq --cov=tests {args}"
 no-cov = "cov --no-cov {args}"
@@ -329,6 +330,10 @@ PYTHONUNBUFFERED = "1"
 [tool.hatch.envs.docs.scripts]
 features = ["docs"]
 build = [
+    "cp AUTHORS.md docs/source/project/",
+    "cp CHANGELOG.md docs/source/project/",
+    "cp CONTRIBUTING.md docs/source/project/",
+    "cp README.md docs/source/project/",
     "jupyter-book build docs/ ",
     "uv pip freeze > docs/requirements.txt",
 ]
