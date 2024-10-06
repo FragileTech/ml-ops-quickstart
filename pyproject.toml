@@ -149,6 +149,8 @@ exclude = [
     "**/proto/**",
     "data",
     "config",
+    "mloq-template",
+    "templates",
 ]
 # Same as Black.
 line-length = 99
@@ -243,6 +245,10 @@ pretty = true
 show_column_numbers = true
 warn_no_return = false
 warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = "*.templates.*"
+ignore_errors = true
 
 [tool.pylint.master]
 ignore = 'tests'
@@ -367,7 +373,7 @@ style = [
     "ruff check --fix-only --unsafe-fixes {args:.}", "ruff format {args:.}",
 ]
 check = [
-    "ruff check {args:.}", "ruff format --diff {args:.}","mypy {args:.}" ,
+    "ruff check {args:.}", "ruff format --diff {args:.}","mypy {args:}" ,
 ]
 all = [
     "style",
