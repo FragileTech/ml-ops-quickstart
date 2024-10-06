@@ -1,6 +1,7 @@
-__version__ = "0.1.0"
+import flogging
 
 from .core import compute
+
 
 __all__ = [
     "compute",

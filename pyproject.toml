@@ -46,6 +46,8 @@ dependencies = [
     "flogging",
     "pre-commit",
     "click",
+    "cookiecutter",
+    "jinja2_time",
 ]  # ToDo: Modify according to your needs!
 [project.urls]
 # important URLs for this project
@@ -56,7 +58,7 @@ Tracker = "https://github.com/FragileTech/ml-ops-quickstart/issues"
 mloq = "mloq.__main__:run"
 
 [project.optional-dependencies]
-lint= ["mypy", "ruff"]
+lint= ["mypy", "ruff", "mypy", "isort", "colorama"]
 test = ["pytest", "pytest-cov", "pytest-xdist"]
 docs = [
     "autoapi",
@@ -98,6 +100,14 @@ exclude = [
 ]
 
 [tool.rye.scripts]
+build = {chain=[
+    "cookiecutter templates/mlops -f --replay",
+    "hatch run template:build"
+]}
+template = {chain=[
+    "cookiecutter templates/mlops -f --replay",
+    "hatch run template:all"
+]}
 lint = { cmd = "hatch run lint:all" }
 style = { cmd = "hatch run lint:style" }
 check = { cmd = "hatch run lint:check" }
@@ -151,6 +161,7 @@ exclude = [
     "config",
     "mloq-template",
     "templates",
+    "docs/conf.py",
 ]
 # Same as Black.
 line-length = 99
@@ -162,7 +173,7 @@ select = [
     "FLY", "FIX", "FURB", "N", "NPY",
     "INP", "ISC", "PERF", "PIE", "PL",
     "PTH", "RET", "RUF", "S", "T10",
-    "TD", "T20", "UP", "YTT", "W",
+    "TD", "T20", "UP", "YTT", "W", "I",
 ]
 ignore = [
     "D100", "D211", "D213", "D104", "D203", "D301", "D407", "S101",
@@ -195,7 +206,7 @@ docstring-quotes = "double"
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["E402", "F401"]
 "cli.py" = ["PLC0415", "D205", "D400", "D415"]
-"**/docs/**" = ["INP001", "PTH100"]
+"**/docs/**" = ["INP001", "PTH100", "E501"]
 "**/{tests,docs}/*" = [
     "E402", "F401", "F811", "D", "S101", "PLR2004", "S105",
     "PLW1514", "PTH123", "PTH107", "N811", "PLC0415", "ARG002",
@@ -211,7 +222,7 @@ quote-style = "double"
 
 [tool.isort]
 profile = "black"
-line_length =  "99"
+line_length =  99
 multi_line_output = 3
 order_by_type = false
 force_alphabetical_sort_within_sections = true
@@ -221,13 +232,18 @@ include_trailing_comma = true
 color_output = true
 lines_after_imports = 2
 honor_noqa = true
-skip = [".venv", "venv"]
-skip_glob = ["*.pyx"]
+skip = [".venv", "venv", "docs/conf.py", "mloq-template/docs/conf.py", "templates", "mloq-template"]
+skip_glob = ["*.pyx", "*/docs/conf.py"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["mloq"]
 forced-separate = ["conftest"]
 force-single-line = true
+order-by-type = false
+force-sort-within-sections = true
+combine-as-imports = true
+lines-after-imports = 2
+detect-same-package = true
 
 [tool.ruff.lint.flake8-pytest-style]
 fixture-parentheses = false
@@ -238,6 +254,7 @@ ban-relative-imports = "all"
 
 [tool.mypy]
 files = ["src/mloq", "tests"]
+exclude = ["docs/conf.py", "mloq-template/docs/conf.py", "templates"]
 disallow_untyped_defs = false
 follow_imports = "normal" # "silent" for not following
 ignore_missing_imports = true
@@ -247,7 +264,7 @@ warn_no_return = false
 warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
-module = "*.templates.*"
+module = "*templates*"
 ignore_errors = true
 
 [tool.pylint.master]
@@ -340,6 +357,7 @@ build = [
     "cp CHANGELOG.md docs/source/project/",
     "cp CONTRIBUTING.md docs/source/project/",
     "cp README.md docs/source/project/",
+    "jupyter-book config sphinx docs/",
     "jupyter-book build docs/ ",
     "uv pip freeze > docs/requirements.txt",
 ]
@@ -347,22 +365,29 @@ validate = "linkchecker --config .linkcheckerrc --ignore-url=/reference --ignore
 build-check = ["build"] #, "validate"]
 serve = "python3 -m http.server --directory docs/_build/html {args}"
 sphinx = [
-    "jupyter-book config sphinx docs/ --overwrite",
+    "jupyter-book config sphinx docs/",
     "sphinx-build -b html docs/ docs/_build/html",
     "uv pip freeze > docs/requirements.txt",
 ]
 
 docs = ["build", "serve"]
+# Environment to build the template repository
+[tool.hatch.envs.template]
+description = "Build and and test the project's mloq-template"
+features = ["docs", "lint", "test"]
+[tool.hatch.envs.template.scripts]
+docs =  ["cd mloq-template", "rye run build-docs"]
+lint = ["cd mloq-template", "rye run lint"]
+test = ["cd mloq-template", "rye run test"]
+build = ["lint", "docs", "test"]
+all = ["build", "python3 -m http.server --directory mloq-template/docs/_build/html {args}"]
+
 # Lint environment
 [tool.hatch.envs.lint]
 description = "Run linting checks with ruff and mypi"
 template = "lint"  # don't inherit from default!
 features = ["lint"]
 skip-install = true
-dependencies = [
-    "mypy",
-    "ruff",
-]
 [tool.hatch.envs.lint.scripts]
 typing = [
     "echo \"MYPY VERSION: `mypy --version`\"",
@@ -372,14 +397,8 @@ style = [
     "echo \"RUFF VERSION: `ruff --version`\"",
     "ruff check --fix-only --unsafe-fixes {args:.}", "ruff format {args:.}",
 ]
-check = [
-    "ruff check {args:.}", "ruff format --diff {args:.}","mypy {args:}" ,
-]
-all = [
-    "style",
-    "check",
-    "typing",
-]
+check = ["ruff check {args:.}", "ruff format --diff {args:.}"]
+all = ["style", "check", "typing"]
 
 # Test matrix for various Python versions replacing the functionality of tox
 [[tool.hatch.envs.py-test.matrix]]
