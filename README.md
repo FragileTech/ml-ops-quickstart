@@ -5,6 +5,20 @@ Automate project creation following ML best practices.
 
 * License: MIT license
 
+## Setting up the repository
+
+1. Clone the repository:
+2. Initialize the submodules:
+```bash
+git submodule update --init --recursive
+```
+
+# Testing the templates
+1. Navigate to the project root directory.
+2. run cookiecutter with the template directory:
+```bash
+cookiecutter templates/mlops --no-input --overwrite-if-exists
+```
 
 ## Features
 

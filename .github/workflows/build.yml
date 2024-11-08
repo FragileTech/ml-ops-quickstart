@@ -81,13 +81,13 @@ jobs:
           rye pin --relaxed cpython@${{ matrix.python-version }}
           rye sync --all-features
 
-      - name: Run Pytest on MacOS
+      - name: Run Pytest on MacOS with rye
         if: ${{ matrix.os == 'macos-latest' }}
         run: |
           set -x
           rye run test
 
-      - name: Run code coverage on Ubuntu
+      - name: Run code coverage on Ubuntu with rye
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
           set -x
