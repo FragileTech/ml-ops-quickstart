@@ -30,6 +30,10 @@ jobs:
     steps:
       - name: actions/checkout
         uses: actions/checkout@v4
+        with:
+          submodules: true
+          persist-credentials: false
+          fetch-depth: 100
       - name: Setup Rye
         id: setup-rye
         uses: eifinger/setup-rye@v4
@@ -52,6 +56,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - name: Setup Rye
         id: setup-rye
@@ -118,6 +124,7 @@ jobs:
       - name: actions/checkout
         uses: actions/checkout@v4
         with:
+          submodules: true
           persist-credentials: false
           fetch-depth: 100
       - name: Set Git user
@@ -181,6 +188,7 @@ jobs:
       - name: actions/checkout
         uses: actions/checkout@v4
         with:
+          submodules: true
           persist-credentials: false
           fetch-depth: 100
       - name: current_version
@@ -212,6 +220,8 @@ jobs:
     steps:
       - name: actions/checkout
         uses: actions/checkout@v4
+        with:
+          submodules: true
       - name: Setup Rye
         id: setup-rye
         uses: eifinger/setup-rye@v4
