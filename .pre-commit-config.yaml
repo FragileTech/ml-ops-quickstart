@@ -1,10 +1,11 @@
+# To install the git pre-commit hooks run:
+#   pre-commit install --install-hooks
+# To update the versions:
+#   pre-commit autoupdate
+# Note the order is intentional to avoid multiple passes of the hooks
 repos:
-- repo: https://github.com/psf/black
-  rev: 20.8b1
-  hooks:
-  - id: black
-- repo: https://github.com/PyCQA/isort
-  rev: 5.8.0
-  hooks:
-  - id: isort
-    args: ["."]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: debug-statements

@@ -1,0 +1,101 @@
+full_name: Guillem Duran Ballester
+email: guillem@fragile.tech
+website: fragile.tech
+project_name: Novelai
+project_slug: "{{ cookiecutter.project_name.lower().replace(' ', '-') }}"
+repo_name: "{{ cookiecutter.project_name|lower|replace(' ','-') }}"
+repo_main_branch: main
+repo_hosting:
+  - github.com
+  - gitlab.com
+  - other domain not listed
+repo_hosting_domain: "{{ cookiecutter.repo_hosting if cookiecutter.repo_hosting != 'other domain not listed' else '' }}"
+repo_username: FragileTech
+repo_url: "https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}"
+package_name: "{{ cookiecutter.project_name|lower|replace(' ','_')|replace('-','_') }}"
+distribution_name: "{{ cookiecutter.package_name|replace('_','-') }}"
+module_name: core
+function_name: compute
+project_short_description: Automatic generation of book series with LLMs
+release_date: today
+year_from: "{% now 'utc', '%Y' %}"
+year_to: "{% now 'utc', '%Y' %}"
+target_python_version:
+  - 3.10
+  - 3.8
+  - 3.9
+  - 3.11
+  - 3.12
+lock_file_support: false
+version: 0.0.0
+license:
+  - MIT license
+  - BSD 2-Clause License
+  - BSD 3-Clause License
+  - ISC license
+  - Apache Software License 2.0
+  - GNU Lesser General Public License v3 or later (LGPLv3+)
+  - GNU Lesser General Public License v3 (LGPLv3)
+  - GNU Lesser General Public License v2.1 or later (LGPLv2+)
+  - GNU Lesser General Public License v2.1 (LGPLv2)
+  - no
+pypi_badge:
+  - yes
+  - no
+pypi_disable_upload:
+  - no
+  - yes
+pre_commit:
+  - yes
+  - no
+formatter_quote_style:
+  - double
+  - single
+line_length: 99
+docstring_code_line_length: 99
+command_line_interface:
+  - click
+  - plain
+  - argparse
+  - no
+command_line_interface_bin_name: "{{ cookiecutter.distribution_name }}"
+codecov:
+  - yes
+  - no
+sphinx_docs:
+  - yes
+  - no
+sphinx_docs_hosting: "https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/"
+github_actions:
+  - yes
+  - no
+github_actions_osx:
+  - yes
+  - no
+github_actions_windows:
+  - yes
+  - no
+__pypi_badge_options:
+  yes: true
+  no: false
+__pypi_disable_upload_options:
+  yes: true
+  no: false
+__codecov_options:
+  yes: true
+  no: false
+__sphinx_docs_options:
+  yes: true
+  no: false
+__github_actions_options:
+  yes: true
+  no: false
+__github_actions_osx_options:
+  yes: true
+  no: false
+__github_actions_windows_options:
+  yes: true
+  no: false
+_extensions:
+  - pylibrary.JsonQuoteExtension
+  - jinja2_time.TimeExtension

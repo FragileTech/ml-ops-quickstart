@@ -1,0 +1,21 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: index
+title: Welcome to ML Ops Quickstart
+defaults:
+  maxdepth: 4
+parts:
+  - caption: About ML Ops Quickstart
+    maxdepth: 3
+    chapters:
+    - file: source/project/CONTRIBUTING
+    - file: source/project/CHANGELOG
+    - file: source/project/AUTHORS
+  - caption: Sphinx Book Theme
+#    numbered: True  # Only applies to chapters in Part 1.
+    chapters:
+      - file: source/git_book/markdown
+      - file: source/git_book/notebooks
+      - file: source/git_book/markdown-notebooks

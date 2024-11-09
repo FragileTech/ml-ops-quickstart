@@ -1,8 +1,19 @@
-"""Command line interface for mloq."""
+"""Entrypoint module, in case you use `python -m mloq`.
+
+Why does this file exist, and why __main__? For more info, read:
+
+- https://www.python.org/dev/peps/pep-0338/
+- https://docs.python.org/2/using/cmdline.html#cmdoption-m
+- https://docs.python.org/3/using/cmdline.html#cmdoption-m
+"""
+
 import sys
 
-from mloq.cli import cli
+import flogging
+
+from mloq.cli import run
 
 
 if __name__ == "__main__":
-    sys.exit(cli())
+    flogging.setup()
+    sys.exit(run())
